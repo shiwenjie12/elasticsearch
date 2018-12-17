@@ -334,6 +334,7 @@ import static java.util.Collections.unmodifiableMap;
 
 /**
  * Builds and binds the generic action map, all {@link TransportAction}s, and {@link ActionFilters}.
+ * 将请求类型转化为Action，最终组装成Module，装配给node
  */
 public class ActionModule extends AbstractModule {
 
