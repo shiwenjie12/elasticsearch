@@ -29,6 +29,7 @@ import org.elasticsearch.http.HttpResponse;
 
 import java.net.InetSocketAddress;
 
+// netty的请求通道
 public class Netty4HttpChannel implements HttpChannel {
 
     private final Channel channel;

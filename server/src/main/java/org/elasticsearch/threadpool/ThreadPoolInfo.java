@@ -31,6 +31,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+// 总的线程池信息
 public class ThreadPoolInfo implements Writeable, Iterable<ThreadPool.Info>, ToXContentFragment {
 
     private final List<ThreadPool.Info> infos;

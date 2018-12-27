@@ -43,6 +43,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+// Netty4的http请求的实现
 public class Netty4HttpRequest implements HttpRequest {
     private final FullHttpRequest request;
     private final BytesReference content;

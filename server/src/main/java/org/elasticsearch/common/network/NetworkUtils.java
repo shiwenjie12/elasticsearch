@@ -36,7 +36,7 @@ import java.util.Optional;
 
 /**
  * Utilities for network interfaces / addresses binding and publishing.
- * Its only intended for that purpose, not general purpose usage!!!!
+ * 它仅用于此目的，而非通用用途!!!!
  */
 public abstract class NetworkUtils {
 
@@ -240,7 +240,7 @@ public abstract class NetworkUtils {
         return list.toArray(new InetAddress[list.size()]);
     }
     
-    /** Returns only the IPV4 addresses in {@code addresses} */
+    /** Returns only the IPV4 addresses in {@code addresses} 过滤ipv4 */
     static InetAddress[] filterIPV4(InetAddress addresses[]) {
         List<InetAddress> list = new ArrayList<>();
         for (InetAddress address : addresses) {
@@ -254,7 +254,7 @@ public abstract class NetworkUtils {
         return list.toArray(new InetAddress[list.size()]);
     }
     
-    /** Returns only the IPV6 addresses in {@code addresses} */
+    /** Returns only the IPV6 addresses in {@code addresses} 过滤ipv6*/
     static InetAddress[] filterIPV6(InetAddress addresses[]) {
         List<InetAddress> list = new ArrayList<>();
         for (InetAddress address : addresses) {

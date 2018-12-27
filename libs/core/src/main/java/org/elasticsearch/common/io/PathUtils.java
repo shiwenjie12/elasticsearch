@@ -28,8 +28,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /** 
- * Utilities for creating a Path from names,
- * or accessing the default FileSystem.
+ * 用于从名称创建路径或访问默认FileSystem的实用程序。
  * <p>
  * This class allows the default filesystem to
  * be changed during tests.

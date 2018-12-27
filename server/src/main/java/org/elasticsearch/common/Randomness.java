@@ -43,6 +43,14 @@ import java.util.concurrent.ThreadLocalRandom;
  * process, non-reproducible sources of randomness are provided (unless
  * a setting is provided for a module that exposes a seed setting (e.g.,
  * NodeEnvironment#NODE_ID_SEED_SETTING)).
+ * 提供生产可重复随机源的工厂方法。
+ * 可重复的随机性来源有助于可重复的测试。
+ * 运行Elasticsearch测试套件时，测试运行器将建立一个可通过系统属性“tests.seed”访问的全局随机种子。
+ * 通过使用此全局种子播种随机数生成器，我们确保使用此类生成的Random实例在Elasticsearch测试套件下运行时生成可重现的随机源。
+ * 或者，可以通过提供可再现种子的设置来产生可再现的随机源。
+ * 当运行Elasticsearch服务器进程时，提供不可再现的随机源
+ * （除非为暴露种子设置的模块提供设置（例如，NodeEnvironment＃NODE_ID_SEED_SETTING））。
+ * 产生随机的类
  */
 public final class Randomness {
     private static final Method currentMethod;

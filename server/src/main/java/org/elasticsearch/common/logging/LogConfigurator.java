@@ -65,6 +65,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.StreamSupport;
 
+// 日志配置管理
 public class LogConfigurator {
 
     /*
@@ -208,10 +209,10 @@ public class LogConfigurator {
                 }
                 // end hack
                 return new PropertiesConfigurationBuilder()
-                        .setConfigurationSource(source)
-                        .setRootProperties(properties)
-                        .setLoggerContext(loggerContext)
-                        .build();
+                    .setConfigurationSource(source)
+                    .setRootProperties(properties)
+                    .setLoggerContext(loggerContext)
+                    .build();
             }
         };
         final Set<FileVisitOption> options = EnumSet.of(FileVisitOption.FOLLOW_LINKS);
@@ -227,8 +228,8 @@ public class LogConfigurator {
 
         if (configurations.isEmpty()) {
             throw new UserException(
-                    ExitCodes.CONFIG,
-                    "no log4j2.properties found; tried [" + configsPath + "] and its subdirectories");
+                ExitCodes.CONFIG,
+                "no log4j2.properties found; tried [" + configsPath + "] and its subdirectories");
         }
 
         context.start(new CompositeConfiguration(configurations));
@@ -238,9 +239,9 @@ public class LogConfigurator {
         final String deprecatedLocationsString = String.join("\n  ", locationsWithDeprecatedPatterns);
         if (deprecatedLocationsString.length() > 0) {
             LogManager.getLogger(LogConfigurator.class).warn("Some logging configurations have %marker but don't have %node_name. "
-                    + "We will automatically add %node_name to the pattern to ease the migration for users who customize "
-                    + "log4j2.properties but will stop this behavior in 7.0. You should manually replace `%node_name` with "
-                    + "`[%node_name]%marker ` in these locations:\n  {}", deprecatedLocationsString);
+                + "We will automatically add %node_name to the pattern to ease the migration for users who customize "
+                + "log4j2.properties but will stop this behavior in 7.0. You should manually replace `%node_name` with "
+                + "`[%node_name]%marker ` in these locations:\n  {}", deprecatedLocationsString);
         }
     }
 
@@ -251,7 +252,7 @@ public class LogConfigurator {
     }
 
     /**
-     * Configures the logging levels for loggers configured in the specified settings.
+     * 为在指定设置中配置的日志记录器配置日志记录级别。
      *
      * @param settings the settings from which logger levels will be extracted
      */

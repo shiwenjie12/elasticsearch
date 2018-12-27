@@ -29,6 +29,7 @@ import static org.elasticsearch.common.util.BigArrays.LONG_PAGE_SIZE;
 /**
  * Long array abstraction able to support more than 2B values. This implementation slices data into fixed-sized blocks of
  * configurable length.
+ * 长数组抽象能够支持超过2B的值。 此实现将数据切片为可配置长度的固定大小的块。
  */
 final class BigLongArray extends AbstractBigArray implements LongArray {
 

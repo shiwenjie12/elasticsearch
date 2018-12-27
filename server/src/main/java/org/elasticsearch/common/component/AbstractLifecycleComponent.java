@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+// 抽象的生命周期组件，增加了状态转换和触发监听器
 public abstract class AbstractLifecycleComponent implements LifecycleComponent {
     private static final Logger logger = LogManager.getLogger(AbstractLifecycleComponent.class);
 

@@ -43,6 +43,7 @@ public class EsExecutors {
     /**
      * Settings key to manually set the number of available processors.
      * This is used to adjust thread pools sizes etc. per node.
+     * 处理器数目
      */
     public static final Setting<Integer> PROCESSORS_SETTING =
         Setting.intSetting("processors", Runtime.getRuntime().availableProcessors(), 1, Property.NodeScope);
@@ -108,6 +109,7 @@ public class EsExecutors {
                 new EsAbortPolicy(), contextHolder);
     }
 
+    // 直接执行服务，即同步处理
     private static final ExecutorService DIRECT_EXECUTOR_SERVICE = new AbstractExecutorService() {
 
         @Override
@@ -170,6 +172,7 @@ public class EsExecutors {
         }
     }
 
+    // 线程池的前缀名称
     public static String threadName(final String nodeName, final String namePrefix) {
         // TODO missing node names should only be allowed in tests
         return "elasticsearch" + (nodeName.isEmpty() ? "" : "[") + nodeName + (nodeName.isEmpty() ? "" : "]") + "[" + namePrefix + "]";
@@ -192,6 +195,7 @@ public class EsExecutors {
         return new EsThreadFactory(namePrefix);
     }
 
+    // Es的线程工厂
     static class EsThreadFactory implements ThreadFactory {
 
         final ThreadGroup group;

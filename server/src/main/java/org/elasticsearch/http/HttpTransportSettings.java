@@ -35,6 +35,7 @@ import static java.util.Collections.emptyList;
 import static org.elasticsearch.common.settings.Setting.boolSetting;
 import static org.elasticsearch.common.settings.Setting.listSetting;
 
+// 关于http传输的设置
 public final class HttpTransportSettings {
 
     public static final Setting<Boolean> SETTING_CORS_ENABLED =

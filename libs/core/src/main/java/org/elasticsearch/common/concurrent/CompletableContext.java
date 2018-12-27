@@ -26,7 +26,7 @@ import java.util.function.BiConsumer;
  * A thread-safe completable context that allows listeners to be attached. This class relies on the
  * {@link CompletableFuture} for the concurrency logic. However, it does not accept {@link Throwable} as
  * an exceptional result. This allows attaching listeners that only handle {@link Exception}.
- *
+ * 一个线程安全的完成上下文封装了CompletableFuture，增加了事件消费通知
  * @param <T> the result type
  */
 public class CompletableContext<T> {

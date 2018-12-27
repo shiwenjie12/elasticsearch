@@ -22,6 +22,7 @@ package org.elasticsearch.common.io.stream;
 import java.io.IOException;
 
 /**
+ * 所有IO实现的接口，可以被{@linkplain StreamOutput}写入，被{@linkplain StreamInput}读取
  * Implementers can be written to a {@linkplain StreamOutput} and read from a {@linkplain StreamInput}. This allows them to be "thrown
  * across the wire" using Elasticsearch's internal protocol. If the implementer also implements equals and hashCode then a copy made by
  * serializing and deserializing must be equal and have the same hashCode. It isn't required that such a copy be entirely unchanged.

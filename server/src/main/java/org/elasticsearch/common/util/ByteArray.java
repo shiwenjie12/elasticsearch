@@ -22,7 +22,7 @@ package org.elasticsearch.common.util;
 import org.apache.lucene.util.BytesRef;
 
 /**
- * Abstraction of an array of byte values.
+ * 抽象字节值数组。
  */
 public interface ByteArray extends BigArray {
 

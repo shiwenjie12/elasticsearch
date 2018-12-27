@@ -353,6 +353,7 @@ public final class Errors {
                 expectedType);
     }
 
+    // 如果错误存在，则抛出创建异常
     public void throwCreationExceptionIfErrorsExist() {
         if (!hasErrors()) {
             return;
@@ -528,6 +529,7 @@ public final class Errors {
     /**
      * Returns the cause throwable if there is exactly one cause in {@code messages}. If there are
      * zero or multiple messages with causes, null is returned.
+     * 如果{@code messages}中只有一个原因，则返回throw throw的原因。 如果有零个或多个消息有原因，则返回null。
      */
     public static Throwable getOnlyCause(Collection<Message> messages) {
         Throwable onlyCause = null;

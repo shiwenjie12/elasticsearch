@@ -25,6 +25,7 @@ import java.io.Closeable;
 
 /**
  * Specialization of {@link AutoCloseable} that may only throw an {@link ElasticsearchException}.
+ * 可释放的，可能会抛出{@link ElasticsearchException}
  */
 public interface Releasable extends Closeable {
 

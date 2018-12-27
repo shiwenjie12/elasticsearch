@@ -22,7 +22,7 @@ package org.elasticsearch.common;
 import java.util.function.BiConsumer;
 
 /**
- * A {@link BiConsumer}-like interface which allows throwing checked exceptions.
+ * 类似于{@link BiConsumer}的接口，允许抛出检查异常。
  */
 @FunctionalInterface
 public interface CheckedBiConsumer<T, U, E extends Exception> {

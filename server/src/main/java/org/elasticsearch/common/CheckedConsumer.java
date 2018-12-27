@@ -22,7 +22,7 @@ package org.elasticsearch.common;
 import java.util.function.Consumer;
 
 /**
- * A {@link Consumer}-like interface which allows throwing checked exceptions.
+ * 一个{@link Consumer}类接口，允许抛出已检查的异常。
  */
 @FunctionalInterface
 public interface CheckedConsumer<T, E extends Exception> {

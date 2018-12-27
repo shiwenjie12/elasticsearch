@@ -92,6 +92,7 @@ public class HotThreads {
         }
     }
 
+    // 判断是否是空闲的线程
     private static boolean isIdleThread(ThreadInfo threadInfo) {
         String threadName = threadInfo.getThreadName();
 
@@ -130,6 +131,7 @@ public class HotThreads {
         return false;
     }
 
+    // 内部监控
     private String innerDetect() throws Exception {
         ThreadMXBean threadBean = ManagementFactory.getThreadMXBean();
         if (threadBean.isThreadCpuTimeSupported() == false) {

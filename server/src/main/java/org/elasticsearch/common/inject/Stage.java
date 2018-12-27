@@ -17,7 +17,7 @@
 package org.elasticsearch.common.inject;
 
 /**
- * The stage we're running in.
+ * 我们正在进行的阶段
  *
  * @author crazybob@google.com (Bob Lee)
  */
@@ -28,17 +28,18 @@ public enum Stage {
      * functioning Injector. Do not inject members of instances. Do not load eager singletons. Do as
      * little as possible so our tools run nice and snappy. Injectors created in this stage cannot
      * be used to satisfy injections.
+     * 我们正在运行一个工具（例如IDE插件）。 我们需要绑定元数据，但不需要功能正常的注入器。 不要注入实例成员。 不要加载渴望的单例。
+     * 尽量少做，所以我们的工具运行得很好而且活泼。 在此阶段创建的注射器不能用于满足注射。
      */
     TOOL,
 
     /**
-     * We want fast startup times at the expense of runtime performance and some up front error
-     * checking.
+     * 我们希望以运行时性能和一些前期错误检查为代价来快速启动。
      */
     DEVELOPMENT,
 
     /**
-     * We want to catch errors as early as possible and take performance hits up front.
+     * 我们希望尽早发现错误，并预先考虑性能问题。
      */
     PRODUCTION
 }

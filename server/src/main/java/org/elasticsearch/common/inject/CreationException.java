@@ -24,6 +24,7 @@ import java.util.Collection;
 /**
  * Thrown when errors occur while creating a {@link Injector}. Includes a list of encountered
  * errors. Clients should catch this exception, log it, and stop execution.
+ * 在创建{@link Injector}时发生错误时抛出。 包括遇到的错误列表。 客户端应该捕获此异常，记录它并停止执行。
  *
  * @author crazybob@google.com (Bob Lee)
  */

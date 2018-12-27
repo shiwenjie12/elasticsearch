@@ -23,6 +23,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+// 自定义的时间值
 public class TimeValue implements Comparable<TimeValue> {
 
     /** How many nano-seconds in one milli-second */

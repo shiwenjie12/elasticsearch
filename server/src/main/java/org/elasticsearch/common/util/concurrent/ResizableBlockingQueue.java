@@ -24,6 +24,7 @@ import java.util.concurrent.BlockingQueue;
 /**
  * Extends the {@code SizeBlockingQueue} to add the {@code adjustCapacity} method, which will adjust
  * the capacity by a certain amount towards a maximum or minimum.
+ * 增加了{@code adjustCapacity} method，用于适应容量
  */
 final class ResizableBlockingQueue<E> extends SizeBlockingQueue<E> {
 

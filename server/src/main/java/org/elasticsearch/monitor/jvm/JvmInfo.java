@@ -39,8 +39,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+// jvmx信息
 public class JvmInfo implements Writeable, ToXContentFragment {
 
+    // 当前虚拟机的信息
     private static JvmInfo INSTANCE;
 
     static {

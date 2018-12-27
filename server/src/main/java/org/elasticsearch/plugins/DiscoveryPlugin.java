@@ -41,6 +41,8 @@ import org.elasticsearch.transport.TransportService;
 /**
  * An additional extension point for {@link Plugin}s that extends Elasticsearch's discovery functionality. To add an additional
  * {@link NetworkService.CustomNameResolver} just implement the interface and implement the {@link #getCustomNameResolver(Settings)} method:
+ * {@link Plugin}的另一个扩展点，扩展了Elasticsearch的发现功能。
+ * 要添加额外的{@link NetworkService.CustomNameResolver}，只需实现该接口并实现{@link #getCustomNameResolver(Settings)}方法：
  *
  * <pre>{@code
  * public class MyDiscoveryPlugin extends Plugin implements DiscoveryPlugin {

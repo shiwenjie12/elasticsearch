@@ -19,7 +19,7 @@ package org.elasticsearch.common.inject.spi;
 import org.elasticsearch.common.inject.Binder;
 
 /**
- * A core component of a module or injector.
+ * 模块或注入器的核心组件。
  * <p>
  * The elements of a module can be inspected, validated and rewritten. Use {@link
  * Elements#getElements(org.elasticsearch.common.inject.Module[]) Elements.getElements()} to read the elements

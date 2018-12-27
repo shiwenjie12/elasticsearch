@@ -28,6 +28,7 @@ import org.elasticsearch.common.settings.Settings;
 import java.io.IOException;
 import java.util.Objects;
 
+// 集群名称
 public class ClusterName implements Writeable {
 
     public static final Setting<ClusterName> CLUSTER_NAME_SETTING = new Setting<>("cluster.name", "elasticsearch", (s) -> {

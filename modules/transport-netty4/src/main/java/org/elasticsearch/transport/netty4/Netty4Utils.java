@@ -117,7 +117,7 @@ public class Netty4Utils {
     }
 
     /**
-     * Wraps the given ChannelBuffer with a BytesReference
+     * 用BytesReference包装给定的ChannelBuffer
      */
     public static BytesReference toBytesReference(final ByteBuf buffer) {
         return toBytesReference(buffer, buffer.readableBytes());

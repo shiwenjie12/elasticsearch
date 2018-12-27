@@ -58,7 +58,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
- * A module for loading classes for node discovery.
+ * 用于加载节点发现类的模块。
  */
 public class DiscoveryModule {
     private static final Logger logger = LogManager.getLogger(DiscoveryModule.class);

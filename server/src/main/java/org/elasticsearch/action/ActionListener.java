@@ -29,6 +29,7 @@ import java.util.function.Consumer;
 
 /**
  * A listener for action responses or failures.
+ * action响应或者失败的监听器
  */
 public interface ActionListener<Response> {
     /**
@@ -85,7 +86,7 @@ public interface ActionListener<Response> {
     /**
      * Converts a listener to a {@link BiConsumer} for compatibility with the {@link java.util.concurrent.CompletableFuture}
      * api.
-     *
+     * 将ActionListener装换为BiConsumer
      * @param listener that will be wrapped
      * @param <Response> the type of the response
      * @return a bi consumer that will complete the wrapped listener

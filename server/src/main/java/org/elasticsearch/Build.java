@@ -33,6 +33,7 @@ import java.util.jar.Manifest;
 
 /**
  * Information about a build of Elasticsearch.
+ * Elasticsearch的编译版本信息
  */
 public class Build {
     /**
@@ -72,6 +73,7 @@ public class Build {
 
     }
 
+    // 编译类型
     public enum Type {
 
         DEB("deb"),

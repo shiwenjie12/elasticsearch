@@ -28,7 +28,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 /**
- * The content type of {@link org.elasticsearch.common.xcontent.XContent}.
+ * {@link org.elasticsearch.common.xcontent.XContent}请求内容
  */
 public enum XContentType {
 

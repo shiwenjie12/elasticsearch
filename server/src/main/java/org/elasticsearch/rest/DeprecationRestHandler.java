@@ -27,6 +27,8 @@ import java.util.Objects;
 /**
  * {@code DeprecationRestHandler} provides a proxy for any existing {@link RestHandler} so that usage of the handler can be
  * logged using the {@link DeprecationLogger}.
+ * {@code DeprecationRestHandler}为任何现有的{@link RestHandler}提供代理，
+ * 以便可以使用{@link DeprecationLogger}记录处理程序的使用情况。
  */
 public class DeprecationRestHandler implements RestHandler {
 

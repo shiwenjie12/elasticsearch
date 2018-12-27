@@ -29,6 +29,7 @@ import java.util.Map;
 /**
  * A basic http request abstraction. Http modules needs to implement this interface to integrate with the
  * server package's rest handling.
+ * 一个基本的http请求抽象。 Http模块需要实现此接口以与服务器包的休息处理集成。
  */
 public interface HttpRequest {
 

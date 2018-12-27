@@ -39,6 +39,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * Resolves certain ec2 related 'meta' hostnames into an actual hostname
  * obtained from ec2 meta-data.
+ * 将某些与ec2相关的“元”主机名解析为从ec2元数据中获取的实际主机名。
  * <p>
  * Valid config values for {@link Ec2HostnameType}s are -
  * <ul>

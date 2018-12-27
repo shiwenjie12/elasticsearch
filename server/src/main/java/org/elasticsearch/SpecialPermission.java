@@ -22,16 +22,19 @@ package org.elasticsearch;
 import java.security.BasicPermission;
 
 /**
+ * es的特殊权限在{@code AccessController.doPrivileged()}代码块加入之前检查
  * Elasticsearch-specific permission to check before entering
  * {@code AccessController.doPrivileged()} blocks.
  * <p>
  * We try to avoid these blocks in our code and keep security simple,
  * but we need them for a few special places to contain hacks for third
  * party code, or dangerous things used by scripting engines.
+ * 我们试图在代码中避免这些块并保持安全性简单，但是我们需要它们用于一些特殊的地方来包含第三方代码的黑客攻击或脚本引擎使用的危险内容。
  * <p>
  * All normal code has this permission, but checking this before truncating the stack
  * prevents unprivileged code (e.g. scripts), which do not have it, from gaining elevated
  * privileges.
+ * 所有普通代码都具有此权限，但在截断堆栈之前进行检查可以防止没有特权的无特权代码（例如脚本）获得提升的权限。
  * <p>
  * In other words, don't do this:
  * <br>

@@ -32,10 +32,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 /**
- * Scheduler that allows to schedule one-shot and periodic commands.
+ * 允许调度单次命令和定期命令的调度器。
  */
 public interface Scheduler {
 
+    // 使用系统自带的定时调度服务
     static ScheduledThreadPoolExecutor initScheduler(Settings settings) {
         ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(1,
                 EsExecutors.daemonThreadFactory(settings, "scheduler"), new EsAbortPolicy());

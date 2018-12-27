@@ -54,7 +54,7 @@ import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
 import static java.time.temporal.ChronoField.YEAR;
 
 /**
- * A logger that logs deprecation notices.
+ * 记录遗弃通知的记录器。
  */
 public class DeprecationLogger {
 

@@ -42,6 +42,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+// 系统探头，用于获取系统信息
 public class OsProbe {
 
     private static final OperatingSystemMXBean osMxBean = ManagementFactory.getOperatingSystemMXBean();
@@ -119,7 +120,7 @@ public class OsProbe {
     }
 
     /**
-     * The system load averages as an array.
+     * 系统负载
      *
      * On Windows, this method returns {@code null}.
      *

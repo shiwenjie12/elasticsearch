@@ -32,6 +32,7 @@ import java.io.OutputStream;
 
 /**
  * A one stop to use {@link org.elasticsearch.common.xcontent.XContent} and {@link XContentBuilder}.
+ * 内容工厂，用于解析配置
  */
 public class XContentFactory {
 

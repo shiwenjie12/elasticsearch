@@ -25,7 +25,7 @@ import java.util.Dictionary;
 import java.util.Enumeration;
 
 /**
- * Exposes system startup information
+ * 公开系统启动信息
  */
 @SuppressForbidden(reason = "exposes read-only view of system properties")
 public final class BootstrapInfo {
@@ -111,7 +111,7 @@ public final class BootstrapInfo {
     }
 
     /**
-     * Returns a read-only view of all system properties
+     * 返回一个只读的系统属性
      */
     public static Dictionary<Object,Object> getSystemProperties() {
         SecurityManager sm = System.getSecurityManager();

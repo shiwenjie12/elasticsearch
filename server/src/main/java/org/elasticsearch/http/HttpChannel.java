@@ -24,6 +24,7 @@ import org.elasticsearch.common.network.CloseableChannel;
 
 import java.net.InetSocketAddress;
 
+// http通道
 public interface HttpChannel extends CloseableChannel {
 
     /**

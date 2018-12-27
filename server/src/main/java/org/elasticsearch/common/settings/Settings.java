@@ -688,6 +688,7 @@ public final class Settings implements ToXContentFragment {
         return innerBuilder.build();
     }
 
+    // 将内容解析，并加载到Settings.Builder中
     private static void fromXContent(XContentParser parser, StringBuilder keyBuilder, Settings.Builder builder,
                                      boolean allowNullValues) throws IOException {
         final int length = keyBuilder.length();
@@ -788,7 +789,7 @@ public final class Settings implements ToXContentFragment {
 
         public static final Settings EMPTY_SETTINGS = new Builder().build();
 
-        // we use a sorted map for consistent serialization when using getAsMap()
+        // 当使用getAsMap()，我们使用有序映射进行一致的序列化
         private final Map<String, Object> map = new TreeMap<>();
 
         private SetOnce<SecureSettings> secureSettings = new SetOnce<>();
@@ -1099,6 +1100,7 @@ public final class Settings implements ToXContentFragment {
             return this;
         }
 
+        // 处理历史遗留list
         private void processLegacyLists(Map<String, Object> map) {
             String[] array = map.keySet().toArray(new String[map.size()]);
             for (String key : array) {
@@ -1149,6 +1151,7 @@ public final class Settings implements ToXContentFragment {
 
         /**
          * Loads settings from a stream that represents them using {@link #fromXContent(XContentParser)}
+         * 从流中加载设置
          */
         public Builder loadFromStream(String resourceName, InputStream is, boolean acceptNullValues) throws IOException {
             final XContentType xContentType;

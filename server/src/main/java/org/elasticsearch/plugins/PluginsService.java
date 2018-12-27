@@ -94,7 +94,7 @@ public class PluginsService {
     }
 
     /**
-     * Constructs a new PluginService
+     * 实例化PluginService
      * @param settings The settings of the system
      * @param modulesDirectory The directory modules exist in, or null if modules should not be loaded from the filesystem
      * @param pluginsDirectory The directory plugins exist in, or null if plugins should not be loaded from the filesystem
@@ -185,6 +185,7 @@ public class PluginsService {
         logPluginInfo(info.getPluginInfos(), "plugin", logger);
     }
 
+    // 打印插件和模块信息
     private static void logPluginInfo(final List<PluginInfo> pluginInfos, final String type, final Logger logger) {
         assert pluginInfos != null;
         if (pluginInfos.isEmpty()) {
@@ -619,6 +620,7 @@ public class PluginsService {
                 "()");
     }
 
+    // 过滤指定类型的插件
     public <T> List<T> filterPlugins(Class<T> type) {
         return plugins.stream().filter(x -> type.isAssignableFrom(x.v2().getClass()))
             .map(p -> ((T)p.v2())).collect(Collectors.toList());

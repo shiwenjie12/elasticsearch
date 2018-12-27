@@ -34,6 +34,7 @@ import java.util.concurrent.ThreadFactory;
 
 /**
  * A builder for fixed executors.
+ * 固定大小的
  */
 public final class FixedExecutorBuilder extends ExecutorBuilder<FixedExecutorBuilder.FixedExecutorSettings> {
 

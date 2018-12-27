@@ -27,6 +27,7 @@ import org.elasticsearch.http.HttpServerChannel;
 
 import java.net.InetSocketAddress;
 
+// 服务器通道
 public class Netty4HttpServerChannel implements HttpServerChannel {
 
     private final Channel channel;

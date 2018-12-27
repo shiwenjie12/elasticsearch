@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
+// （netty）ByteBuf的引用包装
 final class ByteBufBytesReference extends BytesReference {
 
     private final ByteBuf buffer;

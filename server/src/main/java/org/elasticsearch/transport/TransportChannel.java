@@ -24,7 +24,7 @@ import org.elasticsearch.Version;
 import java.io.IOException;
 
 /**
- * A transport channel allows to send a response to a request on the channel.
+ * 传输信道允许在信道上发送对请求的响应。
  */
 public interface TransportChannel {
 

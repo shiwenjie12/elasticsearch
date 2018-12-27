@@ -28,6 +28,7 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * A registry from String to some class implementation. Used to ensure implementations are registered only once.
+ * 由名称和实现组成的键值对的注册服务
  */
 public class NamedRegistry<T> {
     private final Map<String, T> registry = new HashMap<>();
@@ -41,6 +42,7 @@ public class NamedRegistry<T> {
         return registry;
     }
 
+    // 注册实现
     public void register(String name, T t) {
         requireNonNull(name, "name is required");
         requireNonNull(t, targetName + " is required");
@@ -49,9 +51,10 @@ public class NamedRegistry<T> {
         }
     }
 
+    // 扩展注册插件
     public <P> void extractAndRegister(List<P> plugins, Function<P, Map<String, T>> lookup) {
         for (P plugin : plugins) {
-            for (Map.Entry<String, T> entry : lookup.apply(plugin).entrySet()) {
+            for (Map.Entry<String, T> entry : lookup.apply(plugin).entrySet()) {// 实现插件与服务的转换
                 register(entry.getKey(), entry.getValue());
             }
         }

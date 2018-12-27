@@ -87,7 +87,7 @@ import java.util.function.Predicate;
 import static java.util.Collections.unmodifiableSet;
 
 /**
- * A component that holds all data paths for a single node.
+ * 保存单个节点的所有数据路径的组件。
  */
 public final class NodeEnvironment  implements Closeable {
     public static class NodePath {

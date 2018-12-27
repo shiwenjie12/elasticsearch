@@ -20,6 +20,7 @@
 package org.elasticsearch.common.util;
 
 import org.apache.lucene.util.BytesRef;
+import org.apache.lucene.util.RamUsageEstimator;
 import org.elasticsearch.common.breaker.CircuitBreaker;
 import org.elasticsearch.common.breaker.CircuitBreakingException;
 import org.elasticsearch.common.settings.ClusterSettings;
@@ -117,6 +118,7 @@ public class BigArraysTests extends ESTestCase {
     }
 
     public void testDoubleArrayGrowth() {
+        long SHALLOW_SIZE = RamUsageEstimator.shallowSizeOfInstance(BigArrays.ByteArrayWrapper.class);
         final int totalLen = randomIntBetween(1, 1000000);
         final int startLen = randomIntBetween(1, randomBoolean() ? 1000 : totalLen);
         DoubleArray array = bigArrays.newDoubleArray(startLen, randomBoolean());

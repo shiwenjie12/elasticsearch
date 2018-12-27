@@ -21,6 +21,7 @@ package org.elasticsearch.common.util;
 
 /**
  * Abstraction of an array of double values.
+ * 抽象的double数组
  */
 public interface DoubleArray extends BigArray {
 

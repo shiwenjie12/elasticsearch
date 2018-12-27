@@ -218,6 +218,7 @@ final class Bootstrap {
         };
     }
 
+    // 加载加密配置
     static SecureSettings loadSecureSettings(Environment initialEnv) throws BootstrapException {
         final KeyStoreWrapper keystore;
         try {
@@ -261,7 +262,7 @@ final class Bootstrap {
 
     private void start() throws NodeValidationException {
         node.start();
-        keepAliveThread.start();
+        keepAliveThread.start();// await
     }
 
     static void stop() throws IOException {
@@ -280,8 +281,7 @@ final class Bootstrap {
             final Path pidFile,
             final boolean quiet,
             final Environment initialEnv) throws BootstrapException, NodeValidationException, UserException {
-        // force the class initializer for BootstrapInfo to run before
-        // the security manager is installed
+        // 在安装安全管理器之前强制运行BootstrapInfo的类初始化程序
         BootstrapInfo.init();
 
         INSTANCE = new Bootstrap();
@@ -289,12 +289,14 @@ final class Bootstrap {
         final SecureSettings keystore = loadSecureSettings(initialEnv);
         final Environment environment = createEnvironment(pidFile, keystore, initialEnv.settings(), initialEnv.configFile());
 
+        // 日志
         LogConfigurator.setNodeName(Node.NODE_NAME_SETTING.get(environment.settings()));
         try {
             LogConfigurator.configure(environment);
         } catch (IOException e) {
             throw new BootstrapException(e);
         }
+        // Pid
         if (environment.pidFile() != null) {
             try {
                 PidFile.create(environment.pidFile(), true);

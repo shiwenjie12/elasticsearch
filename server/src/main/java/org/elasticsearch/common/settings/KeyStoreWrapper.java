@@ -178,7 +178,7 @@ public class KeyStoreWrapper implements SecureSettings {
         return configDir.resolve(KEYSTORE_FILENAME);
     }
 
-    /** Constructs a new keystore with the given password. */
+    /** 使用给定的密码构造一个新的密钥库。 */
     public static KeyStoreWrapper create() {
         KeyStoreWrapper wrapper = new KeyStoreWrapper(FORMAT_VERSION, false, null);
         wrapper.entries.set(new HashMap<>());
@@ -200,7 +200,7 @@ public class KeyStoreWrapper implements SecureSettings {
     }
 
     /**
-     * Loads information about the Elasticsearch keystore from the provided config directory.
+     * 从提供的config目录中加载有关Elasticsearch密钥库的信息。
      *
      * {@link #decrypt(char[])} must be called before reading or writing any entries.
      * Returns {@code null} if no keystore exists.

@@ -63,6 +63,7 @@ import java.util.stream.Stream;
 
 /**
  * A setting. Encapsulates typical stuff like default value, parsing, and scope.
+ * 设置,封装典型的内容，如默认值、解析和范围。
  * Some (SettingsProperty.Dynamic) can by modified at run time using the API.
  * All settings inside elasticsearch or in any of the plugins should use this type-safe and generic settings infrastructure
  * together with {@link AbstractScopedSettings}. This class contains several utility methods that makes it straight forward
@@ -86,6 +87,7 @@ import java.util.stream.Stream;
  */
 public class Setting<T> implements ToXContentObject {
 
+    // 配置的作用属性
     public enum Property {
         /**
          * should be filtered in some api (mask password/credentials)
@@ -832,6 +834,7 @@ public class Setting<T> implements ToXContentObject {
 
     }
 
+    // 分组配置
     private static class GroupSetting extends Setting<Settings> {
         private final String key;
         private final Consumer<Settings> validator;

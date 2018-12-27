@@ -44,6 +44,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+// JVM状态，主要利用jmx进行管理
 public class JvmStats implements Writeable, ToXContentFragment {
 
     private static final RuntimeMXBean runtimeMXBean;
@@ -334,6 +335,7 @@ public class JvmStats implements Writeable, ToXContentFragment {
         }
     }
 
+    // GC状态
     public static class GarbageCollector implements Writeable {
 
         private final String name;
@@ -402,6 +404,7 @@ public class JvmStats implements Writeable, ToXContentFragment {
         }
     }
 
+    // 内存池
     public static class MemoryPool implements Writeable {
 
         private final String name;

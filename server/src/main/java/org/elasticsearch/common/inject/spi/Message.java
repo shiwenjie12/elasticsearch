@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * An error message and the context in which it occurred. Messages are usually created internally by
+ * 错误消息及其发生的上下文。 Messages are usually created internally by
  * Guice and its extensions. Messages can be created explicitly in a module using {@link
  * org.elasticsearch.common.inject.Binder#addError(Throwable) addError()} statements:
  * <pre>

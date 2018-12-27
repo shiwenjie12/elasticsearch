@@ -35,6 +35,7 @@ import org.elasticsearch.transport.TransportService;
 import java.io.IOException;
 import java.util.List;
 
+// 处理热线程
 public class TransportNodesHotThreadsAction extends TransportNodesAction<NodesHotThreadsRequest,
                                                                          NodesHotThreadsResponse,
                                                                          TransportNodesHotThreadsAction.NodeRequest,

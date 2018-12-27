@@ -23,12 +23,12 @@ import org.elasticsearch.client.node.NodeClient;
 import org.elasticsearch.common.xcontent.XContent;
 
 /**
- * Handler for REST requests
+ * Rest请求的处理器
  */
 public interface RestHandler {
 
     /**
-     * Handles a rest request.
+     * 处理Rest请求
      * @param request The request to handle
      * @param channel The channel to write the request response to
      * @param client A client to use to make internal requests on behalf of the original request
@@ -43,6 +43,8 @@ public interface RestHandler {
      * Indicates if the RestHandler supports content as a stream. A stream would be multiple objects delineated by
      * {@link XContent#streamSeparator()}. If a handler returns true this will affect the types of content that can be sent to
      * this endpoint.
+     * 指示RestHandler是否支持将内容作为流。 流将是{@link XContent#streamSeparator()}描绘的多个对象。
+     * 如果处理程序返回true，则会影响可以发送到此端点的内容类型。
      */
     default boolean supportsContentStream() {
         return false;

@@ -78,7 +78,7 @@ public final class IOUtils {
      * ignored. After everything is closed, the method either throws the first exception it hit
      * while closing with other exceptions added as suppressed, or completes normally if there were
      * no exceptions.
-     *
+     * 关闭给定的{@link Closeable}；会忽略null对象
      * @param objects objects to close
      */
     public static void close(final Iterable<? extends Closeable> objects) throws IOException {
@@ -89,6 +89,8 @@ public final class IOUtils {
      * Closes all given {@link Closeable}s. If a non-null exception is passed in, or closing a
      * stream causes an exception, throws the exception with other {@link RuntimeException} or
      * {@link IOException} exceptions added as suppressed.
+     * 关闭所有{@link Closeable}。 如果传入非null异常，或者关闭流导致异常，则抛出异常，
+     * 并将其他{@link RuntimeException}或{@link IOException}异常添加为抑制。
      *
      * @param ex existing Exception to add exceptions occurring during close to
      * @param objects objects to close

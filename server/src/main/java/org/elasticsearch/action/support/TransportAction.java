@@ -31,6 +31,7 @@ import org.elasticsearch.tasks.TaskManager;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+// 节点间传输的Action
 public abstract class TransportAction<Request extends ActionRequest, Response extends ActionResponse> extends AbstractComponent {
 
     protected final String actionName;
@@ -100,7 +101,7 @@ public abstract class TransportAction<Request extends ActionRequest, Response ex
     }
 
     /**
-     * Use this method when the transport action should continue to run in the context of the current task
+     * 当传输操作应继续在当前任务的上下文中运行时，请使用此方法
      */
     public final void execute(Task task, Request request, ActionListener<Response> listener) {
         ActionRequestValidationException validationException = request.validate();

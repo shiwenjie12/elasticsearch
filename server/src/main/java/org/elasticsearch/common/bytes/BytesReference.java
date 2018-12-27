@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.function.ToIntBiFunction;
 
 /**
- * A reference to bytes.
+ * es的数组引用
  */
 public abstract class BytesReference implements Comparable<BytesReference>, ToXContentFragment {
 

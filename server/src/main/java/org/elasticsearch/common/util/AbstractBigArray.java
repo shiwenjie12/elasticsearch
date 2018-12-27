@@ -27,7 +27,7 @@ import org.elasticsearch.common.recycler.Recycler;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
-/** Common implementation for array lists that slice data into fixed-size blocks. */
+/** 将数据切片为固定大小块的数组列表的通用实现。 */
 abstract class AbstractBigArray extends AbstractArray {
 
     private final PageCacheRecycler recycler;

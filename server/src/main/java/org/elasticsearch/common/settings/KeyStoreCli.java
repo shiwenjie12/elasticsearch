@@ -19,6 +19,7 @@
 
 package org.elasticsearch.common.settings;
 
+import org.apache.lucene.codecs.CodecUtil;
 import org.elasticsearch.cli.LoggingAwareMultiCommand;
 import org.elasticsearch.cli.Terminal;
 
@@ -37,6 +38,8 @@ public class KeyStoreCli extends LoggingAwareMultiCommand {
     }
 
     public static void main(String[] args) throws Exception {
+        int cc = CodecUtil.FOOTER_MAGIC;
+
         exit(new KeyStoreCli().main(args, Terminal.DEFAULT));
     }
 

@@ -211,7 +211,7 @@ public final class ExceptionsHelper {
 
     /**
      * Unwrap the specified throwable looking for any suppressed errors or errors as a root cause of the specified throwable.
-     *
+     * 解包指定的throwable，查找任何被抑制的错误或错误，作为指定throwable的根本原因。
      * @param cause the root throwable
      * @return an optional error if one is found suppressed or a root cause in the tree rooted at the specified throwable
      */
@@ -247,6 +247,8 @@ public final class ExceptionsHelper {
      * If the specified cause is an unrecoverable error, this method will rethrow the cause on a separate thread so that it can not be
      * caught and bubbles up to the uncaught exception handler. Note that the cause tree is examined for any {@link Error}. See
      * {@link #maybeError(Throwable, Logger)} for the semantics.
+     * 如果指定的原因是不可恢复的错误，则此方法将在单独的线程上重新抛出原因，以使其无法捕获并冒泡到未捕获的异常处理程序。
+     * 请注意，检查原因树是否存在{@link Error}。 有关语义，请参阅maybeError(Throwable，Logger)。
      *
      * @param throwable the throwable to possibly throw on another thread
      */

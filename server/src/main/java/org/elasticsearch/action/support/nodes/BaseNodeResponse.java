@@ -27,7 +27,7 @@ import org.elasticsearch.transport.TransportResponse;
 import java.io.IOException;
 
 /**
- * A base class for node level operations.
+ * 用于节点级操作（响应）的基类。
  */
 public abstract class BaseNodeResponse extends TransportResponse {
 

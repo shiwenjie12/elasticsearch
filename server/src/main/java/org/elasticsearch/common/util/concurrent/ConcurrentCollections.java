@@ -30,7 +30,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.LinkedTransferQueue;
 
-
+// 并发集合，暂未有继承类，一般用作静态类
 public abstract class ConcurrentCollections {
 
     static final int aggressiveConcurrencyLevel;

@@ -25,6 +25,7 @@ import org.elasticsearch.common.util.concurrent.ThreadContext;
 import org.elasticsearch.rest.RestChannel;
 import org.elasticsearch.rest.RestRequest;
 
+// Http服务器传输基类
 public interface HttpServerTransport extends LifecycleComponent {
 
     String HTTP_SERVER_WORKER_THREAD_NAME_PREFIX = "http_server_worker";
@@ -39,6 +40,7 @@ public interface HttpServerTransport extends LifecycleComponent {
 
     /**
      * Dispatches HTTP requests.
+     * 分发http请求
      */
     interface Dispatcher {
 

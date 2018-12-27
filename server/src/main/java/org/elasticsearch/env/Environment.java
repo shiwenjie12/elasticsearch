@@ -41,7 +41,7 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * The environment of where things exists.
+ * 服务所处的环境
  */
 @SuppressForbidden(reason = "configures paths for the system")
 // TODO: move PathUtils to be package-private here instead of

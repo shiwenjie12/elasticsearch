@@ -20,7 +20,7 @@
 package org.elasticsearch.common.util.concurrent;
 
 /**
- * An extension to runnable.
+ * An extension to runnable.增加了失败、完成的事件回调
  */
 public abstract class AbstractRunnable implements Runnable {
 

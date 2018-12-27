@@ -28,12 +28,13 @@ import java.util.Set;
 /**
  * Holds a field that can be found in a request while parsing and its different
  * variants, which may be deprecated.
+ * 保存在解析时可以在请求中找到的字段及其不同的变体，这些变体可能已被弃用。
  */
 public class ParseField {
     private final String name;
-    private final String[] deprecatedNames;
+    private final String[] deprecatedNames; // 弃用名称
     private String allReplacedWith = null;
-    private final String[] allNames;
+    private final String[] allNames; // 所有名称
 
     private static final String[] EMPTY = new String[0];
 
@@ -87,8 +88,7 @@ public class ParseField {
     }
 
     /**
-     * Return a new ParseField where all field names are deprecated and replaced
-     * with {@code allReplacedWith}.
+     * 返回一个新的ParseField，其中所有字段名称都已弃用，并替换为{@code allReplacedWith}。
      */
     public ParseField withAllDeprecated(String allReplacedWith) {
         ParseField parseField = this.withDeprecation(getAllNamesIncludedDeprecated());

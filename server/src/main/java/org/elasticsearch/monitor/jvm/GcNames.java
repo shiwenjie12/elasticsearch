@@ -19,6 +19,7 @@
 
 package org.elasticsearch.monitor.jvm;
 
+// 将gc池名称进行格式化
 public class GcNames {
 
     public static final String YOUNG = "young";

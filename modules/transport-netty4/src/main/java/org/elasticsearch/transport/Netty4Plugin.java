@@ -43,6 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+// Netty4网络插件
 public class Netty4Plugin extends Plugin implements NetworkPlugin {
 
     static {

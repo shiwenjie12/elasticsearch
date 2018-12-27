@@ -25,6 +25,7 @@ import org.elasticsearch.transport.TransportRequest;
 
 import java.io.IOException;
 
+// Action请求
 public abstract class ActionRequest extends TransportRequest {
 
     public ActionRequest() {

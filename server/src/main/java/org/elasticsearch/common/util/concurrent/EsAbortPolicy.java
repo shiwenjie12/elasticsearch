@@ -24,13 +24,14 @@ import org.elasticsearch.common.metrics.CounterMetric;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 
+// Es中断策略（默认的）
 public class EsAbortPolicy implements XRejectedExecutionHandler {
     private final CounterMetric rejected = new CounterMetric();
 
     @Override
     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
         if (r instanceof AbstractRunnable) {
-            if (((AbstractRunnable) r).isForceExecution()) {
+            if (((AbstractRunnable) r).isForceExecution()) { // 判断runnable，是否是聚焦的，即重新加入
                 BlockingQueue<Runnable> queue = executor.getQueue();
                 if (!(queue instanceof SizeBlockingQueue)) {
                     throw new IllegalStateException("forced execution, but expected a size queue");

@@ -1526,6 +1526,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
 
     /**
      * Representation of a transport profile settings for a {@code transport.profiles.$profilename.*}
+     * 用户配置（传输）
      */
     public static final class ProfileSettings {
         public final String profileName;

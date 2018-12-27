@@ -106,6 +106,7 @@ import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+// 内部引擎，用于处理lucene
 public class InternalEngine extends Engine {
 
     /**

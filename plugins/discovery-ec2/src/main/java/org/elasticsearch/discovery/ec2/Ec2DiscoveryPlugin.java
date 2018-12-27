@@ -51,6 +51,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+// 亚马逊的Ec2检查
 public class Ec2DiscoveryPlugin extends Plugin implements DiscoveryPlugin, ReloadablePlugin {
 
     private static Logger logger = LogManager.getLogger(Ec2DiscoveryPlugin.class);
@@ -129,7 +130,7 @@ public class Ec2DiscoveryPlugin extends Plugin implements DiscoveryPlugin, Reloa
     public Settings additionalSettings() {
         final Settings.Builder builder = Settings.builder();
 
-        // Adds a node attribute for the ec2 availability zone
+        // 为ec2可用区添加节点属性
         final String azMetadataUrl = EC2MetadataUtils.getHostAddressForEC2MetadataService()
             + "/latest/meta-data/placement/availability-zone";
         builder.put(getAvailabilityZoneNodeAttributes(settings, azMetadataUrl));

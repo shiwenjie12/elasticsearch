@@ -35,6 +35,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
+// 网络服务的工具类型，提供一些IP解析
 public final class NetworkService {
 
     /** By default, we bind to loopback interfaces */
@@ -63,6 +64,7 @@ public final class NetworkService {
     /**
      * A custom name resolver can support custom lookup keys (my_net_key:ipv4) and also change
      * the default inet address used in case no settings is provided.
+     * 自定义的域名解析
      */
     public interface CustomNameResolver {
         /**
@@ -83,6 +85,7 @@ public final class NetworkService {
     }
 
     /**
+     * 解析网络地址用于绑定，这个列表并不包含重复地址
      * Resolves {@code bindHosts} to a list of internet addresses. The list will
      * not contain duplicate addresses.
      *
@@ -121,6 +124,7 @@ public final class NetworkService {
     }
 
     /**
+     * 解析一个发布地址
      * Resolves {@code publishHosts} to a single publish address. The fact that it returns
      * only one address is just a current limitation.
      * <p>

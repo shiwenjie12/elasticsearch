@@ -33,6 +33,7 @@ import java.util.function.Supplier;
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.unmodifiableMap;
 
+// Trie树
 public class PathTrie<T> {
 
     enum TrieMatchingMode {

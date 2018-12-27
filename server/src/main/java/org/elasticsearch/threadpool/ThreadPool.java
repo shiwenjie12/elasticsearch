@@ -62,10 +62,12 @@ import java.util.stream.Collectors;
 
 import static java.util.Collections.unmodifiableMap;
 
+// 自定义的线程池 定义线程池名称，按照行为进行分配
 public class ThreadPool implements Scheduler, Closeable {
 
     private static final Logger logger = LogManager.getLogger(ThreadPool.class);
 
+    // 线程池名称
     public static class Names {
         public static final String SAME = "same";
         public static final String GENERIC = "generic";
@@ -169,9 +171,10 @@ public class ThreadPool implements Scheduler, Closeable {
 
         final Map<String, ExecutorBuilder> builders = new HashMap<>();
         final int availableProcessors = EsExecutors.numberOfProcessors(settings);
-        final int halfProcMaxAt5 = halfNumberOfProcessorsMaxFive(availableProcessors);
-        final int halfProcMaxAt10 = halfNumberOfProcessorsMaxTen(availableProcessors);
-        final int genericThreadPoolMax = boundedBy(4 * availableProcessors, 128, 512);
+        final int halfProcMaxAt5 = halfNumberOfProcessorsMaxFive(availableProcessors);// 一般最大取5
+        final int halfProcMaxAt10 = halfNumberOfProcessorsMaxTen(availableProcessors);//  一般最大取10
+        final int genericThreadPoolMax = boundedBy(4 * availableProcessors, 128, 512); // 通用线程池
+        // 线程池启动参数
         builders.put(Names.GENERIC, new ScalingExecutorBuilder(Names.GENERIC, 4, genericThreadPoolMax, TimeValue.timeValueSeconds(30)));
         builders.put(Names.WRITE, new FixedExecutorBuilder(settings, Names.WRITE, availableProcessors, 200));
         builders.put(Names.GET, new FixedExecutorBuilder(settings, Names.GET, availableProcessors, 1000));
@@ -503,7 +506,7 @@ public class ThreadPool implements Scheduler, Closeable {
     }
 
     /**
-     * A thread to cache millisecond time values from
+     * 用于缓存毫秒时间值的线程
      * {@link System#nanoTime()} and {@link System#currentTimeMillis()}.
      *
      * The values are updated at a specified interval.
@@ -513,8 +516,8 @@ public class ThreadPool implements Scheduler, Closeable {
         final long interval;
         final TimeCounter counter;
         volatile boolean running = true;
-        volatile long relativeMillis;
-        volatile long absoluteMillis;
+        volatile long relativeMillis; // 相对的
+        volatile long absoluteMillis; // 绝对的
 
         CachedTimeThread(String name, long interval) {
             super(name);
@@ -569,6 +572,7 @@ public class ThreadPool implements Scheduler, Closeable {
         }
     }
 
+    // 包装了执行服务和线程信息
     static class ExecutorHolder {
         private final ExecutorService executor;
         public final Info info;
@@ -584,6 +588,7 @@ public class ThreadPool implements Scheduler, Closeable {
         }
     }
 
+    // 线程池信息，用于传输和配置
     public static class Info implements Writeable, ToXContentFragment {
 
         private final String name;

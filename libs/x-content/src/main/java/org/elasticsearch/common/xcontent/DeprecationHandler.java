@@ -22,6 +22,7 @@ package org.elasticsearch.common.xcontent;
 /**
  * Callback for notifying the creator of the {@link XContentParser} that
  * parsing hit a deprecated field.
+ * 拒绝处理方式，XContentParser解析时回调处理
  */
 public interface DeprecationHandler {
     /**

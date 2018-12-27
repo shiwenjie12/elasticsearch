@@ -56,6 +56,7 @@ public abstract class BaseRestHandler extends AbstractComponent implements RestH
     public static final Setting<Boolean> MULTI_ALLOW_EXPLICIT_INDEX =
         Setting.boolSetting("rest.action.multi.allow_explicit_index", true, Property.NodeScope);
 
+    // 调用次数
     private final LongAdder usageCount = new LongAdder();
 
     protected BaseRestHandler(Settings settings) {
@@ -76,7 +77,7 @@ public abstract class BaseRestHandler extends AbstractComponent implements RestH
 
     @Override
     public final void handleRequest(RestRequest request, RestChannel channel, NodeClient client) throws Exception {
-        // prepare the request for execution; has the side effect of touching the request parameters
+        // 准备执行请求; 具有触摸请求参数的副作用
         final RestChannelConsumer action = prepareRequest(request, client);
 
         // validate unconsumed params, but we must exclude params used to format the response
@@ -97,6 +98,7 @@ public abstract class BaseRestHandler extends AbstractComponent implements RestH
         action.accept(channel);
     }
 
+    // 无法识别
     protected final String unrecognized(
         final RestRequest request,
         final Set<String> invalids,
@@ -158,7 +160,7 @@ public abstract class BaseRestHandler extends AbstractComponent implements RestH
      * execution of the request. However, some params are only used in processing the response;
      * implementations can override {@link BaseRestHandler#responseParams()} to indicate such
      * params.
-     *
+     * 预处理请求，实现正真的Action逻辑
      * @param request the request to execute
      * @param client  client for executing actions on the local node
      * @return the action to execute

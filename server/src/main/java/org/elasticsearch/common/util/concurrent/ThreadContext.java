@@ -216,7 +216,7 @@ public final class ThreadContext implements Closeable, Writeable {
     }
 
     /**
-     * Returns all of the request contexts headers
+     * 返回所有的请求上下文头
      */
     public Map<String, String> getHeaders() {
         HashMap<String, String> map = new HashMap<>(defaultHeader);
@@ -336,8 +336,7 @@ public final class ThreadContext implements Closeable, Writeable {
     }
 
     /**
-     * Marks this thread context as an internal system context. This signals that actions in this context are issued
-     * by the system itself rather than by a user action.
+     * 将该线程上下文标记为内部系统上下文。这表示在此上下文中的操作是由系统本身而不是由用户操作发出的。
      */
     public void markAsSystemContext() {
         threadLocal.set(threadLocal.get().setSystemContext());
@@ -367,6 +366,7 @@ public final class ThreadContext implements Closeable, Writeable {
         }
     }
 
+    // 线程上下文结构
     private static final class ThreadContextStruct {
         private final Map<String, String> requestHeaders;
         private final Map<String, Object> transientHeaders;

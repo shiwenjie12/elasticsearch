@@ -40,7 +40,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 /**
- * This class starts elasticsearch.
+ * 起始类
  */
 class Elasticsearch extends EnvironmentAwareCommand {
 
@@ -116,7 +116,7 @@ class Elasticsearch extends EnvironmentAwareCommand {
         final Path pidFile = pidfileOption.value(options);
         final boolean quiet = options.has(quietOption);
 
-        // a misconfigured java.io.tmpdir can cause hard-to-diagnose problems later, so reject it immediately
+        // 错误配置的java.io.tmpdir可能会导致以后难以诊断的问题，因此请立即拒绝它
         try {
             env.validateTmpFile();
         } catch (IOException e) {

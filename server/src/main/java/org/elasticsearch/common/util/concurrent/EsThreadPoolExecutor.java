@@ -27,6 +27,7 @@ import java.util.stream.Stream;
 
 /**
  * An extension to thread pool executor, allowing (in the future) to add specific additional stats to it.
+ * 线程池执行器的扩展，允许（将来）向它添加特定的附加统计信息。
  */
 public class EsThreadPoolExecutor extends ThreadPoolExecutor {
 
@@ -70,6 +71,7 @@ public class EsThreadPoolExecutor extends ThreadPoolExecutor {
         shutdown();
     }
 
+    // 结束
     @Override
     protected synchronized void terminated() {
         super.terminated();

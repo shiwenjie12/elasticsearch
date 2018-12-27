@@ -19,5 +19,6 @@
 
 package org.elasticsearch.common.metrics;
 
+// 度量
 public interface Metric {
 }

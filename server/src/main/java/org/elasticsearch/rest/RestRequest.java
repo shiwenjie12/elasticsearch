@@ -52,6 +52,7 @@ import java.util.stream.Collectors;
 import static org.elasticsearch.common.unit.ByteSizeValue.parseBytesSizeValue;
 import static org.elasticsearch.common.unit.TimeValue.parseTimeValue;
 
+// Rest请求
 public class RestRequest implements ToXContent.Params {
 
     // tchar pattern as defined by RFC7230 section 3.2.6
@@ -66,6 +67,7 @@ public class RestRequest implements ToXContent.Params {
     private final HttpRequest httpRequest;
     private final HttpChannel httpChannel;
 
+    // 构造
     protected RestRequest(NamedXContentRegistry xContentRegistry, Map<String, String> params, String path,
                           Map<String, List<String>> headers, HttpRequest httpRequest, HttpChannel httpChannel) {
         final XContentType xContentType;
@@ -401,6 +403,7 @@ public class RestRequest implements ToXContent.Params {
     /**
      * Does this request have content or a {@code source} parameter? Use this instead of {@link #hasContent()} if this
      * {@linkplain RestHandler} treats the {@code source} parameter like the body content.
+     * 判断内容和source字段
      */
     public final boolean hasContentOrSourceParam() {
         return hasContent() || hasParam("source");

@@ -29,6 +29,7 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 
 import java.io.IOException;
 
+// 操作系统
 public class OsInfo implements Writeable, ToXContentFragment {
 
     private final long refreshInterval;

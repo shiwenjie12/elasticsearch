@@ -65,7 +65,7 @@ public abstract class Command implements Closeable {
     public final int main(String[] args, Terminal terminal) throws Exception {
         if (addShutdownHook()) {
 
-            shutdownHookThread = new Thread(() -> {
+            shutdownHookThread = new Thread(() -> {  // 钩子线程
                 try {
                     this.close();
                 } catch (final IOException e) {
@@ -108,7 +108,7 @@ public abstract class Command implements Closeable {
     void mainWithoutErrorHandling(String[] args, Terminal terminal) throws Exception {
         final OptionSet options = parser.parse(args);
 
-        if (options.has(helpOption)) {
+        if (options.has(helpOption)) {// 帮助
             printHelp(terminal);
             return;
         }

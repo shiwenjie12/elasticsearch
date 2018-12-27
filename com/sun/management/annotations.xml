@@ -1,0 +1,5 @@
+<root>
+    <item name='com.sun.management.HotSpotDiagnosticMXBean'>
+        <annotation name='java.lang.Deprecated'/>
+    </item>
+</root>

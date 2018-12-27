@@ -21,6 +21,7 @@ package org.elasticsearch.common.util.concurrent;
 
 import java.util.concurrent.RejectedExecutionException;
 
+// Es拒绝执行的异常
 public class EsRejectedExecutionException extends RejectedExecutionException {
 
     private final boolean isExecutorShutdown;

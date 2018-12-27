@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 /**
- * Client that executes actions on the local node.
+ * 在本地节点上执行操作的客户端。
  */
 public class NodeClient extends AbstractClient {
 

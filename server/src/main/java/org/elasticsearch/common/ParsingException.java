@@ -33,6 +33,7 @@ import java.io.IOException;
  * Exception that can be used when parsing queries with a given {@link
  * XContentParser}.
  * Can contain information about location of the error.
+ * 解析异常
  */
 public class ParsingException extends ElasticsearchException {
 

@@ -14,13 +14,13 @@
 #
 # Use a descriptive name for your cluster:
 #
-#cluster.name: my-application
+cluster.name: my-application
 #
 # ------------------------------------ Node ------------------------------------
 #
 # Use a descriptive name for the node:
 #
-#node.name: node-1
+node.name: node-1
 #
 # Add custom attributes to the node:
 #
@@ -30,11 +30,11 @@
 #
 # Path to directory where to store the data (separate multiple locations by comma):
 #
-${path.data}
+#${path.data}
 #
 # Path to log files:
 #
-${path.logs}
+#${path.logs}
 #
 # ----------------------------------- Memory -----------------------------------
 #

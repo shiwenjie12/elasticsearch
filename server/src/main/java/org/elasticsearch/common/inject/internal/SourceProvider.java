@@ -23,7 +23,7 @@ import static java.util.Collections.singleton;
 import static java.util.Collections.unmodifiableSet;
 
 /**
- * Provides access to the calling line of code.
+ * 提供对调用代码行的访问。
  *
  * @author crazybob@google.com (Bob Lee)
  */
@@ -34,6 +34,7 @@ public class SourceProvider {
      */
     public static final Object UNKNOWN_SOURCE = "[unknown source]";
 
+    // 需要跳过的类名
     private final Set<String> classNamesToSkip;
 
     public SourceProvider() {
@@ -44,7 +45,7 @@ public class SourceProvider {
 
     @SuppressWarnings("rawtypes")
     private SourceProvider(SourceProvider copy, Class[] moreClassesToSkip) {
-        Set<String> classNamesToSkip = new HashSet<>(copy.classNamesToSkip);
+        Set<String> classNamesToSkip = new HashSet<>(copy.classNamesToSkip);// 复制之前的类名
         for (Class toSkip : moreClassesToSkip) {
             classNamesToSkip.add(toSkip.getName());
         }
@@ -60,8 +61,7 @@ public class SourceProvider {
     }
 
     /**
-     * Returns the calling line of code. The selected line is the nearest to the top of the stack that
-     * is not skipped.
+     * 返回代码的调用行。 所选行最靠近未跳过的堆栈顶部。
      */
     public StackTraceElement get() {
         for (final StackTraceElement element : new Throwable().getStackTrace()) {

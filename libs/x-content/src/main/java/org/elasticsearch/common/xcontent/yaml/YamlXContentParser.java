@@ -25,6 +25,7 @@ import org.elasticsearch.common.xcontent.NamedXContentRegistry;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.common.xcontent.json.JsonXContentParser;
 
+// Yaml的内容解析器，继承于json
 public class YamlXContentParser extends JsonXContentParser {
 
     public YamlXContentParser(NamedXContentRegistry xContentRegistry,

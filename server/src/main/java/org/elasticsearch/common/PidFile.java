@@ -45,7 +45,7 @@ public final class PidFile {
     }
 
     /**
-     * Creates a new PidFile and writes the current process ID into the provided path
+     * 创建新的PidFile并将当前进程ID写入提供的路径
      *
      * @param path the path to the pid file. The file is newly created or truncated if it already exists
      * @param deleteOnExit if <code>true</code> the pid file is deleted with best effort on system exit
@@ -69,7 +69,7 @@ public final class PidFile {
                 Files.createDirectories(parent);
             }
         }
-        if (Files.exists(path) && Files.isRegularFile(path) == false) {
+        if (Files.exists(path) && Files.isRegularFile(path) == false) { //不是常规文件
             throw new IllegalArgumentException(path + " exists but is not a regular file");
         }
 

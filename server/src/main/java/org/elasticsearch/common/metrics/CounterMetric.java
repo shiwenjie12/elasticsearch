@@ -21,6 +21,7 @@ package org.elasticsearch.common.metrics;
 
 import java.util.concurrent.atomic.LongAdder;
 
+// 技术度量
 public class CounterMetric implements Metric {
 
     private final LongAdder counter = new LongAdder();

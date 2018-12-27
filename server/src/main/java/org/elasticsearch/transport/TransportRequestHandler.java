@@ -21,6 +21,7 @@ package org.elasticsearch.transport;
 
 import org.elasticsearch.tasks.Task;
 
+// 传输请求的处理器，针对于单节点的
 public interface TransportRequestHandler<T extends TransportRequest> {
 
     void messageReceived(T request, TransportChannel channel, Task task) throws Exception;

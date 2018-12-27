@@ -19,8 +19,7 @@ package org.elasticsearch.common.inject;
 import java.util.Arrays;
 
 /**
- * The entry point to the Guice framework. Creates {@link Injector}s from
- * {@link Module}s.
+ * Guice框架的切入点。 从{@link Module}创建{@link Injector}。
  * <p>
  * Guice supports a model of development that draws clear boundaries between
  * APIs, Implementations of these APIs, Modules which configure these
@@ -82,8 +81,7 @@ public final class Guice {
     }
 
     /**
-     * Creates an injector for the given set of modules, in a given development
-     * stage.
+     * 在给定的开发阶段为给定的模块集创建注入器。
      *
      * @throws CreationException if one or more errors occur during Injector
      *                           construction

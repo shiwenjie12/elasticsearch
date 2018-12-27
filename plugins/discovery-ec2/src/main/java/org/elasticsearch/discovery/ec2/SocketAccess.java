@@ -32,6 +32,8 @@ import java.security.PrivilegedExceptionAction;
  * This plugin uses aws libraries to connect to aws services. For these remote calls the plugin needs
  * {@link SocketPermission} 'connect' to establish connections. This class wraps the operations requiring access in
  * {@link AccessController#doPrivileged(PrivilegedAction)} blocks.
+ * 这个插件使用aws库连接到aws服务。 对于这些远程调用，插件需要{@link SocketPermission}'connect'来建立连接。
+ * 此类包装需要在doPrivileged(PrivilegedAction)块中进行访问的操作。
  */
 final class SocketAccess {
 
@@ -42,6 +44,7 @@ final class SocketAccess {
         return AccessController.doPrivileged(operation);
     }
 
+    // 具有io异常的
     public static <T> T doPrivilegedIOException(PrivilegedExceptionAction<T> operation) throws IOException {
         SpecialPermission.check();
         try {

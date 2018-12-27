@@ -29,6 +29,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Annotates members of your implementation class (constructors, methods
  * and fields) into which the {@link Injector} should inject values.
  * The Injector fulfills injection requests for:
+ * 注释{@link Injector}应注入值的实现类（构造函数，方法和字段）的成员.Injector满足以下注入请求：
  * <ul>
  * <li>Every instance it constructs. The class being constructed must have
  * exactly one of its constructors marked with {@code @Inject} or must have a

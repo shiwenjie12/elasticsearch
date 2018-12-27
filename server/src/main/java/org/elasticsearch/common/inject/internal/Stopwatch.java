@@ -21,7 +21,7 @@ import org.elasticsearch.common.unit.TimeValue;
 import java.util.logging.Logger;
 
 /**
- * Enables simple performance monitoring.
+ * 实现简单的性能监控。
  *
  * @author crazybob@google.com (Bob Lee)
  */

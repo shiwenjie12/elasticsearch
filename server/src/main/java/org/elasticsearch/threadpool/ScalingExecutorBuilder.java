@@ -34,7 +34,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 /**
- * A builder for scaling executors.
+ * A builder for scaling executors.（缩放）
  */
 public final class ScalingExecutorBuilder extends ExecutorBuilder<ScalingExecutorBuilder.ScalingExecutorSettings> {
 
@@ -90,6 +90,7 @@ public final class ScalingExecutorBuilder extends ExecutorBuilder<ScalingExecuto
         return new ScalingExecutorSettings(nodeName, coreThreads, maxThreads, keepAlive);
     }
 
+    // 构建执行器
     ThreadPool.ExecutorHolder build(final ScalingExecutorSettings settings, final ThreadContext threadContext) {
         TimeValue keepAlive = settings.keepAlive;
         int core = settings.core;

@@ -20,8 +20,8 @@
 package org.elasticsearch.http;
 
 /**
- * A basic http response abstraction. Http modules must implement this interface as the server package rest
- * handling needs to set http headers for a response.
+ * 一个基本的http响应抽象.
+ * Http模块必须实现此接口，因为服务器包休息处理需要为响应设置http标头.
  */
 public interface HttpResponse {
 

@@ -19,7 +19,7 @@ package org.elasticsearch.common.inject.spi;
 import org.elasticsearch.common.inject.Binding;
 
 /**
- * Visit elements.
+ * 元素访问器
  *
  * @param <V> any type to be returned by the visit method. Use {@link Void} with
  *            {@code return null} if no return type is needed.

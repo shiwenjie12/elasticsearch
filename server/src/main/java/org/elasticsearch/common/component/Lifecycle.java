@@ -21,6 +21,7 @@ package org.elasticsearch.common.component;
 
 /**
  * Lifecycle state. Allows the following transitions:
+ * 生命周期的状态器，具有以下的转换状态
  * <ul>
  * <li>INITIALIZED -&gt; STARTED, STOPPED, CLOSED</li>
  * <li>STARTED     -&gt; STOPPED</li>

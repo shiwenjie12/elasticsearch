@@ -78,7 +78,7 @@ import static org.elasticsearch.ElasticsearchException.readStackTrace;
 
 /**
  * A stream from this node to another node. Technically, it can also be streamed to a byte array but that is mostly for testing.
- *
+ * 从这个节点到另一个节点的流。从技术上讲，它也可以流式传输到字节数组，但这主要是为了测试。
  * This class's methods are optimized so you can put the methods that read and write a class next to each other and you can scan them
  * visually for differences. That means that most variables should be read and written in a single line so even large objects fit both
  * reading and writing on the screen. It also means that the methods on this class are named very similarly to {@link StreamOutput}. Finally

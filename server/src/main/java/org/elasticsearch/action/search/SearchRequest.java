@@ -192,7 +192,7 @@ public final class SearchRequest extends ActionRequest implements IndicesRequest
     }
 
     /**
-     * Sets the indices the search will be executed on.
+     * 设置将在其上执行搜索的索引。
      */
     @Override
     public SearchRequest indices(String... indices) {

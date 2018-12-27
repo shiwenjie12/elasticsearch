@@ -202,6 +202,7 @@ public class Netty4HttpServerTransport extends AbstractHttpServerTransport {
                 HTTP_SERVER_WORKER_THREAD_NAME_PREFIX)));
             serverBootstrap.channel(NioServerSocketChannel.class);
 
+            // 添加请求处理器
             serverBootstrap.childHandler(configureServerChannelHandler());
             serverBootstrap.handler(new ServerChannelExceptionHandler(this));
 

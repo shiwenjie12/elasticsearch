@@ -34,6 +34,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /** A cli command which requires an {@link org.elasticsearch.env.Environment} to use current paths and settings. */
+// 包装了环境变量的命令
 public abstract class EnvironmentAwareCommand extends Command {
 
     private final OptionSpec<KeyValuePair> settingOption;
@@ -79,6 +80,7 @@ public abstract class EnvironmentAwareCommand extends Command {
             settings.put(kvp.key, kvp.value);
         }
 
+        // 实现从系统属性获取配置
         putSystemPropertyIfSettingIsMissing(settings, "path.data", "es.path.data");
         putSystemPropertyIfSettingIsMissing(settings, "path.home", "es.path.home");
         putSystemPropertyIfSettingIsMissing(settings, "path.logs", "es.path.logs");

@@ -63,7 +63,7 @@ public class InternalSettingsPreparer {
      */
     public static Environment prepareEnvironment(Settings input, Map<String, String> properties,
             Path configPath, Supplier<String> defaultNodeName) {
-        // just create enough settings to build the environment, to get the config dir
+        // 只需创建足够的设置来构建环境，获取配置目录
         Settings.Builder output = Settings.builder();
         initializeSettings(output, input, properties);
         Environment environment = new Environment(output.build(), configPath);
@@ -87,9 +87,10 @@ public class InternalSettingsPreparer {
         }
 
         // re-initialize settings now that the config file has been loaded
+        // 重新初始化配置，因为已经加载了配置文件
         initializeSettings(output, input, properties);
-        checkSettingsForTerminalDeprecation(output);
-        finalizeSettings(output, defaultNodeName);
+        checkSettingsForTerminalDeprecation(output); // 加密类的配置
+        finalizeSettings(output, defaultNodeName); // 默认主机名
 
         environment = new Environment(output.build(), configPath);
 
@@ -133,6 +134,7 @@ public class InternalSettingsPreparer {
 
     /**
      * Finish preparing settings by replacing forced settings and any defaults that need to be added.
+     * 通过替换强制设置和需要添加的任何默认值来完成准备设置。
      */
     private static void finalizeSettings(Settings.Builder output, Supplier<String> defaultNodeName) {
         // allow to force set properties based on configuration of the settings provided
@@ -146,6 +148,7 @@ public class InternalSettingsPreparer {
             String value = output.remove(forcedSetting);
             output.put(forcedSetting.substring("force.".length()), value);
         }
+        // 替换属性占位符
         output.replacePropertyPlaceholders();
 
         // put the cluster and node name if they aren't set

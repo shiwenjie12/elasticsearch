@@ -21,6 +21,7 @@ package org.elasticsearch.common.util.concurrent;
 
 import java.util.concurrent.RejectedExecutionHandler;
 
+// Es自定义的拒绝执行处理器，增加了已经拒绝执行数
 public interface XRejectedExecutionHandler extends RejectedExecutionHandler {
 
     /**

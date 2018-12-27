@@ -38,7 +38,7 @@ import java.io.StringReader;
 import java.util.Set;
 
 /**
- * A YAML based content implementation using Jackson.
+ * 使用Jackson的基于YAML的内容实现。
  */
 public class YamlXContent implements XContent {
 

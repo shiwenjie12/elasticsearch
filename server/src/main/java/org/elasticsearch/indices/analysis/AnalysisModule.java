@@ -60,6 +60,7 @@ import static org.elasticsearch.plugins.AnalysisPlugin.requiresAnalysisSettings;
 
 /**
  * Sets up {@link AnalysisRegistry}.
+ * Term分析模块，支持插件
  */
 public final class AnalysisModule {
     static {
@@ -258,7 +259,7 @@ public final class AnalysisModule {
 
 
     /**
-     * The basic factory interface for analysis components.
+     * 分析组件的基础工厂接口
      */
     public interface AnalysisProvider<T> {
 

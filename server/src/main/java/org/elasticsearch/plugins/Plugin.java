@@ -62,8 +62,7 @@ import java.util.Optional;
 import java.util.function.UnaryOperator;
 
 /**
- * An extension point allowing to plug in custom functionality. This class has a number of extension points that are available to all
- * plugins, in addition you can implement any of the following interfaces to further customize Elasticsearch:
+ * 允许插入自定义功能的扩展点。 此类有许多可用于所有插件的扩展点，此外，您还可以实现以下任何接口以进一步自定义Elasticsearch：
  * <ul>
  * <li>{@link ActionPlugin}
  * <li>{@link AnalysisPlugin}

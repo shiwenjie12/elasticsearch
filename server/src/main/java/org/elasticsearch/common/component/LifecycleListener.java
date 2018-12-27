@@ -19,6 +19,7 @@
 
 package org.elasticsearch.common.component;
 
+// 定义监听器行为
 public abstract class LifecycleListener {
 
     public void beforeStart() {

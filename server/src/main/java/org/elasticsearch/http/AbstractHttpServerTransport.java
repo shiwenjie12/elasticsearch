@@ -129,6 +129,7 @@ public abstract class AbstractHttpServerTransport extends AbstractLifecycleCompo
         return new HttpStats(httpChannels.size(), totalChannelsAccepted.get());
     }
 
+    // 绑定服务器端口
     protected void bindServer() {
         // Bind and start to accept incoming connections.
         InetAddress hostAddresses[];

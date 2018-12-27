@@ -29,6 +29,7 @@ import java.util.Map;
 
 import static java.util.Collections.unmodifiableMap;
 
+// Rest状态
 public enum RestStatus {
     /**
      * The client SHOULD continue with its request. This interim response is used to inform the client that the

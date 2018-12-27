@@ -31,6 +31,8 @@ import java.util.function.Consumer;
  * "reasonably". This means limits on stacktrace frames and
  * cleanup for guice, and some guidance about consulting full
  * logs for the whole exception.
+ * 以特殊方式包装异常，使其“合理地”格式化。
+ * 这意味着限制堆栈跟踪帧和guice的清理，以及有关查询整个异常的完整日志的一些指导。
  */
 //TODO: remove this when guice is removed, and exceptions are cleaned up
 //this is horrible, but its what we must do

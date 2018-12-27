@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
@@ -617,6 +618,7 @@ public class ThreadContextTests extends ESTestCase {
         ThreadContext threadContext = new ThreadContext(build);
         threadContext.putHeader(Collections.<String, String>emptyMap());
         threadContext.putHeader(Collections.<String, String>singletonMap("foo", "bar"));
+        Map<String, String> map = threadContext.getHeaders();
         assertEquals("bar", threadContext.getHeader("foo"));
         IllegalArgumentException e = expectThrows(IllegalArgumentException.class, () ->
             threadContext.putHeader(Collections.<String, String>singletonMap("foo", "boom")));

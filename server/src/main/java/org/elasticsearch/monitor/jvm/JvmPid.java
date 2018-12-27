@@ -24,6 +24,7 @@ import org.apache.logging.log4j.message.ParameterizedMessage;
 
 import java.lang.management.ManagementFactory;
 
+// 获取jvm的pid
 class JvmPid {
 
     private static final long PID;

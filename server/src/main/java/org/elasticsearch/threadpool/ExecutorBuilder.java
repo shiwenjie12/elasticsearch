@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Base class for executor builders.
- *
+ * 用于初始化ThreadPool的执行参数
  * @param <U> the underlying type of the executor settings
  */
 public abstract class ExecutorBuilder<U extends ExecutorBuilder.ExecutorSettings> {

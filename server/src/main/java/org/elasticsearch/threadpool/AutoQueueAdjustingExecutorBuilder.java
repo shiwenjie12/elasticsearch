@@ -38,6 +38,7 @@ import java.util.concurrent.ThreadFactory;
 /**
  * A builder for executors that automatically adjust the queue length as needed, depending on
  * Little's Law. See https://en.wikipedia.org/wiki/Little's_law for more information.
+ * 队列自适应的
  */
 public final class AutoQueueAdjustingExecutorBuilder extends ExecutorBuilder<AutoQueueAdjustingExecutorBuilder.AutoExecutorSettings> {
 

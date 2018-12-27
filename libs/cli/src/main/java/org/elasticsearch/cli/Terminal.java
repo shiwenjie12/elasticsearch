@@ -28,7 +28,7 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 
 /**
- * A Terminal wraps access to reading input and writing output for a cli.
+ * 终端对cli的读输入和写输出的访问进行包装。
  *
  * The available methods are similar to those of {@link Console}, with the ability
  * to read either normal text or a password, and the ability to print a line

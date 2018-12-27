@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+// Rest资源的解析工具
 public class RestUtils {
 
     public static final PathTrie.Decoder REST_DECODER = new PathTrie.Decoder() {

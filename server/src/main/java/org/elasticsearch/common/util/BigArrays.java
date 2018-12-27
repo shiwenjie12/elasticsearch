@@ -32,12 +32,13 @@ import org.elasticsearch.indices.breaker.CircuitBreakerService;
 
 import java.util.Arrays;
 
-/** Utility class to work with arrays. */
+/** 用于处理数组的实用程序类. */
 public class BigArrays implements Releasable {
 
+    // 无回收的数组实例
     public static final BigArrays NON_RECYCLING_INSTANCE = new BigArrays(null, null, false);
 
-    /** Page size in bytes: 16KB */
+    /** Page size in bytes: 16KB 分页大小 */
     public static final int PAGE_SIZE_IN_BYTES = 1 << 14;
     public static final int BYTE_PAGE_SIZE = BigArrays.PAGE_SIZE_IN_BYTES;
     public static final int INT_PAGE_SIZE = BigArrays.PAGE_SIZE_IN_BYTES / Integer.BYTES;
@@ -88,6 +89,7 @@ public class BigArrays implements Releasable {
         recycler.close();
     }
 
+    // 抽象一维数组
     private abstract static class AbstractArrayWrapper extends AbstractArray implements BigArray {
 
         static final long SHALLOW_SIZE = RamUsageEstimator.shallowSizeOfInstance(ByteArrayWrapper.class);
@@ -113,7 +115,7 @@ public class BigArrays implements Releasable {
 
     }
 
-    private static class ByteArrayWrapper extends AbstractArrayWrapper implements ByteArray {
+    public static class ByteArrayWrapper extends AbstractArrayWrapper implements ByteArray {
 
         private final byte[] array;
 
@@ -249,6 +251,7 @@ public class BigArrays implements Releasable {
         }
     }
 
+    // 单维度double数组
     private static class DoubleArrayWrapper extends AbstractArrayWrapper implements DoubleArray {
 
         private final long[] array;
