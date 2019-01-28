@@ -32,7 +32,8 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Simple class to log {@code ifconfig}-style output at DEBUG logging.
+ *
+ * 在DEBUG日志记录中记录{@code ifconfig}样式输出的简单类。
  */
 public final class IfConfig {
 

@@ -36,8 +36,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * {@link ShardRouting} immutably encapsulates information about shard
- * indexRoutings like id, state, version, etc.
+ * {@link ShardRouting}不可避免地封装了关于shard indexRoutings的信息，如id，state，version等。
  */
 public final class ShardRouting implements Writeable, ToXContentObject {
 
@@ -60,8 +59,7 @@ public final class ShardRouting implements Writeable, ToXContentObject {
     private final ShardRouting targetRelocatingShard;
 
     /**
-     * A constructor to internally create shard routing instances, note, the internal flag should only be set to true
-     * by either this class or tests. Visible for testing.
+     * 内部创建分片路由实例的构造函数，注意，内部标志只能由此类或测试设置为true。可见测试。
      */
     ShardRouting(ShardId shardId, String currentNodeId,
                  String relocatingNodeId, boolean primary, ShardRoutingState state, RecoverySource recoverySource,
@@ -75,6 +73,7 @@ public final class ShardRouting implements Writeable, ToXContentObject {
         this.unassignedInfo = unassignedInfo;
         this.allocationId = allocationId;
         this.expectedShardSize = expectedShardSize;
+        // 重定向的分片
         this.targetRelocatingShard = initializeTargetRelocatingShard();
         this.asList = Collections.singletonList(this);
         assert expectedShardSize == UNAVAILABLE_EXPECTED_SHARD_SIZE || state == ShardRoutingState.INITIALIZING ||
@@ -248,7 +247,7 @@ public final class ShardRouting implements Writeable, ToXContentObject {
     }
 
     /**
-     * A shard iterator with just this shard in it.
+     * 一个碎片迭代器，里面只有这个碎片。
      */
     public ShardIterator shardsIt() {
         return new PlainShardIterator(shardId, asList);
@@ -598,7 +597,7 @@ public final class ShardRouting implements Writeable, ToXContentObject {
     }
 
     /**
-     * A short description of the shard.
+     * 碎片的简短描述。
      */
     public String shortSummary() {
         StringBuilder sb = new StringBuilder();
@@ -662,7 +661,7 @@ public final class ShardRouting implements Writeable, ToXContentObject {
     }
 
     /**
-     * Returns recovery source for the given shard. Replica shards always recover from the primary {@link PeerRecoverySource}.
+     * 返回给定分片的恢复源。副本分片始终从主{@link PeerRecoverySource}恢复。
      *
      * @return recovery source or null if shard is {@link #active()}
      */

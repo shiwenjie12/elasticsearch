@@ -22,9 +22,7 @@ package org.elasticsearch.cluster;
 import org.elasticsearch.common.unit.TimeValue;
 
 /**
- * An exception to cluster state listener that allows for timeouts and for post added notifications.
- *
- *
+ * 群集状态侦听器的一个例外，它允许超时和添加后通知。
  */
 public interface TimeoutClusterStateListener extends ClusterStateListener {
 

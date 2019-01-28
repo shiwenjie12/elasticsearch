@@ -32,7 +32,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * Represents the recovery source of a shard. Available recovery types are:
+ * 表示分片的恢复源。可用的恢复类型包括：
  *
  * - {@link EmptyStoreRecoverySource} recovery from an empty store
  * - {@link ExistingStoreRecoverySource} recovery from an existing store
@@ -112,7 +112,7 @@ public abstract class RecoverySource implements Writeable, ToXContentObject {
     }
 
     /**
-     * Recovery from a fresh copy
+     * 从新副本中恢复
      */
     public static final class EmptyStoreRecoverySource extends RecoverySource {
         public static final EmptyStoreRecoverySource INSTANCE = new EmptyStoreRecoverySource();
@@ -129,11 +129,11 @@ public abstract class RecoverySource implements Writeable, ToXContentObject {
     }
 
     /**
-     * Recovery from an existing on-disk store
+     * 从现有的磁盘存储中恢复
      */
     public static final class ExistingStoreRecoverySource extends RecoverySource {
         /**
-         * Special allocation id that shard has during initialization on allocate_stale_primary
+         * 分片在allocate_stale_primary初始化期间具有的特殊分配ID
          */
         public static final String FORCED_ALLOCATION_ID = "_forced_allocation_";
 
@@ -183,7 +183,7 @@ public abstract class RecoverySource implements Writeable, ToXContentObject {
     }
 
     /**
-     * recovery from other shards on same node (shrink index action)
+     * 从同一节点上的其他分片恢复（缩小索引操作）
      */
     public static class LocalShardsRecoverySource extends RecoverySource {
 
@@ -205,7 +205,7 @@ public abstract class RecoverySource implements Writeable, ToXContentObject {
     }
 
     /**
-     * recovery from a snapshot
+     * 从快照中恢复
      */
     public static class SnapshotRecoverySource extends RecoverySource {
         private final Snapshot snapshot;
@@ -282,7 +282,7 @@ public abstract class RecoverySource implements Writeable, ToXContentObject {
     }
 
     /**
-     * peer recovery from a primary shard
+     * 从主分片恢复对等
      */
     public static class PeerRecoverySource extends RecoverySource {
 

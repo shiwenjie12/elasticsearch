@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * Request to submit cluster reroute allocation commands
+ * 请求提交集群重新路由分配命令
  */
 public class ClusterRerouteRequest extends AcknowledgedRequest<ClusterRerouteRequest> {
     private AllocationCommands commands = new AllocationCommands();
@@ -60,8 +60,7 @@ public class ClusterRerouteRequest extends AcknowledgedRequest<ClusterRerouteReq
     }
 
     /**
-     * Returns the current dry run flag which allows to run the commands without actually applying them,
-     * just to get back the resulting cluster state back.
+     * 返回当前的空运行标志，该标志允许在不实际应用命令的情况下运行命令，只是为了返回生成的集群状态。
      */
     public boolean dryRun() {
         return this.dryRun;

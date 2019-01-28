@@ -29,9 +29,9 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Arrays;
 
 /**
- * File resources watcher
+ * 文件资源观察者
  *
- * The file watcher checks directory and all its subdirectories for file changes and notifies its listeners accordingly
+ * 文件监视器检查目录及其所有子目录以查找文件，并相应地通知其侦听器
  */
 public class FileWatcher extends AbstractResourceWatcher<FileChangesListener> {
 
@@ -41,7 +41,7 @@ public class FileWatcher extends AbstractResourceWatcher<FileChangesListener> {
     private static final Logger logger = LogManager.getLogger(FileWatcher.class);
 
     /**
-     * Creates new file watcher on the given directory
+     * 在给定目录上创建新文件观察程序
      */
     public FileWatcher(Path file) {
         this.file = file;
@@ -72,6 +72,7 @@ public class FileWatcher extends AbstractResourceWatcher<FileChangesListener> {
 
     private static FileObserver[] EMPTY_DIRECTORY = new FileObserver[0];
 
+    // 文件观察者
     private class FileObserver {
         private Path file;
         private boolean exists;
@@ -84,6 +85,7 @@ public class FileWatcher extends AbstractResourceWatcher<FileChangesListener> {
             this.file = file;
         }
 
+        // 与之前状态进行比较，并唤醒事件
         public void checkAndNotify() throws IOException {
             boolean prevExists = exists;
             boolean prevIsDirectory = isDirectory;

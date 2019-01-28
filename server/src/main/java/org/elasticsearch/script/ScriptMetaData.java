@@ -43,8 +43,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * {@link ScriptMetaData} is used to store user-defined scripts
- * as part of the {@link ClusterState} using only an id as the key.
+ * {@link ScriptMetaData}用于将用户定义的脚本存储为{@link ClusterState}的一部分，仅使用id作为密钥。
  */
 public final class ScriptMetaData implements MetaData.Custom, Writeable, ToXContentFragment {
 

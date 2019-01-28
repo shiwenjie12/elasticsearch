@@ -27,6 +27,7 @@ import org.elasticsearch.indices.analysis.HunspellService;
 
 import java.util.Locale;
 
+// Token过滤器工厂
 public class HunspellTokenFilterFactory extends AbstractTokenFilterFactory {
 
     private final Dictionary dictionary;

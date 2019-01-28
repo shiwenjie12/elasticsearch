@@ -23,6 +23,7 @@ import java.lang.management.OperatingSystemMXBean;
 import java.lang.reflect.Method;
 
 public class Probes {
+    // 返回百分比
     public static short getLoadAndScaleToPercent(Method method, OperatingSystemMXBean osMxBean) {
         if (method != null) {
             try {

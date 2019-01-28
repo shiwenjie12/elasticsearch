@@ -51,28 +51,35 @@ import java.util.jar.Manifest;
  * <p>
  * This class checks for incompatibilities in the following ways:
  * <ul>
- *   <li>Checks that class files are not duplicated across jars.</li>
- *   <li>Checks any {@code X-Compile-Target-JDK} value in the jar
- *       manifest is compatible with current JRE</li>
- *   <li>Checks any {@code X-Compile-Elasticsearch-Version} value in
- *       the jar manifest is compatible with the current ES</li>
+ * <li>Checks that class files are not duplicated across jars.</li>
+ * <li>Checks any {@code X-Compile-Target-JDK} value in the jar
+ * manifest is compatible with current JRE</li>
+ * <li>Checks any {@code X-Compile-Elasticsearch-Version} value in
+ * the jar manifest is compatible with the current ES</li>
  * </ul>
  */
 public class JarHell {
 
-    /** no instantiation */
-    private JarHell() {}
+    /**
+     * no instantiation
+     */
+    private JarHell() {
+    }
 
-    /** Simple driver class, can be used eg. from builds. Returns non-zero on jar-hell */
+    /**
+     * Simple driver class, can be used eg. from builds. Returns non-zero on jar-hell
+     */
     @SuppressForbidden(reason = "command line tool")
     public static void main(String args[]) throws Exception {
         System.out.println("checking for jar hell...");
         checkJarHell(System.out::println);
         System.out.println("no jar hell found");
+        System.in.read();
     }
 
     /**
      * Checks the current classpath for duplicate classes
+     *
      * @param output A {@link String} {@link Consumer} to which debug output will be sent
      * @throws IllegalStateException if jar hell was found
      */
@@ -81,22 +88,24 @@ public class JarHell {
         output.accept("java.class.path: " + System.getProperty("java.class.path"));
         output.accept("sun.boot.class.path: " + System.getProperty("sun.boot.class.path"));
         if (loader instanceof URLClassLoader) {
-            output.accept("classloader urls: " + Arrays.toString(((URLClassLoader)loader).getURLs()));
+            output.accept("classloader urls: " + Arrays.toString(((URLClassLoader) loader).getURLs()));
         }
         checkJarHell(parseClassPath(), output);
     }
 
     /**
      * Parses the classpath into an array of URLs
+     *
      * @return array of URLs
      * @throws IllegalStateException if the classpath contains empty elements
      */
-    public static Set<URL> parseClassPath()  {
+    public static Set<URL> parseClassPath() {
         return parseClassPath(System.getProperty("java.class.path"));
     }
 
     /**
      * Parses the classpath into a set of URLs. For testing.
+     *
      * @param classPath classpath to parse (typically the system property {@code java.class.path})
      * @return array of URLs
      * @throws IllegalStateException if the classpath contains empty elements
@@ -149,7 +158,8 @@ public class JarHell {
 
     /**
      * Checks the set of URLs for duplicate classes
-     * @param urls A set of URLs from the classpath to be checked for conflicting jars
+     *
+     * @param urls   A set of URLs from the classpath to be checked for conflicting jars
      * @param output A {@link String} {@link Consumer} to which debug output will be sent
      * @throws IllegalStateException if jar hell was found
      */
@@ -160,7 +170,7 @@ public class JarHell {
         // a "list" at all. So just exclude any elements underneath the java home
         String javaHome = System.getProperty("java.home");
         output.accept("java.home: " + javaHome);
-        final Map<String,Path> clazzes = new HashMap<>(32768);
+        final Map<String, Path> clazzes = new HashMap<>(32768);
         Set<Path> seenJars = new HashSet<>();
         for (final URL url : urls) {
             final Path path = PathUtils.get(url.toURI());
@@ -172,7 +182,7 @@ public class JarHell {
             if (path.toString().endsWith(".jar")) {
                 if (!seenJars.add(path)) {
                     throw new IllegalStateException("jar hell!" + System.lineSeparator() +
-                                                    "duplicate jar on classpath: " + path);
+                        "duplicate jar on classpath: " + path);
                 }
                 output.accept("examining jar: " + path);
                 try (JarFile file = new JarFile(path.toString())) {
@@ -202,17 +212,22 @@ public class JarHell {
                         String entry = root.relativize(file).toString();
                         if (entry.endsWith(".class")) {
                             // normalize with the os separator, remove '.class'
-                            entry = entry.replace(sep, ".").substring(0,  entry.length() - ".class".length());
+                            entry = entry.replace(sep, ".").substring(0, entry.length() - ".class".length());
                             checkClass(clazzes, entry, path);
                         }
                         return super.visitFile(file, attrs);
                     }
                 });
+                clazzes.entrySet().stream().forEach(entry -> {
+                    output.accept(entry.getKey() + "  " + entry.getValue());
+                });
             }
         }
     }
 
-    /** inspect manifest for sure incompatibilities */
+    /**
+     * inspect manifest for sure incompatibilities
+     */
     private static void checkManifest(Manifest manifest, Path jar) {
         // give a nice error if jar requires a newer java version
         String targetVersion = manifest.getMainAttributes().getValue("X-Compile-Target-JDK");
@@ -225,12 +240,12 @@ public class JarHell {
     public static void checkVersionFormat(String targetVersion) {
         if (!JavaVersion.isValid(targetVersion)) {
             throw new IllegalStateException(
-                    String.format(
-                            Locale.ROOT,
-                            "version string must be a sequence of nonnegative decimal integers separated by \".\"'s and may have " +
-                                "leading zeros but was %s",
-                            targetVersion
-                    )
+                String.format(
+                    Locale.ROOT,
+                    "version string must be a sequence of nonnegative decimal integers separated by \".\"'s and may have " +
+                        "leading zeros but was %s",
+                    targetVersion
+                )
             );
         }
     }
@@ -243,13 +258,13 @@ public class JarHell {
         JavaVersion version = JavaVersion.parse(targetVersion);
         if (JavaVersion.current().compareTo(version) < 0) {
             throw new IllegalStateException(
-                    String.format(
-                            Locale.ROOT,
-                            "%s requires Java %s:, your system: %s",
-                            resource,
-                            targetVersion,
-                            JavaVersion.current().toString()
-                    )
+                String.format(
+                    Locale.ROOT,
+                    "%s requires Java %s:, your system: %s",
+                    resource,
+                    targetVersion,
+                    JavaVersion.current().toString()
+                )
             );
         }
     }
@@ -269,13 +284,13 @@ public class JarHell {
                 // unfortunately the zip file format allows this buggy possibility
                 // UweSays: It can, but should be considered as bug :-)
                 throw new IllegalStateException("jar hell!" + System.lineSeparator() +
-                        "class: " + clazz + System.lineSeparator() +
-                        "exists multiple times in jar: " + jarpath + " !!!!!!!!!");
+                    "class: " + clazz + System.lineSeparator() +
+                    "exists multiple times in jar: " + jarpath + " !!!!!!!!!");
             } else {
                 throw new IllegalStateException("jar hell!" + System.lineSeparator() +
-                        "class: " + clazz + System.lineSeparator() +
-                        "jar1: " + previous + System.lineSeparator() +
-                        "jar2: " + jarpath);
+                    "class: " + clazz + System.lineSeparator() +
+                    "jar1: " + previous + System.lineSeparator() +
+                    "jar2: " + jarpath);
             }
         }
     }

@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * Basic information about a snapshot - a SnapshotId and the repository that the snapshot belongs to.
+ * 有关快照的基本信息 -  SnapshotId和快照所属的存储库。
  */
 public final class Snapshot implements Writeable {
 

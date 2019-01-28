@@ -29,7 +29,7 @@ import java.io.IOException;
  * A bounded transport address is a tuple of {@link TransportAddress}, one array that represents
  * the addresses the transport is bound to, and the other is the published one that represents the address clients
  * should communicate on.
- *
+ * 有界传输地址是{@link TransportAddress}的元组，一个数组表示传输绑定的地址，另一个是发布的表示客户端应该在其上进行通信的地址。
  *
  */
 public class BoundTransportAddress implements Streamable {

@@ -23,8 +23,7 @@ package org.elasticsearch.common.breaker;
 import java.util.Locale;
 
 /**
- * Interface for an object that can be incremented, breaking after some
- * configured limit has been reached.
+ * 可以递增的对象的接口，在达到某个配置的限制后中断。
  */
 public interface CircuitBreaker {
 
@@ -84,9 +83,9 @@ public interface CircuitBreaker {
     }
 
     enum Durability {
-        // The condition that tripped the circuit breaker fixes itself eventually.
+        // 绊倒断路器的条件最终会自行修复。
         TRANSIENT,
-        // The condition that tripped the circuit breaker requires manual intervention.
+        // 使断路器跳闸的条件需要人工干预。
         PERMANENT
     }
 

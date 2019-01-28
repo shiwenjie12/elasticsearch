@@ -22,6 +22,7 @@ package org.elasticsearch.cluster.block;
 
 import java.util.EnumSet;
 
+// 集群块等级
 public enum ClusterBlockLevel {
     READ,
     WRITE,

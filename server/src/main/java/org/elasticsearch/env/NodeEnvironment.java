@@ -185,7 +185,7 @@ public final class NodeEnvironment  implements Closeable {
         private final NodePath[] nodePaths;
 
         /**
-         * Tries to acquire a node lock for a node id, throws {@code IOException} if it is unable to acquire it
+         * 尝试获取节点id的节点锁定，如果无法获取它，则抛出{@code IOException}
          * @param pathFunction function to check node path before attempt of acquiring a node lock
          */
         public NodeLock(final int nodeId, final Logger logger,
@@ -196,6 +196,7 @@ public final class NodeEnvironment  implements Closeable {
             locks = new Lock[nodePaths.length];
             try {
                 final Path[] dataPaths = environment.dataFiles();
+                // 创建存储目录
                 for (int dirIndex = 0; dirIndex < dataPaths.length; dirIndex++) {
                     Path dataDir = dataPaths[dirIndex];
                     Path dir = resolveNodePath(dataDir, nodeId);
@@ -204,7 +205,7 @@ public final class NodeEnvironment  implements Closeable {
                     }
                     try (Directory luceneDir = FSDirectory.open(dir, NativeFSLockFactory.INSTANCE)) {
                         logger.trace("obtaining node lock on {} ...", dir.toAbsolutePath());
-                        locks[dirIndex] = luceneDir.obtainLock(NODE_LOCK_FILENAME);
+                        locks[dirIndex] = luceneDir.obtainLock(NODE_LOCK_FILENAME); // 获取文件锁
                         nodePaths[dirIndex] = new NodePath(dir);
                     } catch (IOException e) {
                         logger.trace(() -> new ParameterizedMessage(
@@ -324,6 +325,7 @@ public final class NodeEnvironment  implements Closeable {
         return path.resolve(NODES_FOLDER).resolve(Integer.toString(nodeLockId));
     }
 
+    // 可能打印文件路径细节
     private void maybeLogPathDetails() throws IOException {
 
         // We do some I/O in here, so skip this if DEBUG/INFO are not enabled:
@@ -370,6 +372,7 @@ public final class NodeEnvironment  implements Closeable {
         }
     }
 
+    // 可能打印堆栈信息
     private void maybeLogHeapDetails() {
         JvmInfo jvmInfo = JvmInfo.jvmInfo();
         ByteSizeValue maxHeapSize = jvmInfo.getMem().getHeapMax();
@@ -381,6 +384,7 @@ public final class NodeEnvironment  implements Closeable {
     /**
      * scans the node paths and loads existing metaData file. If not found a new meta data will be generated
      * and persisted into the nodePaths
+     * 扫描节点路径并加载现有的metaData文件。 如果未找到，则将生成新的元数据并将其持久保存到nodePaths中
      */
     private static NodeMetaData loadOrCreateNodeMetaData(Settings settings, Logger logger,
                                                          NodePath... nodePaths) throws IOException {
@@ -1092,6 +1096,7 @@ public final class NodeEnvironment  implements Closeable {
     /**
      * This is a best effort to ensure that we actually have write permissions to write in all our data directories.
      * This prevents disasters if nodes are started under the wrong username etc.
+     * 验证是否能写入
      */
     private void assertCanWrite() throws IOException {
         for (Path path : nodeDataPaths()) { // check node-paths are writable
@@ -1123,6 +1128,7 @@ public final class NodeEnvironment  implements Closeable {
     // package private for testing
     static final String TEMP_FILE_NAME = ".es_temp_file";
 
+    // 写入临时文件，测试权限
     private static void tryWriteTempFile(Path path) throws IOException {
         if (Files.exists(path)) {
             Path resolve = path.resolve(TEMP_FILE_NAME);

@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * SnapshotId - snapshot name + snapshot UUID
+ * SnapshotId  - 快照名称+快照UUID
  */
 public final class SnapshotId implements Comparable<SnapshotId>, Writeable, ToXContentObject {
 

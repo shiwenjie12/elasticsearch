@@ -68,7 +68,7 @@ public class NodeClient extends AbstractClient {
     @Override
     public <Request extends ActionRequest, Response extends ActionResponse>
     void doExecute(Action<Response> action, Request request, ActionListener<Response> listener) {
-        // Discard the task because the Client interface doesn't use it.
+        // 放弃任务，因为客户端界面不使用它.
         executeLocally(action, request, listener);
     }
 
@@ -77,9 +77,9 @@ public class NodeClient extends AbstractClient {
      * method if you don't need access to the task when listening for the response. This is the method used to implement the {@link Client}
      * interface.
      */
-    public <    Request extends ActionRequest,
-                Response extends ActionResponse
-            > Task executeLocally(Action<Response> action, Request request, ActionListener<Response> listener) {
+    public <Request extends ActionRequest,
+        Response extends ActionResponse
+        > Task executeLocally(Action<Response> action, Request request, ActionListener<Response> listener) {
         return transportAction(action).execute(request, listener);
     }
 
@@ -87,9 +87,9 @@ public class NodeClient extends AbstractClient {
      * Execute an {@link Action} locally, returning that {@link Task} used to track it, and linking an {@link TaskListener}. Prefer this
      * method if you need access to the task when listening for the response.
      */
-    public <    Request extends ActionRequest,
-                Response extends ActionResponse
-            > Task executeLocally(Action<Response> action, Request request, TaskListener<Response> listener) {
+    public <Request extends ActionRequest,
+        Response extends ActionResponse
+        > Task executeLocally(Action<Response> action, Request request, TaskListener<Response> listener) {
         return transportAction(action).execute(request, listener);
     }
 
@@ -103,11 +103,12 @@ public class NodeClient extends AbstractClient {
 
     /**
      * Get the {@link TransportAction} for an {@link Action}, throwing exceptions if the action isn't available.
+     * 获取{@link TransportAction}获取{@link Action}，如果操作不可用则抛出异常。
      */
     @SuppressWarnings("unchecked")
-    private <    Request extends ActionRequest,
-                Response extends ActionResponse
-            > TransportAction<Request, Response> transportAction(Action<Response> action) {
+    private <Request extends ActionRequest,
+        Response extends ActionResponse
+        > TransportAction<Request, Response> transportAction(Action<Response> action) {
         if (actions == null) {
             throw new IllegalStateException("NodeClient has not been initialized");
         }

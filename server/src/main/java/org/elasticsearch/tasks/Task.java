@@ -30,12 +30,12 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Current task information
+ * 当前任务信息
  */
 public class Task {
 
     /**
-     * The request header to mark tasks with specific ids
+     * 请求标头，用于标记具有特定ID的任务
      */
     public static final String X_OPAQUE_ID = "X-Opaque-Id";
 

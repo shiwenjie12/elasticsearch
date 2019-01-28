@@ -31,7 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * java mapping to some libc functions
+ * java mapping to some libc functions（linux）
  */
 final class JNACLibrary {
 

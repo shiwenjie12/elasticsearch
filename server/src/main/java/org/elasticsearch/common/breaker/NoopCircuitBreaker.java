@@ -20,8 +20,7 @@
 package org.elasticsearch.common.breaker;
 
 /**
- * A CircuitBreaker that doesn't increment or adjust, and all operations are
- * basically noops
+ * 一个不增加或调整的CircuitBreaker，所有操作基本上都是noops
  */
 public class NoopCircuitBreaker implements CircuitBreaker {
     public static final int LIMIT = -1;

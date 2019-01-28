@@ -52,9 +52,8 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 /**
- * {@link RoutingNodes} represents a copy the routing information contained in the {@link ClusterState cluster state}.
- * It can be either initialized as mutable or immutable (see {@link #RoutingNodes(ClusterState, boolean)}), allowing
- * or disallowing changes to its elements.
+ * {@link RoutingNodes}表示{@link ClusterState clusterstate}.中包含的路由信息的副本。
+ * 它可以初始化为可变或不可变（请参阅{@link #RoutingNodes(ClusterState，Boolean)}），允许或禁止对其元素进行更改。
  *
  * The main methods used to update routing entries are:
  * <ul>
@@ -141,6 +140,7 @@ public class RoutingNodes implements Iterable<RoutingNode> {
                 }
             }
         }
+        // 节点到分片
         for (Map.Entry<String, LinkedHashMap<ShardId, ShardRouting>> entry : nodesToShards.entrySet()) {
             String nodeId = entry.getKey();
             this.nodesToShards.put(nodeId, new RoutingNode(nodeId, clusterState.nodes().get(nodeId), entry.getValue()));

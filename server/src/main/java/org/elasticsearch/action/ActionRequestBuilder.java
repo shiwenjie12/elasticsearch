@@ -41,6 +41,7 @@ public abstract class ActionRequestBuilder<Request extends ActionRequest, Respon
         return this.request;
     }
 
+    // 执行Action请求
     public ActionFuture<Response> execute() {
         return client.execute(action, request);
     }

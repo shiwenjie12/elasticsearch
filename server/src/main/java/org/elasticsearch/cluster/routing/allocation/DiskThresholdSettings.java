@@ -33,7 +33,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * A container to keep settings for disk thresholds up to date with cluster setting changes.
+ * 一个容器，用于使磁盘阈值的设置保持最新，并更改群集设置。
  */
 public class DiskThresholdSettings {
     public static final Setting<Boolean> CLUSTER_ROUTING_ALLOCATION_DISK_THRESHOLD_ENABLED_SETTING =
@@ -287,8 +287,7 @@ public class DiskThresholdSettings {
     }
 
     /**
-     * Attempts to parse the watermark into a percentage, returning 100.0% if
-     * it cannot be parsed.
+     * 尝试将水印解析为百分比，如果无法解析，则返回100.0％。
      */
     private static double thresholdPercentageFromWatermark(String watermark) {
         return thresholdPercentageFromWatermark(watermark, true);

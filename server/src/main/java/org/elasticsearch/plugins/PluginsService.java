@@ -77,7 +77,7 @@ public class PluginsService {
     private final Path configPath;
 
     /**
-     * We keep around a list of plugins and modules
+     * 我们保留了一系列插件和模块
      */
     private final List<Tuple<PluginInfo, Plugin>> plugins;
     private final PluginsAndModules info;
@@ -106,9 +106,9 @@ public class PluginsService {
 
         List<Tuple<PluginInfo, Plugin>> pluginsLoaded = new ArrayList<>();
         List<PluginInfo> pluginsList = new ArrayList<>();
-        // we need to build a List of plugins for checking mandatory plugins
+        // 我们需要构建一个插件列表来检查强制插件
         final List<String> pluginsNames = new ArrayList<>();
-        // first we load plugins that are on the classpath. this is for tests and transport clients
+        // 首先我们加载类路径上的插件。 这适用于测试和运输客户
         for (Class<? extends Plugin> pluginClass : classpathPlugins) {
             Plugin plugin = loadPlugin(pluginClass, settings, configPath);
             PluginInfo pluginInfo = new PluginInfo(pluginClass.getName(), "classpath plugin", "NA", Version.CURRENT, "1.8",
@@ -123,7 +123,7 @@ public class PluginsService {
 
         Set<Bundle> seenBundles = new LinkedHashSet<>();
         List<PluginInfo> modulesList = new ArrayList<>();
-        // load modules
+        // 加载模块
         if (modulesDirectory != null) {
             try {
                 Set<Bundle> modules = getModuleBundles(modulesDirectory);
@@ -160,7 +160,7 @@ public class PluginsService {
         this.info = new PluginsAndModules(pluginsList, modulesList);
         this.plugins = Collections.unmodifiableList(pluginsLoaded);
 
-        // Checking expected plugins
+        // 检查预期的插件
         List<String> mandatoryPlugins = MANDATORY_SETTING.get(settings);
         if (mandatoryPlugins.isEmpty() == false) {
             Set<String> missingPlugins = new HashSet<>();
@@ -181,6 +181,7 @@ public class PluginsService {
 
         // we don't log jars in lib/ we really shouldn't log modules,
         // but for now: just be transparent so we can debug any potential issues
+        // 打印插件日志
         logPluginInfo(info.getModuleInfos(), "module", logger);
         logPluginInfo(info.getPluginInfos(), "plugin", logger);
     }
@@ -197,10 +198,12 @@ public class PluginsService {
         }
     }
 
+    // 更新配置
     public Settings updatedSettings() {
         Map<String, String> foundSettings = new HashMap<>();
         final Map<String, String> features = new TreeMap<>();
         final Settings.Builder builder = Settings.builder();
+        // 插件级的附加配置
         for (Tuple<PluginInfo, Plugin> plugin : plugins) {
             Settings settings = plugin.v2().additionalSettings();
             for (String setting : settings.keySet()) {
@@ -240,9 +243,10 @@ public class PluginsService {
         return modules;
     }
 
+    // 获取插件的执行器
     public List<ExecutorBuilder<?>> getExecutorBuilders(Settings settings) {
         final ArrayList<ExecutorBuilder<?>> builders = new ArrayList<>();
-        for (final Tuple<PluginInfo, Plugin> plugin : plugins) {
+        for (final Tuple<PluginInfo, Plugin> plugin : plugins) { // 处理所有的插件的处理器
             builders.addAll(plugin.v2().getExecutorBuilders(settings));
         }
         return builders;
@@ -271,6 +275,7 @@ public class PluginsService {
     }
 
     // a "bundle" is a group of jars in a single classloader
+    // 插件信息和jar包
     static class Bundle {
         final PluginInfo plugin;
         final Set<URL> urls;
@@ -306,7 +311,7 @@ public class PluginsService {
     }
 
     /**
-     * Extracts all installed plugin directories from the provided {@code rootPath}.
+     * 从提供的{@code rootPath}中提取所有已安装的插件目录.
      *
      * @param rootPath the path where the plugins are installed
      * @return a list of all plugin paths installed in the {@code rootPath}
@@ -421,7 +426,7 @@ public class PluginsService {
         return new ArrayList<>(sortedBundles);
     }
 
-    // add the given bundle to the sorted bundles, first adding dependencies
+    // 将给定的bundle添加到已排序的bundle中，首先添加依赖项
     private static void addSortedBundle(Bundle bundle, Map<String, Bundle> bundles, LinkedHashSet<Bundle> sortedBundles,
                                         LinkedHashSet<String> dependencyStack) {
 
@@ -536,7 +541,7 @@ public class PluginsService {
             extendedLoaders.add(extendedPlugin.getClass().getClassLoader());
         }
 
-        // create a child to load the plugin in this bundle
+        // 创建一个子项以在此包中加载插件
         ClassLoader parentLoader = PluginLoaderIndirection.createLoader(getClass().getClassLoader(), extendedLoaders);
         ClassLoader loader = URLClassLoader.newInstance(bundle.urls.toArray(new URL[0]), parentLoader);
 
@@ -554,9 +559,7 @@ public class PluginsService {
     }
 
     /**
-     * Reloads all Lucene SPI implementations using the new classloader.
-     * This method must be called after the new classloader has been created to
-     * register the services for use.
+     * 使用新的类加载器重新加载所有Lucene SPI实现。必须在创建新的类加载器后调用此方法来注册要使用的服务。
      */
     static void reloadLuceneSPI(ClassLoader loader) {
         // do NOT change the order of these method calls!
@@ -571,6 +574,7 @@ public class PluginsService {
         TokenizerFactory.reloadTokenizers(loader);
     }
 
+    // 加载插件类
     private Class<? extends Plugin> loadPluginClass(String className, ClassLoader loader) {
         try {
             return loader.loadClass(className).asSubclass(Plugin.class);
@@ -579,6 +583,7 @@ public class PluginsService {
         }
     }
 
+    // 构造插件类
     private Plugin loadPlugin(Class<? extends Plugin> pluginClass, Settings settings, Path configPath) {
         final Constructor<?>[] constructors = pluginClass.getConstructors();
         if (constructors.length == 0) {

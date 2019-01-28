@@ -72,6 +72,7 @@ import java.util.Map;
 
 /**
  * A client provides a one stop interface for performing actions/operations against the cluster.
+ * 客户端提供一站式接口，用于对群集行为/操作。
  * <p>
  * All operations performed are asynchronous by nature. Each action/operation has two flavors, the first
  * simply returns an {@link org.elasticsearch.action.ActionFuture}, while the second accepts an

@@ -77,6 +77,7 @@ import java.util.Set;
 
 import static java.util.Collections.unmodifiableMap;
 
+// 包含lucene的语言分析器的静态工具类
 public class Analysis {
 
     public static Version parseAnalysisVersion(Settings indexSettings, Settings settings, Logger logger) {
@@ -113,6 +114,7 @@ public class Analysis {
         }
     }
 
+    // 不同语言的停词
     public static final Map<String, Set<?>> NAMED_STOP_WORDS;
     static {
         Map<String, Set<?>> namedStopWords = new HashMap<>();

@@ -89,24 +89,24 @@ public class EsExecutors {
     /**
      * Return a new executor that will automatically adjust the queue size based on queue throughput.
      *
-     * @param size number of fixed threads to use for executing tasks
+     * @param size                 number of fixed threads to use for executing tasks
      * @param initialQueueCapacity initial size of the executor queue
-     * @param minQueueSize minimum queue size that the queue can be adjusted to
-     * @param maxQueueSize maximum queue size that the queue can be adjusted to
-     * @param frameSize number of tasks during which stats are collected before adjusting queue size
+     * @param minQueueSize         minimum queue size that the queue can be adjusted to
+     * @param maxQueueSize         maximum queue size that the queue can be adjusted to
+     * @param frameSize            number of tasks during which stats are collected before adjusting queue size
      */
     public static EsThreadPoolExecutor newAutoQueueFixed(String name, int size, int initialQueueCapacity, int minQueueSize,
                                                          int maxQueueSize, int frameSize, TimeValue targetedResponseTime,
                                                          ThreadFactory threadFactory, ThreadContext contextHolder) {
         if (initialQueueCapacity <= 0) {
             throw new IllegalArgumentException("initial queue capacity for [" + name + "] executor must be positive, got: " +
-                            initialQueueCapacity);
+                initialQueueCapacity);
         }
         ResizableBlockingQueue<Runnable> queue =
-                new ResizableBlockingQueue<>(ConcurrentCollections.<Runnable>newBlockingQueue(), initialQueueCapacity);
+            new ResizableBlockingQueue<>(ConcurrentCollections.<Runnable>newBlockingQueue(), initialQueueCapacity);
         return new QueueResizingEsThreadPoolExecutor(name, size, size, 0, TimeUnit.MILLISECONDS,
-                queue, minQueueSize, maxQueueSize, TimedRunnable::new, frameSize, targetedResponseTime, threadFactory,
-                new EsAbortPolicy(), contextHolder);
+            queue, minQueueSize, maxQueueSize, TimedRunnable::new, frameSize, targetedResponseTime, threadFactory,
+            new EsAbortPolicy(), contextHolder);
     }
 
     // 直接执行服务，即同步处理
@@ -154,12 +154,12 @@ public class EsExecutors {
         return DIRECT_EXECUTOR_SERVICE;
     }
 
-    public static String threadName(Settings settings, String ... names) {
+    public static String threadName(Settings settings, String... names) {
         String namePrefix =
-                Arrays
-                        .stream(names)
-                        .filter(name -> name != null)
-                        .collect(Collectors.joining(".", "[", "]"));
+            Arrays
+                .stream(names)
+                .filter(name -> name != null)
+                .collect(Collectors.joining(".", "[", "]"));
         return threadName(settings, namePrefix);
     }
 
@@ -187,7 +187,7 @@ public class EsExecutors {
         return daemonThreadFactory(threadName(nodeName, namePrefix));
     }
 
-    public static ThreadFactory daemonThreadFactory(Settings settings, String ... names) {
+    public static ThreadFactory daemonThreadFactory(Settings settings, String... names) {
         return daemonThreadFactory(threadName(settings, names));
     }
 
@@ -206,14 +206,14 @@ public class EsExecutors {
             this.namePrefix = namePrefix;
             SecurityManager s = System.getSecurityManager();
             group = (s != null) ? s.getThreadGroup() :
-                    Thread.currentThread().getThreadGroup();
+                Thread.currentThread().getThreadGroup();
         }
 
         @Override
         public Thread newThread(Runnable r) {
             Thread t = new Thread(group, r,
-                    namePrefix + "[T#" + threadNumber.getAndIncrement() + "]",
-                    0);
+                namePrefix + "[T#" + threadNumber.getAndIncrement() + "]",
+                0);
             t.setDaemon(true);
             return t;
         }

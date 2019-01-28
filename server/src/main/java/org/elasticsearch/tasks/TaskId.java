@@ -30,7 +30,7 @@ import org.elasticsearch.common.xcontent.XContentParser;
 import java.io.IOException;
 
 /**
- * Task id that consists of node id and id of the task on the node
+ * 任务ID由节点上的任务的节点ID和id组成
  */
 public final class TaskId implements Writeable {
 

@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+// diff工具
 public final class DiffableUtils {
     private DiffableUtils() {
     }
@@ -66,7 +67,7 @@ public final class DiffableUtils {
     }
 
     /**
-     * Calculates diff between two ImmutableOpenMaps of Diffable objects
+     * 计算Diffable对象的两个ImmutableOpenMaps之间的差异
      */
     public static <K, T extends Diffable<T>> MapDiff<K, T, ImmutableOpenMap<K, T>> diff(ImmutableOpenMap<K, T> before,
             ImmutableOpenMap<K, T> after, KeySerializer<K> keySerializer) {

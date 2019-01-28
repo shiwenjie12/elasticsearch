@@ -39,13 +39,13 @@ public abstract class TransportAction<Request extends ActionRequest, Response ex
     protected final TaskManager taskManager;
 
     protected TransportAction(String actionName, ActionFilters actionFilters, TaskManager taskManager) {
-        this.actionName = actionName;
+        this.actionName = actionName; // 行为名称
         this.filters = actionFilters.filters();
         this.taskManager = taskManager;
     }
 
     /**
-     * Use this method when the transport action call should result in creation of a new task associated with the call.
+     * 当传输操作调用应导致创建与该调用关联的新任务时，请使用此方法。
      *
      * This is a typical behavior.
      */
@@ -110,7 +110,7 @@ public abstract class TransportAction<Request extends ActionRequest, Response ex
             return;
         }
 
-        if (task != null && request.getShouldStoreResult()) {
+        if (task != null && request.getShouldStoreResult()) { // 重构成结果存储的监听器
             listener = new TaskResultStoringActionListener<>(taskManager, task, listener);
         }
 

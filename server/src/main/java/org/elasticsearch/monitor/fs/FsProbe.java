@@ -146,6 +146,7 @@ public class FsProbe {
         return bytes;
     }
 
+    // 获取磁盘信息
     public static FsInfo.Path getFSInfo(NodePath nodePath) throws IOException {
         FsInfo.Path fsPath = new FsInfo.Path();
         fsPath.path = nodePath.path.toAbsolutePath().toString();

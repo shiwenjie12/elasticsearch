@@ -28,6 +28,7 @@ import org.elasticsearch.common.settings.Settings;
 /**
  * Interface for Circuit Breaker services, which provide breakers to classes
  * that load field data.
+ * 断路器服务接口，为加载现场数据的类提供断路器。
  */
 public abstract class CircuitBreakerService extends AbstractLifecycleComponent {
     private static final Logger logger = LogManager.getLogger(CircuitBreakerService.class);

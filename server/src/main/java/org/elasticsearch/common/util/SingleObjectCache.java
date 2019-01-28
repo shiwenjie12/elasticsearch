@@ -24,8 +24,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * A very simple single object cache that allows non-blocking refresh calls
- * triggered by expiry time.
+ * 一个非常简单的单个对象缓存，允许由到期时间触发的非阻塞刷新调用。
  */
 public abstract class SingleObjectCache<T>{
 
@@ -44,7 +43,7 @@ public abstract class SingleObjectCache<T>{
 
 
     /**
-     * Returns the currently cached object and potentially refreshes the cache before returning.
+     * 返回当前缓存的对象，并可能在返回之前刷新缓存。
      */
     public T getOrRefresh() {
         if (needsRefresh()) {

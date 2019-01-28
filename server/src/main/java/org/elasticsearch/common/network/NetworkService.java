@@ -138,7 +138,7 @@ public final class NetworkService {
     public InetAddress resolvePublishHostAddresses(String publishHosts[]) throws IOException {
         if (publishHosts == null || publishHosts.length == 0) {
             for (CustomNameResolver customNameResolver : customNameResolvers) {
-                InetAddress addresses[] = customNameResolver.resolveDefault();
+                InetAddress addresses[] = customNameResolver.resolveDefault(); // 调用自定义解析地址
                 if (addresses != null) {
                     return addresses[0];
                 }
@@ -196,7 +196,7 @@ public final class NetworkService {
         return set.toArray(new InetAddress[set.size()]);
     }
 
-    /** resolves a single host specification */
+    /** 解析单个主机规范 */
     private InetAddress[] resolveInternal(String host) throws IOException {
         if ((host.startsWith("#") && host.endsWith("#")) || (host.startsWith("_") && host.endsWith("_"))) {
             host = host.substring(1, host.length() - 1);

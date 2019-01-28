@@ -69,7 +69,7 @@ public class TaskTransportChannel implements TransportChannel {
         return channel;
     }
 
-    private void endTask() {
+    private void endTask() { // 取消任务
         taskManager.unregister(task);
     }
 }

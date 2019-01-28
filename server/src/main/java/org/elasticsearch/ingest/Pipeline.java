@@ -32,7 +32,7 @@ import java.util.function.LongSupplier;
 import org.elasticsearch.script.ScriptService;
 
 /**
- * A pipeline is a list of {@link Processor} instances grouped under a unique id.
+ * 管道是在唯一ID下分组的{@link Processor}实例列表。
  */
 public final class Pipeline {
 
@@ -65,11 +65,13 @@ public final class Pipeline {
         this.relativeTimeProvider = relativeTimeProvider;
     }
 
+    // 创建pipeline
     public static Pipeline create(String id, Map<String, Object> config,
         Map<String, Processor.Factory> processorFactories, ScriptService scriptService) throws Exception {
         String description = ConfigurationUtils.readOptionalStringProperty(null, null, config, DESCRIPTION_KEY);
         Integer version = ConfigurationUtils.readIntProperty(null, null, config, VERSION_KEY, null);
         List<Map<String, Object>> processorConfigs = ConfigurationUtils.readList(null, null, config, PROCESSORS_KEY);
+        // 处理器
         List<Processor> processors = ConfigurationUtils.readProcessorConfigs(processorConfigs, scriptService, processorFactories);
         List<Map<String, Object>> onFailureProcessorConfigs =
                 ConfigurationUtils.readOptionalList(null, null, config, ON_FAILURE_KEY);
@@ -82,6 +84,7 @@ public final class Pipeline {
         if (onFailureProcessorConfigs != null && onFailureProcessors.isEmpty()) {
             throw new ElasticsearchParseException("pipeline [" + id + "] cannot have an empty on_failure option defined");
         }
+        // 复合处理器
         CompoundProcessor compoundProcessor = new CompoundProcessor(false, Collections.unmodifiableList(processors),
                 Collections.unmodifiableList(onFailureProcessors));
         return new Pipeline(id, description, version, compoundProcessor);

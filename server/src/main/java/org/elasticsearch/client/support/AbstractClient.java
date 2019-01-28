@@ -356,7 +356,7 @@ public abstract class AbstractClient implements Client {
         this.settings = settings;
         this.threadPool = threadPool;
         this.admin = new Admin(this);
-        this.logger =LogManager.getLogger(this.getClass());
+        this.logger = LogManager.getLogger(this.getClass());
         this.threadedWrapper = new ThreadedActionListener.Wrapper(logger, settings, threadPool);
     }
 
@@ -384,7 +384,7 @@ public abstract class AbstractClient implements Client {
     }
 
     /**
-     * This is the single execution point of *all* clients.
+     * 这是* all * clients的单个执行点。
      */
     @Override
     public final <Request extends ActionRequest, Response extends ActionResponse> void execute(
@@ -665,6 +665,7 @@ public abstract class AbstractClient implements Client {
         return new FieldCapabilitiesRequestBuilder(this, FieldCapabilitiesAction.INSTANCE, indices);
     }
 
+    // 管理员客户端
     static class Admin implements AdminClient {
 
         private final ClusterAdmin clusterAdmin;
@@ -1196,33 +1197,33 @@ public abstract class AbstractClient implements Client {
         }
 
         @Override
-        public void putStoredScript(final PutStoredScriptRequest request, ActionListener<AcknowledgedResponse> listener){
+        public void putStoredScript(final PutStoredScriptRequest request, ActionListener<AcknowledgedResponse> listener) {
             execute(PutStoredScriptAction.INSTANCE, request, listener);
 
         }
 
         @Override
-        public ActionFuture<AcknowledgedResponse> putStoredScript(final PutStoredScriptRequest request){
+        public ActionFuture<AcknowledgedResponse> putStoredScript(final PutStoredScriptRequest request) {
             return execute(PutStoredScriptAction.INSTANCE, request);
         }
 
         @Override
-        public void deleteStoredScript(DeleteStoredScriptRequest request, ActionListener<AcknowledgedResponse> listener){
+        public void deleteStoredScript(DeleteStoredScriptRequest request, ActionListener<AcknowledgedResponse> listener) {
             execute(DeleteStoredScriptAction.INSTANCE, request, listener);
         }
 
         @Override
-        public ActionFuture<AcknowledgedResponse> deleteStoredScript(DeleteStoredScriptRequest request){
+        public ActionFuture<AcknowledgedResponse> deleteStoredScript(DeleteStoredScriptRequest request) {
             return execute(DeleteStoredScriptAction.INSTANCE, request);
         }
 
         @Override
-        public DeleteStoredScriptRequestBuilder prepareDeleteStoredScript(){
+        public DeleteStoredScriptRequestBuilder prepareDeleteStoredScript() {
             return new DeleteStoredScriptRequestBuilder(client, DeleteStoredScriptAction.INSTANCE);
         }
 
         @Override
-        public DeleteStoredScriptRequestBuilder prepareDeleteStoredScript(String id){
+        public DeleteStoredScriptRequestBuilder prepareDeleteStoredScript(String id) {
             return prepareDeleteStoredScript().setId(id);
         }
     }
@@ -1538,6 +1539,7 @@ public abstract class AbstractClient implements Client {
         public UpgradeStatusRequestBuilder prepareUpgradeStatus(String... indices) {
             return new UpgradeStatusRequestBuilder(this, UpgradeStatusAction.INSTANCE).setIndices(indices);
         }
+
         @Override
         public ActionFuture<RefreshResponse> refresh(final RefreshRequest request) {
             return execute(RefreshAction.INSTANCE, request);

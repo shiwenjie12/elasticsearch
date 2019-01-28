@@ -22,7 +22,7 @@ package org.elasticsearch.cluster.routing;
 import org.apache.lucene.util.StringHelper;
 
 /**
- * Hash function based on the Murmur3 algorithm, which is the default as of Elasticsearch 2.0.
+ * 基于Murmur3算法的哈希函数，默认为Elasticsearch 2.0。
  */
 public final class Murmur3HashFunction {
 

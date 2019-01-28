@@ -45,7 +45,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Represents a single document being captured before indexing and holds the source and metadata (like id, type and index).
+ * 表示在编制索引之前捕获的单个文档，并保存源和元数据（如id，type和index）。
  */
 public final class IngestDocument {
 

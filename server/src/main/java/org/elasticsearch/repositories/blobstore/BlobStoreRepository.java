@@ -127,7 +127,7 @@ import static java.util.Collections.unmodifiableMap;
 import static org.elasticsearch.index.snapshots.blobstore.BlobStoreIndexShardSnapshot.FileInfo.canonicalName;
 
 /**
- * BlobStore - based implementation of Snapshot Repository
+ * 基于BlobStore的Snapshot Repository实现
  * <p>
  * This repository works with any {@link BlobStore} implementation. The blobStore could be (and preferred) lazy initialized in
  * {@link #createBlobStore()}.

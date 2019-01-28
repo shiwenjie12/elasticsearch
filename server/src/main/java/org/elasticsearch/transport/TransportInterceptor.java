@@ -24,7 +24,7 @@ import org.elasticsearch.cluster.node.DiscoveryNode;
 import java.util.function.Supplier;
 
 /**
- * This interface allows plugins to intercept requests on both the sender and the receiver side.
+ * 该接口允许插件拦截发送方和接收方的请求。
  */
 public interface TransportInterceptor {
     /**

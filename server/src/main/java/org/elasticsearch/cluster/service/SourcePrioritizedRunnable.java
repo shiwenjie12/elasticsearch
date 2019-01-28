@@ -23,7 +23,7 @@ import org.elasticsearch.common.Priority;
 import org.elasticsearch.common.util.concurrent.PrioritizedRunnable;
 
 /**
- * PrioritizedRunnable that also has a source string
+ * PrioritizedRunnable也有源字符串
  */
 public abstract class SourcePrioritizedRunnable extends PrioritizedRunnable {
     protected final String source;

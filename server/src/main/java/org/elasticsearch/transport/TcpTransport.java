@@ -115,6 +115,7 @@ import static org.elasticsearch.common.transport.NetworkExceptionHelper.isCloseC
 import static org.elasticsearch.common.transport.NetworkExceptionHelper.isConnectException;
 import static org.elasticsearch.common.util.concurrent.ConcurrentCollections.newConcurrentMap;
 
+// Tcp传输层
 public abstract class TcpTransport extends AbstractLifecycleComponent implements Transport {
     private static final Logger logger = LogManager.getLogger(TcpTransport.class);
 
@@ -274,6 +275,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
         return circuitBreakerService.getBreaker(CircuitBreaker.IN_FLIGHT_REQUESTS);
     }
 
+    // 注册请求处理器
     @Override
     public synchronized <Request extends TransportRequest> void registerRequestHandler(RequestHandlerRegistry<Request> reg) {
         if (requestHandlers.containsKey(reg.getAction())) {
@@ -282,6 +284,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
         requestHandlers = MapBuilder.newMapBuilder(requestHandlers).put(reg.getAction(), reg).immutableMap();
     }
 
+    // 节点通道，具有多个连接
     public final class NodeChannels extends CloseableConnection {
         private final Map<TransportRequestOptions.Type, ConnectionProfile.ConnectionTypeHandle> typeMapping;
         private final List<TcpChannel> channels;
@@ -313,6 +316,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
             return channels;
         }
 
+        // 获取Tcp通道
         public TcpChannel channel(TransportRequestOptions.Type type) {
             ConnectionProfile.ConnectionTypeHandle connectionTypeHandle = typeMapping.get(type);
             if (connectionTypeHandle == null) {
@@ -323,7 +327,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
 
         @Override
         public boolean sendPing() {
-            for (TcpChannel channel : channels) {
+            for (TcpChannel channel : channels) { // 节点所有的通道都发送ping
                 internalSendMessage(channel, pingMessage, new SendMetricListener(pingMessage.length()) {
                     @Override
                     protected void innerInnerOnResponse(Void v) {
@@ -413,11 +417,11 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
         closeLock.readLock().lock(); // ensure we don't open connections while we are closing
         try {
             ensureOpen();
-            PlainActionFuture<NodeChannels> connectionFuture = PlainActionFuture.newFuture();
+            PlainActionFuture<NodeChannels> connectionFuture = PlainActionFuture.newFuture(); // 获取future
             List<TcpChannel> pendingChannels = initiateConnection(node, connectionProfile, connectionFuture);
 
             try {
-                return connectionFuture.actionGet();
+                return connectionFuture.actionGet(); // 等待 NodeChannels
             } catch (IllegalStateException e) {
                 // If the future was interrupted we can close the channels to improve the shutdown of the MockTcpTransport
                 if (e.getCause() instanceof InterruptedException) {
@@ -430,16 +434,17 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
         }
     }
 
+    // 真正还是建立连接通道
     private List<TcpChannel> initiateConnection(DiscoveryNode node, ConnectionProfile connectionProfile,
                                                 ActionListener<NodeChannels> listener) {
-        int numConnections = connectionProfile.getNumConnections();
+        int numConnections = connectionProfile.getNumConnections();//  总的连接数
         assert numConnections > 0 : "A connection profile must be configured with at least one connection";
 
         final List<TcpChannel> channels = new ArrayList<>(numConnections);
 
         for (int i = 0; i < numConnections; ++i) {
             try {
-                TcpChannel channel = initiateChannel(node);
+                TcpChannel channel = initiateChannel(node); // 建立tcp通道
                 logger.trace(() -> new ParameterizedMessage("Tcp transport client channel opened: {}", channel));
                 channels.add(channel);
             } catch (ConnectTransportException e) {
@@ -524,7 +529,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
         final AtomicReference<InetSocketAddress> boundSocket = new AtomicReference<>();
         boolean success = portsRange.iterate(portNumber -> {
             try {
-                TcpServerChannel channel = bind(name, new InetSocketAddress(hostAddress, portNumber));
+                TcpServerChannel channel = bind(name, new InetSocketAddress(hostAddress, portNumber));// 绑定端口
                 synchronized (serverChannels) {
                     List<TcpServerChannel> list = serverChannels.get(name);
                     if (list == null) {
@@ -534,7 +539,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
                     list.add(channel);
                     boundSocket.set(channel.getLocalAddress());
                 }
-            } catch (Exception e) {
+            } catch (Exception e) { // 端口占用
                 lastException.set(e);
                 return false;
             }
@@ -807,7 +812,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
     protected abstract TcpServerChannel bind(String name, InetSocketAddress address) throws IOException;
 
     /**
-     * Initiate a single tcp socket channel.
+     * 启动单个tcp套接字通道。
      *
      * @param node for the initiated connection
      * @return the pending connection
@@ -830,8 +835,10 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
 
         // only compress if asked and the request is not bytes. Otherwise only
         // the header part is compressed, and the "body" can't be extracted as compressed
+        // 是否压缩消息
         final boolean compressMessage = options.compress() && canCompress(request);
 
+        // 设置请求
         status = TransportStatus.setRequest(status);
         ReleasableBytesStreamOutput bStream = new ReleasableBytesStreamOutput(bigArrays);
         final CompressibleBytesOutputStream stream = new CompressibleBytesOutputStream(bStream, compressMessage);
@@ -852,10 +859,11 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
                 stream.writeStringArray(features);
             }
             stream.writeString(action);
+            // 构建消息
             BytesReference message = buildMessage(requestId, status, node.getVersion(), request, stream);
             final TransportRequestOptions finalOptions = options;
             // this might be called in a different thread
-            SendListener onRequestSent = new SendListener(channel, stream,
+            SendListener onRequestSent = new SendListener(channel, stream, // 追踪请求
                 () -> messageListener.onRequestSent(node, requestId, action, request, finalOptions), message.length());
             internalSendMessage(channel, message, onRequestSent);
             addedReleaseListener = true;
@@ -867,7 +875,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
     }
 
     /**
-     * sends a message to the given channel, using the given callbacks.
+     * 使用给定的回调将消息发送到给定的通道。
      */
     private void internalSendMessage(TcpChannel channel, BytesReference message, SendMetricListener listener) {
         transportLogger.logOutboundMessage(channel, message);
@@ -932,6 +940,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
         sendResponse(nodeVersion, features, channel, response, requestId, action, options, (byte) 0);
     }
 
+    // 发送响应
     private void sendResponse(
         final Version nodeVersion,
         final Set<String> features,
@@ -972,7 +981,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
     }
 
     /**
-     * Writes the Tcp message header into a bytes reference.
+     * 将Tcp消息头写入字节引用。
      *
      * @param requestId       the request ID
      * @param status          the request status
@@ -992,12 +1001,12 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
     }
 
     /**
-     * Serializes the given message into a bytes representation
+     * 将给定消息序列化为字节表示
      */
     private BytesReference buildMessage(long requestId, byte status, Version nodeVersion, TransportMessage message,
                                         CompressibleBytesOutputStream stream) throws IOException {
         final BytesReference zeroCopyBuffer;
-        if (message instanceof BytesTransportRequest) { // what a shitty optimization - we should use a direct send method instead
+        if (message instanceof BytesTransportRequest) { // 什么是糟糕的优化 - 我们应该使用直接发送方法
             BytesTransportRequest bRequest = (BytesTransportRequest) message;
             assert nodeVersion.equals(bRequest.version());
             bRequest.writeThin(stream);
@@ -1017,7 +1026,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
     }
 
     /**
-     * Handles inbound message that has been decoded.
+     * 处理已解码的入站消息。
      *
      * @param channel the channel the message if fomr
      * @param message the message
@@ -1103,6 +1112,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
         }
     }
 
+    // 读取请求头buffer
     private static int readHeaderBuffer(BytesReference headerBuffer) throws IOException {
         if (headerBuffer.get(0) != 'E' || headerBuffer.get(1) != 'S') {
             if (appearsToBeHTTP(headerBuffer)) {
@@ -1181,7 +1191,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
     }
 
     /**
-     * This method handles the message receive part for both request and responses
+     * 此方法处理请求和响应的消息接收部分
      */
     public final void messageReceived(BytesReference reference, TcpChannel channel) throws IOException {
         String profileName = channel.getProfile();
@@ -1341,7 +1351,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
         TransportChannel transportChannel = null;
         try {
             if (TransportStatus.isHandshake(status)) {
-                handshaker.handleHandshake(version, features, channel, requestId);
+                handshaker.handleHandshake(version, features, channel, requestId); // 处理握手
             } else {
                 final RequestHandlerRegistry reg = getRequestHandler(action);
                 if (reg == null) {
@@ -1447,7 +1457,7 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
     }
 
     /**
-     * This listener increments the transmitted bytes metric on success.
+     * 该侦听器在成功时递增传输的字节度量。
      */
     private abstract class SendMetricListener extends NotifyOnceListener<Void> {
         private final long messageSize;
@@ -1633,13 +1643,14 @@ public abstract class TcpTransport extends AbstractLifecycleComponent implements
 
         @Override
         public void onResponse(Void v) {
-            // Returns true if all connections have completed successfully
+            // 如果所有连接都已成功完成，则返回true，所有连接完成才进行握手
             if (countDown.countDown()) {
                 final TcpChannel handshakeChannel = channels.get(0);
                 try {
+                    // 执行握手
                     executeHandshake(node, handshakeChannel, connectionProfile, new ActionListener<Version>() {
                         @Override
-                        public void onResponse(Version version) {
+                        public void onResponse(Version version) {// 处理响应，创建 NodeChannels
                             NodeChannels nodeChannels = new NodeChannels(node, channels, connectionProfile, version);
                             nodeChannels.channels.forEach(ch -> ch.addCloseListener(ActionListener.wrap(nodeChannels::close)));
                             listener.onResponse(nodeChannels);

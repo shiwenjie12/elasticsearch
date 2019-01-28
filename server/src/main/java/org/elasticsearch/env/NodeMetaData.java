@@ -31,8 +31,8 @@ import java.io.OutputStream;
 import java.util.Objects;
 
 /**
- * Metadata associated with this node. Currently only contains the unique uuid describing this node.
- * The metadata is persisted in the data folder of this node and is reused across restarts.
+ * 与此节点关联的元数据。 目前仅包含描述此节点的唯一uuid。
+ * 元数据保存在此节点的数据文件夹中，并在重新启动时重复使用。
  */
 public final class NodeMetaData {
 
@@ -91,6 +91,7 @@ public final class NodeMetaData {
     }
 
 
+    // 关于节点元数据 node_id
     public static final MetaDataStateFormat<NodeMetaData> FORMAT = new MetaDataStateFormat<NodeMetaData>("node-") {
 
         @Override

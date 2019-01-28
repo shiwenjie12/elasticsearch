@@ -29,12 +29,11 @@ import java.util.Map;
 public class PreBuiltCacheFactory {
 
     /**
-     * The strategy of caching the analyzer
+     * 缓存分析器的策略
      *
-     * ONE               Exactly one version is stored. Useful for analyzers which do not store version information
-     * LUCENE            Exactly one version for each lucene version is stored. Useful to prevent different analyzers with the same version
-     * ELASTICSEARCH     Exactly one version per elasticsearch version is stored. Useful if you change an analyzer between elasticsearch
-     *                   releases, when the lucene version does not change
+     * ONE               正好存储了一个版本。 对于不存储版本信息的分析器很有用
+     * LUCENE            每个lucene版本都存储了一个版本。 用于防止具有相同版本的不同分析仪
+     * ELASTICSEARCH     每个elasticsearch版本只存储一个版本。 如果在elasticsearch版本之间更改分析器，则lucene版本不会更改时很有用
      */
     public enum CachingStrategy { ONE, LUCENE, ELASTICSEARCH };
 
@@ -63,7 +62,7 @@ public class PreBuiltCacheFactory {
     }
 
     /**
-     * This is a pretty simple cache, it only contains one version
+     * 这是一个非常简单的缓存，它只包含一个版本
      */
     private static class PreBuiltCacheStrategyOne<T> implements PreBuiltCache<T> {
 
@@ -86,7 +85,7 @@ public class PreBuiltCacheFactory {
     }
 
     /**
-     * This cache contains one version for each elasticsearch version object
+     * 此缓存包含每个elasticsearch版本对象的一个版本
      */
     private static class PreBuiltCacheStrategyElasticsearch<T> implements PreBuiltCache<T> {
 
@@ -109,7 +108,7 @@ public class PreBuiltCacheFactory {
     }
 
     /**
-     * This cache uses the lucene version for caching
+     * 此缓存使用lucene版本进行缓存
      */
     private static class PreBuiltCacheStrategyLucene<T> implements PreBuiltCache<T> {
 

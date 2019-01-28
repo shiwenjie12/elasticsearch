@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Processor to be used within Simulate API to keep track of processors executed in pipeline.
+ * 在Simulate API中使用的处理器，用于跟踪管道中执行的处理器。
  */
 public final class TrackingResultProcessor implements Processor {
 
@@ -37,7 +37,7 @@ public final class TrackingResultProcessor implements Processor {
     TrackingResultProcessor(boolean ignoreFailure, Processor actualProcessor, List<SimulateProcessorResult> processorResultList) {
         this.ignoreFailure = ignoreFailure;
         this.processorResultList = processorResultList;
-        this.actualProcessor = actualProcessor;
+        this.actualProcessor = actualProcessor;// 实际的处理器
     }
 
     @Override

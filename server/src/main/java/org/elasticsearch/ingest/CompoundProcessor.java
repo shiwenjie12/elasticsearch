@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 /**
  * A Processor that executes a list of other "processors". It executes a separate list of
  * "onFailureProcessors" when any of the processors throw an {@link Exception}.
+ * 执行其他“处理器”列表的处理器。 当任何处理器抛出{@link Exception}时，它会执行一个单独的“onFailureProcessors”列表。
  */
 public class CompoundProcessor implements Processor {
     public static final String ON_FAILURE_MESSAGE_FIELD = "on_failure_message";
@@ -123,7 +124,7 @@ public class CompoundProcessor implements Processor {
                 if (processor.execute(ingestDocument) == null) {
                     return null;
                 }
-            } catch (Exception e) {
+            } catch (Exception e) { // 失败处理
                 metric.ingestFailed();
                 if (ignoreFailure) {
                     continue;
@@ -137,7 +138,7 @@ public class CompoundProcessor implements Processor {
                     executeOnFailure(ingestDocument, compoundProcessorException);
                     break;
                 }
-            } finally {
+            } finally {// 统计度量
                 long ingestTimeInMillis = TimeUnit.NANOSECONDS.toMillis(relativeTimeProvider.getAsLong() - startTimeInNanos);
                 metric.postIngest(ingestTimeInMillis);
             }

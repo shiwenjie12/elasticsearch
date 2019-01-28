@@ -27,6 +27,7 @@ import org.elasticsearch.transport.TcpServerChannel;
 
 import java.net.InetSocketAddress;
 
+// netty的tcp服务器通道
 public class Netty4TcpServerChannel implements TcpServerChannel {
 
     private final Channel channel;

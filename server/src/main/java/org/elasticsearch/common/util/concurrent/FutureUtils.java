@@ -32,7 +32,7 @@ import java.util.concurrent.TimeoutException;
 public class FutureUtils {
 
     /**
-     * Cancel execution of this future without interrupting a running thread. See {@link Future#cancel(boolean)} for details.
+     * 在不中断正在运行的线程的情况下取消执行此未来。有关详细信息，请参阅{@link Future#cancel(boolean)}。
      *
      * @param toCancel the future to cancel
      * @return false if the future could not be cancelled, otherwise true

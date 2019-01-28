@@ -50,6 +50,9 @@ import java.util.function.Function;
  * the {@code <path.conf>/hunspell} directory, where each locale has its dedicated sub-directory which holds the dictionary
  * files. For example, the dictionary files for {@code en_US} locale must be placed under {@code <path.conf>/hunspell/en_US}
  * directory.
+ * 用作hunspell词典的节点级注册表。
+ * 此服务要求所有字典都位于{@code <path.conf> / hunspell}目录下，其中每个语言环境都有其专用的子目录，用于保存字典文件。
+ * 例如，{@code en_US}语言环境的字典文件必须放在{@code <path.conf> / hunspell / en_US}目录下。
  * <p>
  * The following settings can be set for each dictionary:
  * <ul>
@@ -110,7 +113,7 @@ public class HunspellService {
     }
 
     /**
-     * Returns the hunspell dictionary for the given locale.
+     * 返回给定语言环境的hunspell字典。
      *
      * @param locale The name of the locale
      */
@@ -122,12 +125,13 @@ public class HunspellService {
         return dictionary;
     }
 
+    // hunspell 目录
     private Path resolveHunspellDirectory(Environment env) {
         return env.configFile().resolve("hunspell");
     }
 
     /**
-     * Scans the hunspell directory and loads all found dictionaries
+     * 扫描hunspell目录并加载所有找到的词典
      */
     private void scanAndLoadDictionaries() throws IOException {
         if (Files.isDirectory(hunspellDir)) {
@@ -153,7 +157,7 @@ public class HunspellService {
     }
 
     /**
-     * Loads the hunspell dictionary for the given local.
+     * 加载给定本地的hunspell字典。
      *
      * @param locale       The locale of the hunspell dictionary to be loaded.
      * @param nodeSettings The node level settings
@@ -173,7 +177,6 @@ public class HunspellService {
         // merging node settings with hunspell dictionary specific settings
         Settings dictSettings = HUNSPELL_DICTIONARY_OPTIONS.get(nodeSettings);
         nodeSettings = loadDictionarySettings(dicDir, dictSettings.getByPrefix(locale + "."));
-
         boolean ignoreCase = nodeSettings.getAsBoolean("ignore_case", defaultIgnoreCase);
 
         Path[] affixFiles = FileSystemUtils.files(dicDir, "*.aff");

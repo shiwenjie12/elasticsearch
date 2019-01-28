@@ -135,7 +135,7 @@ public abstract class NetworkUtils {
         return all;
     }
     
-    /** Helper for getInterfaces, recursively adds subinterfaces to {@code target} */
+    /** getInterfaces的助手，以递归方式向{@code target}添加子接口 */
     private static void addAllInterfaces(List<NetworkInterface> target, List<NetworkInterface> level) {
         if (!level.isEmpty()) {
             target.addAll(level);

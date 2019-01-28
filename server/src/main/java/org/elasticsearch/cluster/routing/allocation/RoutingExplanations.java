@@ -33,8 +33,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * Class used to encapsulate a number of {@link RerouteExplanation}
- * explanations.
+ * 用于封装大量{@link RerouteExplanation}解释的类。
  */
 public class RoutingExplanations implements ToXContentFragment {
     private final List<RerouteExplanation> explanations;

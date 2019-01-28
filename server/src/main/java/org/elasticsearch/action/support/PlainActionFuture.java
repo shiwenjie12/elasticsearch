@@ -19,6 +19,7 @@
 
 package org.elasticsearch.action.support;
 
+// 明文Actionfuture，用于处理响应Action的响应
 public class PlainActionFuture<T> extends AdapterActionFuture<T, T> {
 
     public static <T> PlainActionFuture<T> newFuture() {

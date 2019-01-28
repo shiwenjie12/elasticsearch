@@ -29,7 +29,7 @@ import org.elasticsearch.script.TemplateScript;
 import java.util.Map;
 
 /**
- * Processor that allows to rename existing fields. Will throw exception if the field is not present.
+ * 允许重命名现有字段的处理器。如果字段不存在，将抛出异常。
  */
 public final class RenameProcessor extends AbstractProcessor {
 

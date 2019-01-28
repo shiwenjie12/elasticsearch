@@ -75,7 +75,7 @@ public final class ConfigurationUtils {
     }
 
     /**
-     * Returns and removes the specified property from the specified configuration map.
+     * 返回并从指定的配置映射中删除指定的属性。
      *
      * If the property value isn't of type string a {@link ElasticsearchParseException} is thrown.
      * If the property is missing and no default value has been specified a {@link ElasticsearchParseException} is thrown
@@ -380,12 +380,13 @@ public final class ConfigurationUtils {
         }
     }
 
+    // 读取处理器
     public static Processor readProcessor(Map<String, Processor.Factory> processorFactories,
                                            ScriptService scriptService,
                                            String type, Map<String, Object> config) throws Exception {
         String tag = ConfigurationUtils.readOptionalStringProperty(null, null, config, TAG_KEY);
         Script conditionalScript = extractConditional(config);
-        Processor.Factory factory = processorFactories.get(type);
+        Processor.Factory factory = processorFactories.get(type);  // 获取factory
         if (factory != null) {
             boolean ignoreFailure = ConfigurationUtils.readBooleanProperty(null, null, config, "ignore_failure", false);
             List<Map<String, Object>> onFailureProcessorConfigs =

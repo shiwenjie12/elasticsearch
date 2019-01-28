@@ -141,7 +141,7 @@ public class PluginInfo implements Writeable, ToXContentObject {
     }
 
     /**
-     * Reads the plugin descriptor file.
+     * 读取插件描述符文件。
      *
      * @param path           the path to the root directory for the plugin
      * @return the plugin info

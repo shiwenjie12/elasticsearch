@@ -311,6 +311,7 @@ public class Node implements Closeable {
 
             // create the environment based on the finalized (processed) view of the settings
             // this is just to makes sure that people get the same settings, no matter where they ask them from
+            // 根据设置的最终（已处理）视图创建环境，这只是为了确保人们获得相同的设置，无论他们从何处询问
             this.environment = new Environment(this.settings, environment.configFile());
             Environment.assertEquivalent(environment, this.environment);
 
@@ -329,10 +330,13 @@ public class Node implements Closeable {
             }
             client = new NodeClient(settings, threadPool);
             final ResourceWatcherService resourceWatcherService = new ResourceWatcherService(settings, threadPool);
+            // 脚本模块
             final ScriptModule scriptModule = new ScriptModule(settings, pluginsService.filterPlugins(ScriptPlugin.class));
+            // 语言分析模块
             AnalysisModule analysisModule = new AnalysisModule(this.environment, pluginsService.filterPlugins(AnalysisPlugin.class));
             // this is as early as we can validate settings at this point. we already pass them to ScriptModule as well as ThreadPool
             // so we might be late here already
+            // 这是我们可以在此时验证设置。 我们已经将它们传递给ScriptModule以及ThreadPool，我们可能已经迟到了
 
             final Set<SettingUpgrader<?>> settingsUpgraders = pluginsService.filterPlugins(Plugin.class)
                     .stream()
@@ -340,19 +344,25 @@ public class Node implements Closeable {
                     .flatMap(List::stream)
                     .collect(Collectors.toSet());
 
+            // 配置模块
             final SettingsModule settingsModule =
                     new SettingsModule(this.settings, additionalSettings, additionalSettingsFilter, settingsUpgraders);
             scriptModule.registerClusterSettingsListeners(settingsModule.getClusterSettings());
             resourcesToClose.add(resourceWatcherService);
+            // 网络服务
             final NetworkService networkService = new NetworkService(
                 getCustomNameResolvers(pluginsService.filterPlugins(DiscoveryPlugin.class)));
 
             List<ClusterPlugin> clusterPlugins = pluginsService.filterPlugins(ClusterPlugin.class);
-            final ClusterService clusterService = new ClusterService(settings, settingsModule.getClusterSettings(), threadPool);
+            // 集群服务
+            final ClusterService clusterService = new ClusterService(settings, settingsModule.getClusterSettings(), threadPool); // 集群服务
             clusterService.addStateApplier(scriptModule.getScriptService());
             resourcesToClose.add(clusterService);
+            // Ingest服务
             final IngestService ingestService = new IngestService(clusterService, threadPool, this.environment,
                 scriptModule.getScriptService(), analysisModule.getAnalysisRegistry(), pluginsService.filterPlugins(IngestPlugin.class));
+
+            // 磁盘阀门监控器，当磁盘紧张时，重新路由或者将索引设置为只读
             final DiskThresholdMonitor listener = new DiskThresholdMonitor(settings, clusterService::state,
                 clusterService.getClusterSettings(), client);
             final ClusterInfoService clusterInfoService = newClusterInfoService(settings, clusterService, threadPool, client,
@@ -378,7 +388,7 @@ public class Node implements Closeable {
 
 
             PageCacheRecycler pageCacheRecycler = createPageCacheRecycler(settings);
-            BigArrays bigArrays = createBigArrays(pageCacheRecycler, circuitBreakerService);
+            BigArrays bigArrays = createBigArrays(pageCacheRecycler, circuitBreakerService); // 创建大数组
             resourcesToClose.add(bigArrays);
             modules.add(settingsModule);
             List<NamedWriteableRegistry.Entry> namedWriteables = Stream.of(
@@ -692,7 +702,7 @@ public class Node implements Closeable {
         clusterService.start();
         assert clusterService.localNode().equals(localNodeFactory.getNode())
             : "clusterService has a different local node than the factory provided";
-        transportService.acceptIncomingRequests();
+        transportService.acceptIncomingRequests(); // 允许请求进入
         discovery.startInitialJoin();
         final TimeValue initialStateTimeout = DiscoverySettings.INITIAL_STATE_TIMEOUT_SETTING.get(settings);
         if (initialStateTimeout.millis() > 0) {
@@ -955,7 +965,7 @@ public class Node implements Closeable {
     }
 
     /**
-     * Get Custom Name Resolvers list based on a Discovery Plugins list
+     * 根据“发现插件”列表获取“自定义名称解析器”列表
      * @param discoveryPlugins Discovery plugins list
      */
     private List<NetworkService.CustomNameResolver> getCustomNameResolvers(List<DiscoveryPlugin> discoveryPlugins) {
@@ -980,6 +990,7 @@ public class Node implements Closeable {
         return networkModule.getHttpServerTransportSupplier().get();
     }
 
+    // 本地节点工程
     private static class LocalNodeFactory implements Function<BoundTransportAddress, DiscoveryNode> {
         private final SetOnce<DiscoveryNode> localNode = new SetOnce<>();
         private final String persistentNodeId;

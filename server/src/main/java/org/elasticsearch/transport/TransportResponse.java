@@ -23,6 +23,7 @@ import org.elasticsearch.common.io.stream.StreamInput;
 
 import java.io.IOException;
 
+// 传输响应
 public abstract class TransportResponse extends TransportMessage {
 
     /**

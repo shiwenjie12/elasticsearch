@@ -42,9 +42,7 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.util.set.Sets;
 
 /**
- * Listens for a node to go over the high watermark and kicks off an empty
- * reroute if it does. Also responsible for logging about nodes that have
- * passed the disk watermarks
+ * 侦听节点以查看高水位线并启动空重新路由（如果有）。 还负责记录已通过磁盘水印的节点
  */
 public class DiskThresholdMonitor {
 
@@ -64,7 +62,7 @@ public class DiskThresholdMonitor {
     }
 
     /**
-     * Warn about the given disk usage if the low or high watermark has been passed
+     * 如果已通过低水位或高水印，则警告给定的磁盘使用情况
      */
     private void warnAboutDiskIfNeeded(DiskUsage usage) {
         // Check absolute disk values
@@ -112,18 +110,18 @@ public class DiskThresholdMonitor {
             for (ObjectObjectCursor<String, DiskUsage> entry : usages) {
                 String node = entry.key;
                 DiskUsage usage = entry.value;
-                warnAboutDiskIfNeeded(usage);
+                warnAboutDiskIfNeeded(usage); // 检查警告
                 if (usage.getFreeBytes() < diskThresholdSettings.getFreeBytesThresholdFloodStage().getBytes() ||
-                    usage.getFreeDiskAsPercentage() < diskThresholdSettings.getFreeDiskThresholdFloodStage()) {
-                    RoutingNode routingNode = state.getRoutingNodes().node(node);
+                    usage.getFreeDiskAsPercentage() < diskThresholdSettings.getFreeDiskThresholdFloodStage()) { // 禁止写入
+                    RoutingNode routingNode = state.getRoutingNodes().node(node); // 节点上的所有路由
                     if (routingNode != null) { // this might happen if we haven't got the full cluster-state yet?!
                         for (ShardRouting routing : routingNode) {
-                            indicesToMarkReadOnly.add(routing.index().getName());
+                            indicesToMarkReadOnly.add(routing.index().getName()); // 只允许读的索引
                         }
                     }
                 } else if (usage.getFreeBytes() < diskThresholdSettings.getFreeBytesThresholdHigh().getBytes() ||
                     usage.getFreeDiskAsPercentage() < diskThresholdSettings.getFreeDiskThresholdHigh()) {
-                    if ((System.nanoTime() - lastRunNS) > diskThresholdSettings.getRerouteInterval().nanos()) {
+                    if ((System.nanoTime() - lastRunNS) > diskThresholdSettings.getRerouteInterval().nanos()) {// 重新路由
                         lastRunNS = System.nanoTime();
                         reroute = true;
                         explanation = "high disk watermark exceeded on one or more nodes";
@@ -157,7 +155,7 @@ public class DiskThresholdMonitor {
             }
             if (reroute) {
                 logger.info("rerouting shards: [{}]", explanation);
-                reroute();
+                reroute(); // 重新路由
             }
             indicesToMarkReadOnly.removeIf(index -> state.getBlocks().indexBlocked(ClusterBlockLevel.WRITE, index));
             if (indicesToMarkReadOnly.isEmpty() == false) {
@@ -167,13 +165,13 @@ public class DiskThresholdMonitor {
     }
 
     protected void markIndicesReadOnly(Set<String> indicesToMarkReadOnly) {
-        // set read-only block but don't block on the response
+        // 设置只读块但不阻止响应
         client.admin().indices().prepareUpdateSettings(indicesToMarkReadOnly.toArray(Strings.EMPTY_ARRAY)).
             setSettings(Settings.builder().put(IndexMetaData.SETTING_READ_ONLY_ALLOW_DELETE, true).build()).execute();
     }
 
     protected void reroute() {
-        // Execute an empty reroute, but don't block on the response
+        // 执行空重新路由，但不要阻止响应
         client.admin().cluster().prepareReroute().execute();
     }
 }

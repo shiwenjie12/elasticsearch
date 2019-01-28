@@ -22,7 +22,7 @@ package org.elasticsearch.cluster;
 import org.elasticsearch.common.io.stream.Writeable;
 
 /**
- * Represents difference between states of cluster state parts
+ * 表示群集状态部分的状态之间的差异
  */
 public interface Diff<T> extends Writeable {
 

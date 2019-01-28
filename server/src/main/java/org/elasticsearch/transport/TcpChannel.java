@@ -31,6 +31,9 @@ import java.net.InetSocketAddress;
  * This is a tcp channel representing a single channel connection to another node. It is the base channel
  * abstraction used by the {@link TcpTransport} and {@link TransportService}. All tcp transport
  * implementations must return channels that adhere to the required method contracts.
+ * 这是一个tcp通道，表示与另一个节点的单通道连接。
+ * 它是{@link TcpTransport}和{@link TransportService}使用的基本通道抽象。
+ * 所有tcp传输实现都必须返回符合所需方法契约的通道。
  */
 public interface TcpChannel extends CloseableChannel {
 

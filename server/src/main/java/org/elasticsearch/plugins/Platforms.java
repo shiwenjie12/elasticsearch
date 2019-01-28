@@ -25,7 +25,7 @@ import java.nio.file.Path;
 import java.util.Locale;
 
 /**
- * Encapsulates platform-dependent methods for handling native components of plugins.
+ * 封装依赖于平台的方法来处理插件的本机组件。
  */
 public class Platforms {
 

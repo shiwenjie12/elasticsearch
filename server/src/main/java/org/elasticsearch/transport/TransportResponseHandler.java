@@ -21,6 +21,7 @@ package org.elasticsearch.transport;
 
 import org.elasticsearch.common.io.stream.Writeable;
 
+// 传输响应的处理器
 public interface TransportResponseHandler<T extends TransportResponse> extends Writeable.Reader<T> {
 
     void handleResponse(T response);

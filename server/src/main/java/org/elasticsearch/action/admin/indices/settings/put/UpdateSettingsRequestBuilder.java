@@ -29,7 +29,7 @@ import org.elasticsearch.common.xcontent.XContentType;
 import java.util.Map;
 
 /**
- * Builder for an update index settings request
+ * 用于更新索引设置请求的构建器
  */
 public class UpdateSettingsRequestBuilder
         extends AcknowledgedRequestBuilder<UpdateSettingsRequest, AcknowledgedResponse, UpdateSettingsRequestBuilder> {

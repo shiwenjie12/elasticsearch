@@ -390,7 +390,7 @@ public class RepositoriesService implements ClusterStateApplier {
     }
 
     /**
-     * Creates repository holder
+     * 创建存储库持有者
      */
     private Repository createRepository(RepositoryMetaData repositoryMetaData) {
         logger.debug("creating repository [{}][{}]", repositoryMetaData.type(), repositoryMetaData.name());

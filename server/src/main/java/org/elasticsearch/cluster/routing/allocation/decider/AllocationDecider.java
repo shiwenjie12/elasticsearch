@@ -26,9 +26,7 @@ import org.elasticsearch.cluster.routing.allocation.RoutingAllocation;
 import org.elasticsearch.cluster.routing.allocation.decider.Decision.Type;
 
 /**
- * {@link AllocationDecider} is an abstract base class that allows to make
- * dynamic cluster- or index-wide shard allocation decisions on a per-node
- * basis.
+ * {@link AllocationDecider}是一个抽象基类，允许基于每个节点进行动态集群或索引范围的分片分配决策。
  */
 public abstract class AllocationDecider {
     /**

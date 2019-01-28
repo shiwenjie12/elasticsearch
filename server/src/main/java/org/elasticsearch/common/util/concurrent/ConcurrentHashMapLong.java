@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 
+// ConcurrentMapLong key为long
 public class ConcurrentHashMapLong<T> implements ConcurrentMapLong<T> {
 
     private final ConcurrentMap<Long, T> map;

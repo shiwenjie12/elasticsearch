@@ -21,19 +21,19 @@ package org.elasticsearch.watcher;
 import java.io.IOException;
 
 /**
- * Abstract resource watcher interface.
+ * 抽象资源观察者界面。
  * <p>
  * Different resource watchers can be registered with {@link ResourceWatcherService} to be called
  * periodically in order to check for changes in different external resources.
  */
 public interface ResourceWatcher {
     /**
-     * Called once when the resource watcher is added to {@link ResourceWatcherService}
+     * 将资源观察程序添加到{@link ResourceWatcherService}时调用一次
      */
     void init() throws IOException;
 
     /**
-     * Called periodically by {@link ResourceWatcherService} so resource watcher can check the resource
+     * 由{@link ResourceWatcherService}定期调用，因此资源观察者可以检查资源
      */
     void checkAndNotify() throws IOException;
 }

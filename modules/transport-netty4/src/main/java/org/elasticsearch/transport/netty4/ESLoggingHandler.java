@@ -23,6 +23,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
+// netty的io日志
 final class ESLoggingHandler extends LoggingHandler {
 
     ESLoggingHandler() {

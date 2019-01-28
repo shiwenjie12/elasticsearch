@@ -78,6 +78,7 @@ import static org.elasticsearch.cluster.node.DiscoveryNodeFilters.OpType.OR;
 import static org.elasticsearch.common.settings.Settings.readSettingsFromStream;
 import static org.elasticsearch.common.settings.Settings.writeSettingsToStream;
 
+// 索引元数据
 public class IndexMetaData implements Diffable<IndexMetaData>, ToXContentFragment {
 
     public static final ClusterBlock INDEX_READ_ONLY_BLOCK =
@@ -630,6 +631,7 @@ public class IndexMetaData implements Diffable<IndexMetaData>, ToXContentFragmen
         private final Diff<ImmutableOpenMap<String, RolloverInfo>> rolloverInfos;
 
         IndexMetaDataDiff(IndexMetaData before, IndexMetaData after) {
+            // 先赋值新的变量
             index = after.index.getName();
             version = after.version;
             mappingVersion = after.mappingVersion;

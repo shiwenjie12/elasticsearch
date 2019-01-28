@@ -66,7 +66,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Represents the current state of the cluster.
+ * 表示集群的当前状态。
  * <p>
  * The cluster state object is immutable with the exception of the {@link RoutingNodes} structure, which is
  * built on demand from the {@link RoutingTable}.
@@ -93,7 +93,7 @@ public class ClusterState implements ToXContentFragment, Diffable<ClusterState> 
     public static final ClusterState EMPTY_STATE = builder(ClusterName.CLUSTER_NAME_SETTING.getDefault(Settings.EMPTY)).build();
 
     /**
-     * An interface that implementors use when a class requires a client to maybe have a feature.
+     * 当类要求客户端可能具有某个功能时，实现者使用的接口。
      */
     public interface FeatureAware {
 
@@ -319,8 +319,7 @@ public class ClusterState implements ToXContentFragment, Diffable<ClusterState> 
     }
 
     /**
-     * a cluster state supersedes another state if they are from the same master and the version of this state is higher than that of the
-     * other state.
+     * 如果群集状态来自同一主服务器并且此状态的版本高于另一个状态的版本，则集群状态将取代另一个状态。
      * <p>
      * In essence that means that all the changes from the other cluster state are also reflected by the current one
      */

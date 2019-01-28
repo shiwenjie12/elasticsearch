@@ -21,6 +21,8 @@ package org.elasticsearch.common.inject;
  * bindings, which will be used to create an {@link Injector}. A Guice-based
  * application is ultimately composed of little more than a set of
  * {@code Module}s and some bootstrapping code.
+ * 模块提供配置信息，通常是接口绑定，用于创建{@link Injector}。
+ * 基于Guice的应用程序最终只由一组{@code Module}和一些引导代码组成。
  * <p>
  * Your Module classes can use a more streamlined syntax by extending
  * {@link AbstractModule} rather than implementing this interface directly.
@@ -33,7 +35,7 @@ package org.elasticsearch.common.inject;
 public interface Module {
 
     /**
-     * Contributes bindings and other configurations for this module to {@code binder}.
+     * 将此模块的绑定和其他配置贡献给{@code binder}。
      * <p>
      * <strong>Do not invoke this method directly</strong> to install submodules. Instead use
      * {@link Binder#install(Module)}, which ensures that {@link Provides provider methods} are

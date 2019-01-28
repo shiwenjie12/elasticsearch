@@ -31,6 +31,8 @@ import java.util.Locale;
  * ScriptType represents the way a script is stored and retrieved from the {@link ScriptService}.
  * It's also used to by {@link ScriptService} to determine whether or not a {@link Script} is
  * allowed to be executed based on both default and user-defined settings.
+ * ScriptType表示从{@link ScriptService}存储和检索脚本的方式。
+ * 它也被{@link ScriptService}用来确定是否允许基于默认和用户定义的设置执行{@link Script}。
  */
 public enum ScriptType implements Writeable {
 
@@ -72,6 +74,7 @@ public enum ScriptType implements Writeable {
     }
 
     private final int id;
+    // 脚本依赖的字段
     private final ParseField parseField;
 
     /**

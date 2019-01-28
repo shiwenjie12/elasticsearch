@@ -28,6 +28,8 @@ import java.net.InetSocketAddress;
  * This is a tcp channel representing a server channel listening for new connections. It is the server
  * channel abstraction used by the {@link TcpTransport} and {@link TransportService}. All tcp transport
  * implementations must return server channels that adhere to the required method contracts.
+ * 这是一个tcp通道，表示侦听新连接的服务器通道。它是{@link TcpTransport}和{@link TransportService}使用的服务器通道抽象。
+ * 所有tcp传输实现都必须返回符合所需方法契约的服务器通道。
  */
 public interface TcpServerChannel extends CloseableChannel {
 

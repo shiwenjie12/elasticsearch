@@ -36,6 +36,7 @@ import java.util.Objects;
 /**
  * This abstract class defining basic {@link Decision} used during shard
  * allocation process.
+ * 这个抽象类定义了在分片分配过程中使用的基本{@link Decision}。
  *
  * @see AllocationDecider
  */
@@ -148,7 +149,7 @@ public abstract class Decision implements ToXContent, Writeable {
     public abstract List<Decision> getDecisions();
 
     /**
-     * Simple class representing a single decision
+     * 表示单个决策的简单类
      */
     public static class Single extends Decision {
         private Type type;
@@ -267,7 +268,7 @@ public abstract class Decision implements ToXContent, Writeable {
     }
 
     /**
-     * Simple class representing a list of decisions
+     * 表示决策列表的简单类
      */
     public static class Multi extends Decision {
 

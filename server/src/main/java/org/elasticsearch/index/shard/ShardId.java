@@ -30,7 +30,7 @@ import org.elasticsearch.index.Index;
 import java.io.IOException;
 
 /**
- * Allows for shard level components to be injected with the shard id.
+ * 允许使用分片ID注入分片级别组件。
  */
 public class ShardId implements Streamable, Comparable<ShardId>, ToXContentFragment {
 

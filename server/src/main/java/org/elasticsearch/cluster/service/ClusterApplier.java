@@ -25,13 +25,13 @@ import java.util.function.Supplier;
 
 public interface ClusterApplier {
     /**
-     * Sets the initial state for this applier. Should only be called once.
+     * 设置此应用程序的初始状态。应该只调用一次。
      * @param initialState the initial state to set
      */
     void setInitialState(ClusterState initialState);
 
     /**
-     * Method to invoke when a new cluster state is available to be applied
+     * 当可以应用新的群集状态时调用的方法
      *
      * @param source information where the cluster state came from
      * @param clusterStateSupplier the cluster state supplier which provides the latest cluster state to apply
@@ -40,7 +40,7 @@ public interface ClusterApplier {
     void onNewClusterState(String source, Supplier<ClusterState> clusterStateSupplier, ClusterApplyListener listener);
 
     /**
-     * Listener for results of cluster state application
+     * 监听集群状态应用程序的结果
      */
     interface ClusterApplyListener {
         /**

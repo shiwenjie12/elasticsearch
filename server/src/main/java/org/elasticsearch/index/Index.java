@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * A value class representing the basic required properties of an Elasticsearch index.
+ * 一个值类，表示Elasticsearch索引的基本必需属性。
  */
 public class Index implements Writeable, ToXContentObject {
 

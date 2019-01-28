@@ -22,7 +22,7 @@ package org.elasticsearch.tasks;
 import java.util.Map;
 
 /**
- * An interface for a request that can be used to register a task manager task
+ * 可用于注册任务管理器任务的请求的接口
  */
 public interface TaskAwareRequest {
     /**
@@ -44,7 +44,7 @@ public interface TaskAwareRequest {
     TaskId getParentTask();
 
     /**
-     * Returns the task object that should be used to keep track of the processing of the request.
+     * 返回应该用于跟踪请求处理的任务对象。
      */
     default Task createTask(long id, String type, String action, TaskId parentTaskId, Map<String, String> headers) {
         return new Task(id, type, action, getDescription(), parentTaskId, headers);

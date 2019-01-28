@@ -21,6 +21,7 @@ package org.elasticsearch.action.admin.cluster.reroute;
 
 import org.elasticsearch.action.Action;
 
+// 集群重新路由
 public class ClusterRerouteAction extends Action<ClusterRerouteResponse> {
 
     public static final ClusterRerouteAction INSTANCE = new ClusterRerouteAction();

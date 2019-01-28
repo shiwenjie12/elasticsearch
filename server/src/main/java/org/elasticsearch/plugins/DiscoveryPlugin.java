@@ -85,8 +85,8 @@ public interface DiscoveryPlugin {
      * and implement by yourself the logic to get an actual IP address/hostname based on this
      * name.
      *
-     * For example: you could call a third party service (an API) to resolve _mycard_.
-     * Then you could define in elasticsearch.yml settings like:
+     * 例如：您可以调用第三方服务（API）来解析_mycard_。
+     * 然后你可以在elasticsearch.yml设置中定义如下：
      *
      * <pre>{@code
      * network.host: _mycard_

@@ -19,7 +19,9 @@
 
 package org.elasticsearch.common.cache;
 
+// 移除唤醒器
 public class RemovalNotification<K, V> {
+    // 移除原因
     public enum RemovalReason {REPLACED, INVALIDATED, EVICTED}
 
     private final K key;

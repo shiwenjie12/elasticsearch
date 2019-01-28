@@ -30,8 +30,7 @@ import org.elasticsearch.transport.Transports;
 
 
 /**
- * A handler (must be the last one!) that does size based frame decoding and forwards the actual message
- * to the relevant action.
+ * 执行基于大小的帧解码的处理程序（必须是最后一个！）并将实际消息转发给相关操作。
  */
 final class Netty4MessageChannelHandler extends ChannelDuplexHandler {
 

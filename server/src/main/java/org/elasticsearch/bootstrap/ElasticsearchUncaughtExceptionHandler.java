@@ -28,6 +28,7 @@ import java.io.IOError;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 
+// es的未捕获的异常处理器
 class ElasticsearchUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
     private static final Logger logger = LogManager.getLogger(ElasticsearchUncaughtExceptionHandler.class);
 
@@ -62,10 +63,12 @@ class ElasticsearchUncaughtExceptionHandler implements Thread.UncaughtExceptionH
         return e instanceof Error;
     }
 
+    // 失败捕获
     void onFatalUncaught(final String threadName, final Throwable t) {
         logger.error(() -> new ParameterizedMessage("fatal error in thread [{}], exiting", threadName), t);
     }
 
+    // 异常捕获
     void onNonFatalUncaught(final String threadName, final Throwable t) {
         logger.warn(() -> new ParameterizedMessage("uncaught exception in thread [{}]", threadName), t);
     }
@@ -86,6 +89,7 @@ class ElasticsearchUncaughtExceptionHandler implements Thread.UncaughtExceptionH
         @Override
         public Void run() {
             // we halt to prevent shutdown hooks from running
+            // 我们停止以防止关机挂钩运行
             Runtime.getRuntime().halt(status);
             return null;
         }

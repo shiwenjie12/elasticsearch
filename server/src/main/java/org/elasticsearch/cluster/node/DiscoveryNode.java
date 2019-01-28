@@ -201,7 +201,7 @@ public class DiscoveryNode implements Writeable, ToXContentFragment {
     }
 
     /**
-     * extract node roles from the given settings
+     * 从给定设置中提取节点角色
      */
     public static Set<Role> getRolesFromSettings(Settings settings) {
         Set<Role> roles = EnumSet.noneOf(Role.class);

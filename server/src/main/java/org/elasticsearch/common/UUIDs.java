@@ -21,6 +21,7 @@ package org.elasticsearch.common;
 
 import java.util.Random;
 
+// UUID的操作类
 public class UUIDs {
 
     private static final RandomBasedUUIDGenerator RANDOM_UUID_GENERATOR = new RandomBasedUUIDGenerator();

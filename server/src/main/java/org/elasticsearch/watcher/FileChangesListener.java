@@ -21,7 +21,7 @@ package org.elasticsearch.watcher;
 import java.nio.file.Path;
 
 /**
- * Callback interface that file changes File Watcher is using to notify listeners about changes.
+ * 文件更改文件监视器用于向侦听器通知更改的回调接口。
  */
 public interface FileChangesListener {
     /**

@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * A module that binds the provided settings to the {@link Settings} interface.
+ * 将提供的设置绑定到{@link Settings}界面的模块.
  */
 public class SettingsModule implements Module {
     private static final Logger logger = LogManager.getLogger(SettingsModule.class);
@@ -58,10 +58,10 @@ public class SettingsModule implements Module {
     }
 
     public SettingsModule(
-            Settings settings,
-            List<Setting<?>> additionalSettings,
-            List<String> settingsFilter,
-            Set<SettingUpgrader<?>> settingUpgraders) {
+        Settings settings,
+        List<Setting<?>> additionalSettings,
+        List<String> settingsFilter,
+        Set<SettingUpgrader<?>> settingUpgraders) {
         this.settings = settings;
         for (Setting<?> setting : ClusterSettings.BUILT_IN_CLUSTER_SETTINGS) {
             registerSetting(setting);
@@ -147,7 +147,7 @@ public class SettingsModule implements Module {
         // by now we are fully configured, lets check node level settings for unregistered index settings
         clusterSettings.validate(settings, true);
         this.settingsFilter = new SettingsFilter(settingsFilterPattern);
-     }
+    }
 
     @Override
     public void configure(Binder binder) {
@@ -159,9 +159,8 @@ public class SettingsModule implements Module {
 
 
     /**
-     * Registers a new setting. This method should be used by plugins in order to expose any custom settings the plugin defines.
-     * Unless a setting is registered the setting is unusable. If a setting is never the less specified the node will reject
-     * the setting during startup.
+     * 注册新设置。 插件应该使用此方法，以便公开插件定义的任何自定义设置。
+     * 除非注册了设置，否则该设置将无法使用。 如果设置永远不会指定，则节点将在启动期间拒绝该设置。
      */
     private void registerSetting(Setting<?> setting) {
         if (setting.isFiltered()) {
@@ -195,7 +194,7 @@ public class SettingsModule implements Module {
      */
     private void registerSettingsFilter(String filter) {
         if (SettingsFilter.isValidPattern(filter) == false) {
-            throw new IllegalArgumentException("filter [" + filter +"] is invalid must be either a key or a regex pattern");
+            throw new IllegalArgumentException("filter [" + filter + "] is invalid must be either a key or a regex pattern");
         }
         if (settingsFilterPattern.contains(filter)) {
             throw new IllegalArgumentException("filter [" + filter + "] has already been registered");

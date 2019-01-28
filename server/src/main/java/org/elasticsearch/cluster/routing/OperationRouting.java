@@ -45,6 +45,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+// 操作路由
 public class OperationRouting {
 
     private static final Logger logger = LogManager.getLogger(OperationRouting.class);
@@ -267,7 +268,7 @@ public class OperationRouting {
     }
 
     public static int generateShardId(IndexMetaData indexMetaData, @Nullable String id, @Nullable String routing) {
-        final String effectiveRouting;
+        final String effectiveRouting; // 有效路由
         final int partitionOffset;
 
         if (routing == null) {
@@ -280,7 +281,7 @@ public class OperationRouting {
         if (indexMetaData.isRoutingPartitionedIndex()) {
             partitionOffset = Math.floorMod(Murmur3HashFunction.hash(id), indexMetaData.getRoutingPartitionSize());
         } else {
-            // we would have still got 0 above but this check just saves us an unnecessary hash calculation
+            // 我们仍然会得到0以上，但这个检查只是为我们节省了不必要的哈希计算
             partitionOffset = 0;
         }
 
@@ -289,9 +290,7 @@ public class OperationRouting {
 
     private static int calculateScaledShardId(IndexMetaData indexMetaData, String effectiveRouting, int partitionOffset) {
         final int hash = Murmur3HashFunction.hash(effectiveRouting) + partitionOffset;
-
-        // we don't use IMD#getNumberOfShards since the index might have been shrunk such that we need to use the size
-        // of original index to hash documents
+        //我们不使用IMD＃getNumberOfShards，因为索引可能已经缩小，因此我们需要使用原始索引的大小来散列文档
         return Math.floorMod(hash, indexMetaData.getRoutingNumShards()) / indexMetaData.getRoutingFactor();
     }
 

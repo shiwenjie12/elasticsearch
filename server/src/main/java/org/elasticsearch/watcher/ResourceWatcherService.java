@@ -35,7 +35,7 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
- * Generic resource watcher service
+ * 通用资源观察器服务
  *
  * Other elasticsearch services can register their resource watchers with this service using {@link #add(ResourceWatcher)}
  * method. This service will call {@link org.elasticsearch.watcher.ResourceWatcher#checkAndNotify()} method of all
@@ -45,6 +45,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class ResourceWatcherService extends AbstractLifecycleComponent {
     private static final Logger logger = LogManager.getLogger(ResourceWatcherService.class);
 
+    // 频率
     public enum Frequency {
 
         /**
@@ -69,10 +70,12 @@ public class ResourceWatcherService extends AbstractLifecycleComponent {
         }
     }
 
-    public static final Setting<Boolean> ENABLED = Setting.boolSetting("resource.reload.enabled", true, Property.NodeScope);
+    public static final Setting<Boolean> ENABLED =
+        Setting.boolSetting("resource.reload.enabled", true, Property.NodeScope);
     public static final Setting<TimeValue> RELOAD_INTERVAL_HIGH =
         Setting.timeSetting("resource.reload.interval.high", Frequency.HIGH.interval, Property.NodeScope);
-    public static final Setting<TimeValue> RELOAD_INTERVAL_MEDIUM = Setting.timeSetting("resource.reload.interval.medium",
+    public static final Setting<TimeValue> RELOAD_INTERVAL_MEDIUM =
+        Setting.timeSetting("resource.reload.interval.medium",
         Setting.timeSetting("resource.reload.interval", Frequency.MEDIUM.interval), Property.NodeScope);
     public static final Setting<TimeValue> RELOAD_INTERVAL_LOW =
         Setting.timeSetting("resource.reload.interval.low", Frequency.LOW.interval, Property.NodeScope);
@@ -170,6 +173,7 @@ public class ResourceWatcherService extends AbstractLifecycleComponent {
         }
     }
 
+    // 资源监控器
     class ResourceMonitor implements Runnable {
 
         final TimeValue interval;

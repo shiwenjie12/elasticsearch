@@ -95,7 +95,7 @@ public class ClusterApplierService extends AbstractLifecycleComponent implements
 
     private final Queue<NotifyTimeout> onGoingTimeouts = ConcurrentCollections.newQueue();
 
-    private final AtomicReference<ClusterState> state; // last applied state
+    private final AtomicReference<ClusterState> state; // 当前应用状态
 
     private final String nodeName;
 
@@ -309,6 +309,7 @@ public class ClusterApplierService extends AbstractLifecycleComponent implements
         runOnApplierThread(source, clusterStateConsumer, listener, Priority.HIGH);
     }
 
+    // 应用新的集群状态
     @Override
     public void onNewClusterState(final String source, final Supplier<ClusterState> clusterStateSupplier,
                                   final ClusterApplyListener listener) {
@@ -323,6 +324,13 @@ public class ClusterApplierService extends AbstractLifecycleComponent implements
         submitStateUpdateTask(source, ClusterStateTaskConfig.build(Priority.HIGH), applyFunction, listener);
     }
 
+    /**
+     * 提交更新任务
+     * @param source
+     * @param config
+     * @param executor
+     * @param listener
+     */
     private void submitStateUpdateTask(final String source, final ClusterStateTaskConfig config,
                                        final Function<ClusterState, ClusterState> executor,
                                        final ClusterApplyListener listener) {
@@ -403,7 +411,7 @@ public class ClusterApplierService extends AbstractLifecycleComponent implements
             return;
         }
 
-        if (previousClusterState == newClusterState) {
+        if (previousClusterState == newClusterState) { // 如果集群状态未改变
             task.listener.onSuccess(task.source);
             TimeValue executionTime = TimeValue.timeValueMillis(Math.max(0, TimeValue.nsecToMSec(currentTimeInNanos() - startTimeNS)));
             logger.debug("processing [{}]: took [{}] no change in cluster state", task.source, executionTime);
@@ -415,7 +423,7 @@ public class ClusterApplierService extends AbstractLifecycleComponent implements
                 logger.debug("cluster state updated, version [{}], source [{}]", newClusterState.version(), task.source);
             }
             try {
-                applyChanges(task, previousClusterState, newClusterState);
+                applyChanges(task, previousClusterState, newClusterState); // 应用集群状态的改变
                 TimeValue executionTime = TimeValue.timeValueMillis(Math.max(0, TimeValue.nsecToMSec(currentTimeInNanos() - startTimeNS)));
                 logger.debug("processing [{}]: took [{}] done applying updated cluster state (version: {}, uuid: {})", task.source,
                     executionTime, newClusterState.version(),
@@ -450,11 +458,11 @@ public class ClusterApplierService extends AbstractLifecycleComponent implements
             }
         }
 
-        nodeConnectionsService.connectToNodes(newClusterState.nodes());
+        nodeConnectionsService.connectToNodes(newClusterState.nodes());// 连接集群节点
 
         logger.debug("applying cluster state version {}", newClusterState.version());
         try {
-            // nothing to do until we actually recover from the gateway or any other block indicates we need to disable persistency
+            // 在我们实际从网关或任何其他块恢复之前无事可做，这表明我们需要禁用持久性
             if (clusterChangedEvent.state().blocks().disableStatePersistence() == false && clusterChangedEvent.metaDataChanged()) {
                 final Settings incomingSettings = clusterChangedEvent.state().metaData().settings();
                 clusterSettings.applySettings(incomingSettings);
@@ -471,7 +479,7 @@ public class ClusterApplierService extends AbstractLifecycleComponent implements
         logger.debug("set locally applied cluster state to version {}", newClusterState.version());
         state.set(newClusterState);
 
-        callClusterStateListeners(clusterChangedEvent);
+        callClusterStateListeners(clusterChangedEvent); // 调用状态监听器
 
         task.listener.onSuccess(task.source);
     }
@@ -529,6 +537,7 @@ public class ClusterApplierService extends AbstractLifecycleComponent implements
         }
     }
 
+    // 打印慢任务信息
     protected void warnAboutSlowTaskIfNeeded(TimeValue executionTime, String source) {
         if (executionTime.getMillis() > slowTaskLoggingThreshold.getMillis()) {
             logger.warn("cluster state applier task [{}] took [{}] above the warn threshold of {}", source, executionTime,
@@ -564,6 +573,7 @@ public class ClusterApplierService extends AbstractLifecycleComponent implements
         }
     }
 
+    // 本地主节点监听器
     private static class LocalNodeMasterListeners implements ClusterStateListener {
 
         private final List<LocalNodeMasterListener> listeners = new CopyOnWriteArrayList<>();
@@ -576,16 +586,16 @@ public class ClusterApplierService extends AbstractLifecycleComponent implements
 
         @Override
         public void clusterChanged(ClusterChangedEvent event) {
-            if (!master && event.localNodeMaster()) {
+            if (!master && event.localNodeMaster()) { // 更新为主节点
                 master = true;
-                for (LocalNodeMasterListener listener : listeners) {
+                for (LocalNodeMasterListener listener : listeners) { // 触发监听器
                     java.util.concurrent.Executor executor = threadPool.executor(listener.executorName());
                     executor.execute(new OnMasterRunnable(listener));
                 }
                 return;
             }
 
-            if (master && !event.localNodeMaster()) {
+            if (master && !event.localNodeMaster()) { // 从主节点下线
                 master = false;
                 for (LocalNodeMasterListener listener : listeners) {
                     java.util.concurrent.Executor executor = threadPool.executor(listener.executorName());
@@ -600,6 +610,7 @@ public class ClusterApplierService extends AbstractLifecycleComponent implements
 
     }
 
+    // 成为主节点事件
     private static class OnMasterRunnable implements Runnable {
 
         private final LocalNodeMasterListener listener;
@@ -614,6 +625,7 @@ public class ClusterApplierService extends AbstractLifecycleComponent implements
         }
     }
 
+    // 从主节点下线
     private static class OffMasterRunnable implements Runnable {
 
         private final LocalNodeMasterListener listener;

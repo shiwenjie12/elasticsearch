@@ -28,10 +28,8 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 /**
- * IndexAnalyzers contains a name to analyzer mapping for a specific index.
- * This class only holds analyzers that are explicitly configured for an index and doesn't allow
- * access to individual tokenizers, char or token filter.
- *
+ * IndexAnalyzers包含特定索引的分析器映射名称。
+ * 此类仅保存为索引显式配置的分析程序，并且不允许访问单个tokenizer，char或token过滤器。
  * @see AnalysisRegistry
  */
 public final class IndexAnalyzers extends AbstractIndexComponent implements Closeable {

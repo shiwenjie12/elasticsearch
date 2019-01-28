@@ -39,7 +39,7 @@ import java.util.Map;
 import static org.elasticsearch.common.xcontent.support.XContentMapValues.nodeBooleanValue;
 
 /**
- * Mapping configuration for a type.
+ * 映射类型的配置。
  */
 public class MappingMetaData extends AbstractDiffable<MappingMetaData> {
 

@@ -39,10 +39,11 @@ public abstract class ActionRequest extends TransportRequest {
         super(in);
     }
 
+    // 验证请求是否有异常
     public abstract ActionRequestValidationException validate();
 
     /**
-     * Should this task store its result after it has finished?
+     * 该任务是否应该在完成后存储结果？
      */
     public boolean getShouldStoreResult() {
         return false;

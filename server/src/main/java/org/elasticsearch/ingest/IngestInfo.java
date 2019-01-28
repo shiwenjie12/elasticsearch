@@ -31,6 +31,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * Ingest信息
+ */
 public class IngestInfo implements Writeable, ToXContentFragment {
 
     private final Set<ProcessorInfo> processors;

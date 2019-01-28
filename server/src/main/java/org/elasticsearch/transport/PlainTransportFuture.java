@@ -29,6 +29,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+// 明文的传输future
 public class PlainTransportFuture<V extends TransportResponse> extends BaseFuture<V>
     implements TransportFuture<V>, TransportResponseHandler<V> {
 

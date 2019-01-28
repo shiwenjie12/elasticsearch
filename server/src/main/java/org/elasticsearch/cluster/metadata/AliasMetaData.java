@@ -45,6 +45,7 @@ import java.util.Set;
 
 import static java.util.Collections.emptySet;
 
+// 别名元数据
 public class AliasMetaData extends AbstractDiffable<AliasMetaData> implements ToXContentFragment {
 
     private final String alias;

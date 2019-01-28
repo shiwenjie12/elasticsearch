@@ -202,6 +202,7 @@ public class Environment {
      *
      * @deprecated Used to upgrade old data paths to new ones that do not include the cluster name, should not be used to write files to and
      * will be removed in ES 6.0
+     * 用于将旧数据路径升级到不包含群集名称的新数据路径，不应该用于将文件写入和将在ES 6.0中删除
      */
     @Deprecated
     public Path[] dataWithClusterFiles() {

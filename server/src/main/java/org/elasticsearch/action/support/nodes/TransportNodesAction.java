@@ -74,6 +74,7 @@ public abstract class TransportNodesAction<NodesRequest extends BaseNodesRequest
 
         this.transportNodeAction = actionName + "[n]";
 
+        // 注册请求处理器
         transportService.registerRequestHandler(
             transportNodeAction, nodeRequest, nodeExecutor, new NodeTransportHandler());
     }
@@ -124,6 +125,7 @@ public abstract class TransportNodesAction<NodesRequest extends BaseNodesRequest
      */
     protected abstract NodesResponse newResponse(NodesRequest request, List<NodeResponse> responses, List<FailedNodeException> failures);
 
+    // 向其他子节点发送的
     protected abstract NodeRequest newNodeRequest(String nodeId, NodesRequest request);
 
     protected abstract NodeResponse newNodeResponse();
@@ -144,6 +146,7 @@ public abstract class TransportNodesAction<NodesRequest extends BaseNodesRequest
     }
 
 
+    // 异步Action，用于向其他节点发送请求，并整合响应
     class AsyncAction {
 
         private final NodesRequest request;

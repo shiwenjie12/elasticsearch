@@ -34,6 +34,7 @@ import java.util.List;
 
 import static org.elasticsearch.action.ValidateActions.addValidationError;
 
+// 清除scroll
 public class ClearScrollRequest extends ActionRequest implements ToXContentObject {
 
     private List<String> scrollIds;

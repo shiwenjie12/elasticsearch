@@ -44,7 +44,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 /**
- * Holds additional information as to why the shard is in unassigned state.
+ * 保存有关分片处于未分配状态的原因的其他信息。
  */
 public final class UnassignedInfo implements ToXContentFragment, Writeable {
 
@@ -54,7 +54,7 @@ public final class UnassignedInfo implements ToXContentFragment, Writeable {
         Setting.positiveTimeSetting("index.unassigned.node_left.delayed_timeout", TimeValue.timeValueMinutes(1), Property.Dynamic,
             Property.IndexScope);
     /**
-     * Reason why the shard is in unassigned state.
+     * 分片处于未分配状态的原因。
      * <p>
      * Note, ordering of the enum is important, make sure to add new values
      * at the end and handle version serialization properly.
@@ -125,6 +125,7 @@ public final class UnassignedInfo implements ToXContentFragment, Writeable {
     /**
      * Captures the status of an unsuccessful allocation attempt for the shard,
      * causing it to remain in the unassigned state.
+     * 捕获分片的不成功分配尝试的状态，使其保持未分配状态。
      *
      * Note, ordering of the enum is important, make sure to add new values
      * at the end and handle version serialization properly.

@@ -22,7 +22,7 @@ package org.elasticsearch.common.unit;
 import org.elasticsearch.ElasticsearchParseException;
 
 /**
- * Utility class to represent ratio and percentage values between 0 and 100
+ * 用于表示0到100之间的比率和百分比值的实用程序类
  */
 public class RatioValue {
     private final double percent;

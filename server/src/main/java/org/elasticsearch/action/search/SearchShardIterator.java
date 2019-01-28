@@ -29,6 +29,8 @@ import java.util.List;
 /**
  * Extension of {@link PlainShardIterator} used in the search api, which also holds the {@link OriginalIndices}
  * of the search request. Useful especially with cross cluster search, as each cluster has its own set of original indices.
+ * 搜索api中使用的{@link PlainShardIterator}的扩展，它还包含搜索请求的{@link OriginalIndices}。
+ * 特别适用于跨群集搜索，因为每个群集都有自己的原始索引集。
  */
 public final class SearchShardIterator extends PlainShardIterator {
 

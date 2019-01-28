@@ -28,6 +28,7 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 
 import java.io.IOException;
 
+// 处理器信息
 public class ProcessorInfo implements Writeable, ToXContentObject, Comparable<ProcessorInfo> {
 
     private final String type;

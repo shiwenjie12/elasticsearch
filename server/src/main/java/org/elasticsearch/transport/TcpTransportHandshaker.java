@@ -36,6 +36,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Sends and receives transport-level connection handshakes. This class will send the initial handshake,
  * manage state/timeouts while the handshake is in transit, and handle the eventual response.
+ * 发送和接收传输级连接握手。 此类将发送初始握手，在握手传输过程中管理状态/超时，并处理最终响应。
  */
 final class TcpTransportHandshaker {
 
@@ -56,6 +57,7 @@ final class TcpTransportHandshaker {
         this.handshakeResponseSender = handshakeResponseSender;
     }
 
+    // 发送握手
     void sendHandshake(long requestId, DiscoveryNode node, TcpChannel channel, TimeValue timeout, ActionListener<Version> listener) {
         numHandshakes.inc();
         final HandshakeResponseHandler handler = new HandshakeResponseHandler(requestId, version, listener);
@@ -83,6 +85,7 @@ final class TcpTransportHandshaker {
         }
     }
 
+    // 处理握手，发送当前版本
     void handleHandshake(Version version, Set<String> features, TcpChannel channel, long requestId) throws IOException {
         handshakeResponseSender.sendResponse(version, features, channel, new VersionHandshakeResponse(this.version), requestId);
     }
@@ -99,6 +102,7 @@ final class TcpTransportHandshaker {
         return numHandshakes.count();
     }
 
+    // 握手响应处理
     private class HandshakeResponseHandler implements TransportResponseHandler<VersionHandshakeResponse> {
 
         private final long requestId;
@@ -121,7 +125,7 @@ final class TcpTransportHandshaker {
         public void handleResponse(VersionHandshakeResponse response) {
             if (isDone.compareAndSet(false, true)) {
                 Version version = response.version;
-                if (currentVersion.isCompatible(version) == false) {
+                if (currentVersion.isCompatible(version) == false) { // 判断版本是否相同
                     listener.onFailure(new IllegalStateException("Received message from unsupported version: [" + version
                         + "] minimal compatible version is: [" + currentVersion.minimumCompatibilityVersion() + "]"));
                 } else {
@@ -149,6 +153,7 @@ final class TcpTransportHandshaker {
         }
     }
 
+    // 版本握手响应
     static final class VersionHandshakeResponse extends TransportResponse {
 
         private final Version version;

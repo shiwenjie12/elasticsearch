@@ -32,6 +32,9 @@ import java.util.concurrent.locks.ReentrantLock;
  * created the first time they are acquired and removed if no thread hold the
  * lock. The latter is important to assure that the list of locks does not grow
  * infinitely.
+ * 这个类管理锁。 可以使用标识符访问锁，并在第一次获取锁时创建锁，如果没有线程保持锁，则会删除锁。
+ * 后者对于确保锁定列表不会无限增长非常重要。
+ *
  * Note: this lock is reentrant
  *
  * */
@@ -42,7 +45,7 @@ public final class KeyedLock<T> {
 
     /**
      * Creates a new lock
-     * @param fair Use fair locking, ie threads get the lock in the order they requested it
+     * @param fair 使用公平锁定，即线程按照它们请求的顺序获得锁定
      */
     public KeyedLock(boolean fair) {
         this.fair = fair;

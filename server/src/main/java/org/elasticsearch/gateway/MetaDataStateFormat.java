@@ -80,6 +80,7 @@ public abstract class MetaDataStateFormat<T> {
      */
     protected MetaDataStateFormat(String prefix) {
         this.prefix = prefix;
+        // 前缀正则
         this.stateFilePattern = Pattern.compile(Pattern.quote(prefix) + "(\\d+)(" + MetaDataStateFormat.STATE_FILE_EXTENSION + ")?");
 
     }
@@ -174,8 +175,7 @@ public abstract class MetaDataStateFormat<T> {
     public abstract T fromXContent(XContentParser parser) throws IOException;
 
     /**
-     * Reads the state from a given file and compares the expected version against the actual version of
-     * the state.
+     * 从给定文件中读取状态，并将预期版本与状态的实际版本进行比较。
      */
     public final T read(NamedXContentRegistry namedXContentRegistry, Path file) throws IOException {
         try (Directory dir = newDirectory(file.getParent())) {
@@ -249,6 +249,9 @@ public abstract class MetaDataStateFormat<T> {
      * Tries to load the latest state from the given data-locations. It tries to load the latest state determined by
      * the states version from one or more data directories and if none of the latest states can be loaded an exception
      * is thrown to prevent accidentally loading a previous state and silently omitting the latest state.
+     * 尝试从给定的数据位置加载最新状态。
+     * 它尝试从一个或多个数据目录加载由状态版本确定的最新状态，如果无法加载任何最新状态，
+     * 则抛出异常以防止意外加载先前状态并静默省略最新状态。
      *
      * @param logger a logger instance
      * @param dataLocations the data-locations to try.
@@ -310,7 +313,7 @@ public abstract class MetaDataStateFormat<T> {
     }
 
     /**
-     * Internal struct-like class that holds the parsed state id and the file
+     * 包含已解析状态ID和文件的内部类结构类
      */
     private static class PathAndStateId {
         final Path file;

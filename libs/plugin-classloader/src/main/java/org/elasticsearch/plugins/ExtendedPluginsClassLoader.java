@@ -25,11 +25,13 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * A classloader that is a union over the parent core classloader and classloaders of extended plugins.
+ * 一个类加载器，它是父核心类加载器和扩展插件的类加载器的联合。
  */
 public class ExtendedPluginsClassLoader extends ClassLoader {
 
-    /** Loaders of plugins extended by a plugin. */
+    /**
+     * Loaders of plugins extended by a plugin.
+     */
     private final List<ClassLoader> extendedLoaders;
 
     private ExtendedPluginsClassLoader(ClassLoader parent, List<ClassLoader> extendedLoaders) {
@@ -53,7 +55,8 @@ public class ExtendedPluginsClassLoader extends ClassLoader {
      * Return a new classloader across the parent and extended loaders.
      */
     public static ExtendedPluginsClassLoader create(ClassLoader parent, List<ClassLoader> extendedLoaders) {
-        return AccessController.doPrivileged((PrivilegedAction<ExtendedPluginsClassLoader>)
-            () -> new ExtendedPluginsClassLoader(parent, extendedLoaders));
+        return AccessController.doPrivileged(
+            (PrivilegedAction<ExtendedPluginsClassLoader>)
+                () -> new ExtendedPluginsClassLoader(parent, extendedLoaders));
     }
 }

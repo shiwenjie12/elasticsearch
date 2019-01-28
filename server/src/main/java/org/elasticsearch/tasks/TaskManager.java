@@ -55,7 +55,7 @@ import static org.elasticsearch.common.unit.TimeValue.timeValueMillis;
 import static org.elasticsearch.http.HttpTransportSettings.SETTING_HTTP_MAX_HEADER_SIZE;
 
 /**
- * Task Manager service for keeping track of currently running tasks on the nodes
+ * 任务管理器服务，用于跟踪节点上当前正在运行的任务
  */
 public class TaskManager implements ClusterStateApplier {
 
@@ -74,6 +74,7 @@ public class TaskManager implements ClusterStateApplier {
 
     private final AtomicLong taskIdGenerator = new AtomicLong();
 
+    // 禁止的父类
     private final Map<TaskId, String> banedParents = new ConcurrentHashMap<>();
 
     private TaskResultsService taskResultsService;
@@ -94,12 +95,12 @@ public class TaskManager implements ClusterStateApplier {
     }
 
     /**
-     * Registers a task without parent task
+     * 注册没有父任务的任务
      */
     public Task register(String type, String action, TaskAwareRequest request) {
-        Map<String, String> headers = new HashMap<>();
+        Map<String, String> headers = new HashMap<>(); // 请求头
         long headerSize = 0;
-        long maxSize = maxHeaderSize.getBytes();
+        long maxSize = maxHeaderSize.getBytes();// 最大的头大小
         ThreadContext threadContext = threadPool.getThreadContext();
         for (String key : taskHeaders) {
             String httpHeader = threadContext.getHeader(key);
@@ -111,6 +112,7 @@ public class TaskManager implements ClusterStateApplier {
                 headers.put(key, httpHeader);
             }
         }
+        // 创建请求任务
         Task task = request.createTask(taskIdGenerator.incrementAndGet(), type, action, request.getParentTask(), headers);
         Objects.requireNonNull(task);
         assert task.getParentTaskId().equals(request.getParentTask()) : "Request [ " + request + "] didn't preserve it parentTaskId";
@@ -127,15 +129,16 @@ public class TaskManager implements ClusterStateApplier {
         return task;
     }
 
+    // 注册可取消的任务
     private void registerCancellableTask(Task task) {
         CancellableTask cancellableTask = (CancellableTask) task;
         CancellableTaskHolder holder = new CancellableTaskHolder(cancellableTask);
         CancellableTaskHolder oldHolder = cancellableTasks.put(task.getId(), holder);
         assert oldHolder == null;
-        // Check if this task was banned before we start it
+        // 在我们开始之前检查此任务是否被禁止
         if (task.getParentTaskId().isSet() && banedParents.isEmpty() == false) {
             String reason = banedParents.get(task.getParentTaskId());
-            if (reason != null) {
+            if (reason != null) { // 取消
                 try {
                     holder.cancel(reason);
                     throw new IllegalStateException("Task cancelled before it started: " + reason);
@@ -169,7 +172,7 @@ public class TaskManager implements ClusterStateApplier {
      */
     public Task unregister(Task task) {
         logger.trace("unregister task for id: {}", task.getId());
-        if (task instanceof CancellableTask) {
+        if (task instanceof CancellableTask) { // 取消任务
             CancellableTaskHolder holder = cancellableTasks.remove(task.getId());
             if (holder != null) {
                 holder.finish();
@@ -339,13 +342,14 @@ public class TaskManager implements ClusterStateApplier {
         banedParents.remove(parentTaskId);
     }
 
+    // 应用新的集群状态
     @Override
     public void applyClusterState(ClusterChangedEvent event) {
         lastDiscoveryNodes = event.state().getNodes();
         if (event.nodesRemoved()) {
             synchronized (banedParents) {
                 lastDiscoveryNodes = event.state().getNodes();
-                // Remove all bans that were registered by nodes that are no longer in the cluster state
+                // 删除由不再处于群集状态的节点注册的所有禁令
                 Iterator<TaskId> banIterator = banedParents.keySet().iterator();
                 while (banIterator.hasNext()) {
                     TaskId taskId = banIterator.next();
@@ -387,6 +391,7 @@ public class TaskManager implements ClusterStateApplier {
         throw new ElasticsearchTimeoutException("Timed out waiting for completion of [{}]", task);
     }
 
+    // 取消任务的holder
     private static class CancellableTaskHolder {
 
         private static final String TASK_FINISHED_MARKER = "task finished";

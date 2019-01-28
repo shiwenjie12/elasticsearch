@@ -56,6 +56,11 @@ import java.util.Set;
  * replica per shard is a {@code primary} replica. The {@code primary} replica
  * can be seen as the "leader" of the shard acting as the primary entry point
  * for operations on a specific shard.
+ *
+ * {@link IndexRoutingTable}表示单个索引的路由信息。 路由表维护索引中所有分片的列表。
+ * 此上下文中的单个分片还有一个实例，即一个{@link ShardRouting#primary() primary}和一个或多个副本。
+ * 换句话说，分片的每个实例都被视为副本，而每个分片只有一个副本是{@code primary}副本。
+ * {@code primary}副本可以看作分片的“领导者”，作为特定分片上操作的主要入口点。
  * <p>
  * Note: The term replica is not directly
  * reflected in the routing table or in related classes, replicas are

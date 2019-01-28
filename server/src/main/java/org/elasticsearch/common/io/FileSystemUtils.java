@@ -67,7 +67,7 @@ public final class FileSystemUtils {
     }
 
     /**
-     * Check whether the file denoted by the given path is a desktop services store created by Finder on macOS.
+     * 检查给定路径表示的文件是否是由Finder在macOS上创建的桌面服务存储。
      *
      * @param path the path
      * @return true if the current system is macOS and the specified file appears to be a desktop services store file
@@ -156,7 +156,7 @@ public final class FileSystemUtils {
     }
 
     /**
-     * Returns an array of all files in the given directory.
+     * 返回给定目录中所有文件的数组。
      */
     public static Path[] files(Path directory) throws IOException {
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(directory)) {
@@ -165,7 +165,7 @@ public final class FileSystemUtils {
     }
 
     /**
-     * Returns an array of all files in the given directory matching the glob.
+     * 返回给定目录中与glob匹配的所有文件的数组。
      */
     public static Path[] files(Path directory, String glob) throws IOException {
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(directory, glob)) {

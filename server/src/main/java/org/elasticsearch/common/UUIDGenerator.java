@@ -20,7 +20,7 @@
 package org.elasticsearch.common;
 
 /**
- * Generates opaque unique strings.
+ * 生成不透明的唯一字符串。
  */
 interface UUIDGenerator {
     String getBase64UUID();

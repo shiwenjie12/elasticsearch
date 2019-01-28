@@ -29,6 +29,7 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 
 import java.io.IOException;
 
+// 传输状态
 public class TransportStats implements Writeable, ToXContentFragment {
 
     private final long serverOpen;

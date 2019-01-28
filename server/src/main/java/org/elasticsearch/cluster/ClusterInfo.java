@@ -37,6 +37,8 @@ import java.util.Map;
  * and a map of shard ids to shard sizes, see
  * <code>InternalClusterInfoService.shardIdentifierFromRouting(String)</code>
  * for the key used in the shardSizes map
+ * ClusterInfo是一个表示{@link DiskUsage}节点映射的对象，以及一个碎片ID到碎片大小的映射，
+ * 请参阅<code>InternalClusterInfoService.shardIdentifierFromRouting(String)</code>以获取shardSizes映射中使用的键
  */
 public class ClusterInfo implements ToXContentFragment, Writeable {
     private final ImmutableOpenMap<String, DiskUsage> leastAvailableSpaceUsage;

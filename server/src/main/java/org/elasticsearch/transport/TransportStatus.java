@@ -19,6 +19,7 @@
 
 package org.elasticsearch.transport;
 
+// tcp请求状态（类型、错误、压缩、握手）
 public final class TransportStatus {
 
     private static final byte STATUS_REQRES = 1 << 0;

@@ -39,7 +39,7 @@ import java.util.Set;
 
 public abstract class ParseContext implements Iterable<ParseContext.Document>{
 
-    /** Fork of {@link org.apache.lucene.document.Document} with additional functionality. */
+    /** 具有附加功能的{@link org.apache.lucene.document.Document}的分支。 */
     public static class Document implements Iterable<IndexableField> {
 
         private final Document parent;

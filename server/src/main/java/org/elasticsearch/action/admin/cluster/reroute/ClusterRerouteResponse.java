@@ -33,7 +33,7 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 import java.io.IOException;
 
 /**
- * Response returned after a cluster reroute request
+ * 群集重新路由请求后返回响应
  */
 public class ClusterRerouteResponse extends AcknowledgedResponse implements ToXContentObject {
 

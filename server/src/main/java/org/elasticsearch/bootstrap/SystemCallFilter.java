@@ -44,7 +44,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Installs a system call filter to block process execution.
+ * 安装系统调用过滤器以阻止进程执行。
  * <p>
  * This is supported on Linux, Solaris, FreeBSD, OpenBSD, Mac OS X, and Windows.
  * <p>

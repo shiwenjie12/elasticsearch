@@ -29,8 +29,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A custom analyzer that is built out of a single {@link org.apache.lucene.analysis.Tokenizer} and a list
- * of {@link org.apache.lucene.analysis.TokenFilter}s.
+ * 自定义分析器，由单个{@link org.apache.lucene.analysis.Tokenizer}和列表构建而成{@link org.apache.lucene.analysis.TokenFilter}
+ *
  */
 public class CustomAnalyzerProvider extends AbstractIndexAnalyzerProvider<CustomAnalyzer> {
 
@@ -46,6 +46,7 @@ public class CustomAnalyzerProvider extends AbstractIndexAnalyzerProvider<Custom
         this.environment = environment;
     }
 
+    // 构造自定义分析器
     public void build(final Map<String, TokenizerFactory> tokenizers, final Map<String, CharFilterFactory> charFilters,
                       final Map<String, TokenFilterFactory> tokenFilters) {
         String tokenizerName = analyzerSettings.get("tokenizer");

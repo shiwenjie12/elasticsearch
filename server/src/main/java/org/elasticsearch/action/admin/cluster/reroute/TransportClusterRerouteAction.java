@@ -83,6 +83,7 @@ public class TransportClusterRerouteAction extends TransportMasterNodeAction<Clu
             allocationService, request, logWrapper));
     }
 
+    // 重新路由的任务
     static class ClusterRerouteResponseAckedClusterStateUpdateTask extends AckedClusterStateUpdateTask<ClusterRerouteResponse> {
 
         private final ClusterRerouteRequest request;

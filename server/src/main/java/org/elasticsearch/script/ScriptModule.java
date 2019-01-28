@@ -91,14 +91,14 @@ public class ScriptModule {
     }
 
     /**
-     * Service responsible for managing scripts.
+     * 负责管理脚本的服务。
      */
     public ScriptService getScriptService() {
         return scriptService;
     }
 
     /**
-     * Allow the script service to register any settings update handlers on the cluster settings
+     * 允许脚本服务在群集设置上注册任何设置更新处理程序
      */
     public void registerClusterSettingsListeners(ClusterSettings clusterSettings) {
         scriptService.registerClusterSettingsListeners(clusterSettings);

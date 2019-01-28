@@ -22,14 +22,14 @@ import org.elasticsearch.cluster.node.DiscoveryNode;
 import org.elasticsearch.common.Nullable;
 import org.elasticsearch.common.unit.TimeValue;
 
+// 具有回复行为的集群状态监听器
 public interface AckedClusterStateTaskListener extends ClusterStateTaskListener {
 
     /**
-     * Called to determine which nodes the acknowledgement is expected from.
+     * 被调用以确定期望确认的节点。
      *
-     * As this method will be called multiple times to determine the set of acking nodes,
-     * it is crucial for it to return consistent results: Given the same listener instance
-     * and the same node parameter, the method implementation should return the same result.
+     * 由于此方法将被多次调用以确定acking节点集，因此返回一致结果至关重要：
+     * 给定相同的侦听器实例和相同的节点参数，方法实现应返回相同的结果。
      *
      * @param discoveryNode a node
      * @return true if the node is expected to send ack back, false otherwise

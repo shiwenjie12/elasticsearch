@@ -22,7 +22,7 @@ package org.elasticsearch.common.settings;
 import java.util.List;
 
 /**
- * Represents the logic to upgrade a setting.
+ * 表示升级设置的逻辑。
  *
  * @param <T> the type of the underlying setting
  */
@@ -36,7 +36,7 @@ public interface SettingUpgrader<T> {
     Setting<T> getSetting();
 
     /**
-     * The logic to upgrade the setting key, for example by mapping the old setting key to the new setting key.
+     * 升级设置键的逻辑，例如通过将旧设置键映射到新设置键。
      *
      * @param key the setting key to upgrade
      * @return the upgraded setting key

@@ -51,8 +51,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * {@link StoredScriptSource} represents user-defined parameters for a script
- * saved in the {@link ClusterState}.
+ * {@link StoredScriptSource}表示保存在{@link ClusterState}中的脚本的用户定义参数。
  */
 public class StoredScriptSource extends AbstractDiffable<StoredScriptSource> implements Writeable, ToXContentObject {
 

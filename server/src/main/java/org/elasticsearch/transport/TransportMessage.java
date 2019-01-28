@@ -27,6 +27,7 @@ import org.elasticsearch.common.transport.TransportAddress;
 
 import java.io.IOException;
 
+// 传输消息
 public abstract class TransportMessage implements Streamable, Writeable {
 
     private TransportAddress remoteAddress;

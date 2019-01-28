@@ -87,7 +87,7 @@ public class IngestService implements ClusterStateApplier {
         this.scriptService = scriptService;
         this.processorFactories = processorFactories(
             ingestPlugins,
-            new Processor.Parameters(
+            new Processor.Parameters( // 所有可能用到的参数
                 env, scriptService, analysisRegistry,
                 threadPool.getThreadContext(), threadPool::relativeTimeInMillis,
                 (delay, command) -> threadPool.schedule(
@@ -207,11 +207,11 @@ public class IngestService implements ClusterStateApplier {
     }
 
     /**
-     * Stores the specified pipeline definition in the request.
+     * 在请求中存储指定的管道定义。
      */
     public void putPipeline(Map<DiscoveryNode, IngestInfo> ingestInfos, PutPipelineRequest request,
         ActionListener<AcknowledgedResponse> listener) throws Exception {
-            // validates the pipeline and processor configuration before submitting a cluster update task:
+            // 在提交集群更新任务之前验证管道和处理器配置：
             validatePipeline(ingestInfos, request);
             clusterService.submitStateUpdateTask("put-pipeline-" + request.getId(),
                 new AckedClusterStateUpdateTask<AcknowledgedResponse>(request, listener) {
@@ -335,6 +335,7 @@ public class IngestService implements ClusterStateApplier {
         return new Pipeline(id, description, null, new CompoundProcessor(failureProcessor));
     }
 
+    // 内部添加
     static ClusterState innerPut(PutPipelineRequest request, ClusterState currentState) {
         IngestMetadata currentIngestMetadata = currentState.metaData().custom(IngestMetadata.TYPE);
         Map<String, PipelineConfiguration> pipelines;
@@ -344,6 +345,7 @@ public class IngestService implements ClusterStateApplier {
             pipelines = new HashMap<>();
         }
 
+        // 构造新的状态
         pipelines.put(request.getId(), new PipelineConfiguration(request.getId(), request.getSource(), request.getXContentType()));
         ClusterState.Builder newState = ClusterState.builder(currentState);
         newState.metaData(MetaData.builder(currentState.getMetaData())
@@ -358,10 +360,11 @@ public class IngestService implements ClusterStateApplier {
         }
 
         Map<String, Object> pipelineConfig = XContentHelper.convertToMap(request.getSource(), false, request.getXContentType()).v2();
+        // 创建pipeline
         Pipeline pipeline = Pipeline.create(request.getId(), pipelineConfig, processorFactories, scriptService);
         List<Exception> exceptions = new ArrayList<>();
         for (Processor processor : pipeline.flattenAllProcessors()) {
-            for (Map.Entry<DiscoveryNode, IngestInfo> entry : ingestInfos.entrySet()) {
+            for (Map.Entry<DiscoveryNode, IngestInfo> entry : ingestInfos.entrySet()) { // 判断每个节点是否包含处理器
                 String type = processor.getType();
                 if (entry.getValue().containsProcessor(type) == false && ConditionalProcessor.TYPE.equals(type) == false) {
                     String message = "Processor type [" + processor.getType() + "] is not installed on node [" + entry.getKey() + "]";

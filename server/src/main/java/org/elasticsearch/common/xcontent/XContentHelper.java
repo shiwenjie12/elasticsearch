@@ -91,7 +91,7 @@ public class XContentHelper {
     }
 
     /**
-     * Converts the given bytes into a map that is optionally ordered. The provided {@link XContentType} must be non-null.
+     * 将给定的字节转换为可选择排序的映射。提供的{@link XContentType}必须为非null。
      */
     public static Tuple<XContentType, Map<String, Object>> convertToMap(BytesReference bytes, boolean ordered, XContentType xContentType)
         throws ElasticsearchParseException {

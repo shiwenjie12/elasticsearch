@@ -28,7 +28,7 @@ import org.elasticsearch.script.ScriptContext;
 import org.elasticsearch.script.ScriptEngine;
 
 /**
- * An additional extension point for {@link Plugin}s that extends Elasticsearch's scripting functionality.
+ * {@link Plugin}的另一个扩展点，扩展了Elasticsearch的脚本功能。
  */
 public interface ScriptPlugin {
 
@@ -42,7 +42,7 @@ public interface ScriptPlugin {
     }
 
     /**
-     * Return script contexts this plugin wants to allow using.
+     * 返回此插件允许使用的脚本上下文。
      */
     default List<ScriptContext<?>> getContexts() {
         return Collections.emptyList();

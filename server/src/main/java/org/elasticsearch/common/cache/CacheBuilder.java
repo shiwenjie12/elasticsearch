@@ -24,6 +24,7 @@ import org.elasticsearch.common.unit.TimeValue;
 import java.util.Objects;
 import java.util.function.ToLongBiFunction;
 
+// 缓存构造器
 public class CacheBuilder<K, V> {
     private long maximumWeight = -1;
     private long expireAfterAccessNanos = -1;

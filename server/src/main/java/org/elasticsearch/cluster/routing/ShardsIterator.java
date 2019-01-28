@@ -21,7 +21,7 @@ package org.elasticsearch.cluster.routing;
 import java.util.List;
 
 /**
- * Allows to iterate over unrelated shards.
+ * 允许迭代不相关的分片。
  */
 public interface ShardsIterator extends Iterable<ShardRouting> {
 

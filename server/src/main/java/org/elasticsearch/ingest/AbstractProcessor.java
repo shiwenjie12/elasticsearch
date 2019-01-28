@@ -20,8 +20,7 @@
 package org.elasticsearch.ingest;
 
 /**
- * An Abstract Processor that holds a processorTag field to be used
- * by other processors.
+ * 一个抽象处理器，它包含一个由其他处理器使用的processorTag字段。
  */
 public abstract class AbstractProcessor implements Processor {
     protected final String tag;

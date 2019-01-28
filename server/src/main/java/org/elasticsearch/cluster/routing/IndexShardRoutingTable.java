@@ -52,6 +52,10 @@ import static java.util.Collections.emptyMap;
  * a disjoint set of the index data and each shard has one or more instances
  * referred to as replicas of a shard. Given that, this class encapsulates all
  * replicas (instances) for a single index shard.
+ *
+ * {@link IndexShardRoutingTable}封装了单个shard的所有实例。
+ * 每个Elasticsearch索引由多个分片组成，每个分片封装一个不相交的索引数据集，每个分片都有一个或多个实例，称为分片的副本。
+ * 鉴于此，此类封装了单个索引分片的所有副本（实例）。
  */
 public class IndexShardRoutingTable implements Iterable<ShardRouting> {
 

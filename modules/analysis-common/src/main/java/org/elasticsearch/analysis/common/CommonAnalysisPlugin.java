@@ -148,6 +148,7 @@ import java.util.TreeMap;
 
 import static org.elasticsearch.plugins.AnalysisPlugin.requiresAnalysisSettings;
 
+// 通用的分词器
 public class CommonAnalysisPlugin extends Plugin implements AnalysisPlugin, ScriptPlugin {
 
     private static final DeprecationLogger deprecationLogger = new DeprecationLogger(LogManager.getLogger(CommonAnalysisPlugin.class));
@@ -325,7 +326,7 @@ public class CommonAnalysisPlugin extends Plugin implements AnalysisPlugin, Scri
             () -> new StandardHtmlStripAnalyzer(CharArraySet.EMPTY_SET)));
         analyzers.add(new PreBuiltAnalyzerProviderFactory("pattern", CachingStrategy.ELASTICSEARCH,
             () -> new PatternAnalyzer(Regex.compile("\\W+" /*PatternAnalyzer.NON_WORD_PATTERN*/, null), true,
-            CharArraySet.EMPTY_SET)));
+                CharArraySet.EMPTY_SET)));
         analyzers.add(new PreBuiltAnalyzerProviderFactory("snowball", CachingStrategy.LUCENE,
             () -> new SnowballAnalyzer("English", EnglishAnalyzer.ENGLISH_STOP_WORDS_SET)));
 
@@ -377,8 +378,8 @@ public class CommonAnalysisPlugin extends Plugin implements AnalysisPlugin, Scri
         filters.add(PreConfiguredCharFilter.singletonWithVersion("htmlStrip", false, (reader, version) -> {
             if (version.onOrAfter(org.elasticsearch.Version.V_6_3_0)) {
                 deprecationLogger.deprecatedAndMaybeLog("htmlStrip_deprecation",
-                        "The [htmpStrip] char filter name is deprecated and will be removed in a future version. "
-                                + "Please change the filter name to [html_strip] instead.");
+                    "The [htmpStrip] char filter name is deprecated and will be removed in a future version. "
+                        + "Please change the filter name to [html_strip] instead.");
             }
             return new HTMLStripCharFilter(reader);
         }));
@@ -398,30 +399,30 @@ public class CommonAnalysisPlugin extends Plugin implements AnalysisPlugin, Scri
         filters.add(PreConfiguredTokenFilter.singleton("cjk_width", true, CJKWidthFilter::new));
         filters.add(PreConfiguredTokenFilter.singleton("classic", false, ClassicFilter::new));
         filters.add(PreConfiguredTokenFilter.singleton("common_grams", false,
-                input -> new CommonGramsFilter(input, CharArraySet.EMPTY_SET)));
+            input -> new CommonGramsFilter(input, CharArraySet.EMPTY_SET)));
         filters.add(PreConfiguredTokenFilter.singleton("czech_stem", false, CzechStemFilter::new));
         filters.add(PreConfiguredTokenFilter.singleton("decimal_digit", true, DecimalDigitFilter::new));
         filters.add(PreConfiguredTokenFilter.singleton("delimited_payload_filter", false, input ->
-                new DelimitedPayloadTokenFilter(input,
-                        DelimitedPayloadTokenFilterFactory.DEFAULT_DELIMITER,
-                        DelimitedPayloadTokenFilterFactory.DEFAULT_ENCODER)));
+            new DelimitedPayloadTokenFilter(input,
+                DelimitedPayloadTokenFilterFactory.DEFAULT_DELIMITER,
+                DelimitedPayloadTokenFilterFactory.DEFAULT_ENCODER)));
         filters.add(PreConfiguredTokenFilter.singleton("delimited_payload", false, input ->
-                new DelimitedPayloadTokenFilter(input,
-                        DelimitedPayloadTokenFilterFactory.DEFAULT_DELIMITER,
-                        DelimitedPayloadTokenFilterFactory.DEFAULT_ENCODER)));
+            new DelimitedPayloadTokenFilter(input,
+                DelimitedPayloadTokenFilterFactory.DEFAULT_DELIMITER,
+                DelimitedPayloadTokenFilterFactory.DEFAULT_ENCODER)));
         filters.add(PreConfiguredTokenFilter.singleton("dutch_stem", false, input -> new SnowballFilter(input, new DutchStemmer())));
         filters.add(PreConfiguredTokenFilter.singleton("edge_ngram", false, input ->
-                new EdgeNGramTokenFilter(input, 1)));
+            new EdgeNGramTokenFilter(input, 1)));
         filters.add(PreConfiguredTokenFilter.singletonWithVersion("edgeNGram", false, (reader, version) -> {
             if (version.onOrAfter(org.elasticsearch.Version.V_6_4_0)) {
                 deprecationLogger.deprecatedAndMaybeLog("edgeNGram_deprecation",
-                        "The [edgeNGram] token filter name is deprecated and will be removed in a future version. "
-                                + "Please change the filter name to [edge_ngram] instead.");
+                    "The [edgeNGram] token filter name is deprecated and will be removed in a future version. "
+                        + "Please change the filter name to [edge_ngram] instead.");
             }
             return new EdgeNGramTokenFilter(reader, 1);
-            }));
+        }));
         filters.add(PreConfiguredTokenFilter.singleton("elision", true,
-                input -> new ElisionFilter(input, FrenchAnalyzer.DEFAULT_ARTICLES)));
+            input -> new ElisionFilter(input, FrenchAnalyzer.DEFAULT_ARTICLES)));
         filters.add(PreConfiguredTokenFilter.singleton("french_stem", false, input -> new SnowballFilter(input, new FrenchStemmer())));
         filters.add(PreConfiguredTokenFilter.singleton("german_normalization", true, GermanNormalizationFilter::new));
         filters.add(PreConfiguredTokenFilter.singleton("german_stem", false, GermanStemFilter::new));
@@ -430,17 +431,17 @@ public class CommonAnalysisPlugin extends Plugin implements AnalysisPlugin, Scri
         filters.add(PreConfiguredTokenFilter.singleton("keyword_repeat", false, KeywordRepeatFilter::new));
         filters.add(PreConfiguredTokenFilter.singleton("kstem", false, KStemFilter::new));
         filters.add(PreConfiguredTokenFilter.singleton("length", false, input ->
-                new LengthFilter(input, 0, Integer.MAX_VALUE)));  // TODO this one seems useless
+            new LengthFilter(input, 0, Integer.MAX_VALUE)));  // TODO this one seems useless
         filters.add(PreConfiguredTokenFilter.singleton("limit", false, input ->
-                new LimitTokenCountFilter(input,
-                        LimitTokenCountFilterFactory.DEFAULT_MAX_TOKEN_COUNT,
-                        LimitTokenCountFilterFactory.DEFAULT_CONSUME_ALL_TOKENS)));
+            new LimitTokenCountFilter(input,
+                LimitTokenCountFilterFactory.DEFAULT_MAX_TOKEN_COUNT,
+                LimitTokenCountFilterFactory.DEFAULT_CONSUME_ALL_TOKENS)));
         filters.add(PreConfiguredTokenFilter.singleton("ngram", false, reader -> new NGramTokenFilter(reader, 1, 2, false)));
         filters.add(PreConfiguredTokenFilter.singletonWithVersion("nGram", false, (reader, version) -> {
             if (version.onOrAfter(org.elasticsearch.Version.V_6_4_0)) {
                 deprecationLogger.deprecatedAndMaybeLog("nGram_deprecation",
-                        "The [nGram] token filter name is deprecated and will be removed in a future version. "
-                                + "Please change the filter name to [ngram] instead.");
+                    "The [nGram] token filter name is deprecated and will be removed in a future version. "
+                        + "Please change the filter name to [ngram] instead.");
             }
             return new NGramTokenFilter(reader, 1, 2, false);
         }));
@@ -473,19 +474,19 @@ public class CommonAnalysisPlugin extends Plugin implements AnalysisPlugin, Scri
         filters.add(PreConfiguredTokenFilter.singleton("unique", false, UniqueTokenFilter::new));
         filters.add(PreConfiguredTokenFilter.singleton("uppercase", true, UpperCaseFilter::new));
         filters.add(PreConfiguredTokenFilter.singleton("word_delimiter", false, input ->
-                new WordDelimiterFilter(input,
-                        WordDelimiterFilter.GENERATE_WORD_PARTS
-                      | WordDelimiterFilter.GENERATE_NUMBER_PARTS
-                      | WordDelimiterFilter.SPLIT_ON_CASE_CHANGE
-                      | WordDelimiterFilter.SPLIT_ON_NUMERICS
-                      | WordDelimiterFilter.STEM_ENGLISH_POSSESSIVE, null)));
+            new WordDelimiterFilter(input,
+                WordDelimiterFilter.GENERATE_WORD_PARTS
+                    | WordDelimiterFilter.GENERATE_NUMBER_PARTS
+                    | WordDelimiterFilter.SPLIT_ON_CASE_CHANGE
+                    | WordDelimiterFilter.SPLIT_ON_NUMERICS
+                    | WordDelimiterFilter.STEM_ENGLISH_POSSESSIVE, null)));
         filters.add(PreConfiguredTokenFilter.singleton("word_delimiter_graph", false, input ->
-                new WordDelimiterGraphFilter(input,
-                        WordDelimiterGraphFilter.GENERATE_WORD_PARTS
-                      | WordDelimiterGraphFilter.GENERATE_NUMBER_PARTS
-                      | WordDelimiterGraphFilter.SPLIT_ON_CASE_CHANGE
-                      | WordDelimiterGraphFilter.SPLIT_ON_NUMERICS
-                      | WordDelimiterGraphFilter.STEM_ENGLISH_POSSESSIVE, null)));
+            new WordDelimiterGraphFilter(input,
+                WordDelimiterGraphFilter.GENERATE_WORD_PARTS
+                    | WordDelimiterGraphFilter.GENERATE_NUMBER_PARTS
+                    | WordDelimiterGraphFilter.SPLIT_ON_CASE_CHANGE
+                    | WordDelimiterGraphFilter.SPLIT_ON_NUMERICS
+                    | WordDelimiterGraphFilter.STEM_ENGLISH_POSSESSIVE, null)));
         return filters;
     }
 

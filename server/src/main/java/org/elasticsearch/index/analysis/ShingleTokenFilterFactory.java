@@ -27,6 +27,7 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
 
+// 单token的过滤工厂
 public class ShingleTokenFilterFactory extends AbstractTokenFilterFactory {
 
     private final Factory factory;

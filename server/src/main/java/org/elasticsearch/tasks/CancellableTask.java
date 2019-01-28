@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * A task that can be canceled
+ * 可以取消的任务
  */
 public abstract class CancellableTask extends Task {
 
@@ -36,7 +36,7 @@ public abstract class CancellableTask extends Task {
     }
 
     /**
-     * This method is called by the task manager when this task is cancelled.
+     * 取消此任务时，任务管理器将调用此方法。
      */
     final void cancel(String reason) {
         assert reason != null;
@@ -47,6 +47,7 @@ public abstract class CancellableTask extends Task {
     /**
      * Returns true if this task should be automatically cancelled if the coordinating node that
      * requested this task left the cluster.
+     * 如果请求此任务的协调节点离开集群，则应自动取消此任务，则返回true。
      */
     public boolean cancelOnParentLeaving() {
         return true;
@@ -70,7 +71,7 @@ public abstract class CancellableTask extends Task {
     }
 
     /**
-     * Called after the task is cancelled so that it can take any actions that it has to take.
+     * 在任务被取消后调用，以便它可以采取它必须采取的任何操作。
      */
     protected void onCancelled() {
     }

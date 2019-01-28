@@ -30,8 +30,7 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 import java.io.IOException;
 
 /**
- * Class encapsulating the explanation for a single {@link AllocationCommand}
- * taken from the Deciders
+ * 封装了来自Deciders的单个{@link AllocationCommand}的解释的类
  */
 public class RerouteExplanation implements ToXContentObject {
 

@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Encapsulates the  {@link IndexMetaData} instances of a concrete index or indices an alias is pointing to.
+ * 封装别名指向的具体索引或索引的{@link IndexMetaData}实例。
  */
 public interface AliasOrIndex {
 
@@ -47,7 +47,7 @@ public interface AliasOrIndex {
     List<IndexMetaData> getIndices();
 
     /**
-     * Represents an concrete index and encapsulates its {@link IndexMetaData}
+     * 表示具体索引并封装其{@link IndexMetaData}
      */
     class Index implements AliasOrIndex {
 
@@ -77,7 +77,7 @@ public interface AliasOrIndex {
     }
 
     /**
-     * Represents an alias and groups all {@link IndexMetaData} instances sharing the same alias name together.
+     * 表示别名并将所有共享相同别名的{@link IndexMetaData}实例组合在一起。
      */
     class Alias implements AliasOrIndex {
 

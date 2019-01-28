@@ -22,7 +22,7 @@ package org.elasticsearch.cluster.routing;
 import org.elasticsearch.index.shard.ShardId;
 
 /**
- * Allows to iterate over a set of shard instances (routing) within a shard id group.
+ * 允许迭代分片ID组中的一组分片实例（路由）。
  */
 public interface ShardIterator extends ShardsIterator, Comparable<ShardIterator>  {
 

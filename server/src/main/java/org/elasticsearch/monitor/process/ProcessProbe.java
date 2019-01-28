@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 
 import static org.elasticsearch.monitor.jvm.JvmInfo.jvmInfo;
 
+// 进程探头
 public class ProcessProbe {
 
     private static final OperatingSystemMXBean osMxBean = ManagementFactory.getOperatingSystemMXBean();
@@ -86,7 +87,7 @@ public class ProcessProbe {
     }
 
     /**
-     * Returns the process CPU usage in percent
+     * 以百分比形式返回进程CPU使用率
      */
     public short getProcessCpuPercent() {
         return Probes.getLoadAndScaleToPercent(getProcessCpuLoad, osMxBean);

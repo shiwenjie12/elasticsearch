@@ -59,6 +59,11 @@ import java.nio.charset.StandardCharsets;
  * thread that has a {@link ThreadContext} associated with. Threads spawned from a {@link org.elasticsearch.threadpool.ThreadPool}
  * have out of the box support for {@link ThreadContext} and all threads spawned will inherit the {@link ThreadContext} from the thread
  * that it is forking from.". Network calls will also preserve the senders headers automatically.
+ * ThreadContext是字符串标题的映射，以及与线程关联的键控对象的瞬态映射。
+ * 它允许跨方法调用，网络调用以及从与{@link ThreadContext}关联的线程生成的线程存储和检索标头信息。
+ * 从{@link org.elasticsearch.threadpool.ThreadPool}生成的线程
+ * 对{@link ThreadContext}提供开箱即用的支持，所有生成的线程将从它所分支的线程继承{@link ThreadContext}。
+ * 网络调用也将自动保留发件人头。
  * <p>
  * Consumers of ThreadContext usually don't need to interact with adding or stashing contexts. Every elasticsearch thread is managed by
  * a thread pool or executor being responsible for stashing and restoring the threads context. For instance if a network request is
@@ -142,7 +147,7 @@ public final class ThreadContext implements Closeable, Writeable {
 
     /**
      * Just like {@link #stashContext()} but no default context is set.
-     * @param preserveResponseHeaders if set to <code>true</code> the response headers of the restore thread will be preserved.
+     * @param preserveResponseHeaders 如果设置为<code> true </ code>，则将保留还原线程的响应头。
      */
     public StoredContext newStoredContext(boolean preserveResponseHeaders) {
         final ThreadContextStruct context = threadLocal.get();
@@ -299,8 +304,9 @@ public final class ThreadContext implements Closeable, Writeable {
     }
 
     /**
-     * Saves the current thread context and wraps command in a Runnable that restores that context before running command. If
-     * <code>command</code> has already been passed through this method then it is returned unaltered rather than wrapped twice.
+     * 将当前线程上下文和wraps命令保存在运行命令之前恢复该上下文的Runnable中。
+     * 如果<code> command </ code>已经通过此方法传递，则它将以未更改的方式返回，而不是包装两次。
+     *
      */
     public Runnable preserveContext(Runnable command) {
         if (command instanceof ContextPreservingAbstractRunnable) {
@@ -557,6 +563,7 @@ public final class ThreadContext implements Closeable, Writeable {
         }
     }
 
+    // 当前的线程local,继承Lucene的
     private static class ContextThreadLocal extends CloseableThreadLocal<ThreadContextStruct> {
         private final AtomicBoolean closed = new AtomicBoolean(false);
 
@@ -607,7 +614,7 @@ public final class ThreadContext implements Closeable, Writeable {
     }
 
     /**
-     * Wraps a Runnable to preserve the thread context.
+     * 包装Runnable以保留线程上下文。
      */
     private class ContextPreservingRunnable implements Runnable {
         private final Runnable in;
@@ -677,7 +684,7 @@ public final class ThreadContext implements Closeable, Writeable {
     }
 
     /**
-     * Wraps an AbstractRunnable to preserve the thread context.
+     * 包装AbstractRunnable以保留线程上下文。
      */
     private class ContextPreservingAbstractRunnable extends AbstractRunnable {
         private final AbstractRunnable in;

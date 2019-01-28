@@ -43,6 +43,7 @@ import java.util.stream.Collectors;
 /**
  * CircuitBreakerService that attempts to redistribute space between breakers
  * if tripped
+ * CircuitBreakerService试图在断路器之间重新分配空间
  */
 public class HierarchyCircuitBreakerService extends CircuitBreakerService {
     private static final Logger logger = LogManager.getLogger(HierarchyCircuitBreakerService.class);
@@ -345,8 +346,8 @@ public class HierarchyCircuitBreakerService extends CircuitBreakerService {
     }
 
     /**
-     * Allows to register a custom circuit breaker.
-     * Warning: Will overwrite any existing custom breaker with the same name.
+     * 允许注册自定义断路器。
+     * 警告：将覆盖任何具有相同名称的现有自定义断路器。
      */
     @Override
     public void registerBreaker(BreakerSettings breakerSettings) {

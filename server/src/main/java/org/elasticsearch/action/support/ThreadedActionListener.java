@@ -31,12 +31,12 @@ import org.elasticsearch.threadpool.ThreadPool;
 import java.util.concurrent.Future;
 
 /**
- * An action listener that wraps another action listener and threading its execution.
+ * 一个动作侦听器，它包装另一个动作侦听器并线程化它的执行。
  */
 public final class ThreadedActionListener<Response> implements ActionListener<Response> {
 
     /**
-     * Wrapper that can be used to automatically wrap a listener in a threaded listener if needed.
+     * 如果需要，可用于在线程侦听器中自动包装侦听器的包装器。
      */
     public static class Wrapper {
 

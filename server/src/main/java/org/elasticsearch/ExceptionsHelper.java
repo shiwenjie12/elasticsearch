@@ -165,6 +165,7 @@ public final class ExceptionsHelper {
         }
     }
 
+    // 添加到子异常中
     public static <T extends Throwable> T useOrSuppress(T first, T second) {
         if (first == null) {
             return second;

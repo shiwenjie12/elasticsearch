@@ -33,9 +33,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
- * A utility class which simplifies interacting with the cluster state in cases where
- * one tries to take action based on the current state but may want to wait for a new state
- * and retry upon failure.
+ * 一个实用程序类，在根据当前状态尝试执行操作但可能希望等待新状态并在失败时重试的情况下，简化了与集群状态的交互。
  */
 public class ClusterStateObserver {
 

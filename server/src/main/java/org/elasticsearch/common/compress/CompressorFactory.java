@@ -40,13 +40,13 @@ public class CompressorFactory {
 
     @Nullable
     public static Compressor compressor(BytesReference bytes) {
-            if (COMPRESSOR.isCompressed(bytes)) {
-                // bytes should be either detected as compressed or as xcontent,
-                // if we have bytes that can be either detected as compressed or
-                // as a xcontent, we have a problem
-                assert XContentHelper.xContentType(bytes) == null;
-                return COMPRESSOR;
-            }
+        if (COMPRESSOR.isCompressed(bytes)) {
+            // bytes should be either detected as compressed or as xcontent,
+            // if we have bytes that can be either detected as compressed or
+            // as a xcontent, we have a problem
+            assert XContentHelper.xContentType(bytes) == null;
+            return COMPRESSOR;
+        }
 
         XContentType contentType = XContentHelper.xContentType(bytes);
         if (contentType == null) {

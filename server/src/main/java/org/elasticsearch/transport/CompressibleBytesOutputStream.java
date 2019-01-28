@@ -59,7 +59,7 @@ final class CompressibleBytesOutputStream extends StreamOutput {
     }
 
     /**
-     * This method ensures that compression is complete and returns the underlying bytes.
+     * 此方法可确保压缩完成并返回基础字节。
      *
      * @return bytes underlying the stream
      * @throws IOException if an exception occurs when writing or flushing

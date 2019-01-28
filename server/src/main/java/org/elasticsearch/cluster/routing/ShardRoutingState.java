@@ -21,25 +21,24 @@ package org.elasticsearch.cluster.routing;
 
 
 /**
- * Represents the current state of a {@link ShardRouting} as defined by the
+ * 表示群集定义的{@link ShardRouting}的当前状态。
  * cluster.
  */
 public enum ShardRoutingState {
     /**
-     * The shard is not assigned to any node.
+     * 分片未分配给任何节点。
      */
     UNASSIGNED((byte) 1),
     /**
-     * The shard is initializing (probably recovering from either a peer shard
-     * or gateway).
+     * 分片正在初始化（可能从对等分片或网关恢复）。
      */
     INITIALIZING((byte) 2),
     /**
-     * The shard is started.
+     * 碎片已启动。
      */
     STARTED((byte) 3),
     /**
-     * The shard is in the process being relocated.
+     * 该分片正在重新定位。
      */
     RELOCATING((byte) 4);
 

@@ -23,7 +23,7 @@ import org.elasticsearch.common.metrics.CounterMetric;
 import org.elasticsearch.common.metrics.MeanMetric;
 
 /**
- * <p>Metrics to measure ingest actions.
+ * <p>用于衡量摄取操作的度量标准。
  * <p>This counts measure documents and timings for a given scope.
  * The scope is determined by the calling code. For example you can use this class to count all documents across all pipeline,
  * or you can use this class to count documents for a given pipeline or a specific processor.

@@ -28,6 +28,7 @@ import org.elasticsearch.transport.TcpTransport;
 
 import java.util.List;
 
+// netty的头解析器
 final class Netty4SizeHeaderFrameDecoder extends ByteToMessageDecoder {
 
     private static final int HEADER_SIZE = TcpHeader.MARKER_BYTES_SIZE + TcpHeader.MESSAGE_LENGTH_SIZE;
@@ -46,6 +47,7 @@ final class Netty4SizeHeaderFrameDecoder extends ByteToMessageDecoder {
                     if (messageLengthWithHeader > in.readableBytes()) {
                         continueDecode = false;
                     } else {
+                        // 读取消息
                         final ByteBuf message = in.retainedSlice(in.readerIndex() + HEADER_SIZE, messageLength);
                         out.add(message);
                         in.readerIndex(in.readerIndex() + messageLengthWithHeader);

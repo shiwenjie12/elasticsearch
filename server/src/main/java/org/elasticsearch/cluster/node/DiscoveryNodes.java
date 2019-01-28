@@ -84,7 +84,7 @@ public class DiscoveryNodes extends AbstractDiffable<DiscoveryNodes> implements 
     }
 
     /**
-     * Returns {@code true} if the local node is the elected master node.
+     * 如果本地节点是选定的主节点，则返回{@code true}。
      */
     public boolean isLocalNodeElectedMaster() {
         if (localNodeId == null) {
@@ -391,7 +391,7 @@ public class DiscoveryNodes extends AbstractDiffable<DiscoveryNodes> implements 
     }
 
     /**
-     * Returns the changes comparing this nodes to the provided nodes.
+     * 返回将此节点与提供的节点进行比较的更改。
      */
     public Delta delta(DiscoveryNodes other) {
         final List<DiscoveryNode> removed = new ArrayList<>();

@@ -26,6 +26,7 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
 
+// 标准分词器工厂
 public class StandardTokenizerFactory extends AbstractTokenizerFactory {
 
     private final int maxTokenLength;

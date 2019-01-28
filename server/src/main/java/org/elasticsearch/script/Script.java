@@ -49,13 +49,9 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * {@link Script} represents used-defined input that can be used to
- * compile and execute a script from the {@link ScriptService}
- * based on the {@link ScriptType}.
- *
- * There are three types of scripts specified by {@link ScriptType}.
- *
- * The following describes the expected parameters for each type of script:
+ * {@link Script}表示用于定义的输入，可用于根据{@link ScriptType}从{@link ScriptService}编译和执行脚本。
+ * {@link ScriptType}指定了三种类型的脚本。
+ * 以下描述了每种脚本的预期参数：
  *
  * <ul>
  * <li> {@link ScriptType#INLINE}

@@ -35,6 +35,7 @@ import java.util.function.Function;
 /**
  * An extension to thread pool executor, which automatically adjusts the queue size of the
  * {@code ResizableBlockingQueue} according to Little's Law.
+ * 线程池执行器的扩展，根据Little定律自动调整{@code ResizableBlockingQueue}的队列大小。
  */
 public final class QueueResizingEsThreadPoolExecutor extends EsThreadPoolExecutor {
 

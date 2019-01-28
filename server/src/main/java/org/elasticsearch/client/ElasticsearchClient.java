@@ -30,7 +30,7 @@ import org.elasticsearch.threadpool.ThreadPool;
 public interface ElasticsearchClient {
 
     /**
-     * Executes a generic action, denoted by an {@link org.elasticsearch.action.Action}.
+     * 执行一般操作，由{@link org.elasticsearch.action.Action}表示。
      *
      * @param action           The action type to execute.
      * @param request          The action request.
@@ -42,7 +42,7 @@ public interface ElasticsearchClient {
         Action<Response> action, Request request);
 
     /**
-     * Executes a generic action, denoted by an {@link Action}.
+     * 执行一般操作，由{@link Action}表示。
      *
      * @param action           The action type to execute.
      * @param request          The action request.
@@ -54,7 +54,7 @@ public interface ElasticsearchClient {
         Action<Response> action, Request request, ActionListener<Response> listener);
 
     /**
-     * Returns the threadpool used to execute requests on this client
+     * 返回用于在此客户端上执行请求的线程池
      */
     ThreadPool threadPool();
 

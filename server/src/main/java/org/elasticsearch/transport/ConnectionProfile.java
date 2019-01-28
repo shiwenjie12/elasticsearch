@@ -35,11 +35,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * A connection profile describes how many connection are established to specific node for each of the available request types.
  * ({@link org.elasticsearch.transport.TransportRequestOptions.Type}). This allows to tailor a connection towards a specific usage.
+ * 连接配置文件描述了为每个可用请求类型建立到特定节点的连接数。
+ * ({@link org.elasticsearch.transport.TransportRequestOptions.Type})。 这允许定制针对特定用途的连接。
  */
 public final class ConnectionProfile {
 
     /**
-     * takes a {@link ConnectionProfile} resolves it to a fully specified (i.e., no nulls) profile
+     * 将{@link ConnectionProfile}解析为完全指定（即无空值）的配置文件
      */
     public static ConnectionProfile resolveConnectionProfile(@Nullable ConnectionProfile profile, ConnectionProfile fallbackProfile) {
         Objects.requireNonNull(fallbackProfile);
@@ -64,7 +66,7 @@ public final class ConnectionProfile {
     }
 
     /**
-     * Builds a default connection profile based on the provided settings.
+     * 根据提供的设置构建默认连接配置文件。
      *
      * @param settings to build the connection profile from
      * @return the connection profile
@@ -197,7 +199,7 @@ public final class ConnectionProfile {
         }
 
         /**
-         * Sets compression enabled for this connection profile
+         * 为此连接配置文件启用压缩
          */
         public void setCompressionEnabled(boolean compressionEnabled) {
             this.compressionEnabled = compressionEnabled;
@@ -291,7 +293,7 @@ public final class ConnectionProfile {
     }
 
     /**
-     * Connection type handle encapsulates the logic which connection
+     * 连接类型句柄封装了哪个连接的逻辑
      */
     static final class ConnectionTypeHandle {
         public final int length;
@@ -299,6 +301,7 @@ public final class ConnectionProfile {
         private final Set<TransportRequestOptions.Type> types;
         private final AtomicInteger counter = new AtomicInteger();
 
+        // 在总的节点连接句柄中用于不同type
         private ConnectionTypeHandle(int offset, int length, Set<TransportRequestOptions.Type> types) {
             this.length = length;
             this.offset = offset;
@@ -306,8 +309,7 @@ public final class ConnectionProfile {
         }
 
         /**
-         * Returns one of the channels out configured for this handle. The channel is selected in a round-robin
-         * fashion.
+         * 返回为此句柄配置的其中一个通道。频道以循环方式选择。
          */
         <T> T getChannel(List<T> channels) {
             if (length == 0) {

@@ -33,12 +33,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
+// es内部实现的Future
 public abstract class BaseFuture<V> implements Future<V> {
 
     private static final String BLOCKING_OP_REASON = "Blocking operation";
 
     /**
-     * Synchronization control for AbstractFutures.
+     * AbstractFutures的同步控件。
      */
     private final Sync<V> sync = new Sync<>();
 
@@ -172,6 +173,7 @@ public abstract class BaseFuture<V> implements Future<V> {
         return result;
     }
 
+    // 用于触发回调
     protected void done() {
     }
 

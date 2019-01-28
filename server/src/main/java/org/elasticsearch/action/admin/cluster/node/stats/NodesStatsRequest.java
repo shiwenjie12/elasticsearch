@@ -28,7 +28,7 @@ import org.elasticsearch.common.io.stream.StreamOutput;
 import java.io.IOException;
 
 /**
- * A request to get node (cluster) level stats.
+ * 获取节点（集群）级别统计信息的请求。
  */
 public class NodesStatsRequest extends BaseNodesRequest<NodesStatsRequest> {
 

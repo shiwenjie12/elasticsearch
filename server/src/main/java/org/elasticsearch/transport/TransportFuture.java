@@ -22,6 +22,7 @@ package org.elasticsearch.transport;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+// 节点间传输的future
 public interface TransportFuture<V> extends Future<V> {
 
     /**

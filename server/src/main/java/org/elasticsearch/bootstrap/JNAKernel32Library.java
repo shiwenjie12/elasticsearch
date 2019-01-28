@@ -39,6 +39,7 @@ import java.util.List;
 
 /**
  * Library for Windows/Kernel32
+ * windows库
  */
 final class JNAKernel32Library {
 
@@ -127,7 +128,7 @@ final class JNAKernel32Library {
 
     /**
      * Memory protection constraints
-     *
+     * <p>
      * https://msdn.microsoft.com/en-us/library/windows/desktop/aa366786%28v=vs.85%29.aspx
      */
     public static final int PAGE_NOACCESS = 0x0001;
@@ -137,7 +138,7 @@ final class JNAKernel32Library {
     /**
      * Contains information about a range of pages in the virtual address space of a process.
      * The VirtualQuery and VirtualQueryEx functions use this structure.
-     *
+     * <p>
      * https://msdn.microsoft.com/en-us/library/windows/desktop/aa366775%28v=vs.85%29.aspx
      */
     public static class MemoryBasicInformation extends Structure {
@@ -172,34 +173,34 @@ final class JNAKernel32Library {
     /**
      * Locks the specified region of the process's virtual address space into physical
      * memory, ensuring that subsequent access to the region will not incur a page fault.
-     *
+     * <p>
      * https://msdn.microsoft.com/en-us/library/windows/desktop/aa366895%28v=vs.85%29.aspx
      *
      * @param address A pointer to the base address of the region of pages to be locked.
-     * @param size The size of the region to be locked, in bytes.
+     * @param size    The size of the region to be locked, in bytes.
      * @return true if the function succeeds
      */
     native boolean VirtualLock(Pointer address, SizeT size);
 
     /**
      * Retrieves information about a range of pages within the virtual address space of a specified process.
-     *
+     * <p>
      * https://msdn.microsoft.com/en-us/library/windows/desktop/aa366907%28v=vs.85%29.aspx
      *
-     * @param handle A handle to the process whose memory information is queried.
-     * @param address A pointer to the base address of the region of pages to be queried.
+     * @param handle     A handle to the process whose memory information is queried.
+     * @param address    A pointer to the base address of the region of pages to be queried.
      * @param memoryInfo A pointer to a structure in which information about the specified page range is returned.
-     * @param length The size of the buffer pointed to by the memoryInfo parameter, in bytes.
+     * @param length     The size of the buffer pointed to by the memoryInfo parameter, in bytes.
      * @return the actual number of bytes returned in the information buffer.
      */
     native int VirtualQueryEx(Pointer handle, Pointer address, MemoryBasicInformation memoryInfo, int length);
 
     /**
      * Sets the minimum and maximum working set sizes for the specified process.
-     *
+     * <p>
      * https://msdn.microsoft.com/en-us/library/windows/desktop/ms686234%28v=vs.85%29.aspx
      *
-     * @param handle A handle to the process whose working set sizes is to be set.
+     * @param handle  A handle to the process whose working set sizes is to be set.
      * @param minSize The minimum working set size for the process, in bytes.
      * @param maxSize The maximum working set size for the process, in bytes.
      * @return true if the function succeeds.
@@ -208,7 +209,7 @@ final class JNAKernel32Library {
 
     /**
      * Retrieves a pseudo handle for the current process.
-     *
+     * <p>
      * https://msdn.microsoft.com/en-us/library/windows/desktop/ms683179%28v=vs.85%29.aspx
      *
      * @return a pseudo handle to the current process.
@@ -217,7 +218,7 @@ final class JNAKernel32Library {
 
     /**
      * Closes an open object handle.
-     *
+     * <p>
      * https://msdn.microsoft.com/en-us/library/windows/desktop/ms724211%28v=vs.85%29.aspx
      *
      * @param handle A valid handle to an open object.
@@ -238,21 +239,21 @@ final class JNAKernel32Library {
 
     /**
      * Creates or opens a new job object
-     *
+     * <p>
      * https://msdn.microsoft.com/en-us/library/windows/desktop/ms682409%28v=vs.85%29.aspx
      *
      * @param jobAttributes security attributes
-     * @param name job name
+     * @param name          job name
      * @return job handle if the function succeeds
      */
     native Pointer CreateJobObjectW(Pointer jobAttributes, String name);
 
     /**
      * Associates a process with an existing job
-     *
+     * <p>
      * https://msdn.microsoft.com/en-us/library/windows/desktop/ms681949%28v=vs.85%29.aspx
      *
-     * @param job job handle
+     * @param job     job handle
      * @param process process handle
      * @return true if the function succeeds
      */
@@ -260,25 +261,25 @@ final class JNAKernel32Library {
 
     /**
      * Basic limit information for a job object
-     *
+     * <p>
      * https://msdn.microsoft.com/en-us/library/windows/desktop/ms684147%28v=vs.85%29.aspx
      */
     public static class JOBOBJECT_BASIC_LIMIT_INFORMATION extends Structure implements Structure.ByReference {
-      public long PerProcessUserTimeLimit;
-      public long PerJobUserTimeLimit;
-      public int LimitFlags;
-      public SizeT MinimumWorkingSetSize;
-      public SizeT MaximumWorkingSetSize;
-      public int ActiveProcessLimit;
-      public Pointer Affinity;
-      public int PriorityClass;
-      public int SchedulingClass;
+        public long PerProcessUserTimeLimit;
+        public long PerJobUserTimeLimit;
+        public int LimitFlags;
+        public SizeT MinimumWorkingSetSize;
+        public SizeT MaximumWorkingSetSize;
+        public int ActiveProcessLimit;
+        public Pointer Affinity;
+        public int PriorityClass;
+        public int SchedulingClass;
 
-      @Override
-      protected List<String> getFieldOrder() {
-          return Arrays.asList("PerProcessUserTimeLimit", "PerJobUserTimeLimit", "LimitFlags", "MinimumWorkingSetSize",
-              "MaximumWorkingSetSize", "ActiveProcessLimit", "Affinity", "PriorityClass", "SchedulingClass");
-      }
+        @Override
+        protected List<String> getFieldOrder() {
+            return Arrays.asList("PerProcessUserTimeLimit", "PerJobUserTimeLimit", "LimitFlags", "MinimumWorkingSetSize",
+                "MaximumWorkingSetSize", "ActiveProcessLimit", "Affinity", "PriorityClass", "SchedulingClass");
+        }
     }
 
     /**
@@ -293,13 +294,13 @@ final class JNAKernel32Library {
 
     /**
      * Get job limit and state information
-     *
+     * <p>
      * https://msdn.microsoft.com/en-us/library/windows/desktop/ms684925%28v=vs.85%29.aspx
      *
-     * @param job job handle
-     * @param infoClass information class constant
-     * @param info pointer to information structure
-     * @param infoLength size of information structure
+     * @param job          job handle
+     * @param infoClass    information class constant
+     * @param info         pointer to information structure
+     * @param infoLength   size of information structure
      * @param returnLength length of data written back to structure (or null if not wanted)
      * @return true if the function succeeds
      */
@@ -307,12 +308,12 @@ final class JNAKernel32Library {
 
     /**
      * Set job limit and state information
-     *
+     * <p>
      * https://msdn.microsoft.com/en-us/library/windows/desktop/ms686216%28v=vs.85%29.aspx
      *
-     * @param job job handle
-     * @param infoClass information class constant
-     * @param info pointer to information structure
+     * @param job        job handle
+     * @param infoClass  information class constant
+     * @param info       pointer to information structure
      * @param infoLength size of information structure
      * @return true if the function succeeds
      */

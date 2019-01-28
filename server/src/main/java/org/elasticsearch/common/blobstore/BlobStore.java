@@ -22,17 +22,17 @@ import java.io.Closeable;
 import java.io.IOException;
 
 /**
- * An interface for storing blobs.
+ * 用于存储blob的接口。
  */
 public interface BlobStore extends Closeable {
 
     /**
-     * Get a blob container instance for storing blobs at the given {@link BlobPath}.
+     * 获取blob容器实例，用于在给定的{@link BlobPath}中存储blob。
      */
     BlobContainer blobContainer(BlobPath path);
 
     /**
-     * Delete the blob store at the given {@link BlobPath}.
+     * 删除给定{@link BlobPath}处的blob存储。
      */
     void delete(BlobPath path) throws IOException;
 

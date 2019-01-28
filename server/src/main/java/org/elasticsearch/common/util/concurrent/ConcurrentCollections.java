@@ -33,6 +33,7 @@ import java.util.concurrent.LinkedTransferQueue;
 // 并发集合，暂未有继承类，一般用作静态类
 public abstract class ConcurrentCollections {
 
+    // 积极的并发级别
     static final int aggressiveConcurrencyLevel;
 
     static {
@@ -59,6 +60,7 @@ public abstract class ConcurrentCollections {
 
     /**
      * Creates a new CHM with an aggressive concurrency level, aimed at highly updateable long living maps.
+     * 创建具有积极并发级别的新CHM，旨在实现高度可更新的长生活map。
      */
     public static <V> ConcurrentMapLong<V> newConcurrentMapLongWithAggressiveConcurrency() {
         return new ConcurrentHashMapLong<>(ConcurrentCollections.<Long, V>newConcurrentMapWithAggressiveConcurrency());

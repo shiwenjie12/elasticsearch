@@ -38,7 +38,7 @@ import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 
 /**
- * {@link Compressor} implementation based on the DEFLATE compression algorithm.
+ * {@link Compressor}基于DEFLATE压缩算法的实现。
  */
 public class DeflateCompressor implements Compressor {
 
@@ -103,7 +103,7 @@ public class DeflateCompressor implements Compressor {
 
     @Override
     public StreamOutput streamOutput(StreamOutput out) throws IOException {
-        out.writeBytes(HEADER);
+        out.writeBytes(HEADER);// 写入压缩头
         final boolean nowrap = true;
         final Deflater deflater = new Deflater(LEVEL, nowrap);
         final boolean syncFlush = true;

@@ -24,7 +24,7 @@ import org.elasticsearch.client.ElasticsearchClient;
 import org.elasticsearch.cluster.routing.allocation.command.AllocationCommand;
 
 /**
- * Builder for a cluster reroute request
+ * 用于群集重新路由请求的构建器
  */
 public class ClusterRerouteRequestBuilder
         extends AcknowledgedRequestBuilder<ClusterRerouteRequest, ClusterRerouteResponse, ClusterRerouteRequestBuilder> {

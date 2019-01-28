@@ -38,8 +38,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * Batching support for {@link PrioritizedEsThreadPoolExecutor}
- * Tasks that share the same batching key are batched (see {@link BatchedTask#batchingKey})
+ * 批量支持{@link PrioritizedEsThreadPoolExecutor}
+ * 共享相同批处理密钥的任务是批处理的（请参阅{@link BatchedTask＃batchingKey}）
  */
 public abstract class TaskBatcher {
 
@@ -58,9 +58,10 @@ public abstract class TaskBatcher {
             return;
         }
         final BatchedTask firstTask = tasks.get(0);
+        // 判断BatchedKey是否相同
         assert tasks.stream().allMatch(t -> t.batchingKey == firstTask.batchingKey) :
             "tasks submitted in a batch should share the same batching key: " + tasks;
-        // convert to an identity map to check for dups based on task identity
+        // 转换为身份映射以根据任务标识检查重复
         final Map<Object, BatchedTask> tasksIdentity = tasks.stream().collect(Collectors.toMap(
             BatchedTask::getTask,
             Function.identity(),
@@ -71,7 +72,7 @@ public abstract class TaskBatcher {
             LinkedHashSet<BatchedTask> existingTasks = tasksPerBatchingKey.computeIfAbsent(firstTask.batchingKey,
                 k -> new LinkedHashSet<>(tasks.size()));
             for (BatchedTask existing : existingTasks) {
-                // check that there won't be two tasks with the same identity for the same batching key
+                // 检查同一批处理密钥不会有两个具有相同标识的任务
                 BatchedTask duplicateTask = tasksIdentity.get(existing.getTask());
                 if (duplicateTask != null) {
                     throw new IllegalStateException("task [" + duplicateTask.describeTasks(
@@ -123,8 +124,11 @@ public abstract class TaskBatcher {
     void runIfNotProcessed(BatchedTask updateTask) {
         // if this task is already processed, it shouldn't execute other tasks with same batching key that arrived later,
         // to give other tasks with different batching key a chance to execute.
+        // 如果此任务已经处理，则不应执行具有相同批处理密钥的其他任务，以便稍后到达，以使具有不同批处理密钥的其他任务有机会执行。
         if (updateTask.processed.get() == false) {
+            // 需要执行的任务
             final List<BatchedTask> toExecute = new ArrayList<>();
+            // 按照源区分的任务
             final Map<String, List<BatchedTask>> processTasksBySource = new HashMap<>();
             synchronized (tasksPerBatchingKey) {
                 LinkedHashSet<BatchedTask> pending = tasksPerBatchingKey.remove(updateTask.batchingKey);
@@ -142,6 +146,7 @@ public abstract class TaskBatcher {
             }
 
             if (toExecute.isEmpty() == false) {
+                // 任务概要
                 final String tasksSummary = processTasksBySource.entrySet().stream().map(entry -> {
                     String tasks = updateTask.describeTasks(entry.getValue());
                     return tasks.isEmpty() ? entry.getKey() : entry.getKey() + "[" + tasks + "]";
@@ -153,27 +158,27 @@ public abstract class TaskBatcher {
     }
 
     /**
-     * Action to be implemented by the specific batching implementation
-     * All tasks have the given batching key.
+     * 特定批处理实现要执行的操作所有任务都具有给定的批处理键。
      */
     protected abstract void run(Object batchingKey, List<? extends BatchedTask> tasks, String tasksSummary);
 
     /**
-     * Represents a runnable task that supports batching.
-     * Implementors of TaskBatcher can subclass this to add a payload to the task.
+     * 表示支持批处理的可运行任务。
+     * TaskBatcher的实现者可以将其子类化以向任务添加有效负载。
      */
     protected abstract class BatchedTask extends SourcePrioritizedRunnable {
         /**
-         * whether the task has been processed already
+         * 该任务是否已经处理完毕
          */
         protected final AtomicBoolean processed = new AtomicBoolean();
 
         /**
-         * the object that is used as batching key
+         * 用作批处理密钥的对象
          */
         protected final Object batchingKey;
+
         /**
-         * the task object that is wrapped
+         * 包装的任务对象
          */
         protected final Object task;
 

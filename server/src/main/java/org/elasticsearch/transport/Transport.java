@@ -41,17 +41,18 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Predicate;
 
+// 传输层接口
 public interface Transport extends LifecycleComponent {
 
     Setting<Boolean> TRANSPORT_TCP_COMPRESS = Setting.boolSetting("transport.tcp.compress", false, Property.NodeScope);
 
     /**
-     * Registers a new request handler
+     * 注册一个新的请求处理程序
      */
     <Request extends TransportRequest> void registerRequestHandler(RequestHandlerRegistry<Request> reg);
 
     /**
-     * Returns the registered request handler registry for the given action or <code>null</code> if it's not registered
+     * 返回给定操作的已注册请求处理程序注册表，如果未注册，则返回<code> null </ code>
      * @param action the action to look up
      */
     RequestHandlerRegistry<? extends TransportRequest> getRequestHandler(String action);
@@ -88,6 +89,7 @@ public interface Transport extends LifecycleComponent {
     /**
      * Opens a new connection to the given node and returns it. The returned connection is not managed by
      * the transport implementation. This connection must be closed once it's not needed anymore.
+     * 打开与给定节点的新连接并返回它。返回的连接不由传输实现管理。一旦不再需要，必须关闭此连接。
      */
     Connection openConnection(DiscoveryNode node, ConnectionProfile profile);
 
@@ -96,7 +98,7 @@ public interface Transport extends LifecycleComponent {
     ResponseHandlers getResponseHandlers();
 
     /**
-     * A unidirectional connection to a {@link DiscoveryNode}
+     * 与{@link DiscoveryNode}的单向连接
      */
     interface Connection extends Closeable {
         /**
@@ -150,8 +152,7 @@ public interface Transport extends LifecycleComponent {
     }
 
     /**
-     * This class represents a response context that encapsulates the actual response handler, the action and the connection it was
-     * executed on.
+     * 此类表示一个响应上下文，它封装了实际的响应处理程序，操作及其执行的连接。
      */
     final class ResponseContext<T extends TransportResponse> {
 
@@ -181,7 +182,7 @@ public interface Transport extends LifecycleComponent {
     }
 
     /**
-     * This class is a registry that allows
+     * 此类是允许的注册表
      */
     final class ResponseHandlers {
         private final ConcurrentMapLong<ResponseContext<? extends TransportResponse>> handlers = ConcurrentCollections

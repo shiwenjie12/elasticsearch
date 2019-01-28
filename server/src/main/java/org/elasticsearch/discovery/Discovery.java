@@ -30,15 +30,12 @@ import org.elasticsearch.common.unit.TimeValue;
 import java.io.IOException;
 
 /**
- * A pluggable module allowing to implement discovery of other nodes, publishing of the cluster
- * state to all nodes, electing a master of the cluster that raises cluster state change
- * events.
+ * 一个可插拔模块，允许实现其他节点的发现，将集群状态发布到所有节点，选择引发集群状态更改事件的集群主服务器。
  */
 public interface Discovery extends LifecycleComponent {
 
     /**
-     * Publish all the changes to the cluster from the master (can be called just by the master). The publish
-     * process should apply this state to the master as well!
+     * 从主服务器发布对集群的所有更改（只能由主服务器调用）。发布过程也应该将此状态应用于主服务器！
      *
      * The {@link AckListener} allows to keep track of the ack received from nodes, and verify whether
      * they updated their own cluster state or not.

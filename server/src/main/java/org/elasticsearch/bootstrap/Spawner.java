@@ -37,7 +37,7 @@ import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Spawns native module controller processes if present. Will only work prior to a system call filter being installed.
+ * 如果存在，则生成本机模块控制器进程。 仅在安装系统调用过滤器之前工作。
  */
 final class Spawner implements Closeable {
 
@@ -54,6 +54,7 @@ final class Spawner implements Closeable {
 
     /**
      * Spawns the native controllers for each module.
+     * 为每个模块生成本机控制器。
      *
      * @param environment the node environment
      * @throws IOException if an I/O error occurs reading the module or spawning a native process
@@ -73,10 +74,10 @@ final class Spawner implements Closeable {
         for (final Path modules : paths) {
             final PluginInfo info = PluginInfo.readFromProperties(modules);
             final Path spawnPath = Platforms.nativeControllerPath(modules);
-            if (!Files.isRegularFile(spawnPath)) {
+            if (!Files.isRegularFile(spawnPath)) { // 判断是否有运行文件
                 continue;
             }
-            if (!info.hasNativeController()) {
+            if (!info.hasNativeController()) { // 检查配置
                 final String message = String.format(
                     Locale.ROOT,
                     "module [%s] does not have permission to fork native controller",
@@ -91,6 +92,7 @@ final class Spawner implements Closeable {
     /**
      * Attempt to spawn the controller daemon for a given module. The spawned process will remain connected to this JVM via its stdin,
      * stdout, and stderr streams, but the references to these streams are not available to code outside this package.
+     * 尝试为给定模块生成控制器守护程序。 生成的进程将通过其stdin，stdout和stderr流保持与此JVM的连接，但对此包之外的代码不能使用对这些流的引用。
      */
     private Process spawnNativeController(final Path spawnPath, final Path tmpPath) throws IOException {
         final String command;
@@ -110,11 +112,11 @@ final class Spawner implements Closeable {
         }
         final ProcessBuilder pb = new ProcessBuilder(command);
 
-        // the only environment variable passes on the path to the temporary directory
+        // 唯一的环境变量传递到临时目录的路径上
         pb.environment().clear();
         pb.environment().put("TMPDIR", tmpPath.toString());
 
-        // the output stream of the process object corresponds to the daemon's stdin
+        // 进程对象的输出流对应于守护进程的stdin
         return pb.start();
     }
 

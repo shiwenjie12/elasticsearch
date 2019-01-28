@@ -35,7 +35,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * An immutable map implementation based on open hash map.
+ * 基于开放哈希映射的不可变映射实现。
  * <p>
  * Can be constructed using a {@link #builder()}, or using {@link #builder(ImmutableOpenMap)} (which is an optimized
  * option to copy over existing content and modify it).

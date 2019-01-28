@@ -106,7 +106,6 @@ public class EsThreadPoolExecutor extends ThreadPoolExecutor {
                     ((AbstractRunnable) command).onRejection(ex);
                 } finally {
                     ((AbstractRunnable) command).onAfter();
-
                 }
             } else {
                 throw ex;

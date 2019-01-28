@@ -44,7 +44,7 @@ import static org.elasticsearch.common.xcontent.ConstructingObjectParser.optiona
 
 
 /**
- * Information about a currently running task.
+ * 一个正在运行的任务信息
  * <p>
  * Tasks are used for communication with transport actions. As a result, they can contain callback
  * references as well as mutable state. That makes it impractical to send tasks over transport channels

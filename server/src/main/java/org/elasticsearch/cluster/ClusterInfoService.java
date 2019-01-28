@@ -20,8 +20,7 @@
 package org.elasticsearch.cluster;
 
 /**
- * Interface for a class used to gather information about a cluster at
- * regular intervals
+ * 用于定期收集有关群集信息的类的接口
  */
 public interface ClusterInfoService {
 

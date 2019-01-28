@@ -45,6 +45,7 @@ import java.util.function.Supplier;
  * This service is used by persistent tasks and allocated persistent tasks to communicate changes
  * to the master node so that the master can update the cluster state and can track of the states
  * of the persistent tasks.
+ * 持久性任务和分配的持久性任务将此服务用于将更改传达给主节点，以便主服务器可以更新群集状态并可以跟踪持久性任务的状态。
  */
 public class PersistentTasksService {
 

@@ -32,7 +32,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
 /**
- * Superclass for {@link ObjectParser} and {@link ConstructingObjectParser}. Defines most of the "declare" methods so they can be shared.
+ * {@link ObjectParser}和{@link ConstructingObjectParser}的超类。 定义大多数“声明”方法，以便共享它们。
  */
 public abstract class AbstractObjectParser<Value, Context>
         implements BiFunction<XContentParser, Context, Value>, ContextParser<Context, Value> {

@@ -46,7 +46,7 @@ import static java.util.stream.Collectors.toSet;
 import static java.util.stream.Stream.concat;
 
 /**
- * Represents current cluster level blocks to block dirty operations done against the cluster.
+ * 表示阻止对群集执行的块操作的当前群集级别块。
  */
 public class ClusterBlocks extends AbstractDiffable<ClusterBlocks> {
     public static final ClusterBlocks EMPTY_CLUSTER_BLOCK = new ClusterBlocks(emptySet(), ImmutableOpenMap.of());

@@ -21,6 +21,7 @@ package org.elasticsearch.action.admin.cluster.node.stats;
 
 import org.elasticsearch.action.Action;
 
+// 节点状态Action
 public class NodesStatsAction extends Action<NodesStatsResponse> {
 
     public static final NodesStatsAction INSTANCE = new NodesStatsAction();

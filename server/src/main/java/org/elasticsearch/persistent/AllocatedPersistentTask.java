@@ -33,7 +33,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Predicate;
 
 /**
- * Represents a executor node operation that corresponds to a persistent task
+ * 表示与持久性任务对应的执行程序节点操作
  */
 public class AllocatedPersistentTask extends CancellableTask {
 
@@ -169,8 +169,8 @@ public class AllocatedPersistentTask extends CancellableTask {
     }
 
     public enum State {
-        STARTED,  // the task is currently running
-        PENDING_CANCEL, // the task is cancelled on master, cancelling it locally
-        COMPLETED     // the task is done running and trying to notify caller
+        STARTED,  // 该任务目前正在运行
+        PENDING_CANCEL, // 任务在master上已取消，在本地正在取消
+        COMPLETED     // 任务已完成运行并尝试通知调用者
     }
 }

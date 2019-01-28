@@ -73,6 +73,10 @@ import static org.elasticsearch.common.util.concurrent.EsExecutors.daemonThreadF
  * batch) with high payload that will cause regular request. (like search or single index) to take
  * longer. Med is for the typical search / single doc index. And High for things like cluster state. Ping is reserved for
  * sending out ping requests to other nodes.
+ * 每个节点有4种类型的连接，低/中/高/ ping。
+ * 如果对于具有高有效负载的批量定向API（如恢复或批处理），则会导致定期请求。
+ * （比如搜索或单个索引）需要更长的时间。 Med用于典型的搜索/单一文档索引。
+ * 对于集群状态这样的东西来说很高。 Ping保留用于向其他节点发送ping请求。
  */
 public class Netty4Transport extends TcpTransport {
     private static final Logger logger = LogManager.getLogger(Netty4Transport.class);
@@ -101,7 +105,7 @@ public class Netty4Transport extends TcpTransport {
     private final ByteSizeValue receivePredictorMin;
     private final ByteSizeValue receivePredictorMax;
     private final Map<String, ServerBootstrap> serverBootstraps = newConcurrentMap();
-    private volatile Bootstrap clientBootstrap;
+    private volatile Bootstrap clientBootstrap; // 客户端的bootstrap
     private volatile NioEventLoopGroup eventLoopGroup;
 
     public Netty4Transport(Settings settings, Version version, ThreadPool threadPool, NetworkService networkService, BigArrays bigArrays,
@@ -110,7 +114,7 @@ public class Netty4Transport extends TcpTransport {
         Netty4Utils.setAvailableProcessors(EsExecutors.PROCESSORS_SETTING.get(settings));
         this.workerCount = WORKER_COUNT.get(settings);
 
-        // See AdaptiveReceiveBufferSizePredictor#DEFAULT_XXX for default values in netty..., we can use higher ones for us, even fixed one
+        // 有关netty中的默认值，请参阅AdaptiveReceiveBufferSizePredictor＃DEFAULT_XXX ...，我们可以为我们使用更高的值，甚至修复一个
         this.receivePredictorMin = NETTY_RECEIVE_PREDICTOR_MIN.get(settings);
         this.receivePredictorMax = NETTY_RECEIVE_PREDICTOR_MAX.get(settings);
         if (receivePredictorMax.getBytes() == receivePredictorMin.getBytes()) {
@@ -121,6 +125,7 @@ public class Netty4Transport extends TcpTransport {
         }
     }
 
+    // 启动netty传输
     @Override
     protected void doStart() {
         boolean success = false;
@@ -130,7 +135,7 @@ public class Netty4Transport extends TcpTransport {
             clientBootstrap = createClientBootstrap(eventLoopGroup);
             if (NetworkService.NETWORK_SERVER.get(settings)) {
                 for (ProfileSettings profileSettings : profileSettings) {
-                    createServerBootstrap(profileSettings, eventLoopGroup);
+                    createServerBootstrap(profileSettings, eventLoopGroup); // 产生服务器bootstrap
                     bindServer(profileSettings);
                 }
             }
@@ -143,6 +148,7 @@ public class Netty4Transport extends TcpTransport {
         }
     }
 
+    // 创建客户端bootstrap
     private Bootstrap createClientBootstrap(NioEventLoopGroup eventLoopGroup) {
         final Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(eventLoopGroup);
@@ -206,6 +212,7 @@ public class Netty4Transport extends TcpTransport {
         serverBootstraps.put(name, serverBootstrap);
     }
 
+    // 通道的初始化（children）
     protected ChannelHandler getServerChannelInitializer(String name) {
         return new ServerChannelInitializer(name);
     }
@@ -217,6 +224,7 @@ public class Netty4Transport extends TcpTransport {
     static final AttributeKey<Netty4TcpChannel> CHANNEL_KEY = AttributeKey.newInstance("es-channel");
     static final AttributeKey<Netty4TcpServerChannel> SERVER_CHANNEL_KEY = AttributeKey.newInstance("es-server-channel");
 
+    // 建立连接到其他节点的连接
     @Override
     protected Netty4TcpChannel initiateChannel(DiscoveryNode node) throws IOException {
         InetSocketAddress address = node.getAddress().address();
@@ -241,7 +249,7 @@ public class Netty4Transport extends TcpTransport {
     @Override
     protected Netty4TcpServerChannel bind(String name, InetSocketAddress address) {
         Channel channel = serverBootstraps.get(name).bind(address).syncUninterruptibly().channel();
-        Netty4TcpServerChannel esChannel = new Netty4TcpServerChannel(channel, name);
+        Netty4TcpServerChannel esChannel = new Netty4TcpServerChannel(channel, name); // 服务器通道
         channel.attr(SERVER_CHANNEL_KEY).set(esChannel);
         return esChannel;
     }
@@ -286,6 +294,7 @@ public class Netty4Transport extends TcpTransport {
         }
     }
 
+    // 服务器通道初始化（children）
     protected class ServerChannelInitializer extends ChannelInitializer<Channel> {
 
         protected final String name;
@@ -298,9 +307,10 @@ public class Netty4Transport extends TcpTransport {
         protected void initChannel(Channel ch) throws Exception {
             addClosedExceptionLogger(ch);
             Netty4TcpChannel nettyTcpChannel = new Netty4TcpChannel(ch, name, ch.newSucceededFuture());
-            ch.attr(CHANNEL_KEY).set(nettyTcpChannel);
+            ch.attr(CHANNEL_KEY).set(nettyTcpChannel); // 设置netty tcp通道
             ch.pipeline().addLast("logging", new ESLoggingHandler());
             ch.pipeline().addLast("size", new Netty4SizeHeaderFrameDecoder());
+            // 分发到真正的处理器上
             ch.pipeline().addLast("dispatcher", new Netty4MessageChannelHandler(Netty4Transport.this));
             serverAcceptedChannel(nettyTcpChannel);
         }

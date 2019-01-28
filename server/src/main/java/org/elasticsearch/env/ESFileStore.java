@@ -71,6 +71,11 @@ class ESFileStore extends FileStore {
         }
     }
 
+    public static void main(String[] args) {
+        String[] cc = "28 23 0:22 / /run/lock rw,nosuid,nodev,noexec,relatime shared:6 - tmpfs tmpfs rw,size=5120k".trim().split("\\s+");
+        System.out.println(111);
+    }
+
     // these are hacks that are not guaranteed
     private static String getMountPointLinux(final FileStore store) {
         String desc = store.toString();

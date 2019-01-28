@@ -39,6 +39,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class Netty4Utils {
 
     static {
+        // 设置工厂日志
         InternalLoggerFactory.setDefaultFactory(new InternalLoggerFactory() {
 
             @Override
@@ -56,7 +57,7 @@ public class Netty4Utils {
     private static AtomicBoolean isAvailableProcessorsSet = new AtomicBoolean();
 
     /**
-     * Set the number of available processors that Netty uses for sizing various resources (e.g., thread pools).
+     * 设置Netty用于调整各种资源（例如，线程池）大小的可用处理器数。
      *
      * @param availableProcessors the number of available processors
      * @throws IllegalStateException if available processors was set previously and the specified value does not match the already-set value

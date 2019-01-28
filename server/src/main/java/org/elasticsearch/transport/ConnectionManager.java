@@ -51,6 +51,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * This class manages node connections. The connection is opened by the underlying transport. Once the
  * connection is opened, this class manages the connection. This includes keep-alive pings and closing
  * the connection when the connection manager is closed.
+ * 此类管理节点连接。连接由底层传输打开。打开连接后，此类将管理连接。这包括保持活动ping并在连接管理器关闭时关闭连接。
  */
 public class ConnectionManager implements Closeable {
     private static final Logger logger = LogManager.getLogger(ConnectionManager.class);
@@ -76,7 +77,7 @@ public class ConnectionManager implements Closeable {
         this.pingSchedule = pingSchedule;
         this.defaultProfile = ConnectionProfile.buildDefaultConnectionProfile(settings);
         this.lifecycle.moveToStarted();
-        if (pingSchedule.millis() > 0) {
+        if (pingSchedule.millis() > 0) { // 设置定时ping任务
             threadPool.schedule(pingSchedule, ThreadPool.Names.GENERIC, new ScheduledPing());
         }
     }
@@ -97,6 +98,7 @@ public class ConnectionManager implements Closeable {
     /**
      * Connects to a node with the given connection profile. If the node is already connected this method has no effect.
      * Once a successful is established, it can be validated before being exposed.
+     * 连接到具有给定连接配置文件的节点。 如果节点已连接，则此方法无效。 一旦成功建立，就可以在暴露之前进行验证。
      */
     public void connectToNode(DiscoveryNode node, ConnectionProfile connectionProfile,
                               CheckedBiConsumer<Transport.Connection, ConnectionProfile, IOException> connectionValidator)
@@ -107,17 +109,17 @@ public class ConnectionManager implements Closeable {
         }
         closeLock.readLock().lock(); // ensure we don't open connections while we are closing
         try {
-            ensureOpen();
+            ensureOpen(); // 保证组件打开
             try (Releasable ignored = connectionLock.acquire(node.getId())) {
                 Transport.Connection connection = connectedNodes.get(node);
-                if (connection != null) {
+                if (connection != null) {// 节点已有连接
                     return;
                 }
                 boolean success = false;
                 try {
-                    connection = internalOpenConnection(node, resolvedProfile);
-                    connectionValidator.accept(connection, resolvedProfile);
-                    // we acquire a connection lock, so no way there is an existing connection
+                    connection = internalOpenConnection(node, resolvedProfile);// 建立连接
+                    connectionValidator.accept(connection, resolvedProfile);// 判断连接是否符合条件
+                    // 我们获得了一个连接锁，所以没有现成的连接
                     connectedNodes.put(node, connection);
                     if (logger.isDebugEnabled()) {
                         logger.debug("connected to node [{}]", node);

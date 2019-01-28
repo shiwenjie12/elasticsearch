@@ -39,7 +39,7 @@ import java.io.StringReader;
 import java.util.Set;
 
 /**
- * A JSON based content implementation using Jackson.
+ * 使用Jackson的基于JSON的内容实现。
  */
 public class JsonXContent implements XContent {
 

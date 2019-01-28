@@ -20,9 +20,7 @@
 package org.elasticsearch.cluster;
 
 /**
- * A listener to be notified when a cluster state changes.
- *
- *
+ * 群集状态更改时通知的侦听器。
  */
 public interface ClusterStateListener {
 

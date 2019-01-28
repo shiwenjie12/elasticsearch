@@ -21,6 +21,7 @@ package org.elasticsearch.transport;
 
 import org.elasticsearch.common.unit.TimeValue;
 
+// 传输请求选项
 public class TransportRequestOptions {
 
     private final TimeValue timeout;

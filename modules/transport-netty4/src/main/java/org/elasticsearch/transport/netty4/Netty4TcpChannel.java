@@ -37,6 +37,7 @@ import org.elasticsearch.transport.TransportException;
 
 import java.net.InetSocketAddress;
 
+// Netty的tcp通道
 public class Netty4TcpChannel implements TcpChannel {
 
     private final Channel channel;
@@ -48,7 +49,7 @@ public class Netty4TcpChannel implements TcpChannel {
         this.channel = channel;
         this.profile = profile;
         this.connectContext = new CompletableContext<>();
-        this.channel.closeFuture().addListener(f -> {
+        this.channel.closeFuture().addListener(f -> { // 利用closeConText实现回调
             if (f.isSuccess()) {
                 closeContext.complete(null);
             } else {
@@ -123,10 +124,11 @@ public class Netty4TcpChannel implements TcpChannel {
         return (InetSocketAddress) channel.remoteAddress();
     }
 
+    // 发送消息，转换为ByteBuf
     @Override
     public void sendMessage(BytesReference reference, ActionListener<Void> listener) {
         ChannelPromise writePromise = channel.newPromise();
-        writePromise.addListener(f -> {
+        writePromise.addListener(f -> { // 添加监听器
             if (f.isSuccess()) {
                 listener.onResponse(null);
             } else {

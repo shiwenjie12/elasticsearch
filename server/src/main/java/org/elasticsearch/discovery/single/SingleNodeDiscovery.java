@@ -45,7 +45,7 @@ import java.util.concurrent.CountDownLatch;
 import static org.elasticsearch.gateway.GatewayService.STATE_NOT_RECOVERED_BLOCK;
 
 /**
- * A discovery implementation where the only member of the cluster is the local node.
+ * 一种发现实现，其中集群的唯一成员是本地节点。
  */
 public class SingleNodeDiscovery extends AbstractLifecycleComponent implements Discovery {
     private static final Logger logger = LogManager.getLogger(SingleNodeDiscovery.class);

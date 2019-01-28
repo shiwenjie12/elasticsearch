@@ -22,10 +22,10 @@ package org.elasticsearch.script;
 import java.lang.reflect.Method;
 
 /**
- * The information necessary to compile and run a script.
+ * 编译和运行脚本所需的信息。
  *
- * A {@link ScriptContext} contains the information related to a single use case and the interfaces
- * and methods necessary for a {@link ScriptEngine} to implement.
+ * {@link ScriptContext}包含与单个用例和接口相关的信息
+ * 以及{@link ScriptEngine}实现所需的方法。
  * <p>
  * There are at least two (and optionally a third) related classes which must be defined.
  * <p>
@@ -92,7 +92,7 @@ public final class ScriptContext<FactoryType> {
         instanceClazz = newInstanceMethod.getReturnType();
     }
 
-    /** Returns a method with the given name, or throws an exception if multiple are found. */
+    /** 返回具有给定名称的方法，如果找到多个，则抛出异常。 */
     private Method findMethod(String type, Class<?> clazz, String methodName) {
         Method foundMethod = null;
         for (Method method : clazz.getMethods()) {

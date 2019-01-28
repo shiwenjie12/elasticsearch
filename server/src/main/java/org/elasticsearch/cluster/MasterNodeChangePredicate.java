@@ -30,8 +30,7 @@ public final class MasterNodeChangePredicate {
     }
 
     /**
-     * builds a predicate that will accept a cluster state only if it was generated after the current has
-     * (re-)joined the master
+     * 构建一个仅在当前已经（重新）加入主服务器之后生成的谓词才会接受集群状态
      */
     public static Predicate<ClusterState> build(ClusterState currentState) {
         final long currentVersion = currentState.version();

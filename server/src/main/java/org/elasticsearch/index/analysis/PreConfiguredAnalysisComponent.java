@@ -29,7 +29,7 @@ import org.elasticsearch.indices.analysis.PreBuiltCacheFactory;
 import java.io.IOException;
 
 /**
- * Shared implementation for pre-configured analysis components.
+ * 预配置分析组件的共享实现。
  */
 public abstract class PreConfiguredAnalysisComponent<T> implements AnalysisModule.AnalysisProvider<T> {
     private final String name;

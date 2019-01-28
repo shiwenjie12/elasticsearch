@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Holds the ingest pipelines that are available in the cluster
+ * 保存群集中可用的摄取管道
  */
 public final class IngestMetadata implements MetaData.Custom {
 

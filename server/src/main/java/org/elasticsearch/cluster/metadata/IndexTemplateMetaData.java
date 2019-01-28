@@ -51,6 +51,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * 索引模板元数据
+ */
 public class IndexTemplateMetaData extends AbstractDiffable<IndexTemplateMetaData> {
 
     private static final DeprecationLogger deprecationLogger = new DeprecationLogger(LogManager.getLogger(IndexTemplateMetaData.class));

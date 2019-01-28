@@ -26,6 +26,7 @@ import org.elasticsearch.search.fetch.subphase.highlight.FastVectorHighlighter;
 import java.util.List;
 import java.util.function.Function;
 
+// token工厂
 public interface TokenFilterFactory {
     String name();
 

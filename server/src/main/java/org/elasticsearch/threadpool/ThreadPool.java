@@ -166,6 +166,10 @@ public class ThreadPool implements Scheduler, Closeable {
     public static Setting<TimeValue> ESTIMATED_TIME_INTERVAL_SETTING =
         Setting.timeSetting("thread_pool.estimated_time_interval", TimeValue.timeValueMillis(200), Setting.Property.NodeScope);
 
+    /**
+     * @param settings       系统配置
+     * @param customBuilders 插件级的构建配置
+     */
     public ThreadPool(final Settings settings, final ExecutorBuilder<?>... customBuilders) {
         assert Node.NODE_NAME_SETTING.exists(settings);
 
@@ -180,7 +184,7 @@ public class ThreadPool implements Scheduler, Closeable {
         builders.put(Names.GET, new FixedExecutorBuilder(settings, Names.GET, availableProcessors, 1000));
         builders.put(Names.ANALYZE, new FixedExecutorBuilder(settings, Names.ANALYZE, 1, 16));
         builders.put(Names.SEARCH, new AutoQueueAdjustingExecutorBuilder(settings,
-                        Names.SEARCH, searchThreadPoolSize(availableProcessors), 1000, 1000, 1000, 2000));
+            Names.SEARCH, searchThreadPoolSize(availableProcessors), 1000, 1000, 1000, 2000));
         builders.put(Names.SEARCH_THROTTLED, new AutoQueueAdjustingExecutorBuilder(settings,
             Names.SEARCH_THROTTLED, 1, 100, 100, 100, 200));
         builders.put(Names.MANAGEMENT, new ScalingExecutorBuilder(Names.MANAGEMENT, 1, 5, TimeValue.timeValueMinutes(5)));
@@ -194,7 +198,7 @@ public class ThreadPool implements Scheduler, Closeable {
         builders.put(Names.FETCH_SHARD_STARTED, new ScalingExecutorBuilder(Names.FETCH_SHARD_STARTED, 1, 2 * availableProcessors, TimeValue.timeValueMinutes(5)));
         builders.put(Names.FORCE_MERGE, new FixedExecutorBuilder(settings, Names.FORCE_MERGE, 1, -1));
         builders.put(Names.FETCH_SHARD_STORE, new ScalingExecutorBuilder(Names.FETCH_SHARD_STORE, 1, 2 * availableProcessors, TimeValue.timeValueMinutes(5)));
-        for (final ExecutorBuilder<?> builder : customBuilders) {
+        for (final ExecutorBuilder<?> builder : customBuilders) { // 自定义的
             if (builders.containsKey(builder.name())) {
                 throw new IllegalArgumentException("builder with name [" + builder.name() + "] already exists");
             }
@@ -219,22 +223,22 @@ public class ThreadPool implements Scheduler, Closeable {
         this.executors = unmodifiableMap(executors);
 
         final List<Info> infos =
-                executors
-                        .values()
-                        .stream()
-                        .filter(holder -> holder.info.getName().equals("same") == false)
-                        .map(holder -> holder.info)
-                        .collect(Collectors.toList());
+            executors
+                .values()
+                .stream()
+                .filter(holder -> holder.info.getName().equals("same") == false)
+                .map(holder -> holder.info)
+                .collect(Collectors.toList());
         this.threadPoolInfo = new ThreadPoolInfo(infos);
         this.scheduler = Scheduler.initScheduler(settings);
-        TimeValue estimatedTimeInterval = ESTIMATED_TIME_INTERVAL_SETTING.get(settings);
+        TimeValue estimatedTimeInterval = ESTIMATED_TIME_INTERVAL_SETTING.get(settings); // 间隔时间
         this.cachedTimeThread = new CachedTimeThread(EsExecutors.threadName(settings, "[timer]"), estimatedTimeInterval.millis());
         this.cachedTimeThread.start();
     }
 
     /**
      * Returns a value of milliseconds that may be used for relative time calculations.
-     *
+     * <p>
      * This method should only be used for calculating time deltas. For an epoch based
      * timestamp, see {@link #absoluteTimeInMillis()}.
      */
@@ -244,7 +248,7 @@ public class ThreadPool implements Scheduler, Closeable {
 
     /**
      * Returns the value of milliseconds since UNIX epoch.
-     *
+     * <p>
      * This method should only be used for exact date/time formatting. For calculating
      * time deltas that should not suffer from negative deltas, which are possible with
      * this method, see {@link #relativeTimeInMillis()}.
@@ -336,14 +340,14 @@ public class ThreadPool implements Scheduler, Closeable {
      * context of the calling thread you may call <code>threadPool.getThreadContext().preserveContext</code> on the runnable before passing
      * it to this method.
      *
-     * @param delay delay before the task executes
+     * @param delay    delay before the task executes
      * @param executor the name of the thread pool on which to execute this task. SAME means "execute on the scheduler thread" which changes the
-     *        meaning of the ScheduledFuture returned by this method. In that case the ScheduledFuture will complete only when the command
-     *        completes.
-     * @param command the command to run
+     *                 meaning of the ScheduledFuture returned by this method. In that case the ScheduledFuture will complete only when the command
+     *                 completes.
+     * @param command  the command to run
      * @return a ScheduledFuture who's get will return when the task is has been added to its target thread pool and throw an exception if
-     *         the task is canceled before it was added to its target thread pool. Once the task has been added to its target thread pool
-     *         the ScheduledFuture will cannot interact with it.
+     * the task is canceled before it was added to its target thread pool. Once the task has been added to its target thread pool
+     * the ScheduledFuture will cannot interact with it.
      * @throws org.elasticsearch.common.util.concurrent.EsRejectedExecutionException if the task cannot be scheduled for execution
      */
     @Override
@@ -357,14 +361,14 @@ public class ThreadPool implements Scheduler, Closeable {
     @Override
     public Cancellable scheduleWithFixedDelay(Runnable command, TimeValue interval, String executor) {
         return new ReschedulingRunnable(command, interval, executor, this,
-                (e) -> {
-                    if (logger.isDebugEnabled()) {
-                        logger.debug(() -> new ParameterizedMessage("scheduled task [{}] was rejected on thread pool [{}]",
-                                command, executor), e);
-                    }
-                },
-                (e) -> logger.warn(() -> new ParameterizedMessage("failed to run scheduled task [{}] on thread pool [{}]",
-                        command, executor), e));
+            (e) -> {
+                if (logger.isDebugEnabled()) {
+                    logger.debug(() -> new ParameterizedMessage("scheduled task [{}] was rejected on thread pool [{}]",
+                        command, executor), e);
+                }
+            },
+            (e) -> logger.warn(() -> new ParameterizedMessage("failed to run scheduled task [{}] on thread pool [{}]",
+                command, executor), e));
     }
 
     @Override
@@ -508,7 +512,7 @@ public class ThreadPool implements Scheduler, Closeable {
     /**
      * 用于缓存毫秒时间值的线程
      * {@link System#nanoTime()} and {@link System#currentTimeMillis()}.
-     *
+     * <p>
      * The values are updated at a specified interval.
      */
     static class CachedTimeThread extends Thread {
@@ -628,7 +632,7 @@ public class ThreadPool implements Scheduler, Closeable {
         public void writeTo(StreamOutput out) throws IOException {
             out.writeString(name);
             if (type == ThreadPoolType.FIXED_AUTO_QUEUE_SIZE &&
-                    out.getVersion().before(Version.V_6_0_0_alpha1)) {
+                out.getVersion().before(Version.V_6_0_0_alpha1)) {
                 // 5.x doesn't know about the "fixed_auto_queue_size" thread pool type, just write fixed.
                 out.writeString(ThreadPoolType.FIXED.getType());
             } else {
@@ -709,9 +713,9 @@ public class ThreadPool implements Scheduler, Closeable {
     }
 
     private static boolean awaitTermination(
-            final ExecutorService service,
-            final long timeout,
-            final TimeUnit timeUnit) {
+        final ExecutorService service,
+        final long timeout,
+        final TimeUnit timeUnit) {
         try {
             if (service.awaitTermination(timeout, timeUnit)) {
                 return true;
@@ -744,9 +748,9 @@ public class ThreadPool implements Scheduler, Closeable {
     }
 
     private static boolean awaitTermination(
-            final ThreadPool threadPool,
-            final long timeout,
-            final TimeUnit timeUnit) {
+        final ThreadPool threadPool,
+        final long timeout,
+        final TimeUnit timeUnit) {
         try {
             if (threadPool.awaitTermination(timeout, timeUnit)) {
                 return true;

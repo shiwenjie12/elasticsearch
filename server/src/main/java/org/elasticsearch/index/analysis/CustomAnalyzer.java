@@ -25,6 +25,7 @@ import org.apache.lucene.analysis.Tokenizer;
 
 import java.io.Reader;
 
+// 自定义分析器
 public final class CustomAnalyzer extends Analyzer {
 
     private final String tokenizerName;
@@ -38,12 +39,12 @@ public final class CustomAnalyzer extends Analyzer {
     private final int offsetGap;
 
     public CustomAnalyzer(String tokenizerName, TokenizerFactory tokenizerFactory, CharFilterFactory[] charFilters,
-            TokenFilterFactory[] tokenFilters) {
+                          TokenFilterFactory[] tokenFilters) {
         this(tokenizerName, tokenizerFactory, charFilters, tokenFilters, 0, -1);
     }
 
     public CustomAnalyzer(String tokenizerName, TokenizerFactory tokenizerFactory, CharFilterFactory[] charFilters,
-            TokenFilterFactory[] tokenFilters, int positionIncrementGap, int offsetGap) {
+                          TokenFilterFactory[] tokenFilters, int positionIncrementGap, int offsetGap) {
         this.tokenizerName = tokenizerName;
         this.tokenizerFactory = tokenizerFactory;
         this.charFilters = charFilters;
@@ -53,7 +54,7 @@ public final class CustomAnalyzer extends Analyzer {
     }
 
     /**
-     * The name of the tokenizer as configured by the user.
+     * 用户配置的tokenizer的名称。
      */
     public String getTokenizerName() {
         return tokenizerName;
@@ -84,6 +85,7 @@ public final class CustomAnalyzer extends Analyzer {
         return this.offsetGap;
     }
 
+    // token流组件
     @Override
     protected TokenStreamComponents createComponents(String fieldName) {
         Tokenizer tokenizer = tokenizerFactory.create();
@@ -106,24 +108,24 @@ public final class CustomAnalyzer extends Analyzer {
 
     @Override
     protected Reader initReaderForNormalization(String fieldName, Reader reader) {
-      for (CharFilterFactory charFilter : charFilters) {
-        if (charFilter instanceof MultiTermAwareComponent) {
-          charFilter = (CharFilterFactory) ((MultiTermAwareComponent) charFilter).getMultiTermComponent();
-          reader = charFilter.create(reader);
+        for (CharFilterFactory charFilter : charFilters) {
+            if (charFilter instanceof MultiTermAwareComponent) {
+                charFilter = (CharFilterFactory) ((MultiTermAwareComponent) charFilter).getMultiTermComponent();
+                reader = charFilter.create(reader);
+            }
         }
-      }
-      return reader;
+        return reader;
     }
 
     @Override
     protected TokenStream normalize(String fieldName, TokenStream in) {
-      TokenStream result = in;
-      for (TokenFilterFactory filter : tokenFilters) {
-        if (filter instanceof MultiTermAwareComponent) {
-          filter = (TokenFilterFactory) ((MultiTermAwareComponent) filter).getMultiTermComponent();
-          result = filter.create(result);
+        TokenStream result = in;
+        for (TokenFilterFactory filter : tokenFilters) {
+            if (filter instanceof MultiTermAwareComponent) {
+                filter = (TokenFilterFactory) ((MultiTermAwareComponent) filter).getMultiTermComponent();
+                result = filter.create(result);
+            }
         }
-      }
-      return result;
+        return result;
     }
 }

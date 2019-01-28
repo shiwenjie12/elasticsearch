@@ -162,7 +162,7 @@ class JNANatives {
         }
     }
 
-    /** Returns true if user is root, false if not, or if we don't know */
+    /** 如果用户是root，则返回true，否则返回false，或者如果我们不知道则返回false */
     static boolean definitelyRunningAsRoot() {
         if (Constants.WINDOWS) {
             return false; // don't know
@@ -211,7 +211,7 @@ class JNANatives {
     }
 
     /**
-     * Retrieves the short path form of the specified path.
+     * 检索指定路径的短路径形式。
      *
      * @param path the path
      * @return the short path name (or the original path if getting the short path name fails for any reason)

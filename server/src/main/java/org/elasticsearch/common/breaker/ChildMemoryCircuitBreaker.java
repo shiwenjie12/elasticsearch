@@ -27,7 +27,7 @@ import org.elasticsearch.indices.breaker.HierarchyCircuitBreakerService;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Breaker that will check a parent's when incrementing
+ * 在递增时将检查父母的断路器
  */
 public class ChildMemoryCircuitBreaker implements CircuitBreaker {
 

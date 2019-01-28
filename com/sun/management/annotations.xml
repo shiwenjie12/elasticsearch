@@ -2,4 +2,7 @@
     <item name='com.sun.management.HotSpotDiagnosticMXBean'>
         <annotation name='java.lang.Deprecated'/>
     </item>
+    <item name='com.sun.management.UnixOperatingSystemMXBean'>
+        <annotation name='java.lang.Deprecated'/>
+    </item>
 </root>

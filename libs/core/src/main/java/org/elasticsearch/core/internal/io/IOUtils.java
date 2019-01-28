@@ -259,6 +259,7 @@ public final class IOUtils {
      * whether or not the path to sync is a directory. This is needed because we open for read and ignore an {@link IOException} since not
      * all filesystems and operating systems support fsyncing on a directory. For regular files we must open for write for the fsync to have
      * an effect.
+     *刷新到磁盘
      *
      * @param fileToSync the file to fsync
      * @param isDir      if true, the given file is a directory (we open for read and ignore {@link IOException}s, because not all file

@@ -54,6 +54,9 @@ import static org.elasticsearch.common.settings.Setting.positiveTimeSetting;
  * Note that this component is *not* responsible for removing nodes from the cluster if they disconnect / do not respond
  * to pings. This is done by {@link NodesFaultDetection}. Master fault detection
  * is done by {@link MasterFaultDetection}.
+ * 此组件负责在节点添加到群集状态后连接到节点，并在删除它们时断开连接。 此外，它会定期检查所有连接是否仍处于打开状态，并在需要时进行恢复。
+ * 请注意，如果组件断开/不响应ping，则此组件不负责从群集中删除节点。
+ * 这是由{@link NodesFaultDetection}完成的。 主故障检测由{@link MasterFaultDetection}完成。
  */
 public class NodeConnectionsService extends AbstractLifecycleComponent {
     private static final Logger logger = LogManager.getLogger(NodeConnectionsService.class);
@@ -87,12 +90,12 @@ public class NodeConnectionsService extends AbstractLifecycleComponent {
             final boolean connected;
             try (Releasable ignored = nodeLocks.acquire(node)) {
                 nodes.putIfAbsent(node, 0);
-                connected = transportService.nodeConnected(node);
+                connected = transportService.nodeConnected(node); // 节点是否已经连接
             }
-            if (connected) {
+            if (connected) { // 连接成功
                 latch.countDown();
             } else {
-                // spawn to another thread to do in parallel
+                // 产生到另一个线程并行执行
                 threadPool.executor(ThreadPool.Names.MANAGEMENT).execute(new AbstractRunnable() {
                     @Override
                     public void onFailure(Exception e) {
@@ -125,7 +128,7 @@ public class NodeConnectionsService extends AbstractLifecycleComponent {
     }
 
     /**
-     * Disconnects from all nodes except the ones provided as parameter
+     * 断开除了作为参数提供的节点之外的所有节点
      */
     public void disconnectFromNodesExcept(DiscoveryNodes nodesToKeep) {
         Set<DiscoveryNode> currentNodes = new HashSet<>(nodes.keySet());
@@ -137,7 +140,7 @@ public class NodeConnectionsService extends AbstractLifecycleComponent {
                 Integer current = nodes.remove(node);
                 assert current != null : "node " + node + " was removed in event but not in internal nodes";
                 try {
-                    transportService.disconnectFromNode(node);
+                    transportService.disconnectFromNode(node); // 断开连接
                 } catch (Exception e) {
                     logger.warn(() -> new ParameterizedMessage("failed to disconnect to node [{}]", node), e);
                 }
@@ -152,8 +155,8 @@ public class NodeConnectionsService extends AbstractLifecycleComponent {
             // nothing to do
         } else {
             try {
-                // connecting to an already connected node is a noop
-                transportService.connectToNode(node);
+                // 连接到已连接的节点是noop
+                transportService.connectToNode(node); // 连接节点
                 nodes.put(node, 0);
             } catch (Exception e) {
                 Integer nodeFailureCount = nodes.get(node);
@@ -170,6 +173,7 @@ public class NodeConnectionsService extends AbstractLifecycleComponent {
         }
     }
 
+    // 连接检查
     class ConnectionChecker extends AbstractRunnable {
 
         @Override
@@ -195,6 +199,7 @@ public class NodeConnectionsService extends AbstractLifecycleComponent {
 
     @Override
     protected void doStart() {
+        // 定时发送连接检查任务
         backgroundFuture = threadPool.schedule(reconnectInterval, ThreadPool.Names.GENERIC, new ConnectionChecker());
     }
 

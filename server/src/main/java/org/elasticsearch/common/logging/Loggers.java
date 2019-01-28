@@ -36,7 +36,7 @@ import java.util.Map;
 import static org.elasticsearch.common.util.CollectionUtils.asArrayList;
 
 /**
- * A set of utilities around Logging.
+ * 一组围绕Logging的实用程序。
  */
 public class Loggers {
 

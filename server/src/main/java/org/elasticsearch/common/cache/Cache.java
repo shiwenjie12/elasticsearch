@@ -39,7 +39,7 @@ import java.util.function.Predicate;
 import java.util.function.ToLongBiFunction;
 
 /**
- * A simple concurrent cache.
+ * 一个简单的并发缓存。
  * <p>
  * Cache is a simple concurrent cache that supports time-based and weight-based evictions, with notifications for all
  * evictions. The design goals for this cache were simplicity and read performance. This means that we are willing to
@@ -93,7 +93,7 @@ public class Cache<K, V> {
     // the weigher of entries
     private ToLongBiFunction<K, V> weigher = (k, v) -> 1;
 
-    // the removal callback
+    // 移除回调
     private RemovalListener<K, V> removalListener = notification -> {
     };
 
@@ -179,7 +179,7 @@ public class Cache<K, V> {
     /**
      * A cache segment.
      * <p>
-     * A CacheSegment is backed by a HashMap and is protected by a read/write lock.
+     * CacheSegment由HashMap支持，并受读/写锁保护。
      *
      * @param <K> the type of the keys
      * @param <V> the type of the values

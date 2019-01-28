@@ -30,12 +30,12 @@ import org.elasticsearch.common.settings.ClusterSettings;
 import org.elasticsearch.common.settings.Settings;
 
 /**
- * An extension point for {@link Plugin} implementations to customer behavior of cluster management.
+ * {@link Plugin}实现对客户群集管理行为的扩展点。
  */
 public interface ClusterPlugin {
 
     /**
-     * Return deciders used to customize where shards are allocated.
+     * 返回决策者用于自定义分配分片的位置。
      *
      * @param settings Settings for the node
      * @param clusterSettings Settings for the cluster
@@ -60,7 +60,7 @@ public interface ClusterPlugin {
     }
 
     /**
-     * Called when the node is started
+     * 在节点启动时调用
      */
     default void onNodeStarted() {
     }

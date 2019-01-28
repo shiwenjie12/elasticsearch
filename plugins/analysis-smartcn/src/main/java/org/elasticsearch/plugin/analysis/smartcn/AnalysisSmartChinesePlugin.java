@@ -35,6 +35,7 @@ import java.util.Map;
 
 import static java.util.Collections.singletonMap;
 
+// 智能中文分析插件
 public class AnalysisSmartChinesePlugin extends Plugin implements AnalysisPlugin {
     @Override
     public Map<String, AnalysisProvider<TokenFilterFactory>> getTokenFilters() {

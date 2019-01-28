@@ -80,6 +80,7 @@ import static org.elasticsearch.common.settings.Setting.intSetting;
 import static org.elasticsearch.common.settings.Setting.listSetting;
 import static org.elasticsearch.common.settings.Setting.timeSetting;
 
+// 传输服务
 public class TransportService extends AbstractLifecycleComponent implements TransportMessageListener, TransportConnectionListener {
     private static final Logger logger = LogManager.getLogger(TransportService.class);
 
@@ -141,6 +142,7 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
 
     /** if set will call requests sent to this id to shortcut and executed locally */
     volatile DiscoveryNode localNode = null;
+    // 本地节点连接
     private final Transport.Connection localNodeConnection = new Transport.Connection() {
         @Override
         public DiscoveryNode getNode() {
@@ -184,7 +186,7 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
                             Function<BoundTransportAddress, DiscoveryNode> localNodeFactory, @Nullable ClusterSettings clusterSettings,
                             Set<String> taskHeaders, ConnectionManager connectionManager) {
         super(settings);
-        // The only time we do not want to validate node connections is when this is a transport client using the simple node sampler
+        // 我们唯一不想验证节点连接的时候是使用简单节点采样器的传输客户端
         this.validateConnections = TransportClient.CLIENT_TYPE.equals(settings.get(Client.CLIENT_TYPE_SETTING_S.getKey())) == false ||
             TransportClient.CLIENT_TRANSPORT_SNIFF.get(settings);
         this.transport = transport;
@@ -192,6 +194,7 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
         this.localNodeFactory = localNodeFactory;
         this.connectionManager = connectionManager;
         this.clusterName = ClusterName.CLUSTER_NAME_SETTING.get(settings);
+        // 设置追踪的Action
         setTracerLogInclude(TRACE_LOG_INCLUDE_SETTING.get(settings));
         setTracerLogExclude(TRACE_LOG_EXCLUDE_SETTING.get(settings));
         tracerLog = Loggers.getLogger(logger, ".tracer");
@@ -360,7 +363,7 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
     }
 
     /**
-     * Connect to the specified node with the given connection profile
+     * 使用给定的连接配置文件连接到指定的节点
      *
      * @param node the node to connect to
      * @param connectionProfile the connection profile to use when connecting to this node
@@ -372,6 +375,7 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
         connectionManager.connectToNode(node, connectionProfile, connectionValidator(node));
     }
 
+    // 验证远程节点是否是符合集群的
     public CheckedBiConsumer<Transport.Connection, ConnectionProfile, IOException> connectionValidator(DiscoveryNode node) {
         return (newConnection, actualProfile) -> {
             // We don't validate cluster names to allow for CCS connections.
@@ -380,7 +384,6 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
                 throw new ConnectTransportException(node, "handshake failed. unexpected remote node " + remote);
             }
         };
-
     }
 
     /**
@@ -420,6 +423,8 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
      * and returns the discovery node of the node the connection
      * was established with. The handshake will fail if the cluster
      * name on the target node doesn't match the local cluster name.
+     * 使用给定连接执行高级握手，并返回与之建立连接的节点的发现节点。
+     * 如果目标节点上的群集名称与本地群集名称不匹配，则握手将失败。
      *
      * @param connection       the connection to a specific node
      * @param handshakeTimeout handshake timeout
@@ -623,6 +628,7 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
 
     }
 
+    // 内部发送请求，抽象了连接层
     private <T extends TransportResponse> void sendRequestInternal(final Transport.Connection connection, final String action,
                                                                    final TransportRequest request,
                                                                    final TransportRequestOptions options,
@@ -632,12 +638,13 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
         }
         DiscoveryNode node = connection.getNode();
 
+        // 存储执行前的上下文，用于最终还原上下文
         Supplier<ThreadContext.StoredContext> storedContextSupplier = threadPool.getThreadContext().newRestorableContext(true);
         ContextRestoreResponseHandler<T> responseHandler = new ContextRestoreResponseHandler<>(storedContextSupplier, handler);
         // TODO we can probably fold this entire request ID dance into connection.sendReqeust but it will be a bigger refactoring
         final long requestId = responseHandlers.add(new Transport.ResponseContext<>(responseHandler, connection, action));
         final TimeoutHandler timeoutHandler;
-        if (options.timeout() != null) {
+        if (options.timeout() != null) { // 设置过去处理
             timeoutHandler = new TimeoutHandler(requestId, connection.getNode(), action);
             responseHandler.setTimeoutHandler(timeoutHandler);
         } else {
@@ -649,11 +656,11 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
                 // the caller. It will only notify if the toStop code hasn't done the work yet.
                 throw new TransportException("TransportService is closed stopped can't send request");
             }
-            if (timeoutHandler != null) {
+            if (timeoutHandler != null) { // 利用定时器触发超时处理
                 assert options.timeout() != null;
                 timeoutHandler.future = threadPool.schedule(options.timeout(), ThreadPool.Names.GENERIC, timeoutHandler);
             }
-            connection.sendRequest(requestId, action, request, options); // local node optimization happens upstream
+            connection.sendRequest(requestId, action, request, options); // 本地节点优化发生在上游
         } catch (final Exception e) {
             // usually happen either because we failed to connect to the node
             // or because we failed serializing the message
@@ -685,7 +692,7 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
                             e);
                     }
                     @Override
-                    protected void doRun() throws Exception {
+                    protected void doRun() throws Exception { // 处理异常
                         contextToNotify.handler().handleException(sendRequestException);
                     }
                 });
@@ -695,17 +702,18 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
         }
     }
 
+    // 发送到本地的请求
     private void sendLocalRequest(long requestId, final String action, final TransportRequest request, TransportRequestOptions options) {
         final DirectResponseChannel channel = new DirectResponseChannel(logger, localNode, action, requestId, this, threadPool);
         try {
-            onRequestSent(localNode, requestId, action, request, options);
+            onRequestSent(localNode, requestId, action, request, options); // 追踪请求
             onRequestReceived(requestId, action);
             final RequestHandlerRegistry reg = getRequestHandler(action);
             if (reg == null) {
                 throw new ActionNotFoundTransportException("Action [" + action + "] not found");
             }
             final String executor = reg.getExecutor();
-            if (ThreadPool.Names.SAME.equals(executor)) {
+            if (ThreadPool.Names.SAME.equals(executor)) { //  处理请求
                 //noinspection unchecked
                 reg.processMessageReceived(request, channel);
             } else {
@@ -806,7 +814,7 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
     }
 
     /**
-     * Registers a new request handler
+     * 注册一个新的请求处理程序()
      *
      * @param action         The action the request handler is associated with
      * @param requestFactory a callable to be used construct new instances for streaming
@@ -1025,15 +1033,15 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
 
         @Override
         public void run() {
-            if (responseHandlers.contains(requestId)) {
+            if (responseHandlers.contains(requestId)) {// 删除响应上下文中中的超时请求
                 long timeoutTime = threadPool.relativeTimeInMillis();
                 timeoutInfoHandlers.put(requestId, new TimeoutInfoHolder(node, action, sentTime, timeoutTime));
-                // now that we have the information visible via timeoutInfoHandlers, we try to remove the request id
+                // 现在我们通过timeoutInfoHandlers可以看到信息，我们尝试删除请求ID
                 final Transport.ResponseContext holder = responseHandlers.remove(requestId);
                 if (holder != null) {
                     assert holder.action().equals(action);
                     assert holder.connection().getNode().equals(node);
-                    holder.handler().handleException(
+                    holder.handler().handleException( // 处理异常
                         new ReceiveTimeoutTransportException(holder.connection().getNode(), holder.action(),
                             "request_id [" + requestId + "] timed out after [" + (timeoutTime - sentTime) + "ms]"));
                 } else {
@@ -1091,8 +1099,7 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
     }
 
     /**
-     * This handler wrapper ensures that the response thread executes with the correct thread context. Before any of the handle methods
-     * are invoked we restore the context.
+     * 此处理程序包装器确保响应线程使用正确的线程上下文执行。 在调用任何句柄方法之前，我们恢复上下文。
      */
     public static final class ContextRestoreResponseHandler<T extends TransportResponse> implements TransportResponseHandler<T> {
 
@@ -1111,11 +1118,11 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
         }
 
         @Override
-        public void handleResponse(T response) {
+        public void handleResponse(T response) { // 如果处理响应则表示，取消超时处理
             if(handler != null) {
                 handler.cancel();
             }
-            try (ThreadContext.StoredContext ignore = contextSupplier.get()) {
+            try (ThreadContext.StoredContext ignore = contextSupplier.get()) { // 还原上下文
                 delegate.handleResponse(response);
             }
         }

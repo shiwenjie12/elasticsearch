@@ -29,7 +29,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
- * Provides pre-configured, shared {@link CharFilter}s.
+ * 提供预配置的共享{@link CharFilter}。
  */
 public class PreConfiguredCharFilter extends PreConfiguredAnalysisComponent<CharFilterFactory> {
     /**

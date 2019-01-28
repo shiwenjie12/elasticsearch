@@ -49,8 +49,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * Represents a global cluster-wide routing table for all indices including the
- * version of the current routing state.
+ * 表示所有索引的全局群集范围路由表，包括当前路由状态的版本。
  *
  * @see IndexRoutingTable
  */
@@ -108,8 +107,8 @@ public class RoutingTable implements Iterable<IndexRoutingTable>, Diffable<Routi
     }
 
     /**
-     * All shards for the provided index and shard id
-     * @return All the shard routing entries for the given index and shard id
+     * 提供的索引和分片ID的所有分片
+     * @return 给定索引和分片ID的所有分片路由条目
      * @throws IndexNotFoundException if provided index does not exist
      * @throws ShardNotFoundException if provided shard id is unknown
      */
@@ -218,7 +217,7 @@ public class RoutingTable implements Iterable<IndexRoutingTable>, Diffable<Routi
     }
 
     /**
-     * Return GroupShardsIterator where each active shard routing has it's own shard iterator.
+     * 返回GroupShardsIterator，其中每个活动的分片路由都有自己的分片迭代器。
      *
      * @param includeEmpty             if true, a shard iterator will be added for non-assigned shards as well
      * @param includeRelocationTargets if true, an <b>extra</b> shard iterator will be added for relocating shards. The extra
@@ -403,7 +402,7 @@ public class RoutingTable implements Iterable<IndexRoutingTable>, Diffable<Routi
     }
 
     /**
-     * Builder for the routing table. Note that build can only be called one time.
+     * 路由表的构建器。请注意，构建只能被调用一次。
      */
     public static class Builder {
 

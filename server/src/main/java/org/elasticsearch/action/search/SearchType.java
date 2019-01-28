@@ -20,7 +20,7 @@
 package org.elasticsearch.action.search;
 
 /**
- * Search type represent the manner at which the search operation is executed.
+ * 搜索类型表示执行搜索操作的方式。
  *
  *
  */

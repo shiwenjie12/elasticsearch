@@ -30,10 +30,10 @@ import java.util.function.BiFunction;
 import java.util.function.LongSupplier;
 
 /**
- * A processor implementation may modify the data belonging to a document.
- * Whether changes are made and what exactly is modified is up to the implementation.
+ * 处理器实现可以修改属于文档的数据。
+ * 是否进行了更改以及确切修改的内容取决于实现。
  *
- * Processors may get called concurrently and thus need to be thread-safe.
+ * 处理器可能同时被调用，因此需要是线程安全的。
  */
 public interface Processor {
 
@@ -58,7 +58,7 @@ public interface Processor {
     interface Factory {
 
         /**
-         * Creates a processor based on the specified map of maps config.
+         * 根据指定的map map映射创建处理器。
          *
          * @param processorFactories Other processors which may be created inside this processor
          * @param tag The tag for the processor
@@ -74,6 +74,7 @@ public interface Processor {
     /**
      * Infrastructure class that holds services that can be used by processor factories to create processor instances
      * and that gets passed around to all {@link org.elasticsearch.plugins.IngestPlugin}s.
+     * 包含服务的基础结构类，处理器工厂可以使用这些服务来创建处理器实例，并将其传递给所有{@link org.elasticsearch.plugins.IngestPlugin}。
      */
     class Parameters {
 

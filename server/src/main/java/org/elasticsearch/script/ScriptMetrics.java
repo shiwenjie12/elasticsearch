@@ -21,6 +21,7 @@ package org.elasticsearch.script;
 
 import org.elasticsearch.common.metrics.CounterMetric;
 
+// 脚本度量
 public class ScriptMetrics {
     final CounterMetric compilationsMetric = new CounterMetric();
     final CounterMetric cacheEvictionsMetric = new CounterMetric();

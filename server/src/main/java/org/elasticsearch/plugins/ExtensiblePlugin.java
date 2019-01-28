@@ -20,7 +20,7 @@
 package org.elasticsearch.plugins;
 
 /**
- * An extension point for {@link Plugin} implementations to be themselves extensible.
+ * {@link Plugin}实现的扩展点本身是可扩展的。
  *
  * This class provides a callback for extensible plugins to be informed of other plugins
  * which extend them.

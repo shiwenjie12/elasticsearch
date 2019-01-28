@@ -23,7 +23,7 @@ import org.elasticsearch.client.ElasticsearchClient;
 import org.elasticsearch.common.unit.TimeValue;
 
 /**
- * Base request builder for master node operations that support acknowledgements
+ * 支持确认的主节点操作的基本请求构建器
  */
 public abstract class AcknowledgedRequestBuilder<Request extends AcknowledgedRequest<Request>, Response extends AcknowledgedResponse,
         RequestBuilder extends AcknowledgedRequestBuilder<Request, Response, RequestBuilder>>

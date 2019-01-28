@@ -32,6 +32,7 @@ import org.elasticsearch.core.internal.io.IOUtils;
 
 import java.io.IOException;
 
+// 传输日志
 public final class TransportLogger {
 
     private static final Logger logger = LogManager.getLogger(TransportLogger.class);

@@ -27,6 +27,7 @@ import java.nio.file.Path;
 /**
  * The Natives class is a wrapper class that checks if the classes necessary for calling native methods are available on
  * startup. If they are not available, this class will avoid calling code that loads these classes.
+ * Natives类是一个包装类，用于检查调用本机方法所需的类是否在启动时可用。 如果它们不可用，则此类将避免调用加载这些类的代码。
  */
 final class Natives {
     /** no instantiation */

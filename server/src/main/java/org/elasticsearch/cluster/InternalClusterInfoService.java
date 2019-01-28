@@ -59,6 +59,10 @@ import java.util.function.Consumer;
  * Listens for changes in the number of data nodes and immediately submits a
  * ClusterInfoUpdateJob if a node has been added.
  *
+ * InternalClusterInfoService提供ClusterInfoService接口，通常在计时器上更新。
+ * 计时器可以动态改变设置<code> cluster.info.update.interval </ code>设置（默认为30秒）。
+ * InternalClusterInfoService仅在主节点上运行。监视数据节点数量的变化，如果已添加节点，则立即提交ClusterInfoUpdateJob。
+ *
  * Every time the timer runs, gathers information about the disk usage and
  * shard sizes across the cluster.
  */
@@ -105,7 +109,7 @@ public class InternalClusterInfoService implements ClusterInfoService, LocalNode
         clusterSettings.addSettingsUpdateConsumer(DiskThresholdSettings.CLUSTER_ROUTING_ALLOCATION_DISK_THRESHOLD_ENABLED_SETTING,
                                                   this::setEnabled);
 
-        // Add InternalClusterInfoService to listen for Master changes
+        // 添加InternalClusterInfoService以侦听master更改
         this.clusterService.addLocalNodeMasterListener(this);
         // Add to listen for state changes (when nodes are added)
         this.clusterService.addListener(this);
@@ -131,10 +135,10 @@ public class InternalClusterInfoService implements ClusterInfoService, LocalNode
             logger.trace("I have been elected master, scheduling a ClusterInfoUpdateJob");
         }
         try {
-            // Submit a job that will start after DEFAULT_STARTING_INTERVAL, and reschedule itself after running
+            // 提交将在DEFAULT_STARTING_INTERVAL之后启动的作业，并在运行后重新安排自己
             threadPool.schedule(updateFrequency, executorName(), new SubmitReschedulingClusterInfoUpdatedJob());
             if (clusterService.state().getNodes().getDataNodes().size() > 1) {
-                // Submit an info update job to be run immediately
+                // 提交要立即运行的信息更新作业
                 threadPool.executor(executorName()).execute(() -> maybeRefresh());
             }
         } catch (EsRejectedExecutionException ex) {
@@ -240,8 +244,8 @@ public class InternalClusterInfoService implements ClusterInfoService, LocalNode
     }
 
     /**
-     * Retrieve the latest nodes stats, calling the listener when complete
-     * @return a latch that can be used to wait for the nodes stats to complete if desired
+     * 检索最新的节点统计信息，完成后调用侦听器
+     * @return 如果需要，可用于等待节点统计完成的锁存器
      */
     protected CountDownLatch updateNodeStats(final ActionListener<NodesStatsResponse> listener) {
         final CountDownLatch latch = new CountDownLatch(1);
@@ -262,13 +266,13 @@ public class InternalClusterInfoService implements ClusterInfoService, LocalNode
         final IndicesStatsRequest indicesStatsRequest = new IndicesStatsRequest();
         indicesStatsRequest.clear();
         indicesStatsRequest.store(true);
-
         client.admin().indices().stats(indicesStatsRequest, new LatchedActionListener<>(listener, latch));
         return latch;
     }
 
+    // 可能更新
     private void maybeRefresh() {
-        // Short-circuit if not enabled
+        // 如果未启用则短路
         if (enabled) {
             refresh();
         } else {
@@ -279,12 +283,13 @@ public class InternalClusterInfoService implements ClusterInfoService, LocalNode
     }
 
     /**
-     * Refreshes the ClusterInfo in a blocking fashion
+     * 以阻塞方式刷新ClusterInfo
      */
     public final ClusterInfo refresh() {
         if (logger.isTraceEnabled()) {
             logger.trace("Performing ClusterInfoUpdateJob");
         }
+        // 更新节点状态
         final CountDownLatch nodeLatch = updateNodeStats(new ActionListener<NodesStatsResponse>() {
             @Override
             public void onResponse(NodesStatsResponse nodeStatses) {
@@ -314,6 +319,7 @@ public class InternalClusterInfoService implements ClusterInfoService, LocalNode
             }
         });
 
+        // 更新索引状态
         final CountDownLatch indicesLatch = updateIndicesStats(new ActionListener<IndicesStatsResponse>() {
             @Override
             public void onResponse(IndicesStatsResponse indicesStatsResponse) {

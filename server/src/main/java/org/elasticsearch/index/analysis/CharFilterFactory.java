@@ -21,6 +21,7 @@ package org.elasticsearch.index.analysis;
 
 import java.io.Reader;
 
+// 字符过滤工厂
 public interface CharFilterFactory {
 
     String name();

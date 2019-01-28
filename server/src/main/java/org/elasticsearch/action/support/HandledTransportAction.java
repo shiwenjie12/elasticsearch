@@ -36,7 +36,7 @@ import org.elasticsearch.transport.TransportService;
 import java.util.function.Supplier;
 
 /**
- * A TransportAction that self registers a handler into the transport service
+ * 自动将处理程序注册到传输服务的TransportAction
  */
 public abstract class HandledTransportAction<Request extends ActionRequest, Response extends ActionResponse>
         extends TransportAction<Request, Response> {

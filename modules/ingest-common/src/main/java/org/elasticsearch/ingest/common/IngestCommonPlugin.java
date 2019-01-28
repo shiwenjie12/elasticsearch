@@ -47,6 +47,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+// 通用的Ingest插件
 public class IngestCommonPlugin extends Plugin implements ActionPlugin, IngestPlugin {
 
     static final Map<String, String> GROK_PATTERNS = Grok.getBuiltinPatterns();

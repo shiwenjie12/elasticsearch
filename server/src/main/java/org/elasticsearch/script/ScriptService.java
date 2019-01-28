@@ -59,6 +59,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
 
+// 脚本服务
 public class ScriptService implements Closeable, ClusterStateApplier {
 
     private static final Logger logger = LogManager.getLogger(ScriptService.class);
@@ -138,7 +139,7 @@ public class ScriptService implements Closeable, ClusterStateApplier {
         this.engines = Objects.requireNonNull(engines);
         this.contexts = Objects.requireNonNull(contexts);
 
-        if (Strings.hasLength(settings.get(DISABLE_DYNAMIC_SCRIPTING_SETTING))) {
+        if (Strings.hasLength(settings.get(DISABLE_DYNAMIC_SCRIPTING_SETTING))) {// 禁用脚本
             throw new IllegalArgumentException(DISABLE_DYNAMIC_SCRIPTING_SETTING + " is not a supported setting, replace with fine-grained script settings. \n" +
                     "Dynamic scripts can be enabled for all languages and all operations not using `script.disable_dynamic: false` in elasticsearch.yml");
         }
@@ -265,7 +266,7 @@ public class ScriptService implements Closeable, ClusterStateApplier {
     }
 
     /**
-     * This configures the maximum script compilations per five minute window.
+     * 这将配置每五分钟窗口的最大脚本编辑。
      *
      * @param newRate the new expected maximum number of compilations per five minute window
      */
@@ -277,9 +278,9 @@ public class ScriptService implements Closeable, ClusterStateApplier {
     }
 
     /**
-     * Compiles a script using the given context.
+     * 使用给定的上下文编译脚本。
      *
-     * @return a compiled script which may be used to construct instances of a script for the given context
+     * @return 一个已编译的脚本，可用于为给定的上下文构造脚本的实例
      */
     public <FactoryType> FactoryType compile(Script script, ScriptContext<FactoryType> context) {
         Objects.requireNonNull(script);
@@ -546,9 +547,7 @@ public class ScriptService implements Closeable, ClusterStateApplier {
     }
 
     /**
-     * A small listener for the script cache that calls each
-     * {@code ScriptEngine}'s {@code scriptRemoved} method when the
-     * script has been removed from the cache
+     * 脚本缓存的小型侦听器，在从缓存中删除脚本时调用每个{@code ScriptEngine}的{@code scriptRemoved}方法
      */
     private class ScriptCacheRemovalListener implements RemovalListener<CacheKey, Object> {
         @Override
@@ -556,10 +555,12 @@ public class ScriptService implements Closeable, ClusterStateApplier {
             if (logger.isDebugEnabled()) {
                 logger.debug("removed {} from cache, reason: {}", notification.getValue(), notification.getRemovalReason());
             }
+            // 缓存失效
             scriptMetrics.onCacheEviction();
         }
     }
 
+    // 缓存key
     private static final class CacheKey {
         final String lang;
         final String idOrCode;

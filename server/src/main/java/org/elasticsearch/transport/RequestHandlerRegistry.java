@@ -56,6 +56,7 @@ public class RequestHandlerRegistry<Request extends TransportRequest> {
         return requestReader.read(in);
     }
 
+    // 处理接受消息，并通过通道发送响应
     public void processMessageReceived(Request request, TransportChannel channel) throws Exception {
         final Task task = taskManager.register(channel.getChannelType(), action, request);
         boolean success = false;

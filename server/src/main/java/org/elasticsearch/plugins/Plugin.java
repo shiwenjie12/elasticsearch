@@ -173,7 +173,7 @@ public abstract class Plugin implements Closeable {
     public List<String> getSettingsFilter() { return Collections.emptyList(); }
 
     /**
-     * Get the setting upgraders provided by this plugin.
+     * 获取此插件提供的设置升级程序。
      *
      * @return the settings upgraders
      */
@@ -229,8 +229,7 @@ public abstract class Plugin implements Closeable {
     }
 
     /**
-     * Provides the list of this plugin's custom thread pools, empty if
-     * none.
+     * 提供此插件的自定义线程池的列表，如果没有，则为空。
      *
      * @param settings the current settings
      * @return executors builders for this plugin's custom thread pools

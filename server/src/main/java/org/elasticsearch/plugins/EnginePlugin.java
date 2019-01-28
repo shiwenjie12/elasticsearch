@@ -25,7 +25,7 @@ import org.elasticsearch.index.engine.EngineFactory;
 import java.util.Optional;
 
 /**
- * A plugin that provides alternative engine implementations.
+ * 一个提供替代引擎实现的插件。
  */
 public interface EnginePlugin {
 

@@ -44,6 +44,7 @@ import org.elasticsearch.threadpool.ThreadPool;
 import java.util.Collections;
 import java.util.Map;
 
+// 集群服务
 public class ClusterService extends AbstractLifecycleComponent {
     private static final Logger logger = LogManager.getLogger(ClusterService.class);
 
@@ -179,7 +180,7 @@ public class ClusterService extends AbstractLifecycleComponent {
     }
 
     /**
-     * Add a listener for on/off local node master events
+     * 为开/关本地节点主事件添加侦听器
      */
     public void addLocalNodeMasterListener(LocalNodeMasterListener listener) {
         clusterApplierService.addLocalNodeMasterListener(listener);

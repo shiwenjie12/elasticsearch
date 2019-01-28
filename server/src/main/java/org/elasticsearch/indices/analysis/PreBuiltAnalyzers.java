@@ -32,6 +32,7 @@ import org.elasticsearch.indices.analysis.PreBuiltCacheFactory.CachingStrategy;
 
 import java.util.Locale;
 
+// 预建分析器
 public enum PreBuiltAnalyzers {
 
     STANDARD(CachingStrategy.ELASTICSEARCH) {

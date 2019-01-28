@@ -73,16 +73,16 @@ public class PutPipelineTransportAction extends TransportMasterNodeAction<PutPip
             throws Exception {
         NodesInfoRequest nodesInfoRequest = new NodesInfoRequest();
         nodesInfoRequest.clear();
-        nodesInfoRequest.ingest(true);
+        nodesInfoRequest.ingest(true); // 请求节点ingest数据
         client.admin().cluster().nodesInfo(nodesInfoRequest, new ActionListener<NodesInfoResponse>() {
             @Override
             public void onResponse(NodesInfoResponse nodeInfos) {
                 try {
                     Map<DiscoveryNode, IngestInfo> ingestInfos = new HashMap<>();
-                    for (NodeInfo nodeInfo : nodeInfos.getNodes()) {
+                    for (NodeInfo nodeInfo : nodeInfos.getNodes()) { // 所有节点的ingest信息
                         ingestInfos.put(nodeInfo.getNode(), nodeInfo.getIngest());
                     }
-                    ingestService.putPipeline(ingestInfos, request, listener);
+                    ingestService.putPipeline(ingestInfos, request, listener);// 执行真正的putPipeline
                 } catch (Exception e) {
                     onFailure(e);
                 }

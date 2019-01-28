@@ -34,6 +34,7 @@ import org.elasticsearch.transport.TransportService;
 import java.io.IOException;
 import java.util.List;
 
+// 传输Node状态Action
 public class TransportNodesStatsAction extends TransportNodesAction<NodesStatsRequest,
                                                                     NodesStatsResponse,
                                                                     TransportNodesStatsAction.NodeStatsRequest,

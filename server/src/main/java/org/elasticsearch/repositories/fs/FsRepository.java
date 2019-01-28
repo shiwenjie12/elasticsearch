@@ -37,7 +37,7 @@ import java.nio.file.Path;
 import java.util.function.Function;
 
 /**
- * Shared file system implementation of the BlobStoreRepository
+ * BlobStoreRepository的共享文件系统实现
  * <p>
  * Shared file system repository supports the following settings
  * <dl>

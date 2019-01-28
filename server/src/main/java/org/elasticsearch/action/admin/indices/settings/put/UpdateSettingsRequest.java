@@ -46,7 +46,7 @@ import static org.elasticsearch.common.settings.Settings.writeSettingsToStream;
 import static org.elasticsearch.common.settings.Settings.Builder.EMPTY_SETTINGS;
 
 /**
- * Request for an update index settings action
+ * 请求更新索引设置操作
  */
 public class UpdateSettingsRequest extends AcknowledgedRequest<UpdateSettingsRequest>
         implements IndicesRequest.Replaceable, ToXContentObject {

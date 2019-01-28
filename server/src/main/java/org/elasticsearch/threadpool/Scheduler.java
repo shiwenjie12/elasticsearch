@@ -110,7 +110,7 @@ public interface Scheduler {
     }
 
     /**
-     * This interface represents an object whose execution may be cancelled during runtime.
+     * 此接口表示一个对象，其执行可能在运行时被取消。
      */
     interface Cancellable {
 

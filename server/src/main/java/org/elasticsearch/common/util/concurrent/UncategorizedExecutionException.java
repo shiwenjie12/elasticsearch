@@ -24,6 +24,7 @@ import org.elasticsearch.common.io.stream.StreamInput;
 
 import java.io.IOException;
 
+// 未分类异常
 public class UncategorizedExecutionException extends ElasticsearchException {
 
     public UncategorizedExecutionException(String msg, Throwable cause) {

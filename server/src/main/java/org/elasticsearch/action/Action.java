@@ -25,7 +25,7 @@ import org.elasticsearch.transport.TransportRequestOptions;
 
 /**
  * A generic action. Should strive to make it a singleton.
- * 一个通用的action，应该努力成为单例的
+ * 一个通用的action，应该努力成为单例的，更多的是用于标记响应
  */
 public abstract class Action<Response extends ActionResponse> {
 

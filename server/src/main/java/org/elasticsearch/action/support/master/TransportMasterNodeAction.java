@@ -53,7 +53,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
- * A base class for operations that needs to be performed on the master node.
+ * 需要在主节点上执行的操作的基类。
  */
 public abstract class TransportMasterNodeAction<Request extends MasterNodeRequest<Request>, Response extends ActionResponse>
     extends HandledTransportAction<Request, Response> {
@@ -131,6 +131,7 @@ public abstract class TransportMasterNodeAction<Request extends MasterNodeReques
         return false;
     }
 
+    // 检查是否有拦截的行为
     protected abstract ClusterBlockException checkBlock(Request request, ClusterState state);
 
     @Override
@@ -138,6 +139,7 @@ public abstract class TransportMasterNodeAction<Request extends MasterNodeReques
         new AsyncSingleAction(task, request, listener).start();
     }
 
+    // 异步的单Action
     class AsyncSingleAction {
 
         private final ActionListener<Response> listener;
@@ -165,8 +167,9 @@ public abstract class TransportMasterNodeAction<Request extends MasterNodeReques
             try {
                 final Predicate<ClusterState> masterChangePredicate = MasterNodeChangePredicate.build(clusterState);
                 final DiscoveryNodes nodes = clusterState.nodes();
+                // 判断是不是主节点，然后决定是否在本节点执行还是发送到主节点
                 if (nodes.isLocalNodeElectedMaster() || localExecute(request)) {
-                    // check for block, if blocked, retry, else, execute locally
+                    // 检查阻止，如果阻止，则重试，否则，在本地执行
                     final ClusterBlockException blockException = checkBlock(request, clusterState);
                     if (blockException != null) {
                         if (!blockException.retryable()) {
@@ -185,7 +188,7 @@ public abstract class TransportMasterNodeAction<Request extends MasterNodeReques
                             });
                         }
                     } else {
-                        ActionListener<Response> delegate = new ActionListener<Response>() {
+                        ActionListener<Response> delegate = new ActionListener<Response>() { // 添加了集群状态异常的回调
                             @Override
                             public void onResponse(Response response) {
                                 listener.onResponse(response);
@@ -205,7 +208,7 @@ public abstract class TransportMasterNodeAction<Request extends MasterNodeReques
                         threadPool.executor(executor).execute(new ActionRunnable<Response>(delegate) {
                             @Override
                             protected void doRun() throws Exception {
-                                masterOperation(task, request, clusterState, delegate);
+                                masterOperation(task, request, clusterState, delegate); // 执行master操作
                             }
                         });
                     }
@@ -213,7 +216,7 @@ public abstract class TransportMasterNodeAction<Request extends MasterNodeReques
                     if (nodes.getMasterNode() == null) {
                         logger.debug("no known master node, scheduling a retry");
                         retry(null, masterChangePredicate);
-                    } else {
+                    } else { // 发送请求到主节点
                         DiscoveryNode masterNode = nodes.getMasterNode();
                         final String actionName = getMasterActionName(masterNode);
                         transportService.sendRequest(masterNode, actionName, request,

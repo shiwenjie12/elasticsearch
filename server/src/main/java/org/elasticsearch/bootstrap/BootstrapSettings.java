@@ -22,6 +22,7 @@ package org.elasticsearch.bootstrap;
 import org.elasticsearch.common.settings.Setting;
 import org.elasticsearch.common.settings.Setting.Property;
 
+// Bootstrap配置
 public final class BootstrapSettings {
 
     private BootstrapSettings() {

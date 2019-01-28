@@ -28,6 +28,7 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 
 import java.io.IOException;
 
+// 脚本状态
 public class ScriptStats implements Writeable, ToXContentFragment {
     private final long compilations;
     private final long cacheEvictions;

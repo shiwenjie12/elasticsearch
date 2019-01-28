@@ -38,7 +38,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * An event received by the local node, signaling that the cluster state has changed.
+ * 本地节点收到的事件，表示群集状态已更改。
  */
 public class ClusterChangedEvent {
 
@@ -68,7 +68,7 @@ public class ClusterChangedEvent {
     }
 
     /**
-     * The new cluster state that caused this change event.
+     * 导致此更改事件的新群集状态。
      */
     public ClusterState state() {
         return this.state;

@@ -34,8 +34,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * Uniquely identifies an allocation. An allocation is a shard moving from unassigned to initializing,
- * or relocation.
+ * 唯一标识分配。分配是从未分配到初始化或重定位的分片。
  * <p>
  * Relocation is a special case, where the origin shard is relocating with a relocationId and same id, and
  * the target shard (only materialized in RoutingNodes) is initializing with the id set to the origin shard
@@ -107,8 +106,7 @@ public class AllocationId implements ToXContentObject, Writeable {
     }
 
     /**
-     * Creates a new allocation id for the target initializing shard that is the result
-     * of a relocation.
+     * 为目标初始化分片创建一个新的分配ID，该分片是重定位的结果。
      */
     public static AllocationId newTargetRelocation(AllocationId allocationId) {
         assert allocationId.getRelocationId() != null;

@@ -23,12 +23,12 @@ import org.elasticsearch.common.io.stream.Writeable;
 
 
 /**
- * Cluster state part, changes in which can be serialized
+ * 群集状态部分，其中的更改可以序列化
  */
 public interface Diffable<T> extends Writeable {
 
     /**
-     * Returns serializable object representing differences between this and previousState
+     * 返回表示this和previousState之间差异的可序列化对象
      */
     Diff<T> diff(T previousState);
 

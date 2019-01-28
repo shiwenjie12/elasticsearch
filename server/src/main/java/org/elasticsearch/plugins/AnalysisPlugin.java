@@ -129,7 +129,7 @@ public interface AnalysisPlugin {
     }
 
     /**
-     * Mark an {@link AnalysisProvider} as requiring the index's settings.
+     * 将{@link AnalysisProvider}标记为需要索引的设置。
      */
     static <T> AnalysisProvider<T> requiresAnalysisSettings(AnalysisProvider<T> provider) {
         return new AnalysisProvider<T>() {

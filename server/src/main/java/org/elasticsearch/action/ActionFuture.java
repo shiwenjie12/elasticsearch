@@ -25,9 +25,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
- * An extension to {@link Future} allowing for simplified "get" operations.
- *
- *
+ * {@link Future}的扩展，允许简化的“获取”操作。
  */
 public interface ActionFuture<T> extends Future<T> {
 

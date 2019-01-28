@@ -28,6 +28,7 @@ import java.io.IOException;
  * Thrown when a node join request or a master ping reaches a node which is not
  * currently acting as a master or when a cluster state update task is to be executed
  * on a node that is no longer master.
+ * 当节点加入请求或主ping到达当前不充当主节点的节点或要在不再是主节点的节点上执行集群状态更新任务时抛出。
  */
 public class NotMasterException extends ElasticsearchException {
 

@@ -105,7 +105,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 /**
- * Encapsulates all valid cluster level settings.
+ * 封装所有有效的集群级别设置。
  */
 public final class ClusterSettings extends AbstractScopedSettings {
     public ClusterSettings(final Settings nodeSettings, final Set<Setting<?>> settingsSet) {
@@ -169,6 +169,7 @@ public final class ClusterSettings extends AbstractScopedSettings {
         }
     }
 
+    // 集群配置
     public static Set<Setting<?>> BUILT_IN_CLUSTER_SETTINGS = Collections.unmodifiableSet(new HashSet<>(
             Arrays.asList(AwarenessAllocationDecider.CLUSTER_ROUTING_ALLOCATION_AWARENESS_ATTRIBUTE_SETTING,
                     TransportClient.CLIENT_TRANSPORT_NODES_SAMPLER_INTERVAL, // TODO these transport client settings are kind

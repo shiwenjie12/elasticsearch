@@ -87,6 +87,7 @@ import java.util.stream.Collectors;
 import static org.elasticsearch.common.unit.TimeValue.timeValueSeconds;
 import static org.elasticsearch.gateway.GatewayService.STATE_NOT_RECOVERED_BLOCK;
 
+// 集群化的发现器
 public class ZenDiscovery extends AbstractLifecycleComponent implements Discovery, PingContextProvider, IncomingClusterStateListener {
     private static final Logger logger = LogManager.getLogger(ZenDiscovery.class);
 
@@ -388,7 +389,7 @@ public class ZenDiscovery extends AbstractLifecycleComponent implements Discover
                 return;
             }
         }
-        // indefinitely wait for cluster state to be applied locally
+        // 无限期地等待本地应用集群状态
         try {
             latch.await();
         } catch (InterruptedException e) {

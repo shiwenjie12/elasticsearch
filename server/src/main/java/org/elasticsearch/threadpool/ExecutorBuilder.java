@@ -47,6 +47,7 @@ public abstract class ExecutorBuilder<U extends ExecutorBuilder.ExecutorSettings
         return String.join(".", prefix, key);
     }
 
+    // 应用最大限制
     protected int applyHardSizeLimit(final Settings settings, final String name) {
         if (name.equals("bulk") || name.equals(ThreadPool.Names.WRITE)) {
             return 1 + EsExecutors.numberOfProcessors(settings);
@@ -71,7 +72,7 @@ public abstract class ExecutorBuilder<U extends ExecutorBuilder.ExecutorSettings
     abstract U getSettings(Settings settings);
 
     /**
-     * Builds the executor with the specified executor settings.
+     * 使用指定的执行程序设置构建执行程序。
      *
      * @param settings      the executor settings
      * @param threadContext the current thread context

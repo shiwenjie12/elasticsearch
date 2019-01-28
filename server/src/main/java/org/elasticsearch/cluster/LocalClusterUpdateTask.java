@@ -25,7 +25,7 @@ import org.elasticsearch.common.unit.TimeValue;
 import java.util.List;
 
 /**
- * Used to apply state updates on nodes that are not necessarily master
+ * 用于在不一定是主节点的节点上应用状态更新
  */
 public abstract class LocalClusterUpdateTask implements ClusterStateTaskConfig, ClusterStateTaskExecutor<LocalClusterUpdateTask>,
     ClusterStateTaskListener {

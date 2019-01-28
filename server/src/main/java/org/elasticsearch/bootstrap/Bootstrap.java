@@ -93,11 +93,11 @@ final class Bootstrap {
         });
     }
 
-    /** initialize native resources */
+    /** 初始化本机资源 */
     public static void initializeNatives(Path tmpFile, boolean mlockAll, boolean systemCallFilter, boolean ctrlHandler) {
         final Logger logger = LogManager.getLogger(Bootstrap.class);
 
-        // check if the user is running as root, and bail
+        // 检查用户是否以root用户身份运行并保释
         if (Natives.definitelyRunningAsRoot()) {
             throw new RuntimeException("can not run elasticsearch as root");
         }
@@ -150,6 +150,7 @@ final class Bootstrap {
         StringHelper.randomId();
     }
 
+    // 初始化探头
     static void initializeProbes() {
         // Force probes to be loaded
         ProcessProbe.getInstance();
@@ -172,7 +173,7 @@ final class Bootstrap {
                 BootstrapSettings.SYSTEM_CALL_FILTER_SETTING.get(settings),
                 BootstrapSettings.CTRLHANDLER_SETTING.get(settings));
 
-        // initialize probes before the security manager is installed
+        // 在安装安全管理器之前初始化探针
         initializeProbes();
 
         if (addShutdownHook) {
@@ -322,12 +323,13 @@ final class Bootstrap {
             // install the default uncaught exception handler; must be done before security is
             // initialized as we do not want to grant the runtime permission
             // setDefaultUncaughtExceptionHandler
+            // 设置异常捕获器
             Thread.setDefaultUncaughtExceptionHandler(new ElasticsearchUncaughtExceptionHandler());
 
             INSTANCE.setup(true, environment);
 
             try {
-                // any secure settings must be read during node construction
+                // 在节点构建期间必须读取任何安全设置
                 IOUtils.close(keystore);
             } catch (IOException e) {
                 throw new BootstrapException(e);
@@ -380,6 +382,7 @@ final class Bootstrap {
         }
     }
 
+    // 关闭输出流
     @SuppressForbidden(reason = "System#out")
     private static void closeSystOut() {
         System.out.close();
@@ -390,6 +393,7 @@ final class Bootstrap {
         System.err.close();
     }
 
+    // 检查Lucene版本
     private static void checkLucene() {
         if (Version.CURRENT.luceneVersion.equals(org.apache.lucene.util.Version.LATEST) == false) {
             throw new AssertionError("Lucene version mismatch this version of Elasticsearch requires lucene version ["

@@ -81,6 +81,7 @@ import java.util.function.Predicate;
 import static org.elasticsearch.common.settings.Settings.readSettingsFromStream;
 import static org.elasticsearch.common.settings.Settings.writeSettingsToStream;
 
+// 元数据
 public class MetaData implements Iterable<IndexMetaData>, Diffable<MetaData>, ToXContentFragment {
 
     private static final Logger logger = LogManager.getLogger(MetaData.class);
@@ -88,13 +89,13 @@ public class MetaData implements Iterable<IndexMetaData>, Diffable<MetaData>, To
     public static final String ALL = "_all";
 
     public enum XContentContext {
-        /* Custom metadata should be returns as part of API call */
+        /* 自定义元数据应作为API调用的一部分返回 */
         API,
 
-        /* Custom metadata should be stored as part of the persistent cluster state */
+        /* 自定义元数据应存储为持久性群集状态的一部分 */
         GATEWAY,
 
-        /* Custom metadata should be stored as part of a snapshot */
+        /* 自定义元数据应存储为快照的一部分 */
         SNAPSHOT
     }
 

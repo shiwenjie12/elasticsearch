@@ -64,8 +64,10 @@ import static org.elasticsearch.plugins.AnalysisPlugin.requiresAnalysisSettings;
  */
 public final class AnalysisModule {
     static {
-        Settings build = Settings.builder().put(IndexMetaData.SETTING_VERSION_CREATED, Version.CURRENT).put(IndexMetaData
-            .SETTING_NUMBER_OF_REPLICAS, 1).put(IndexMetaData.SETTING_NUMBER_OF_SHARDS, 1).build();
+        Settings build = Settings.builder()
+            .put(IndexMetaData.SETTING_VERSION_CREATED, Version.CURRENT)
+            .put(IndexMetaData.SETTING_NUMBER_OF_REPLICAS, 1)
+            .put(IndexMetaData.SETTING_NUMBER_OF_SHARDS, 1).build();
         IndexMetaData metaData = IndexMetaData.builder("_na_").settings(build).build();
         NA_INDEX_SETTINGS = new IndexSettings(metaData, Settings.EMPTY);
     }
@@ -80,11 +82,11 @@ public final class AnalysisModule {
     public AnalysisModule(Environment environment, List<AnalysisPlugin> plugins) throws IOException {
         NamedRegistry<AnalysisProvider<CharFilterFactory>> charFilters = setupCharFilters(plugins);
         NamedRegistry<org.apache.lucene.analysis.hunspell.Dictionary> hunspellDictionaries = setupHunspellDictionaries(plugins);
-        hunspellService = new HunspellService(environment.settings(), environment, hunspellDictionaries.getRegistry());
-        NamedRegistry<AnalysisProvider<TokenFilterFactory>> tokenFilters = setupTokenFilters(plugins, hunspellService);
-        NamedRegistry<AnalysisProvider<TokenizerFactory>> tokenizers = setupTokenizers(plugins);
-        NamedRegistry<AnalysisProvider<AnalyzerProvider<?>>> analyzers = setupAnalyzers(plugins);
-        NamedRegistry<AnalysisProvider<AnalyzerProvider<?>>> normalizers = setupNormalizers(plugins);
+        hunspellService = new HunspellService(environment.settings(), environment, hunspellDictionaries.getRegistry());// 词纠正服务
+        NamedRegistry<AnalysisProvider<TokenFilterFactory>> tokenFilters = setupTokenFilters(plugins, hunspellService);// 过滤器
+        NamedRegistry<AnalysisProvider<TokenizerFactory>> tokenizers = setupTokenizers(plugins);// 分词器
+        NamedRegistry<AnalysisProvider<AnalyzerProvider<?>>> analyzers = setupAnalyzers(plugins);// 分析器
+        NamedRegistry<AnalysisProvider<AnalyzerProvider<?>>> normalizers = setupNormalizers(plugins); // 规范化器
 
         Map<String, PreConfiguredCharFilter> preConfiguredCharFilters = setupPreConfiguredCharFilters(plugins);
         Map<String, PreConfiguredTokenFilter> preConfiguredTokenFilters = setupPreConfiguredTokenFilters(plugins);
@@ -92,9 +94,9 @@ public final class AnalysisModule {
         Map<String, PreBuiltAnalyzerProviderFactory> preConfiguredAnalyzers = setupPreBuiltAnalyzerProviderFactories(plugins);
 
         analysisRegistry = new AnalysisRegistry(environment,
-                charFilters.getRegistry(), tokenFilters.getRegistry(), tokenizers.getRegistry(),
-                analyzers.getRegistry(), normalizers.getRegistry(),
-                preConfiguredCharFilters, preConfiguredTokenFilters, preConfiguredTokenizers, preConfiguredAnalyzers);
+            charFilters.getRegistry(), tokenFilters.getRegistry(), tokenizers.getRegistry(),
+            analyzers.getRegistry(), normalizers.getRegistry(),
+            preConfiguredCharFilters, preConfiguredTokenFilters, preConfiguredTokenizers, preConfiguredAnalyzers);
     }
 
     HunspellService getHunspellService() {
@@ -111,7 +113,7 @@ public final class AnalysisModule {
         return charFilters;
     }
 
-    public NamedRegistry<org.apache.lucene.analysis.hunspell.Dictionary> setupHunspellDictionaries(List<AnalysisPlugin> plugins) {
+    private NamedRegistry<org.apache.lucene.analysis.hunspell.Dictionary> setupHunspellDictionaries(List<AnalysisPlugin> plugins) {
         NamedRegistry<org.apache.lucene.analysis.hunspell.Dictionary> hunspellDictionaries = new NamedRegistry<>("dictionary");
         hunspellDictionaries.extractAndRegister(plugins, AnalysisPlugin::getHunspellDictionaries);
         return hunspellDictionaries;
@@ -165,9 +167,9 @@ public final class AnalysisModule {
     static Map<String, PreConfiguredCharFilter> setupPreConfiguredCharFilters(List<AnalysisPlugin> plugins) {
         NamedRegistry<PreConfiguredCharFilter> preConfiguredCharFilters = new NamedRegistry<>("pre-configured char_filter");
 
-        // No char filter are available in lucene-core so none are built in to Elasticsearch core
+        // lucene-core中没有char过滤器，因此没有内置于Elasticsearch核心
 
-        for (AnalysisPlugin plugin: plugins) {
+        for (AnalysisPlugin plugin : plugins) {
             for (PreConfiguredCharFilter filter : plugin.getPreConfiguredCharFilters()) {
                 preConfiguredCharFilters.register(filter.getName(), filter);
             }
@@ -181,7 +183,7 @@ public final class AnalysisModule {
         // Add filters available in lucene-core
         preConfiguredTokenFilters.register("lowercase", PreConfiguredTokenFilter.singleton("lowercase", true, LowerCaseFilter::new));
         // Add "standard" for old indices (bwc)
-        preConfiguredTokenFilters.register( "standard",
+        preConfiguredTokenFilters.register("standard",
             PreConfiguredTokenFilter.singletonWithVersion("standard", true, (reader, version) -> {
                 if (version.before(Version.V_7_0_0)) {
                     deprecationLogger.deprecatedAndMaybeLog("standard_deprecation",
@@ -196,7 +198,7 @@ public final class AnalysisModule {
          * lucene-analyzers-common so "stop" is defined in the analysis-common
          * module. */
 
-        for (AnalysisPlugin plugin: plugins) {
+        for (AnalysisPlugin plugin : plugins) {
             for (PreConfiguredTokenFilter filter : plugin.getPreConfiguredTokenFilters()) {
                 preConfiguredTokenFilters.register(filter.getName(), filter);
             }
@@ -212,17 +214,17 @@ public final class AnalysisModule {
             String name = tokenizer.name().toLowerCase(Locale.ROOT);
             PreConfiguredTokenizer preConfigured;
             switch (tokenizer.getCachingStrategy()) {
-            case ONE:
-                preConfigured = PreConfiguredTokenizer.singleton(name,
+                case ONE:
+                    preConfigured = PreConfiguredTokenizer.singleton(name,
                         () -> tokenizer.create(Version.CURRENT), null);
-                break;
-            default:
-                throw new UnsupportedOperationException(
+                    break;
+                default:
+                    throw new UnsupportedOperationException(
                         "Caching strategy unsupported by temporary shim [" + tokenizer + "]");
             }
             preConfiguredTokenizers.register(name, preConfigured);
         }
-        for (AnalysisPlugin plugin: plugins) {
+        for (AnalysisPlugin plugin : plugins) {
             for (PreConfiguredTokenizer tokenizer : plugin.getPreConfiguredTokenizers()) {
                 preConfiguredTokenizers.register(tokenizer.getName(), tokenizer);
             }
@@ -261,10 +263,11 @@ public final class AnalysisModule {
     /**
      * 分析组件的基础工厂接口
      */
+    @FunctionalInterface
     public interface AnalysisProvider<T> {
 
         /**
-         * Creates a new analysis provider.
+         * 创建一个新的分析提供程序。
          *
          * @param indexSettings the index settings for the index this provider is created for
          * @param environment   the nodes environment to load resources from persistent storage
@@ -296,6 +299,7 @@ public final class AnalysisModule {
         /**
          * If <code>true</code> the analysis component created by this provider requires certain settings to be instantiated.
          * it can't be created with defaults. The default is <code>false</code>.
+         * 如果<code> true </ code>，则此提供程序创建的分析组件需要实例化某些设置。无法使用默认值创建。 默认值为<code> false </ code>。
          */
         default boolean requiresAnalysisSettings() {
             return false;

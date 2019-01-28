@@ -84,8 +84,9 @@ public final class AnalysisRegistry implements Closeable {
 
     /**
      * Returns a {@link Settings} by groupName from {@link IndexSettings} or a default {@link Settings}
+     *
      * @param indexSettings an index settings
-     * @param groupName tokenizer/token filter/char filter name
+     * @param groupName     tokenizer/token filter/char filter name
      * @return {@link Settings}
      */
     public static Settings getSettingsFromIndexSettings(IndexSettings indexSettings, String groupName) {
@@ -125,11 +126,12 @@ public final class AnalysisRegistry implements Closeable {
         if (analyzerProvider == null) {
             AnalysisModule.AnalysisProvider<AnalyzerProvider<?>> provider = analyzers.get(analyzer);
             return provider == null ? null : cachedAnalyzer.computeIfAbsent(analyzer, (key) -> {
-                        try {
-                            return provider.get(environment, key).get();
-                        } catch (IOException ex) {
-                            throw new ElasticsearchException("failed to load analyzer for name " + key, ex);
-                        }}
+                    try {
+                        return provider.get(environment, key).get();
+                    } catch (IOException ex) {
+                        throw new ElasticsearchException("failed to load analyzer for name " + key, ex);
+                    }
+                }
             );
         }
         return analyzerProvider.get(environment, analyzer).get();
@@ -145,7 +147,7 @@ public final class AnalysisRegistry implements Closeable {
     }
 
     /**
-     * Creates an index-level {@link IndexAnalyzers} from this registry using the given index settings
+     * 使用给定的索引设置从此注册表创建索引级{@link IndexAnalyzers}
      */
     public IndexAnalyzers build(IndexSettings indexSettings) throws IOException {
 
@@ -187,9 +189,10 @@ public final class AnalysisRegistry implements Closeable {
 
     /**
      * Returns a registered {@link TokenizerFactory} provider by {@link IndexSettings}
-     *  or a registered {@link TokenizerFactory} provider by predefined name
-     *  or <code>null</code> if the tokenizer was not registered
-     * @param tokenizer global or defined tokenizer name
+     * or a registered {@link TokenizerFactory} provider by predefined name
+     * or <code>null</code> if the tokenizer was not registered
+     *
+     * @param tokenizer     global or defined tokenizer name
      * @param indexSettings an index settings
      * @return {@link TokenizerFactory} provider or <code>null</code>
      */
@@ -205,9 +208,10 @@ public final class AnalysisRegistry implements Closeable {
 
     /**
      * Returns a registered {@link TokenFilterFactory} provider by {@link IndexSettings}
-     *  or a registered {@link TokenFilterFactory} provider by predefined name
-     *  or <code>null</code> if the tokenFilter was not registered
-     * @param tokenFilter global or defined tokenFilter name
+     * or a registered {@link TokenFilterFactory} provider by predefined name
+     * or <code>null</code> if the tokenFilter was not registered
+     *
+     * @param tokenFilter   global or defined tokenFilter name
      * @param indexSettings an index settings
      * @return {@link TokenFilterFactory} provider or <code>null</code>
      */
@@ -224,9 +228,10 @@ public final class AnalysisRegistry implements Closeable {
 
     /**
      * Returns a registered {@link CharFilterFactory} provider by {@link IndexSettings}
-     *  or a registered {@link CharFilterFactory} provider by predefined name
-     *  or <code>null</code> if the charFilter was not registered
-     * @param charFilter global or defined charFilter name
+     * or a registered {@link CharFilterFactory} provider by predefined name
+     * or <code>null</code> if the charFilter was not registered
+     *
+     * @param charFilter    global or defined charFilter name
      * @param indexSettings an index settings
      * @return {@link CharFilterFactory} provider or <code>null</code>
      */
@@ -275,8 +280,8 @@ public final class AnalysisRegistry implements Closeable {
 
     @SuppressWarnings("unchecked")
     private <T> Map<String, T> buildMapping(Component component, IndexSettings settings, Map<String, Settings> settingsMap,
-                    Map<String, ? extends AnalysisModule.AnalysisProvider<T>> providerMap,
-                    Map<String, ? extends AnalysisModule.AnalysisProvider<T>> defaultInstance) throws IOException {
+                                            Map<String, ? extends AnalysisModule.AnalysisProvider<T>> providerMap,
+                                            Map<String, ? extends AnalysisModule.AnalysisProvider<T>> defaultInstance) throws IOException {
         Settings defaultSettings = Settings.builder().put(IndexMetaData.SETTING_VERSION_CREATED, settings.getIndexVersionCreated()).build();
         Map<String, T> factories = new HashMap<>();
         for (Map.Entry<String, Settings> entry : settingsMap.entrySet()) {
@@ -315,6 +320,7 @@ public final class AnalysisRegistry implements Closeable {
 
         }
         // go over the char filters in the bindings and register the ones that are not configured
+        // 遍历绑定中的char过滤器并注册未配置的过滤器
         for (Map.Entry<String, ? extends AnalysisModule.AnalysisProvider<T>> entry : providerMap.entrySet()) {
             String name = entry.getKey();
             AnalysisModule.AnalysisProvider<T> provider = entry.getValue();
@@ -350,7 +356,7 @@ public final class AnalysisRegistry implements Closeable {
     }
 
     private <T> AnalysisProvider<T> getAnalysisProvider(Component component, Map<String, ? extends AnalysisProvider<T>> providerMap,
-            String name, String typeName) {
+                                                        String name, String typeName) {
         if (typeName == null) {
             throw new IllegalArgumentException(component + " [" + name + "] must specify either an analyzer type, or a tokenizer");
         }
@@ -361,6 +367,7 @@ public final class AnalysisRegistry implements Closeable {
         return type;
     }
 
+    // 预建分析器
     private static class PrebuiltAnalysis implements Closeable {
 
         final Map<String, AnalysisModule.AnalysisProvider<AnalyzerProvider<?>>> analyzerProviderFactories;
@@ -369,10 +376,10 @@ public final class AnalysisRegistry implements Closeable {
         final Map<String, ? extends AnalysisProvider<CharFilterFactory>> preConfiguredCharFilterFactories;
 
         private PrebuiltAnalysis(
-                Map<String, PreConfiguredCharFilter> preConfiguredCharFilters,
-                Map<String, PreConfiguredTokenFilter> preConfiguredTokenFilters,
-                Map<String, PreConfiguredTokenizer> preConfiguredTokenizers,
-                Map<String, PreBuiltAnalyzerProviderFactory> preConfiguredAnalyzers) {
+            Map<String, PreConfiguredCharFilter> preConfiguredCharFilters,
+            Map<String, PreConfiguredTokenFilter> preConfiguredTokenFilters,
+            Map<String, PreConfiguredTokenizer> preConfiguredTokenizers,
+            Map<String, PreBuiltAnalyzerProviderFactory> preConfiguredAnalyzers) {
 
             Map<String, PreBuiltAnalyzerProviderFactory> analyzerProviderFactories = new HashMap<>();
             analyzerProviderFactories.putAll(preConfiguredAnalyzers);
@@ -407,10 +414,11 @@ public final class AnalysisRegistry implements Closeable {
         @Override
         public void close() throws IOException {
             IOUtils.close(analyzerProviderFactories.values().stream()
-                .map((a) -> ((PreBuiltAnalyzerProviderFactory)a)).collect(Collectors.toList()));
+                .map((a) -> ((PreBuiltAnalyzerProviderFactory) a)).collect(Collectors.toList()));
         }
     }
 
+    // 利用已有的分词器、分析器、过滤器构建 索引分析器
     public IndexAnalyzers build(IndexSettings indexSettings,
                                 Map<String, AnalyzerProvider<?>> analyzerProviders,
                                 Map<String, AnalyzerProvider<?>> normalizerProviders,
@@ -516,13 +524,13 @@ public final class AnalysisRegistry implements Closeable {
     }
 
     private void processNormalizerFactory(
-            String name,
-            AnalyzerProvider<?> normalizerFactory,
-            Map<String, NamedAnalyzer> normalizers,
-            String tokenizerName,
-            TokenizerFactory tokenizerFactory,
-            Map<String, TokenFilterFactory> tokenFilters,
-            Map<String, CharFilterFactory> charFilters) {
+        String name,
+        AnalyzerProvider<?> normalizerFactory,
+        Map<String, NamedAnalyzer> normalizers,
+        String tokenizerName,
+        TokenizerFactory tokenizerFactory,
+        Map<String, TokenFilterFactory> tokenFilters,
+        Map<String, CharFilterFactory> charFilters) {
         if (tokenizerFactory == null) {
             throw new IllegalStateException("keyword tokenizer factory is null, normalizers require analysis-common module");
         }

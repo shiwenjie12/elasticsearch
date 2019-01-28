@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
 
+// 操作系统状态
 public class OsStats implements Writeable, ToXContentFragment {
 
     private final long timestamp;

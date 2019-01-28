@@ -31,7 +31,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * Encapsulation class used to represent the amount of disk used on a node.
+ * 封装类用于表示节点上使用的磁盘数量。
  */
 public class DiskUsage implements ToXContentFragment, Writeable {
     final String nodeId;

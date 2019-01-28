@@ -30,6 +30,7 @@ import org.elasticsearch.index.IndexSettings;
 
 import java.util.Set;
 
+// 停词工厂类
 public class StopTokenFilterFactory extends AbstractTokenFilterFactory {
 
     private final CharArraySet stopWords;

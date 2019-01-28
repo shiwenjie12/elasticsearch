@@ -24,23 +24,25 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 集群状态任务执行器
+ * @param <T>
+ */
 public interface ClusterStateTaskExecutor<T> {
     /**
-     * Update the cluster state based on the current state and the given tasks. Return the *same instance* if no state
-     * should be changed.
+     * 根据当前状态和给定任务更新集群状态。如果不应更改状态，则返回*相同的实例*。
      */
     ClusterTasksResult<T> execute(ClusterState currentState, List<T> tasks) throws Exception;
 
     /**
-     * indicates whether this executor should only run if the current node is master
+     * 指示此执行程序是否应仅在当前节点为master时运行
      */
     default boolean runOnlyOnMaster() {
         return true;
     }
 
     /**
-     * Callback invoked after new cluster state is published. Note that
-     * this method is not invoked if the cluster state was not updated.
+     * 发布新群集状态后调用回调。请注意，如果未更新群集状态，则不会调用此方法。
      *
      * Note that this method will be executed using system context.
      *
@@ -62,7 +64,7 @@ public interface ClusterStateTaskExecutor<T> {
     }
 
     /**
-     * Represents the result of a batched execution of cluster state update tasks
+     * 表示批量执行群集状态更新任务的结果
      * @param <T> the type of the cluster state update task
      */
     class ClusterTasksResult<T> {
@@ -71,7 +73,7 @@ public interface ClusterStateTaskExecutor<T> {
         public final Map<T, TaskResult> executionResults;
 
         /**
-         * Construct an execution result instance with a correspondence between the tasks and their execution result
+         * 使用任务及其执行结果之间的对应关系构造执行结果实例
          * @param resultingState the resulting cluster state
          * @param executionResults the correspondence between tasks and their outcome
          */

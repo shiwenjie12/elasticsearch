@@ -32,6 +32,7 @@ public class JNANativesTests extends ESTestCase {
     }
 
     public void testConsoleCtrlHandler() {
+        JNAKernel32Library.getInstance();
         if (Constants.WINDOWS) {
             assertNotNull(JNAKernel32Library.getInstance());
             assertThat(JNAKernel32Library.getInstance().getCallbacks().size(), equalTo(1));
