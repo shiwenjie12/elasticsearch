@@ -23,8 +23,8 @@ import org.apache.lucene.index.LeafReader;
 import org.elasticsearch.index.shard.ShardId;
 
 /**
- * A {@link org.apache.lucene.index.FilterLeafReader} that exposes
- * Elasticsearch internal per shard / index information like the shard ID.
+ * A {@link org.apache.lucene.index.FilterLeafReader}
+ * 每个分片/索引信息（如分片ID）公开Elasticsearch内部。
  */
 public final class ElasticsearchLeafReader extends FilterLeafReader {
 

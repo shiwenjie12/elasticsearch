@@ -22,6 +22,7 @@ package org.elasticsearch.action.admin.cluster.stats;
 import org.elasticsearch.action.support.nodes.NodesOperationRequestBuilder;
 import org.elasticsearch.client.ElasticsearchClient;
 
+// 集群状态请求
 public class ClusterStatsRequestBuilder extends NodesOperationRequestBuilder<ClusterStatsRequest,
         ClusterStatsResponse, ClusterStatsRequestBuilder> {
 

@@ -30,8 +30,7 @@ public final class ShardUtils {
     private ShardUtils() {}
 
     /**
-     * Tries to extract the shard id from a reader if possible, when its not possible,
-     * will return null.
+     * 如果可能，尝试从阅读器中提取分片ID，如果不可能，将返回null。
      */
     @Nullable
     public static ShardId extractShardId(LeafReader reader) {

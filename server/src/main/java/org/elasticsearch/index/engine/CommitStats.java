@@ -40,7 +40,7 @@ public final class CommitStats implements Streamable, ToXContentFragment {
     private int numDocs;
 
     public CommitStats(SegmentInfos segmentInfos) {
-        // clone the map to protect against concurrent changes
+        // 克隆map以防止并发更改
         userData = MapBuilder.<String, String>newMapBuilder().putAll(segmentInfos.getUserData()).immutableMap();
         // lucene calls the current generation, last generation.
         generation = segmentInfos.getLastGeneration();

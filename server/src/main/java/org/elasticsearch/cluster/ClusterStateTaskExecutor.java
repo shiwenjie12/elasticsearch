@@ -26,7 +26,6 @@ import java.util.Map;
 
 /**
  * 集群状态任务执行器
- * @param <T>
  */
 public interface ClusterStateTaskExecutor<T> {
     /**

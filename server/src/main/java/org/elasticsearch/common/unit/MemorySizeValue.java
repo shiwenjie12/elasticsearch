@@ -26,7 +26,7 @@ import java.util.Objects;
 
 import static org.elasticsearch.common.unit.ByteSizeValue.parseBytesSizeValue;
 
-/** Utility methods to get memory sizes. */
+/** 获取内存大小的实用方法. */
 public enum MemorySizeValue {
     ;
 

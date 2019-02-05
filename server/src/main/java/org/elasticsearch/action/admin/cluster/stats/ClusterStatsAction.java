@@ -21,6 +21,7 @@ package org.elasticsearch.action.admin.cluster.stats;
 
 import org.elasticsearch.action.Action;
 
+// 集群状态Aciton
 public class ClusterStatsAction extends Action<ClusterStatsResponse> {
 
     public static final ClusterStatsAction INSTANCE = new ClusterStatsAction();

@@ -25,7 +25,7 @@ import org.apache.lucene.analysis.DelegatingAnalyzerWrapper;
 import java.util.Objects;
 
 /**
- * 命名分析器是围绕实际分析器（{@link #analyzer}的分析器包装器，它与名称（{@link #name（）}相关联。
+ * 命名分析器是围绕实际分析器（{@link #analyzer}的分析器包装器，它与名称（{@link #name()}相关联。
  */
 public class NamedAnalyzer extends DelegatingAnalyzerWrapper {
 

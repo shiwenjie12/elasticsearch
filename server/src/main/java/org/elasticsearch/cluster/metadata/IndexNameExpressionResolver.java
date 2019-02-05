@@ -55,6 +55,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Collections.unmodifiableList;
 
+// 索引名称解析
 public class IndexNameExpressionResolver {
 
     private final DateMathExpressionResolver dateMathExpressionResolver = new DateMathExpressionResolver();
@@ -117,7 +118,7 @@ public class IndexNameExpressionResolver {
     }
 
     /**
-     * Translates the provided index expression into actual concrete indices, properly deduplicated.
+     * 将提供的索引表达式转换为实际的具体索引，进行适当的重复数据删除。
      *
      * @param state             the cluster state containing all the data to resolve to expressions to concrete indices
      * @param options           defines how the aliases or indices need to be resolved to concrete indices
@@ -143,6 +144,7 @@ public class IndexNameExpressionResolver {
         return names;
     }
 
+    // 解析为具体的索引
     Index[] concreteIndices(Context context, String... indexExpressions) {
         if (indexExpressions == null || indexExpressions.length == 0) {
             indexExpressions = new String[]{MetaData.ALL};
@@ -613,7 +615,7 @@ public class IndexNameExpressionResolver {
     }
 
     /**
-     * Resolves alias/index name expressions with wildcards into the corresponding concrete indices/aliases
+     * 使用通配符将别名/索引名称表达式解析为相应的具体索引/别名
      */
     static final class WildcardExpressionResolver implements ExpressionResolver {
 

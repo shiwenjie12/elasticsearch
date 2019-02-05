@@ -193,7 +193,7 @@ public abstract class TransportBroadcastByNodeAction<Request extends BroadcastRe
     protected abstract ShardOperationResult shardOperation(Request request, ShardRouting shardRouting) throws IOException;
 
     /**
-     * Determines the shards on which this operation will be executed on. The operation is executed once per shard.
+     * 确定将在其上执行此操作的分片。每个分片执行一次操作。
      *
      * @param clusterState    the cluster state
      * @param request         the underlying request
@@ -250,6 +250,7 @@ public abstract class TransportBroadcastByNodeAction<Request extends BroadcastRe
                 throw globalBlockException;
             }
 
+            // 具体的索引名称
             String[] concreteIndices = indexNameExpressionResolver.concreteIndexNames(clusterState, request);
             ClusterBlockException requestBlockException = checkRequestBlock(clusterState, request, concreteIndices);
             if (requestBlockException != null) {
@@ -269,6 +270,7 @@ public abstract class TransportBroadcastByNodeAction<Request extends BroadcastRe
                 // and a new master has not yet been elected; in this situation the local node will have removed the
                 // master node from the local cluster state, but the shards assigned to the master will still be in the
                 // routing table as such
+                // 将分片整合到节点中
                 if (shard.assignedToNode() && nodes.get(shard.currentNodeId()) != null) {
                     String nodeId = shard.currentNodeId();
                     if (!nodeIds.containsKey(nodeId)) {
@@ -305,6 +307,7 @@ public abstract class TransportBroadcastByNodeAction<Request extends BroadcastRe
             }
         }
 
+        // 向每个节点发送请求
         private void sendNodeRequest(final DiscoveryNode node, List<ShardRouting> shards, final int nodeIndex) {
             try {
                 NodeRequest nodeRequest = new NodeRequest(node.getId(), request, shards);
@@ -347,7 +350,7 @@ public abstract class TransportBroadcastByNodeAction<Request extends BroadcastRe
             // this is defensive to protect against the possibility of double invocation
             // the current implementation of TransportService#sendRequest guards against this
             // but concurrency is hard, safety is important, and the small performance loss here does not matter
-            if (responses.compareAndSet(nodeIndex, null, response)) {
+            if (responses.compareAndSet(nodeIndex, null, response)) { // 设置每个节点的影响
                 if (counter.incrementAndGet() == responses.length()) {
                     onCompletion();
                 }
@@ -406,7 +409,7 @@ public abstract class TransportBroadcastByNodeAction<Request extends BroadcastRe
 
             List<BroadcastShardOperationFailedException> accumulatedExceptions = new ArrayList<>();
             List<ShardOperationResult> results = new ArrayList<>();
-            for (int i = 0; i < totalShards; i++) {
+            for (int i = 0; i < totalShards; i++) { // 对结果进行区分
                 if (shardResultOrExceptions[i] instanceof BroadcastShardOperationFailedException) {
                     accumulatedExceptions.add((BroadcastShardOperationFailedException) shardResultOrExceptions[i]);
                 } else {
@@ -417,6 +420,7 @@ public abstract class TransportBroadcastByNodeAction<Request extends BroadcastRe
             channel.sendResponse(new NodeResponse(request.getNodeId(), totalShards, results, accumulatedExceptions));
         }
 
+        // 分片操作
         private void onShardOperation(final NodeRequest request, final Object[] shardResults, final int shardIndex,
                                       final ShardRouting shardRouting) {
             try {

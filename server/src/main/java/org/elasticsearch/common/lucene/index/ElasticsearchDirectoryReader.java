@@ -28,8 +28,7 @@ import org.elasticsearch.index.shard.ShardId;
 import java.io.IOException;
 
 /**
- * A {@link org.apache.lucene.index.FilterDirectoryReader} that exposes
- * Elasticsearch internal per shard / index information like the shard ID.
+ * 一个{@link org.apache.lucene.index.FilterDirectoryReader}，它为每个分片/索引信息（如分片ID）公开Elasticsearch内部。
  */
 public final class ElasticsearchDirectoryReader extends FilterDirectoryReader {
 

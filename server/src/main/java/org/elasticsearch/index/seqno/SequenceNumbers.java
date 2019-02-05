@@ -22,7 +22,7 @@ package org.elasticsearch.index.seqno;
 import java.util.Map;
 
 /**
- * A utility class for handling sequence numbers.
+ * 用于处理序列号的实用程序类。
  */
 public class SequenceNumbers {
 

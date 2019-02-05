@@ -53,7 +53,7 @@ import java.util.function.Predicate;
 
 /**
  * {@link RoutingNodes}表示{@link ClusterState clusterstate}.中包含的路由信息的副本。
- * 它可以初始化为可变或不可变（请参阅{@link #RoutingNodes(ClusterState，Boolean)}），允许或禁止对其元素进行更改。
+ * 它可以初始化为可变或不可变 RoutingNodes(ClusterState，Boolean)，允许或禁止对其元素进行更改。
  *
  * The main methods used to update routing entries are:
  * <ul>

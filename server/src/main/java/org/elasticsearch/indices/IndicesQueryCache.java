@@ -49,6 +49,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 
+// 索引查询缓存
 public class IndicesQueryCache implements QueryCache, Closeable {
 
     private static final Logger logger = LogManager.getLogger(IndicesQueryCache.class);
@@ -192,6 +193,7 @@ public class IndicesQueryCache implements QueryCache, Closeable {
         cache.clear();
     }
 
+    // 分片状态
     private static class Stats implements Cloneable {
 
         volatile long ramBytesUsed;
@@ -227,6 +229,7 @@ public class IndicesQueryCache implements QueryCache, Closeable {
         shardStats.remove(shardId);
     }
 
+    // 分装了ES的LRUQueryCache
     private class ElasticsearchLRUQueryCache extends LRUQueryCache {
 
         ElasticsearchLRUQueryCache(int maxSize, long maxRamBytesUsed, Predicate<LeafReaderContext> leavesToCache) {

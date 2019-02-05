@@ -147,7 +147,7 @@ public final class ThreadContext implements Closeable, Writeable {
 
     /**
      * Just like {@link #stashContext()} but no default context is set.
-     * @param preserveResponseHeaders 如果设置为<code> true </ code>，则将保留还原线程的响应头。
+     * @param preserveResponseHeaders 如果设置为true，则将保留还原线程的响应头。
      */
     public StoredContext newStoredContext(boolean preserveResponseHeaders) {
         final ThreadContextStruct context = threadLocal.get();
@@ -305,7 +305,7 @@ public final class ThreadContext implements Closeable, Writeable {
 
     /**
      * 将当前线程上下文和wraps命令保存在运行命令之前恢复该上下文的Runnable中。
-     * 如果<code> command </ code>已经通过此方法传递，则它将以未更改的方式返回，而不是包装两次。
+     * 如果<code>command</code>已经通过此方法传递，则它将以未更改的方式返回，而不是包装两次。
      *
      */
     public Runnable preserveContext(Runnable command) {

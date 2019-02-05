@@ -191,7 +191,7 @@ public class Store extends AbstractIndexShardComponent implements Closeable, Ref
     }
 
     /**
-     * Returns the segments info for the given commit or for the latest commit if the given commit is <code>null</code>
+     * 如果给定的提交是<code> null </ code>，则返回给定提交或最新提交的段信息
      *
      * @throws IOException if the index is corrupted or the segments file is not present
      */

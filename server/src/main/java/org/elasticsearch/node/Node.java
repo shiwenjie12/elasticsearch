@@ -367,10 +367,12 @@ public class Node implements Closeable {
                 clusterService.getClusterSettings(), client);
             final ClusterInfoService clusterInfoService = newClusterInfoService(settings, clusterService, threadPool, client,
                 listener::onNewInfo);
+
+            // 用例服务，可返回调用次数
             final UsageService usageService = new UsageService();
 
             ModulesBuilder modules = new ModulesBuilder();
-            // plugin modules must be added here, before others or we can get crazy injection errors...
+            // 必须在此处添加插件模块，在其他人之前或我们可以获得疯狂的注入错误...
             for (Module pluginModule : pluginsService.createGuiceModules()) {
                 modules.add(pluginModule);
             }
@@ -411,7 +413,7 @@ public class Node implements Closeable {
             modules.add(new RepositoriesModule(this.environment, pluginsService.filterPlugins(RepositoryPlugin.class), xContentRegistry));
             final MetaStateService metaStateService = new MetaStateService(nodeEnvironment, xContentRegistry);
 
-            // collect engine factory providers from server and from plugins
+            // 从服务器和插件收集引擎工厂提供程序
             final Collection<EnginePlugin> enginePlugins = pluginsService.filterPlugins(EnginePlugin.class);
             final Collection<Function<IndexSettings, Optional<EngineFactory>>> engineFactoryProviders =
                     Stream.concat(

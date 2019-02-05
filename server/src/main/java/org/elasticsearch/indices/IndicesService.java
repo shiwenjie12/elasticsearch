@@ -153,6 +153,7 @@ import static org.elasticsearch.common.collect.MapBuilder.newMapBuilder;
 import static org.elasticsearch.common.util.CollectionUtils.arrayAsArrayList;
 import static org.elasticsearch.index.query.AbstractQueryBuilder.parseInnerQueryBuilder;
 
+// 索引集服务
 public class IndicesService extends AbstractLifecycleComponent
     implements IndicesClusterStateService.AllocatedIndices<IndexShard, IndexService>, IndexService.ShardStoreDeleter {
     private static final Logger logger = LogManager.getLogger(IndicesService.class);
@@ -442,7 +443,7 @@ public class IndicesService extends AbstractLifecycleComponent
     }
 
     /**
-     * Creates a new {@link IndexService} for the given metadata.
+     * 为给定的元数据创建一个新的 {@link IndexService}
      *
      * @param indexMetaData          the index metadata to create the index for
      * @param builtInListeners       a list of built-in lifecycle {@link IndexEventListener} that should should be used along side with the

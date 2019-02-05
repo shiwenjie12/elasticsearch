@@ -46,9 +46,8 @@ import java.util.List;
 import java.util.function.LongSupplier;
 
 /*
- * Holds all the configuration that is used to create an {@link Engine}.
- * Once {@link Engine} has been created with this object, changes to this
- * object will affect the {@link Engine} instance.
+ * 保存用于创建{@link Engine}的所有配置。
+ * 使用此对象创建{@link Engine}后，对此对象的更改将影响{@link Engine}实例。
  */
 public final class EngineConfig {
     private final ShardId shardId;

@@ -60,7 +60,7 @@ import java.util.function.Consumer;
  * ClusterInfoUpdateJob if a node has been added.
  *
  * InternalClusterInfoService提供ClusterInfoService接口，通常在计时器上更新。
- * 计时器可以动态改变设置<code> cluster.info.update.interval </ code>设置（默认为30秒）。
+ * 计时器可以动态改变设置cluster.info.update.interval设置（默认为30秒）。
  * InternalClusterInfoService仅在主节点上运行。监视数据节点数量的变化，如果已添加节点，则立即提交ClusterInfoUpdateJob。
  *
  * Every time the timer runs, gathers information about the disk usage and
@@ -385,6 +385,7 @@ public class InternalClusterInfoService implements ClusterInfoService, LocalNode
         }
     }
 
+    // 填充每个节点的磁盘数据
     static void fillDiskUsagePerNode(Logger logger, List<NodeStats> nodeStatsArray,
             ImmutableOpenMap.Builder<String, DiskUsage> newLeastAvaiableUsages,
             ImmutableOpenMap.Builder<String, DiskUsage> newMostAvaiableUsages) {

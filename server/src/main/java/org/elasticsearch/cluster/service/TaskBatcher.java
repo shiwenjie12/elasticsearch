@@ -38,8 +38,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * 批量支持{@link PrioritizedEsThreadPoolExecutor}
- * 共享相同批处理密钥的任务是批处理的（请参阅{@link BatchedTask＃batchingKey}）
+ * 批量支持 {@link PrioritizedEsThreadPoolExecutor}
+ * 共享相同批处理密钥的任务是批处理的(请参阅 {@link BatchedTask#batchingKey} )
  */
 public abstract class TaskBatcher {
 

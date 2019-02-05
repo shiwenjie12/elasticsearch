@@ -39,7 +39,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * as {@link PrioritizedRunnable} and/or {@link PrioritizedCallable}, those tasks that are not instances of these two will
  * be wrapped and assign a default {@link Priority#NORMAL} priority.
  * 优先级执行程序，它使用优先级队列作为工作队列。 将提交的作业将被视为{@link PrioritizedRunnable}和/或{@link PrioritizedCallable}，
- * 那些不是这两个实例的任务将被包装并分配默认的{@link Priority＃NORMAL}优先级。
+ * 那些不是这两个实例的任务将被包装并分配默认的 {@link Priority#NORMAL} 优先级。
  * <p>
  * Note, if two tasks have the same priority, the first to arrive will be executed first (FIFO style).
  */

@@ -64,6 +64,7 @@ import java.util.function.LongSupplier;
 
 import static org.elasticsearch.action.search.SearchType.QUERY_THEN_FETCH;
 
+// 传输搜索Action
 public class TransportSearchAction extends HandledTransportAction<SearchRequest, SearchResponse> {
 
     /** The maximum number of shards for a single search request. */

@@ -30,6 +30,7 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 
 import java.io.IOException;
 
+// 查询缓存状态
 public class QueryCacheStats implements Streamable, ToXContentFragment {
 
     long ramBytesUsed;

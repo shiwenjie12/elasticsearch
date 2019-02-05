@@ -82,6 +82,7 @@ public class PluginsService {
     private final List<Tuple<PluginInfo, Plugin>> plugins;
     private final PluginsAndModules info;
 
+    // 强制性的插件
     public static final Setting<List<String>> MANDATORY_SETTING =
         Setting.listSetting("plugin.mandatory", Collections.emptyList(), Function.identity(), Property.NodeScope);
 

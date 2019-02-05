@@ -42,8 +42,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * mappings as segments that were not known before are added and prevents the
  * structure from growing indefinitely by registering close listeners on these
  * segments so that at any time it only tracks live segments.
+ * 段核心缓存键与这些段所属的分片之间的映射。 这允许获取段所属的分片或获取给定索引的整个实时核心缓存键集。
+ * 为了工作，这个课程需要通知新的细分。 它将当前映射修改为添加之前未知的段，并通过在这些段上注册关闭侦听器来防止结构无限增长，
+ * 以便在任何时候它只跟踪实时段。
  *
- * NOTE: This is heavy. Avoid using this class unless absolutely required.
+ * NOTE: 这很重。 除非绝对必要，否则避免使用此类.
  */
 public final class ShardCoreKeyMap {
 
@@ -58,6 +61,7 @@ public final class ShardCoreKeyMap {
     /**
      * Register a {@link LeafReader}. This is necessary so that the core cache
      * key of this reader can be found later using {@link #getCoreKeysForIndex(String)}.
+     * 注册{@link LeafReader}。 这是必要的，以便稍后可以使用{@link #getCoreKeysForIndex(String)}找到此阅读器的核心缓存密钥。
      */
     public void add(LeafReader reader) {
         final ShardId shardId = ShardUtils.extractShardId(reader);
@@ -87,6 +91,7 @@ public final class ShardCoreKeyMap {
                 }
                 final boolean added = objects.add(coreKey);
                 assert added;
+                // 设置关闭监听器
                 IndexReader.ClosedListener listener = ownerCoreCacheKey -> {
                     assert coreKey == ownerCoreCacheKey;
                     synchronized (ShardCoreKeyMap.this) {

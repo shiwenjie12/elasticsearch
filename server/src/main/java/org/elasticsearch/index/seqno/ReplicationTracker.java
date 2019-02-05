@@ -50,7 +50,7 @@ import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
 /**
- * This class is responsible for tracking the replication group with its progress and safety markers (local and global checkpoints).
+ * 此类负责跟踪复制组及其进度和安全标记（本地和全局检查点）。
  *
  * The global checkpoint is the highest sequence number for which all lower (or equal) sequence number have been processed
  * on all shards that are currently active. Since shards count as "active" when the master starts
@@ -58,7 +58,7 @@ import java.util.stream.LongStream;
  * have received all old operations via the recovery mechanism and are kept up to date by the various replications actions. The set of
  * shards that are taken into account for the global checkpoint calculation are called the "in-sync shards".
  * <p>
- * The global checkpoint is maintained by the primary shard and is replicated to all the replicas (via {@link GlobalCheckpointSyncAction}).
+ * 全局检查点由主分片维护，并复制到所有副本（通过{@link GlobalCheckpointSyncAction}）。
  */
 public class ReplicationTracker extends AbstractIndexShardComponent implements LongSupplier {
 
@@ -146,10 +146,11 @@ public class ReplicationTracker extends AbstractIndexShardComponent implements L
      */
     volatile ReplicationGroup replicationGroup;
 
+    // 检查点状态
     public static class CheckpointState implements Writeable {
 
         /**
-         * the last local checkpoint information that we have for this shard
+         * 我们为此分片提供的最后一个本地检查点信息
          */
         long localCheckpoint;
 
@@ -159,12 +160,12 @@ public class ReplicationTracker extends AbstractIndexShardComponent implements L
          */
         long globalCheckpoint;
         /**
-         * whether this shard is treated as in-sync and thus contributes to the global checkpoint calculation
+         * 是否将此分片视为同步，从而有助于全局检查点计算
          */
         boolean inSync;
 
         /**
-         * whether this shard is tracked in the replication group, i.e., should receive document updates from the primary.
+         * 是否在复制组中跟踪此分片，即应从主分区接收文档更新。
          */
         boolean tracked;
 

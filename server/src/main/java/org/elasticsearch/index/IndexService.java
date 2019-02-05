@@ -98,6 +98,7 @@ import static java.util.Collections.emptyMap;
 import static java.util.Collections.unmodifiableMap;
 import static org.elasticsearch.common.collect.MapBuilder.newMapBuilder;
 
+// 索引服务
 public class IndexService extends AbstractIndexComponent implements IndicesClusterStateService.AllocatedIndex<IndexShard> {
 
     private final IndexEventListener eventListener;
@@ -313,6 +314,7 @@ public class IndexService extends AbstractIndexComponent implements IndicesClust
         }
     }
 
+    // 创建索引
     public synchronized IndexShard createShard(ShardRouting routing, Consumer<ShardId> globalCheckpointSyncer) throws IOException {
         /*
          * TODO: we execute this in parallel but it's a synced method. Yet, we might

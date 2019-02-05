@@ -19,7 +19,7 @@
 package org.elasticsearch.index.engine;
 
 /**
- * Simple Engine Factory
+ * 简易引擎工厂
  */
 @FunctionalInterface
 public interface EngineFactory {

@@ -45,6 +45,7 @@ import static org.elasticsearch.index.seqno.SequenceNumbers.UNASSIGNED_SEQ_NO;
 /**
  * Represents a collection of global checkpoint listeners. This collection can be added to, and all listeners present at the time of an
  * update will be notified together. All listeners will be notified when the shard is closed.
+ * 表示全局检查点侦听器的集合。可以添加此集合，并且将一起通知更新时出现的所有侦听器。当碎片关闭时，将通知所有监听器。
  */
 public class GlobalCheckpointListeners implements Closeable {
 

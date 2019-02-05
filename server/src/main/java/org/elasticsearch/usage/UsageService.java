@@ -48,7 +48,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A service to monitor usage of Elasticsearch features.
+ * 用于监视Elasticsearch功能使用情况的服务。
  */
 public class UsageService {
 
@@ -71,7 +71,7 @@ public class UsageService {
     }
 
     /**
-     * Get the current usage statistics for this node.
+     * 获取此节点的当前使用情况统计信息。
      *
      * @param localNode
      *            the {@link DiscoveryNode} for this node

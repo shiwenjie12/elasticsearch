@@ -52,7 +52,7 @@ public interface Transport extends LifecycleComponent {
     <Request extends TransportRequest> void registerRequestHandler(RequestHandlerRegistry<Request> reg);
 
     /**
-     * 返回给定操作的已注册请求处理程序注册表，如果未注册，则返回<code> null </ code>
+     * 返回给定操作的已注册请求处理程序注册表，如果未注册，则返回null
      * @param action the action to look up
      */
     RequestHandlerRegistry<? extends TransportRequest> getRequestHandler(String action);

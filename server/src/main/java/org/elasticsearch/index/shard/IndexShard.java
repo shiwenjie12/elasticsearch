@@ -160,6 +160,7 @@ import java.util.stream.StreamSupport;
 import static org.elasticsearch.index.mapper.SourceToParse.source;
 import static org.elasticsearch.index.seqno.SequenceNumbers.UNASSIGNED_SEQ_NO;
 
+// 索引分片
 public class IndexShard extends AbstractIndexShardComponent implements IndicesClusterStateService.Shard {
 
     private final ThreadPool threadPool;
@@ -194,6 +195,7 @@ public class IndexShard extends AbstractIndexShardComponent implements IndicesCl
     protected volatile IndexShardState state;
     protected volatile long pendingPrimaryTerm; // see JavaDocs for getPendingPrimaryTerm
     protected volatile long operationPrimaryTerm;
+    // 当前引擎luence
     protected final AtomicReference<Engine> currentEngineReference = new AtomicReference<>();
     final EngineFactory engineFactory;
 
@@ -1323,8 +1325,8 @@ public class IndexShard extends AbstractIndexShardComponent implements IndicesCl
     }
 
     /**
-     * opens the engine on top of the existing lucene engine and translog.
-     * Operations from the translog will be replayed to bring lucene up to date.
+     * 在现有的lucene引擎和translog之上打开引擎。
+     * 将重播Translog中的操作以使lucene更新。
      **/
     public void openEngineAndRecoverFromTranslog() throws IOException {
         final RecoveryState.Translog translogRecoveryStats = recoveryState.getTranslog();
@@ -1341,8 +1343,8 @@ public class IndexShard extends AbstractIndexShardComponent implements IndicesCl
     }
 
     /**
-     * Opens the engine on top of the existing lucene engine and translog.
-     * The translog is kept but its operations won't be replayed.
+     * 在现有的lucene引擎和translog之上打开引擎。
+     * 保留translog，但不会重播其操作。
      */
     public void openEngineAndSkipTranslogRecovery() throws IOException {
         innerOpenEngineAndTranslog();
@@ -1366,8 +1368,7 @@ public class IndexShard extends AbstractIndexShardComponent implements IndicesCl
 
         final EngineConfig config = newEngineConfig();
 
-        // we disable deletes since we allow for operations to be executed against the shard while recovering
-        // but we need to make sure we don't loose deletes until we are done recovering
+        // 我们禁用删除，因为我们允许在恢复时对分片执行操作但是我们需要确保在完成恢复之前我们不会删除删除
         config.setEnableGcDeletes(false);
         // we have to set it before we open an engine and recover from the translog because
         // acquiring a snapshot from the translog causes a sync which causes the global checkpoint to be pulled in,
@@ -2216,6 +2217,7 @@ public class IndexShard extends AbstractIndexShardComponent implements IndicesCl
         }
     }
 
+    // 创建新的引擎
     private Engine createNewEngine(EngineConfig config) {
         synchronized (mutex) {
             verifyNotClosed();

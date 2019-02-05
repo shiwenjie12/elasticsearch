@@ -94,11 +94,12 @@ public class TransportIndicesStatsAction extends TransportBroadcastByNodeAction<
         return request;
     }
 
+    // 分片操作
     @Override
     protected ShardStats shardOperation(IndicesStatsRequest request, ShardRouting shardRouting) {
         IndexService indexService = indicesService.indexServiceSafe(shardRouting.shardId().getIndex());
         IndexShard indexShard = indexService.getShard(shardRouting.shardId().id());
-        // if we don't have the routing entry yet, we need it stats wise, we treat it as if the shard is not ready yet
+        // 如果我们还没有路由条目，我们需要明智的统计数据，我们将其视为碎片尚未就绪
         if (indexShard.routingEntry() == null) {
             throw new ShardNotFoundException(indexShard.shardId());
         }

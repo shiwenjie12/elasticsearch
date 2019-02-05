@@ -49,7 +49,7 @@ import java.util.function.Function;
  * be called for each settings update.
  * 此类封装所有索引级别设置并处理设置更新。
  * 它是按索引创建的，可供所有索引级别类使用，并允许它们检索最新更新的设置实例。
- * 需要监听设置更新的类可以通过{@link IndexModule#addSettingsUpdateConsumer（设置，消费者）}在创建索引时注册设置使用者，
+ * 需要监听设置更新的类可以通过{@link IndexModule#addSettingsUpdateConsumer(Setting, Consumer)}在创建索引时注册设置使用者，
  * 这将为每次设置更新调用。
  */
 public final class IndexSettings {

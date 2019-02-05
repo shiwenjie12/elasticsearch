@@ -299,7 +299,7 @@ public final class AnalysisModule {
         /**
          * If <code>true</code> the analysis component created by this provider requires certain settings to be instantiated.
          * it can't be created with defaults. The default is <code>false</code>.
-         * 如果<code> true </ code>，则此提供程序创建的分析组件需要实例化某些设置。无法使用默认值创建。 默认值为<code> false </ code>。
+         * 如果true，则此提供程序创建的分析组件需要实例化某些设置。无法使用默认值创建。 默认值为fasle
          */
         default boolean requiresAnalysisSettings() {
             return false;

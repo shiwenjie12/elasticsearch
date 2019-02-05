@@ -141,7 +141,7 @@ public class Lucene {
     }
 
     /**
-     * Reads the segments infos, failing if it fails to load
+     * 读取段信息，如果加载失败则失败
      */
     public static SegmentInfos readSegmentInfos(Directory directory) throws IOException {
         return SegmentInfos.readLatestCommit(directory);
@@ -160,7 +160,7 @@ public class Lucene {
     }
 
     /**
-     * Returns the number of documents in the index referenced by this {@link SegmentInfos}
+     * 返回此引用的索引中的文档数 {@link SegmentInfos}
      */
     public static int getNumDocs(SegmentInfos info) {
         int numDocs = 0;

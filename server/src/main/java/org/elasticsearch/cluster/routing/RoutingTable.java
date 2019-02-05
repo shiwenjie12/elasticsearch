@@ -281,6 +281,7 @@ public class RoutingTable implements Iterable<IndexRoutingTable>, Diffable<Routi
         return allShardsSatisfyingPredicate(indices, shardRouting -> true, true);
     }
 
+    // 所有碎片满足谓词
     private ShardsIterator allShardsSatisfyingPredicate(String[] indices, Predicate<ShardRouting> predicate,
                                                         boolean includeRelocationTargets) {
         // use list here since we need to maintain identity across shards

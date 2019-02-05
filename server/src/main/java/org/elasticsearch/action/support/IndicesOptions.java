@@ -193,7 +193,7 @@ public class IndicesOptions implements ToXContentFragment {
     }
 
     /**
-     * @return Whether specified concrete indices should be ignored when unavailable (missing or closed)
+     * @return 是否应该忽略指定的具体索引（丢失或关闭）
      */
     public boolean ignoreUnavailable() {
         return options.contains(Option.IGNORE_UNAVAILABLE);
@@ -224,7 +224,7 @@ public class IndicesOptions implements ToXContentFragment {
     }
 
     /**
-     * @return Whether execution on closed indices is allowed.
+     * @return 是否允许在封闭索引上执行。
      */
     public boolean forbidClosedIndices() {
         return options.contains(Option.FORBID_CLOSED_INDICES);

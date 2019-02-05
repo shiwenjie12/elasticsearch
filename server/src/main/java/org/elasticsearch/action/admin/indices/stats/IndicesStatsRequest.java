@@ -27,7 +27,7 @@ import org.elasticsearch.common.io.stream.StreamOutput;
 import java.io.IOException;
 
 /**
- * A request to get indices level stats. Allow to enable different stats to be returned.
+ * 获取索引级别统计信息的请求。允许返回不同的统计信息。
  * <p>
  * By default, all statistics are enabled.
  * <p>
