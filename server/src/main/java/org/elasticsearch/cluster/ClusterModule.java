@@ -89,7 +89,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * Configures classes and services that affect the entire cluster.
+ * 配置影响整个群集的类和服务。
  */
 public class ClusterModule extends AbstractModule {
 
