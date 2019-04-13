@@ -1,0 +1,81 @@
+[2018-12-24T14:42:15,331][ERROR][o.e.b.Bootstrap          ] [node-1] Exception
+java.lang.IllegalStateException: modules directory [D:\Source\elasticsearch_fork\elasticsearch\distribution\src\modules] not found
+	at org.elasticsearch.bootstrap.Spawner.spawnNativeControllers(Spawner.java:66) ~[main/:?]
+	at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:164) ~[main/:?]
+	at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:325) [main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:136) [main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:127) [main/:?]
+	at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:87) [main/:?]
+	at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:124) [main/:?]
+	at org.elasticsearch.cli.Command.main(Command.java:90) [main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:92) [main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:85) [main/:?]
+[2018-12-24T14:42:15,344][WARN ][o.e.b.ElasticsearchUncaughtExceptionHandler] [node-1] uncaught exception in thread [main]
+org.elasticsearch.bootstrap.StartupException: java.lang.IllegalStateException: modules directory [D:\Source\elasticsearch_fork\elasticsearch\distribution\src\modules] not found
+	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:140) ~[main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:127) ~[main/:?]
+	at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:87) ~[main/:?]
+	at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:124) ~[main/:?]
+	at org.elasticsearch.cli.Command.main(Command.java:90) ~[main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:92) ~[main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:85) ~[main/:?]
+Caused by: java.lang.IllegalStateException: modules directory [D:\Source\elasticsearch_fork\elasticsearch\distribution\src\modules] not found
+	at org.elasticsearch.bootstrap.Spawner.spawnNativeControllers(Spawner.java:66) ~[main/:?]
+	at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:164) ~[main/:?]
+	at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:325) ~[main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:136) ~[main/:?]
+	... 6 more
+[2018-12-24T14:46:06,416][ERROR][o.e.b.Bootstrap          ] [node-1] Exception
+java.lang.IllegalStateException: modules directory [D:\Source\elasticsearch_fork\elasticsearch\distribution\src\modules] not found
+	at org.elasticsearch.bootstrap.Spawner.spawnNativeControllers(Spawner.java:66) ~[main/:?]
+	at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:164) ~[main/:?]
+	at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:325) [main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:136) [main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:127) [main/:?]
+	at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:87) [main/:?]
+	at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:124) [main/:?]
+	at org.elasticsearch.cli.Command.main(Command.java:90) [main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:92) [main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:85) [main/:?]
+[2018-12-24T14:46:06,426][WARN ][o.e.b.ElasticsearchUncaughtExceptionHandler] [node-1] uncaught exception in thread [main]
+org.elasticsearch.bootstrap.StartupException: java.lang.IllegalStateException: modules directory [D:\Source\elasticsearch_fork\elasticsearch\distribution\src\modules] not found
+	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:140) ~[main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:127) ~[main/:?]
+	at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:87) ~[main/:?]
+	at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:124) ~[main/:?]
+	at org.elasticsearch.cli.Command.main(Command.java:90) ~[main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:92) ~[main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:85) ~[main/:?]
+Caused by: java.lang.IllegalStateException: modules directory [D:\Source\elasticsearch_fork\elasticsearch\distribution\src\modules] not found
+	at org.elasticsearch.bootstrap.Spawner.spawnNativeControllers(Spawner.java:66) ~[main/:?]
+	at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:164) ~[main/:?]
+	at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:325) ~[main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:136) ~[main/:?]
+	... 6 more
+[2018-12-24T14:54:05,197][ERROR][o.e.b.Bootstrap          ] [node-1] Exception
+java.lang.IllegalStateException: modules directory [D:\Source\elasticsearch_fork\elasticsearch\distribution\src\modules] not found
+	at org.elasticsearch.bootstrap.Spawner.spawnNativeControllers(Spawner.java:66) ~[main/:?]
+	at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:164) ~[main/:?]
+	at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:325) [main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:136) [main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:127) [main/:?]
+	at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:87) [main/:?]
+	at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:124) [main/:?]
+	at org.elasticsearch.cli.Command.main(Command.java:90) [main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:92) [main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:85) [main/:?]
+[2018-12-24T14:54:25,724][WARN ][o.e.b.ElasticsearchUncaughtExceptionHandler] [node-1] uncaught exception in thread [main]
+org.elasticsearch.bootstrap.StartupException: java.lang.IllegalStateException: modules directory [D:\Source\elasticsearch_fork\elasticsearch\distribution\src\modules] not found
+	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:140) ~[main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:127) ~[main/:?]
+	at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:87) ~[main/:?]
+	at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:124) ~[main/:?]
+	at org.elasticsearch.cli.Command.main(Command.java:90) ~[main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:92) ~[main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:85) ~[main/:?]
+Caused by: java.lang.IllegalStateException: modules directory [D:\Source\elasticsearch_fork\elasticsearch\distribution\src\modules] not found
+	at org.elasticsearch.bootstrap.Spawner.spawnNativeControllers(Spawner.java:66) ~[main/:?]
+	at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:164) ~[main/:?]
+	at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:325) ~[main/:?]
+	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:136) ~[main/:?]
+	... 6 more
