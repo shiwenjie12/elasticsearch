@@ -630,7 +630,7 @@ public class MetaData implements Iterable<IndexMetaData>, Diffable<MetaData>, To
     }
 
     /**
-     * Returns the {@link IndexMetaData} for this index.
+     * 返回此索引的{@link IndexMetaData}。
      * @throws IndexNotFoundException if no metadata for this index is found
      */
     public IndexMetaData getIndexSafe(Index index) {

@@ -229,7 +229,7 @@ public class ClusterModule extends AbstractModule {
         return deciders.values();
     }
 
-    /** Add the given allocation decider to the given deciders collection, erroring if the class name is already used. */
+    /** 将给定的分配决策者添加到给定的决策者集合中，如果已经使用了类名，则会出错。 */
     private static void addAllocationDecider(Map<Class, AllocationDecider> deciders, AllocationDecider decider) {
         if (deciders.put(decider.getClass(), decider) != null) {
             throw new IllegalArgumentException("Cannot specify allocation decider [" + decider.getClass().getName() + "] twice");

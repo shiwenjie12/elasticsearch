@@ -220,7 +220,7 @@ public final class UnassignedInfo implements ToXContentFragment, Writeable {
     private final AllocationStatus lastAllocationStatus; // result of the last allocation attempt for this shard
 
     /**
-     * creates an UnassignedInfo object based on **current** time
+     * 根据**当前**时间创建一个UnassignedInfo对象
      *
      * @param reason  the cause for making this shard unassigned. See {@link Reason} for more information.
      * @param message more information about cause.

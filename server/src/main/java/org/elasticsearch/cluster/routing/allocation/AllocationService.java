@@ -61,6 +61,8 @@ import static org.elasticsearch.cluster.routing.UnassignedInfo.INDEX_DELAYED_NOD
  * {@link AllocationService} keeps {@link AllocationDeciders} to choose nodes
  * for shard allocation. This class also manages new nodes joining the cluster
  * and rerouting of shards.
+ * 此服务管理群集的节点分配。出于这个原因，{@link AllocationService}保持
+ * {@link AllocationDeciders}选择节点进行分片分配。此类还管理加入群集的新节点和分片的重新路由。
  */
 public class AllocationService {
 

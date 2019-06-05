@@ -30,7 +30,7 @@ import java.lang.annotation.Target;
  * {@code null} is an acceptable value for that parameter.  It should not be
  * used for parameters of primitive types.
  *
- *
+ * 方法参数上存在此批注指示{@code null}是该参数的可接受值。它不应该用于原始类型的参数。
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
