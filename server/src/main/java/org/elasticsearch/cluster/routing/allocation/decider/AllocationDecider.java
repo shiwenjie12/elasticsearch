@@ -49,6 +49,7 @@ public abstract class AllocationDecider {
     /**
      * Returns a {@link Decision} whether the given shard routing can be remain
      * on the given node. The default is {@link Decision#ALWAYS}.
+     * 返回{@link Decision}是否可以在给定节点上保留给定的分片路由。默认值为{@link Decision＃ALWAYS}。
      */
     public Decision canRemain(ShardRouting shardRouting, RoutingNode node, RoutingAllocation allocation) {
         return Decision.ALWAYS;

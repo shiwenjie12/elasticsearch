@@ -71,7 +71,7 @@ final class Bootstrap {
     private final Thread keepAliveThread;
     private final Spawner spawner = new Spawner();
 
-    /** creates a new instance */
+    /** 创建一个新实例 */
     Bootstrap() {
         keepAliveThread = new Thread(new Runnable() {
             @Override

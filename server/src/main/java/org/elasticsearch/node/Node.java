@@ -265,13 +265,14 @@ public class Node implements Closeable {
     protected Node(
             final Environment environment, Collection<Class<? extends Plugin>> classpathPlugins, boolean forbidPrivateIndexSettings) {
         logger = LogManager.getLogger(Node.class);
-        final List<Closeable> resourcesToClose = new ArrayList<>(); // register everything we need to release in the case of an error
+        final List<Closeable> resourcesToClose = new ArrayList<>(); // 注册在发生错误时我们需要释放的所有内容
         boolean success = false;
         try {
             originalSettings = environment.settings();
             Settings tmpSettings = Settings.builder().put(environment.settings())
                 .put(Client.CLIENT_TYPE_SETTING_S.getKey(), CLIENT_TYPE).build();
 
+            // 节点环境
             nodeEnvironment = new NodeEnvironment(tmpSettings, environment);
             resourcesToClose.add(nodeEnvironment);
             logger.info("node name [{}], node ID [{}]",
@@ -305,6 +306,7 @@ public class Node implements Closeable {
                     environment.configFile(), Arrays.toString(environment.dataFiles()), environment.logsFile(), environment.pluginsFile());
             }
 
+            // 插件服务
             this.pluginsService = new PluginsService(tmpSettings, environment.configFile(), environment.modulesFile(), environment.pluginsFile(), classpathPlugins);
             this.settings = pluginsService.updatedSettings();
             localNodeFactory = new LocalNodeFactory(settings, nodeEnvironment.nodeId());
@@ -329,6 +331,7 @@ public class Node implements Closeable {
                 additionalSettings.addAll(builder.getRegisteredSettings());
             }
             client = new NodeClient(settings, threadPool);
+            // 资源监听服务 现用于监听文件
             final ResourceWatcherService resourceWatcherService = new ResourceWatcherService(settings, threadPool);
             // 脚本模块
             final ScriptModule scriptModule = new ScriptModule(settings, pluginsService.filterPlugins(ScriptPlugin.class));
@@ -337,7 +340,6 @@ public class Node implements Closeable {
             // this is as early as we can validate settings at this point. we already pass them to ScriptModule as well as ThreadPool
             // so we might be late here already
             // 这是我们可以在此时验证设置。 我们已经将它们传递给ScriptModule以及ThreadPool，我们可能已经迟到了
-
             final Set<SettingUpgrader<?>> settingsUpgraders = pluginsService.filterPlugins(Plugin.class)
                     .stream()
                     .map(Plugin::getSettingUpgraders)
@@ -365,6 +367,7 @@ public class Node implements Closeable {
             // 磁盘阀门监控器，当磁盘紧张时，重新路由或者将索引设置为只读
             final DiskThresholdMonitor listener = new DiskThresholdMonitor(settings, clusterService::state,
                 clusterService.getClusterSettings(), client);
+            // 集群信息服务
             final ClusterInfoService clusterInfoService = newClusterInfoService(settings, clusterService, threadPool, client,
                 listener::onNewInfo);
 
@@ -376,9 +379,12 @@ public class Node implements Closeable {
             for (Module pluginModule : pluginsService.createGuiceModules()) {
                 modules.add(pluginModule);
             }
+            // 监控服务
             final MonitorService monitorService = new MonitorService(settings, nodeEnvironment, threadPool, clusterInfoService);
+            // 集群模块
             ClusterModule clusterModule = new ClusterModule(settings, clusterService, clusterPlugins, clusterInfoService);
             modules.add(clusterModule);
+            // 索引模块
             IndicesModule indicesModule = new IndicesModule(pluginsService.filterPlugins(MapperPlugin.class));
             modules.add(indicesModule);
 

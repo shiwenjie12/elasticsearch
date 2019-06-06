@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * 脚本语言实现
+ * 脚本语言实现引擎
  */
 public interface ScriptEngine extends Closeable {
 

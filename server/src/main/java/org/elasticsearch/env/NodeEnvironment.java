@@ -295,6 +295,7 @@ public final class NodeEnvironment  implements Closeable {
             this.locks = nodeLock.locks;
             this.nodePaths = nodeLock.nodePaths;
             this.nodeLockId = nodeLock.nodeId;
+            // 处理节点元数据
             this.nodeMetaData = loadOrCreateNodeMetaData(settings, logger, nodePaths);
 
             if (logger.isDebugEnabled()) {

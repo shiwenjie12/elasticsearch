@@ -33,8 +33,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadFactory;
 
 /**
- * A builder for fixed executors.
- * 固定大小的
+ * 固定执行者的构建者。
  */
 public final class FixedExecutorBuilder extends ExecutorBuilder<FixedExecutorBuilder.FixedExecutorSettings> {
 
@@ -54,7 +53,7 @@ public final class FixedExecutorBuilder extends ExecutorBuilder<FixedExecutorBui
     }
 
     /**
-     * Construct a fixed executor builder.
+     * 构造一个固定的执行器构建器。
      *
      * @param settings  the node-level settings
      * @param name      the name of the executor

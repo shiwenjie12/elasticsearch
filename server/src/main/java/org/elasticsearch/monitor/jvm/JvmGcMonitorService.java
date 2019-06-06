@@ -41,6 +41,7 @@ import java.util.function.BiFunction;
 
 import static java.util.Collections.unmodifiableMap;
 
+// Jvm GC监控服务
 public class JvmGcMonitorService extends AbstractLifecycleComponent {
     private static final Logger logger = LogManager.getLogger(JvmGcMonitorService.class);
 

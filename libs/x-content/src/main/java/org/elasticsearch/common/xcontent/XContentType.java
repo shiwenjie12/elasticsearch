@@ -33,7 +33,7 @@ import java.util.Objects;
 public enum XContentType {
 
     /**
-     * A JSON based content type.
+     * 基于JSON的内容类型。
      */
     JSON(0) {
         @Override
@@ -57,7 +57,8 @@ public enum XContentType {
         }
     },
     /**
-     * The jackson based smile binary format. Fast and compact binary format.
+     * 基于jackson的二进制格式。快速紧凑的二进制格式。
+     *
      */
     SMILE(1) {
         @Override
@@ -76,7 +77,7 @@ public enum XContentType {
         }
     },
     /**
-     * A YAML based content type.
+     * 基于YAML的内容类型。
      */
     YAML(2) {
         @Override

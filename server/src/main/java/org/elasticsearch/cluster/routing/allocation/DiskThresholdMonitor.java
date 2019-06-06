@@ -91,6 +91,7 @@ public class DiskThresholdMonitor {
     }
 
 
+    //  对集群的新的磁盘状态进行处理
     public void onNewInfo(ClusterInfo info) {
         ImmutableOpenMap<String, DiskUsage> usages = info.getNodeLeastAvailableDiskUsages();
         if (usages != null) {

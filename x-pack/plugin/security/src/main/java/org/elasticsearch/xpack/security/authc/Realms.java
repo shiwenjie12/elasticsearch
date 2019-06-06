@@ -41,6 +41,7 @@ import org.elasticsearch.xpack.security.authc.esnative.ReservedRealm;
 
 /**
  * Serves as a realms registry (also responsible for ordering the realms appropriately)
+ * 作为领域注册表（也负责适当地订购领域）
  */
 public class Realms implements Iterable<Realm> {
 

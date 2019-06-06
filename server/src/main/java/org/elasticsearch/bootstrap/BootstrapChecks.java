@@ -179,7 +179,7 @@ final class BootstrapChecks {
         return bound && !"single-node".equals(discoveryType);
     }
 
-    // the list of checks to execute
+    // 要执行的检查列表
     static List<BootstrapCheck> checks() {
         final List<BootstrapCheck> checks = new ArrayList<>();
         checks.add(new HeapSizeCheck());

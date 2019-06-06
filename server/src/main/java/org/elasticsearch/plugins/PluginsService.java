@@ -97,9 +97,9 @@ public class PluginsService {
     /**
      * 实例化PluginService
      * @param settings The settings of the system
-     * @param modulesDirectory The directory modules exist in, or null if modules should not be loaded from the filesystem
-     * @param pluginsDirectory The directory plugins exist in, or null if plugins should not be loaded from the filesystem
-     * @param classpathPlugins Plugins that exist in the classpath which should be loaded
+     * @param modulesDirectory 目录模块存在于，如果不应从文件系统加载模块，则为null
+     * @param pluginsDirectory 目录插件存在于，如果不应从文件系统加载插件，则返回null
+     * @param classpathPlugins 存在于应该加载的类路径中的插件
      */
     public PluginsService(Settings settings, Path configPath, Path modulesDirectory, Path pluginsDirectory, Collection<Class<? extends Plugin>> classpathPlugins) {
         this.settings = settings;

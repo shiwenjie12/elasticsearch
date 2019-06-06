@@ -157,9 +157,9 @@ public class JarHell {
     }
 
     /**
-     * Checks the set of URLs for duplicate classes
+     *检查重复类的URL集
      *
-     * @param urls   A set of URLs from the classpath to be checked for conflicting jars
+     * @param urls   来自类路径的一组URL，用于检查冲突的jar
      * @param output A {@link String} {@link Consumer} to which debug output will be sent
      * @throws IllegalStateException if jar hell was found
      */

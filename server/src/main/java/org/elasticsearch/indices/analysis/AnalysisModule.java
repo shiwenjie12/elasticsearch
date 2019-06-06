@@ -80,8 +80,8 @@ public final class AnalysisModule {
     private final AnalysisRegistry analysisRegistry;
 
     public AnalysisModule(Environment environment, List<AnalysisPlugin> plugins) throws IOException {
-        NamedRegistry<AnalysisProvider<CharFilterFactory>> charFilters = setupCharFilters(plugins);
-        NamedRegistry<org.apache.lucene.analysis.hunspell.Dictionary> hunspellDictionaries = setupHunspellDictionaries(plugins);
+        NamedRegistry<AnalysisProvider<CharFilterFactory>> charFilters = setupCharFilters(plugins);//字符过滤器
+        NamedRegistry<org.apache.lucene.analysis.hunspell.Dictionary> hunspellDictionaries = setupHunspellDictionaries(plugins);// 拼写检查器
         hunspellService = new HunspellService(environment.settings(), environment, hunspellDictionaries.getRegistry());// 词纠正服务
         NamedRegistry<AnalysisProvider<TokenFilterFactory>> tokenFilters = setupTokenFilters(plugins, hunspellService);// 过滤器
         NamedRegistry<AnalysisProvider<TokenizerFactory>> tokenizers = setupTokenizers(plugins);// 分词器

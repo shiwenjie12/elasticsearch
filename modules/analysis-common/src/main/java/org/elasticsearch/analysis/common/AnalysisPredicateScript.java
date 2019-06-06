@@ -29,7 +29,7 @@ import org.apache.lucene.util.AttributeSource;
 import org.elasticsearch.script.ScriptContext;
 
 /**
- * A predicate based on the current token in a TokenStream
+ * 基于TokenStream中当前标记的谓词
  */
 public abstract class AnalysisPredicateScript {
 

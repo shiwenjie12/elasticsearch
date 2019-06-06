@@ -512,7 +512,7 @@ public abstract class AbstractScopedSettings {
     }
 
     /**
-     * Transactional interface to update settings.
+     * 用于更新设置的事务接口。
      * @see Setting
      * @param <T> the type of the value of the setting
      */

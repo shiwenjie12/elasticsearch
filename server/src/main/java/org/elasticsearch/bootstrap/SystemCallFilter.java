@@ -607,7 +607,7 @@ final class SystemCallFilter {
     }
 
     /**
-     * Attempt to drop the capability to execute for the process.
+     * 尝试删除执行该进程的功能。
      * <p>
      * This is best effort and OS and architecture dependent. It may throw any Throwable.
      * @return 0 if we can do this for application threads, 1 for the entire process

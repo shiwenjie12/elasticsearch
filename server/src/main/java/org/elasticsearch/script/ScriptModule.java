@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Manages building {@link ScriptService}.
+ * 管理构建 {@link ScriptService}。
  */
 public class ScriptModule {
 

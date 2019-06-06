@@ -94,7 +94,7 @@ public abstract class Plugin implements Closeable {
     }
 
     /**
-     * Node level guice modules.
+     * 节点级别的guice模块。
      */
     public Collection<Module> createGuiceModules() {
         return Collections.emptyList();

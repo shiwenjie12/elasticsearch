@@ -30,6 +30,9 @@ import org.elasticsearch.cluster.routing.allocation.ShardAllocationDecision;
  * A {@link ShardsAllocator} is the main entry point for shard allocation on nodes in the cluster.
  * The allocator makes basic decision where a shard instance will be allocated, if already allocated instances
  * need to relocate to other nodes due to node failures or due to rebalancing decisions.
+ *
+ * {@link ShardsAllocator}是群集中节点上分片分配的主要入口点。
+ * 如果已分配的实例由于节点故障或由于重新平衡决策而需要重新定位到其他节点，则分配器将在分配分片实例的位置做出基本决策。
  * </p>
  */
 public interface ShardsAllocator {

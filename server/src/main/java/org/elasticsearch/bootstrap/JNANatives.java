@@ -263,8 +263,7 @@ class JNANatives {
                 LOCAL_SYSTEM_CALL_FILTER_ALL = true;
             }
         } catch (Exception e) {
-            // this is likely to happen unless the kernel is newish, its a best effort at the moment
-            // so we log stacktrace at debug for now...
+            // 这可能会发生，除非内核是新的，这是目前最好的努力，所以我们现在在调试时记录stacktrace ...
             if (logger.isDebugEnabled()) {
                 logger.debug("unable to install syscall filter", e);
             }

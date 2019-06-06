@@ -98,7 +98,7 @@ public final class ThreadContext implements Closeable, Writeable {
     private final long maxWarningHeaderSize;
 
     /**
-     * Creates a new ThreadContext instance
+     * 创建一个新的ThreadContext实例
      * @param settings the settings to read the default request headers from
      */
     public ThreadContext(Settings settings) {

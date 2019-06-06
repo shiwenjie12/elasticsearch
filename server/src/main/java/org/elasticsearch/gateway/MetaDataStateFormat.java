@@ -57,9 +57,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * MetaDataStateFormat is a base class to write checksummed
- * XContent based files to one or more directories in a standardized directory structure.
- * @param <T> the type of the XContent base data-structure
+ * MetaDataStateFormat是一个基类，用于将基于校验和的XContent文件写入标准化目录结构中的一个或多个目录。
+ * @param <T> XContent基础数据结构的类型
  */
 public abstract class MetaDataStateFormat<T> {
     public static final XContentType FORMAT = XContentType.SMILE;
@@ -111,6 +110,7 @@ public abstract class MetaDataStateFormat<T> {
         final Path finalStatePath = stateLocation.resolve(fileName);
         try {
             final String resourceDesc = "MetaDataStateFormat.write(path=\"" + tmpStatePath + "\")";
+            // 写入文件
             try (OutputStreamIndexOutput out =
                      new OutputStreamIndexOutput(resourceDesc, fileName, Files.newOutputStream(tmpStatePath), BUFFER_SIZE)) {
                 CodecUtil.writeHeader(out, STATE_FILE_CODEC, STATE_FILE_VERSION);

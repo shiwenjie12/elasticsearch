@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+// 文件探针
 public class FsProbe {
 
     private static final Logger logger = LogManager.getLogger(FsProbe.class);

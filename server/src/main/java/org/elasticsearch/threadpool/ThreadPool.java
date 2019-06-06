@@ -209,6 +209,7 @@ public class ThreadPool implements Scheduler, Closeable {
         threadContext = new ThreadContext(settings);
 
         final Map<String, ExecutorHolder> executors = new HashMap<>();
+        // 构造执行器
         for (final Map.Entry<String, ExecutorBuilder> entry : builders.entrySet()) {
             final ExecutorBuilder.ExecutorSettings executorSettings = entry.getValue().getSettings(settings);
             final ExecutorHolder executorHolder = entry.getValue().build(executorSettings, threadContext);

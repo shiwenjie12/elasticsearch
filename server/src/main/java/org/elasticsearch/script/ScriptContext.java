@@ -27,7 +27,7 @@ import java.lang.reflect.Method;
  * {@link ScriptContext}包含与单个用例和接口相关的信息
  * 以及{@link ScriptEngine}实现所需的方法。
  * <p>
- * There are at least two (and optionally a third) related classes which must be defined.
+ * 必须定义至少两个（和可选的第三个）相关类。
  * <p>
  * The <i>InstanceType</i> is a class which users of the script api call to execute a script. It
  * may be stateful. Instances of
@@ -56,19 +56,19 @@ import java.lang.reflect.Method;
  */
 public final class ScriptContext<FactoryType> {
 
-    /** A unique identifier for this context. */
+    /** 此上下文的唯一标识符。 */
     public final String name;
 
-    /** A factory class for constructing script or stateful factory instances. */
+    /** 用于构造脚本或有状态工厂实例的工厂类。 */
     public final Class<FactoryType> factoryClazz;
 
-    /** A factory class for construct script instances. */
+    /** 构造脚本实例的工厂类。 */
     public final Class<?> statefulFactoryClazz;
 
-    /** A class that is an instance of a script. */
+    /** 一个类，它是脚本的一个实例。 */
     public final Class<?> instanceClazz;
 
-    /** Construct a context with the related instance and compiled classes. */
+    /** 使用相关实例和已编译的类构造上下文。 */
     public ScriptContext(String name, Class<FactoryType> factoryClazz) {
         this.name = name;
         this.factoryClazz = factoryClazz;

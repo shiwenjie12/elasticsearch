@@ -48,9 +48,7 @@ public interface ClusterPlugin {
     /**
      * Return {@link ShardsAllocator} implementations added by this plugin.
      *
-     * The key of the returned {@link Map} is the name of the allocator, and the value
-     * is a function to construct the allocator.
-     *
+     * 返回的{@link Map}的键是分配器的名称，值是构造分配器的函数。
      * @param settings Settings for the node
      * @param clusterSettings Settings for the cluster
      * @return A map of allocator implementations

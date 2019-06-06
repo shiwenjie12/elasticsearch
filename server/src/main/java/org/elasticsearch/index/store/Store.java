@@ -191,7 +191,7 @@ public class Store extends AbstractIndexShardComponent implements Closeable, Ref
     }
 
     /**
-     * 如果给定的提交是<code> null </ code>，则返回给定提交或最新提交的段信息
+     * 如果给定的提交是<code>null</code>，则返回给定提交或最新提交的段信息
      *
      * @throws IOException if the index is corrupted or the segments file is not present
      */

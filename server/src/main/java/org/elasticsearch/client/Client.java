@@ -97,15 +97,15 @@ public interface Client extends ElasticsearchClient, Releasable {
     }, Property.NodeScope);
 
     /**
-     * The admin client that can be used to perform administrative operations.
+     * 可用于执行管理操作的管理客户端。
      */
     AdminClient admin();
 
 
     /**
-     * Index a JSON source associated with a given index and type.
+     * 索引与给定索引和类型关联的JSON源。
      * <p>
-     * The id is optional, if it is not provided, one will be generated automatically.
+     * id是可选的，如果没有提供，将自动生成一个。
      *
      * @param request The index request
      * @return The result future
@@ -114,7 +114,7 @@ public interface Client extends ElasticsearchClient, Releasable {
     ActionFuture<IndexResponse> index(IndexRequest request);
 
     /**
-     * Index a document associated with a given index and type.
+     * 索引与给定索引和类型关联的文档。
      * <p>
      * The id is optional, if it is not provided, one will be generated automatically.
      *
@@ -125,7 +125,7 @@ public interface Client extends ElasticsearchClient, Releasable {
     void index(IndexRequest request, ActionListener<IndexResponse> listener);
 
     /**
-     * Index a document associated with a given index and type.
+     * 索引与给定索引和类型关联的文档。
      * <p>
      * The id is optional, if it is not provided, one will be generated automatically.
      */
