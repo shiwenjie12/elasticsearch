@@ -46,6 +46,7 @@ import static java.util.Collections.unmodifiableSet;
  * The {@link RoutingAllocation} keep the state of the current allocation
  * of shards and holds the {@link AllocationDeciders} which are responsible
  *  for the current routing state.
+ *  {@link RoutingAllocation}保持当前分片分配的状态，并保存负责当前路由状态的{@link AllocationDeciders}。
  */
 public class RoutingAllocation {
 
@@ -259,8 +260,7 @@ public class RoutingAllocation {
     }
 
     /**
-     * Create a routing decision, including the reason if the debug flag is
-     * turned on
+     * 创建路由决策，包括调试标志打开的原因
      * @param decision decision whether to allow/deny allocation
      * @param deciderLabel a human readable label for the AllocationDecider
      * @param reason a format string explanation of the decision
@@ -292,16 +292,15 @@ public class RoutingAllocation {
 
     public enum DebugMode {
         /**
-         * debug mode is off
+         * 调试模式已关闭
          */
         OFF,
         /**
-         * debug mode is on
+         * 调试模式已打开
          */
         ON,
         /**
-         * debug mode is on, but YES decisions from a {@link org.elasticsearch.cluster.routing.allocation.decider.Decision.Multi}
-         * are not included.
+         * 调试模式已启用，但不包括来自{@link org.elasticsearch.cluster.routing.allocation.decider.Decision.Multi}的YES决策。
          */
         EXCLUDE_YES_DECISIONS
     }

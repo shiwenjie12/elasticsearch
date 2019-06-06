@@ -27,7 +27,7 @@ import org.elasticsearch.search.rescore.RescoreContext;
 import java.io.IOException;
 
 /**
- * Explains the scoring calculations for the top hits.
+ * 解释热门点击的得分计算。
  */
 public final class ExplainFetchSubPhase implements FetchSubPhase {
 

@@ -30,7 +30,7 @@ import org.elasticsearch.index.Index;
 import org.elasticsearch.index.shard.ShardId;
 
 /**
- * An allocation decider that ensures we allocate the shards of a target index for resize operations next to the source primaries
+ * 一个分配决策器，确保我们为源原色旁边的resize操作分配目标索引的分片
  */
 public class ResizeAllocationDecider extends AllocationDecider {
 
@@ -45,7 +45,7 @@ public class ResizeAllocationDecider extends AllocationDecider {
     public Decision canAllocate(ShardRouting shardRouting, RoutingNode node, RoutingAllocation allocation) {
         final UnassignedInfo unassignedInfo = shardRouting.unassignedInfo();
         if (unassignedInfo != null && shardRouting.recoverySource().getType() == RecoverySource.Type.LOCAL_SHARDS) {
-            // we only make decisions here if we have an unassigned info and we have to recover from another index ie. split / shrink
+            // 如果我们有一个未分配的信息，我们只在这里做出决定，我们必须从另一个索引恢复，即。分裂/缩小
             final IndexMetaData indexMetaData = allocation.metaData().getIndexSafe(shardRouting.index());
             Index resizeSourceIndex = indexMetaData.getResizeSourceIndex();
             assert resizeSourceIndex != null;

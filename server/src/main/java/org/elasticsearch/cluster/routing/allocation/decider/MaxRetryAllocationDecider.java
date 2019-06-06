@@ -30,6 +30,8 @@ import org.elasticsearch.common.settings.Setting;
  * An allocation decider that prevents shards from being allocated on any node if the shards allocation has been retried N times without
  * success. This means if a shard has been INITIALIZING N times in a row without being moved to STARTED the shard will be ignored until
  * the setting for {@code index.allocation.max_retry} is raised. The default value is {@code 5}.
+ * 一个分配决策器，用于防止在任何节点上分配分片，如果分片分配已重试N 次而没有成功。这意味着如果分片已连续N次初始化而未移至STARTED，则会忽略分片，
+ * 直到引发{@code index.allocation.max_retry}的设置为止。默认值为{@code 5}
  * Note: This allocation decider also allows allocation of repeatedly failing shards when the {@code /_cluster/reroute?retry_failed=true}
  * API is manually invoked. This allows single retries without raising the limits.
  * 一个分配决策器，用于防止在任何节点上分配分片，如果分片分配已经重试N次而没有
