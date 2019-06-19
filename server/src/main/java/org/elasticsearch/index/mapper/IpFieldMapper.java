@@ -53,7 +53,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/** A {@link FieldMapper} for ip addresses. */
+/** 用于IP地址的{@link FieldMapper}。 */
 public class IpFieldMapper extends FieldMapper {
 
     public static final String CONTENT_TYPE = "ip";

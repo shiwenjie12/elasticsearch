@@ -76,7 +76,6 @@ public class InternalClusterInfoService implements ClusterInfoService, LocalNode
     public static final Setting<TimeValue> INTERNAL_CLUSTER_INFO_TIMEOUT_SETTING =
         Setting.positiveTimeSetting("cluster.info.update.timeout", TimeValue.timeValueSeconds(15),
             Property.Dynamic, Property.NodeScope);
-
     private volatile TimeValue updateFrequency;
 
     private volatile ImmutableOpenMap<String, DiskUsage> leastAvailableSpaceUsages;
@@ -114,6 +113,7 @@ public class InternalClusterInfoService implements ClusterInfoService, LocalNode
         // Add to listen for state changes (when nodes are added)
         this.clusterService.addListener(this);
         this.listener = listener;
+        Setting.intSetting()
     }
 
     private void setEnabled(boolean enabled) {

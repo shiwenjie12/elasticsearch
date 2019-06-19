@@ -24,7 +24,7 @@ import org.apache.lucene.search.similarities.Similarity;
 import java.util.Objects;
 
 /**
- * Wrapper around a {@link Similarity} and its name.
+ * 围绕{@link Similarity}及其名称的包装。
  */
 public final class SimilarityProvider {
 

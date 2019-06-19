@@ -976,7 +976,7 @@ public class Security extends Plugin implements ActionPlugin, IngestPlugin, Netw
     public Function<String, Predicate<String>> getFieldFilter() {
         if (enabled) {
             return index -> {
-                if (getLicenseState().isDocumentAndFieldLevelSecurityAllowed() == false) {
+                if (!getLicenseState().isDocumentAndFieldLevelSecurityAllowed()) {
                     return MapperPlugin.NOOP_FIELD_PREDICATE;
                 }
                 IndicesAccessControl indicesAccessControl = threadContext.get().getTransient(
@@ -985,7 +985,7 @@ public class Security extends Plugin implements ActionPlugin, IngestPlugin, Netw
                 if (indexPermissions == null) {
                     return MapperPlugin.NOOP_FIELD_PREDICATE;
                 }
-                if (indexPermissions.isGranted() == false) {
+                if (!indexPermissions.isGranted()) {
                     throw new IllegalStateException("unexpected call to getFieldFilter for index [" + index + "] which is not granted");
                 }
                 FieldPermissions fieldPermissions = indexPermissions.getFieldPermissions();

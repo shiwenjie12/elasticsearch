@@ -725,7 +725,7 @@ public class BalancedShardsAllocator implements ShardsAllocator {
                 nodes.put(rn.nodeId(), node);
                 for (ShardRouting shard : rn) {
                     assert rn.nodeId().equals(shard.currentNodeId());
-                    /* we skip relocating shards here since we expect an initializing shard with the same id coming in */
+                    /* 我们在这里跳过重新定位分片，因为我们期望有一个具有相同id的初始化分片 */
                     if (shard.state() != RELOCATING) {
                         node.addShard(shard);
                         if (logger.isTraceEnabled()) {
@@ -738,8 +738,7 @@ public class BalancedShardsAllocator implements ShardsAllocator {
         }
 
         /**
-         * Allocates all given shards on the minimal eligible node for the shards index
-         * with respect to the weight function. All given shards must be unassigned.
+         * 相对于权重函数，在最小合格节点上为分片索引分配所有给定分片。必须取消分配所有给定的分片。
          */
         private void allocateUnassigned() {
             RoutingNodes.UnassignedShards unassigned = routingNodes.unassigned();
@@ -759,7 +758,7 @@ public class BalancedShardsAllocator implements ShardsAllocator {
             final PriorityComparator secondaryComparator = PriorityComparator.getAllocationComparator(allocation);
             final Comparator<ShardRouting> comparator = (o1, o2) -> {
                 if (o1.primary() ^ o2.primary()) {
-                    return o1.primary() ? -1 : o2.primary() ? 1 : 0;
+                    return o1.primary() ? -1 : 1;
                 }
                 final int indexCmp;
                 if ((indexCmp = o1.getIndexName().compareTo(o2.getIndexName())) == 0) {
@@ -862,17 +861,21 @@ public class BalancedShardsAllocator implements ShardsAllocator {
          * first value is the {@link Decision} taken to allocate the unassigned shard, the second value is the
          * {@link ModelNode} representing the node that the shard should be assigned to.  If the decision returned
          * is of type {@link Type#NO}, then the assigned node will be null.
+         *
+         * 决定分配未分配的分片。此方法在元组中返回两个值：第一个值是用于分配未分配的分片的{@link Decision}，
+         * 第二个值是{@link ModelNode}，表示分片应分配给的节点。如果返回的决策是{@link Type＃NO}类型，则分配的节点将为null。
+         *
          */
         private AllocateUnassignedDecision decideAllocateUnassigned(final ShardRouting shard, final Set<ModelNode> throttledNodes) {
             if (shard.assignedToNode()) {
-                // we only make decisions for unassigned shards here
+                // 我们只在这里为未分配的分片做出决定
                 return AllocateUnassignedDecision.NOT_TAKEN;
             }
 
             final boolean explain = allocation.debugDecision();
             Decision shardLevelDecision = allocation.deciders().canAllocate(shard, allocation);
             if (shardLevelDecision.type() == Type.NO && explain == false) {
-                // NO decision for allocating the shard, irrespective of any particular node, so exit early
+                // 无论是否有任何特定节点，都不会决定分配分片，因此请尽早退出
                 return AllocateUnassignedDecision.no(AllocationStatus.DECIDERS_NO, null);
             }
 
@@ -881,12 +884,12 @@ public class BalancedShardsAllocator implements ShardsAllocator {
             ModelNode minNode = null;
             Decision decision = null;
             if (throttledNodes.size() >= nodes.size() && explain == false) {
-                // all nodes are throttled, so we know we won't be able to allocate this round,
-                // so if we are not in explain mode, short circuit
+                // 所有节点都被限制，所以我们知道我们将无法分配这一轮，所以如果我们不处于解释模式，那么短路
                 return AllocateUnassignedDecision.no(AllocationStatus.DECIDERS_NO, null);
             }
             /* Don't iterate over an identity hashset here the
-             * iteration order is different for each run and makes testing hard */
+             * iteration order is different for each run and makes testing hard
+             */
             Map<String, NodeAllocationResult> nodeExplanationMap = explain ? new HashMap<>() : null;
             List<Tuple<String, Float>> nodeWeights = explain ? new ArrayList<>() : null;
             for (ModelNode node : nodes.values()) {

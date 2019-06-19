@@ -20,14 +20,13 @@
 package org.elasticsearch.common.io.stream;
 
 /**
- * A {@link Writeable} object identified by its name.
- * To be used for arbitrary serializable objects (e.g. queries); when reading them, their name tells
- * which specific object needs to be created.
+ * 由其名称标识的{@link Writeable} 对象。
+ * 用于任意可序列化对象（例如查询）;在阅读它们时，它们的名称告诉您需要创建哪个特定对象。
  */
 public interface NamedWriteable extends Writeable {
 
     /**
-     * Returns the name of the writeable object
+     * 返回可写对象的名称
      */
     String getWriteableName();
 }

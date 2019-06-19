@@ -49,6 +49,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.StreamSupport;
 
+/**
+ * 字段映射
+ */
 public abstract class FieldMapper extends Mapper implements Cloneable {
     public static final Setting<Boolean> IGNORE_MALFORMED_SETTING =
         Setting.boolSetting("index.mapping.ignore_malformed", false, Property.IndexScope);
@@ -604,7 +607,7 @@ public abstract class FieldMapper extends Mapper implements Cloneable {
     }
 
     /**
-     * Represents a list of fields with optional boost factor where the current field should be copied to
+     * 表示具有可选提升因子的字段列表，其中应当将当前字段复制到该字段
      */
     public static class CopyTo {
 

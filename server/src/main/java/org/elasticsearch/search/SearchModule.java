@@ -275,7 +275,7 @@ import static java.util.Objects.requireNonNull;
 import static org.elasticsearch.index.query.SpanNearQueryBuilder.SpanGapQueryBuilder;
 
 /**
- * Sets up things that can be done at search time like queries, aggregations, and suggesters.
+ * 设置可在搜索时完成的事情，如查询，聚合和建议。
  */
 public class SearchModule {
     public static final Setting<Integer> INDICES_MAX_CLAUSE_COUNT_SETTING = Setting.intSetting("indices.query.bool.max_clause_count",

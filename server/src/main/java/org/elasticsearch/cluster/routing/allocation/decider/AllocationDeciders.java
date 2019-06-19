@@ -32,8 +32,7 @@ import java.util.Collections;
 import static org.elasticsearch.cluster.routing.allocation.RoutingAllocation.DebugMode.EXCLUDE_YES_DECISIONS;
 
 /**
- * A composite {@link AllocationDecider} combining the "decision" of multiple
- * {@link AllocationDecider} implementations into a single allocation decision.
+ * 复合{@link AllocationDecider}将多个{@link AllocationDecider}实现的“决策”组合到单个分配决策中。
  */
 public class AllocationDeciders extends AllocationDecider {
 

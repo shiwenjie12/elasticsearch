@@ -78,7 +78,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * Configures classes and services that are shared by indices on each node.
+ * 配置每个节点上的索引共享的类和服务。
  */
 public class IndicesModule extends AbstractModule {
     private final List<Entry> namedWritables = new ArrayList<>();
@@ -111,6 +111,7 @@ public class IndicesModule extends AbstractModule {
         );
     }
 
+    // 普通字段
     private Map<String, Mapper.TypeParser> getMappers(List<MapperPlugin> mapperPlugins) {
         Map<String, Mapper.TypeParser> mappers = new LinkedHashMap<>();
 
@@ -169,6 +170,7 @@ public class IndicesModule extends AbstractModule {
         return Collections.unmodifiableMap(builtInMetadataMappers);
     }
 
+    // 元数据字段
     private static Map<String, MetadataFieldMapper.TypeParser> getMetadataMappers(List<MapperPlugin> mapperPlugins) {
         Map<String, MetadataFieldMapper.TypeParser> metadataMappers = new LinkedHashMap<>();
 
@@ -208,6 +210,7 @@ public class IndicesModule extends AbstractModule {
         return builtInMetadataMappers.keySet();
     }
 
+    // 字段过滤器
     private static Function<String, Predicate<String>> getFieldFilter(List<MapperPlugin> mapperPlugins) {
         Function<String, Predicate<String>> fieldFilter = MapperPlugin.NOOP_FIELD_FILTER;
         for (MapperPlugin mapperPlugin : mapperPlugins) {

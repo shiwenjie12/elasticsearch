@@ -36,7 +36,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * An abstract class for representing various types of allocation decisions.
+ * 用于表示各种类型的分配决策的抽象类。
  */
 public abstract class AbstractAllocationDecision implements ToXContentFragment, Writeable {
 

@@ -50,7 +50,7 @@ import java.util.Map;
 import static org.elasticsearch.index.mapper.TypeParsers.parseField;
 
 /**
- * A field mapper for boolean fields.
+ *布尔字段的字段映射器。
  */
 public class BooleanFieldMapper extends FieldMapper {
 

@@ -21,7 +21,7 @@
 package org.elasticsearch.common;
 
 /**
- * Represents a function that accepts three arguments and produces a result.
+ * 表示接受三个参数并生成结果的函数。
  *
  * @param <S> the type of the first argument
  * @param <T> the type of the second argument

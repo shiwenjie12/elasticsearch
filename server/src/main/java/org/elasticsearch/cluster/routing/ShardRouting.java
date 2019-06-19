@@ -335,7 +335,7 @@ public final class ShardRouting implements Writeable, ToXContentObject {
     }
 
     /**
-     * Initializes an unassigned shard on a node.
+     * 在节点上初始化未分配的分片。
      *
      * @param existingAllocationId allocation id to use. If null, a fresh allocation id is generated.
      */

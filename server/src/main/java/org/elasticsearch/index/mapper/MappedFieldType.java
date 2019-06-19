@@ -54,7 +54,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This defines the core properties and functions to operate on a field.
+ * 这定义了在字段上操作的核心属性和功能。
  */
 public abstract class MappedFieldType extends FieldType {
 

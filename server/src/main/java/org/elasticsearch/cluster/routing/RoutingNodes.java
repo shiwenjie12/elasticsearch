@@ -92,12 +92,12 @@ public class RoutingNodes implements Iterable<RoutingNode> {
 
         Map<String, LinkedHashMap<ShardId, ShardRouting>> nodesToShards = new HashMap<>();
         // fill in the nodeToShards with the "live" nodes
+        // 使用“实时”节点填充nodeToShards
         for (ObjectCursor<DiscoveryNode> cursor : clusterState.nodes().getDataNodes().values()) {
             nodesToShards.put(cursor.value.getId(), new LinkedHashMap<>()); // LinkedHashMap to preserve order
         }
 
-        // fill in the inverse of node -> shards allocated
-        // also fill replicaSet information
+        // 填写节点的反转 - >分配的分片也填充replicaSet信息
         for (ObjectCursor<IndexRoutingTable> indexRoutingTable : routingTable.indicesRouting().values()) {
             for (IndexShardRoutingTable indexShard : indexRoutingTable.value) {
                 assert indexShard.primary != null;
@@ -283,8 +283,7 @@ public class RoutingNodes implements Iterable<RoutingNode> {
     }
 
     /**
-     * Returns all shards that are not in the state UNASSIGNED with the same shard
-     * ID as the given shard.
+     * 返回不在状态为UNASSIGNED且具有与给定分片相同的分片ID的所有分片。
      */
     public List<ShardRouting> assignedShards(ShardId shardId) {
         final List<ShardRouting> replicaSet = assignedShards.get(shardId);
@@ -416,7 +415,7 @@ public class RoutingNodes implements Iterable<RoutingNode> {
     }
 
     /**
-     * Moves a shard from unassigned to initialize state
+     * 将分片从未分配状态移动到初始化状态
      *
      * @param existingAllocationId allocation id to use. If null, a fresh allocation id is generated.
      * @return                     the initialized shard
@@ -799,6 +798,9 @@ public class RoutingNodes implements Iterable<RoutingNode> {
         return nodesToShards.size();
     }
 
+    /**
+     * 未分配的分片
+     */
     public static final class UnassignedShards implements Iterable<ShardRouting>  {
 
         private final RoutingNodes nodes;
@@ -904,7 +906,7 @@ public class RoutingNodes implements Iterable<RoutingNode> {
             }
 
             /**
-             * Initializes the current unassigned shard and moves it from the unassigned list.
+             * 初始化当前未分配的分片并将其从未分配的列表中移出。
              *
              * @param existingAllocationId allocation id to use. If null, a fresh allocation id is generated.
              */
@@ -991,8 +993,8 @@ public class RoutingNodes implements Iterable<RoutingNode> {
         }
 
         /**
-         * Drains all unassigned shards and returns it.
-         * This method will not drain ignored shards.
+         * 排出所有未分配的分片并返回它。
+         * 此方法不会消耗忽略的分片。
          */
         public ShardRouting[] drain() {
             nodes.ensureMutable();

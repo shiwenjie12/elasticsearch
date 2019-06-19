@@ -28,12 +28,12 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * An extension point for {@link Plugin} implementations to add custom mappers
+ * {@link Plugin}实现的扩展点，用于添加自定义映射器
  */
 public interface MapperPlugin {
 
     /**
-     * Returns additional mapper implementations added by this plugin.
+     * 返回此插件添加的其他映射器实现。
      * <p>
      * The key of the returned {@link Map} is the unique name for the mapper which will be used
      * as the mapping {@code type}, and the value is a {@link Mapper.TypeParser} to parse the
@@ -44,7 +44,7 @@ public interface MapperPlugin {
     }
 
     /**
-     * Returns additional metadata mapper implementations added by this plugin.
+     * 返回此插件添加的其他元数据映射器实现。
      * <p>
      * The key of the returned {@link Map} is the unique name for the metadata mapper, which
      * is used in the mapping json to configure the metadata mapper, and the value is a
@@ -56,9 +56,8 @@ public interface MapperPlugin {
     }
 
     /**
-     * Returns a function that given an index name returns a predicate which fields must match in order to be returned by get mappings,
-     * get index, get field mappings and field capabilities API. Useful to filter the fields that such API return. The predicate receives
-     * the field name as input argument and should return true to show the field and false to hide it.
+     * 返回给定索引名称返回谓词的函数，这些谓词必须匹配才能通过get mappings，get index，get field mappings和field capabilities API返回。
+     * 用于过滤此API返回的字段。谓词接收字段名称作为输入参数，并且应该返回true以显示字段，并返回false以隐藏它。
      */
     default Function<String, Predicate<String>> getFieldFilter() {
         return NOOP_FIELD_FILTER;
@@ -71,8 +70,8 @@ public interface MapperPlugin {
     Predicate<String> NOOP_FIELD_PREDICATE = field -> true;
 
     /**
-     * The default field filter applied, which doesn't filter anything. That means that by default get mappings, get index
-     * get field mappings and field capabilities API will return every field that's present in the mappings.
+     * 应用了默认字段过滤器，但不过滤任何内容。这意味着默认情况下获取映射，
+     * 获取索引获取字段映射和字段功能API将返回映射中存在的每个字段。
      */
     Function<String, Predicate<String>> NOOP_FIELD_FILTER = index -> NOOP_FIELD_PREDICATE;
 }

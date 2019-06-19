@@ -26,7 +26,7 @@ import java.util.Map;
 
 
 /**
- * A mapper for a builtin field containing metadata about a document.
+ * 内置字段的映射器，包含有关文档的元数据。
  */
 public abstract class MetadataFieldMapper extends FieldMapper {
 

@@ -34,11 +34,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An abstract class that implements basic functionality for allocating
- * shards to nodes based on shard copies that already exist in the cluster.
+ * 一个抽象类，它实现基于群集中已存在的分片副本将分片分配给节点的基本功能。
  *
- * Individual implementations of this class are responsible for providing
- * the logic to determine to which nodes (if any) those shards are allocated.
+ * 该类的各个实现负责提供逻辑以确定分配哪些节点（如果有的话）。
+ *
  */
 public abstract class BaseGatewayShardAllocator {
 

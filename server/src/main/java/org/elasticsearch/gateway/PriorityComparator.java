@@ -67,7 +67,7 @@ public abstract class PriorityComparator implements Comparator<ShardRouting> {
     protected abstract Settings getIndexSettings(Index index);
 
     /**
-     * Returns a PriorityComparator that uses the RoutingAllocation index metadata to access the index setting per index.
+     * 返回PriorityComparator，它使用RoutingAllocation索引元数据来访问每个索引的索引设置。
      */
     public static PriorityComparator getAllocationComparator(final RoutingAllocation allocation) {
         return new PriorityComparator() {

@@ -30,7 +30,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * A registry for all field mappers.
+ * 所有字段映射器的注册表。
  */
 public final class MapperRegistry {
 

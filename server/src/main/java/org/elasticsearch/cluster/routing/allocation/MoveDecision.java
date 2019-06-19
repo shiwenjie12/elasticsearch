@@ -32,8 +32,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a decision to move a started shard, either because it is no longer allowed to remain on its current node
- * or because moving it to another node will form a better cluster balance.
+ * Represents a decision to move a started shard, either because it is no longer allowed to remain on its current node or because moving it to another node will form a better cluster balance.
+ * 表示移动已启动的分片的决定，因为它不再允许保留在其当前节点上，或者因为将其移动到另一个节点将形成更好的群集余额。
  */
 public final class MoveDecision extends AbstractAllocationDecision {
     /** a constant representing no decision taken */

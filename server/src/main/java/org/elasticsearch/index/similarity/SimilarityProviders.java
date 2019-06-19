@@ -63,6 +63,7 @@ import java.util.Set;
 
 import static java.util.Collections.unmodifiableMap;
 
+// 相似供应器
 final class SimilarityProviders {
 
     private SimilarityProviders() {} // no instantiation
@@ -127,7 +128,7 @@ final class SimilarityProviders {
     }
 
     /**
-     * Parses the given Settings and creates the appropriate {@link BasicModel}
+     * 解析给定的设置并创建相应的{@link BasicModel}
      *
      * @param settings Settings to parse
      * @return {@link BasicModel} referred to in the Settings
@@ -158,7 +159,7 @@ final class SimilarityProviders {
     }
 
     /**
-     * Parses the given Settings and creates the appropriate {@link AfterEffect}
+     * 解析给定的设置并创建相应的{@link AfterEffect}
      *
      * @param settings Settings to parse
      * @return {@link AfterEffect} referred to in the Settings
@@ -189,7 +190,7 @@ final class SimilarityProviders {
     }
 
     /**
-     * Parses the given Settings and creates the appropriate {@link Normalization}
+     * 解析给定的设置并创建相应的{@link Normalization}
      *
      * @param settings Settings to parse
      * @return {@link Normalization} referred to in the Settings
@@ -227,7 +228,7 @@ final class SimilarityProviders {
     }
 
     /**
-     * Parses the given Settings and creates the appropriate {@link Distribution}
+     * 解析给定的设置并创建相应的{@link Distribution}
      *
      * @param settings Settings to parse
      * @return {@link Normalization} referred to in the Settings

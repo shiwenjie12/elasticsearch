@@ -20,14 +20,11 @@
 package org.elasticsearch.common;
 
 /**
- * Holds a value that is either:
- * a) set implicitly e.g. through some default value
- * b) set explicitly e.g. from a user selection
+ * 保持以下值之一：
+ * a）隐式设置，例如通过一些默认值
+ * b）明确设定，例如来自用户选择
  * 
- * When merging conflicting configuration settings such as
- * field mapping settings it is preferable to preserve an explicit
- * choice rather than a choice made only made implicitly by defaults. 
- * 
+ * 合并冲突的配置设置（如字段映射设置）时，最好保留一个明确的选择，而不是默认情况下隐式进行的选择。
  */
 public class Explicit<T> {
 
@@ -48,8 +45,7 @@ public class Explicit<T> {
     }
 
     /**
-     * 
-     * @return true if the value passed is a conscious decision, false if using some kind of default
+     * 如果传递的值是有意识的决定，则@return为true，如果使用某种默认值，则为false
      */
     public boolean explicit() {
         return this.explicit;

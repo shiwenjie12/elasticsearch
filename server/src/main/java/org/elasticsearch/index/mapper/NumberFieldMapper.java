@@ -63,7 +63,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/** A {@link FieldMapper} for numeric types: byte, short, int, long, float and double. */
+/** 用于数字类型的{@link FieldMapper}：byte，short，int，long，float和double。 */
 public class NumberFieldMapper extends FieldMapper {
 
     public static final Setting<Boolean> COERCE_SETTING =
@@ -863,7 +863,7 @@ public class NumberFieldMapper extends FieldMapper {
         }
 
         /**
-         * Converts an Object to a double by checking it against known types first
+         * 通过首先根据已知类型检查对象，将对象转换为double
          */
         private static double objectToDouble(Object value) {
             double doubleValue;

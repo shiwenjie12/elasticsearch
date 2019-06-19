@@ -178,7 +178,7 @@ public class ClusterInfo implements ToXContentFragment, Writeable {
     }
 
     /**
-     * Returns the shard size for the given shard routing or <code>defaultValue</code> it that metric is not available.
+     * 返回给定分片路由的分片大小或<code> defaultValue </ code>该分量不可用的分片大小。
      */
     public long getShardSize(ShardRouting shardRouting, long defaultValue) {
         Long shardSize = getShardSize(shardRouting);

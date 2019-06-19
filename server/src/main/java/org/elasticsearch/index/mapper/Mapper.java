@@ -74,6 +74,7 @@ public abstract class Mapper implements ToXContentFragment, Iterable<Mapper> {
         public abstract Y build(BuilderContext context);
     }
 
+    // 类型解析器
     public interface TypeParser {
 
         class ParserContext {

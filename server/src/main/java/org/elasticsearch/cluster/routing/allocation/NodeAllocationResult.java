@@ -37,7 +37,7 @@ import java.util.Comparator;
 import static org.elasticsearch.cluster.routing.allocation.AbstractAllocationDecision.discoveryNodeToXContent;
 
 /**
- * This class represents the shard allocation decision and its explanation for a single node.
+ * 此类表示分片分配决策及其对单个节点的说明。
  */
 public class NodeAllocationResult implements ToXContentObject, Writeable, Comparable<NodeAllocationResult> {
 

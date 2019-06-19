@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Represents the allocation decision by an allocator for an unassigned shard.
+ * 表示分配器对未分配的分片的分配决策。
  */
 public class AllocateUnassignedDecision extends AbstractAllocationDecision {
     /** a constant representing a shard decision where no decision was taken */

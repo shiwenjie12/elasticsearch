@@ -61,7 +61,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
 
 /**
- * Plugin for extending search time behavior.
+ * 用于扩展搜索时间行为的插件。
  */
 public interface SearchPlugin {
     /**

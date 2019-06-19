@@ -274,7 +274,7 @@ public final class ThreadContext implements Closeable, Writeable {
     }
 
     /**
-     * Returns a transient header object or <code>null</code> if there is no header for the given key
+     * 如果给定键没有标题，则返回瞬态标头对象或<code> null </ code>
      */
     @SuppressWarnings("unchecked") // (T)object
     public <T> T getTransient(String key) {

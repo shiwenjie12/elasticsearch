@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A field mapper that records fields that have been ignored because they were malformed.
+ * 一个字段映射器，用于记录因格式错误而被忽略的字段。
  */
 public final class IgnoredFieldMapper extends MetadataFieldMapper {
 

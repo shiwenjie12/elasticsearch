@@ -77,7 +77,7 @@ import static org.elasticsearch.index.query.RangeQueryBuilder.GT_FIELD;
 import static org.elasticsearch.index.query.RangeQueryBuilder.LTE_FIELD;
 import static org.elasticsearch.index.query.RangeQueryBuilder.LT_FIELD;
 
-/** A {@link FieldMapper} for indexing numeric and date ranges, and creating queries */
+/** 一个{@link FieldMapper}，用于索引数字和日期范围，以及创建查询 */
 public class RangeFieldMapper extends FieldMapper {
     public static final boolean DEFAULT_INCLUDE_UPPER = true;
     public static final boolean DEFAULT_INCLUDE_LOWER = true;

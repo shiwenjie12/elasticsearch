@@ -27,7 +27,7 @@ import org.elasticsearch.common.xcontent.ToXContentFragment;
 import java.util.Objects;
 
 /**
- * Base class for rollover request conditions
+ * 翻转请求条件的基类
  */
 public abstract class Condition<T> implements NamedWriteable, ToXContentFragment {
 
@@ -76,7 +76,7 @@ public abstract class Condition<T> implements NamedWriteable, ToXContentFragment
     }
 
     /**
-     * Holder for index stats used to evaluate conditions
+     * 用于评估条件的指数统计持有人
      */
     public static class Stats {
         public final long numDocs;
@@ -91,7 +91,7 @@ public abstract class Condition<T> implements NamedWriteable, ToXContentFragment
     }
 
     /**
-     * Holder for evaluated condition result
+     * 评估条件结果的持有人
      */
     public static class Result {
         public final Condition<?> condition;
