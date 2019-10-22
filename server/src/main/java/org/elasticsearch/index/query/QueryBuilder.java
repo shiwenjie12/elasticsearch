@@ -28,9 +28,8 @@ import java.io.IOException;
 public interface QueryBuilder extends NamedWriteable, ToXContentObject, Rewriteable<QueryBuilder> {
 
     /**
-     * Converts this QueryBuilder to a lucene {@link Query}.
-     * Returns {@code null} if this query should be ignored in the context of
-     * parent queries.
+     * 将此QueryBuilder转换为lucene {@link Query}。
+     * 如果在父查询的上下文中忽略此查询，则返回{@code null}。
      *
      * @param context additional information needed to construct the queries
      * @return the {@link Query} or {@code null} if this query should be ignored upstream

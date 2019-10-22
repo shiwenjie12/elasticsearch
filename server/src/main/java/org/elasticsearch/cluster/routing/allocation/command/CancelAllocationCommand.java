@@ -43,7 +43,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 /**
- * A command that cancels relocation, or recovery of a given shard on a node.
+ * 取消重定位或恢复节点上给定分片的命令。
  */
 public class CancelAllocationCommand implements AllocationCommand {
 
@@ -56,11 +56,11 @@ public class CancelAllocationCommand implements AllocationCommand {
     private final boolean allowPrimary;
 
     /**
-     * Creates a new {@link CancelAllocationCommand}
+     * 创建一个新的{@link CancelAllocationCommand}
      *
-     * @param index index of the shard which allocation should be canceled
-     * @param shardId id of the shard which allocation should be canceled
-     * @param node id of the node that manages the shard which allocation should be canceled
+     * @param index 应该取消分配的分片的索引
+     * @param shardId 应该取消分配的分片的id
+     * @param node 管理分片的节点的id应该取消分配
      */
     public CancelAllocationCommand(String index, int shardId, String node, boolean allowPrimary) {
         this.index = index;

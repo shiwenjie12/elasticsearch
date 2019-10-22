@@ -39,7 +39,7 @@ public class InputStreamStreamInput extends StreamInput {
     }
 
     /**
-     * Creates a new InputStreamStreamInput with a size limit
+     * 创建一个具有大小限制的新InputStreamStreamInput
      * @param is the input stream to wrap
      * @param sizeLimit a hard limit of the number of bytes in the given input stream. This is used for internal input validation
      */

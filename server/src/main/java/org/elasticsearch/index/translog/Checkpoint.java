@@ -36,6 +36,7 @@ import java.nio.channels.FileChannel;
 import java.nio.file.OpenOption;
 import java.nio.file.Path;
 
+// 检查点
 final class Checkpoint {
 
     final long offset;

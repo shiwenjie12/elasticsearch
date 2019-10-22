@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Sub phase within the fetch phase used to fetch things *about* the documents like highlighting or matched queries.
+ * 获取阶段中的子阶段用于获取*关于*突出显示或匹配查询等文档的内容。
  */
 public interface FetchSubPhase {
 
@@ -78,7 +78,7 @@ public interface FetchSubPhase {
     }
 
     /**
-     * Executes the hit level phase, with a reader and doc id (note, its a low level reader, and the matching doc).
+     * 使用reader和doc id执行命中级别阶段（注意，它是一个低级读者，以及匹配的doc）。
      */
     default void hitExecute(SearchContext context, HitContext hitContext) throws IOException {}
 

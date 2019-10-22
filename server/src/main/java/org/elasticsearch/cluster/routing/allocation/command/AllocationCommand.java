@@ -32,7 +32,7 @@ import java.util.Optional;
 /**
  * A command to move shards in some way.
  *
- * Commands are registered in {@link NetworkModule}.
+ * 命令在{@link NetworkModule}中注册。
  */
 public interface AllocationCommand extends NamedWriteable, ToXContentObject {
     interface Parser<T extends AllocationCommand> {
@@ -52,7 +52,7 @@ public interface AllocationCommand extends NamedWriteable, ToXContentObject {
     String name();
 
     /**
-     * Executes the command on a {@link RoutingAllocation} setup
+     * 在{@link RoutingAllocation}设置上执行命令
      * @param allocation {@link RoutingAllocation} to modify
      * @throws org.elasticsearch.ElasticsearchException if something happens during reconfiguration
      */
@@ -64,8 +64,7 @@ public interface AllocationCommand extends NamedWriteable, ToXContentObject {
     }
 
     /**
-     * Returns any feedback the command wants to provide for logging. This message should be appropriate to expose to the user after the
-     * command has been applied
+     * 返回命令要为日志记录提供的任何反馈。此消息应适合在应用命令后向用户公开
      */
     default Optional<String> getMessage() {
         return Optional.empty();

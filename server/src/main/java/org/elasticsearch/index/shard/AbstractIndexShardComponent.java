@@ -24,6 +24,7 @@ import org.elasticsearch.common.logging.DeprecationLogger;
 import org.elasticsearch.common.logging.Loggers;
 import org.elasticsearch.index.IndexSettings;
 
+// 抽象的索引分片组件
 public abstract class AbstractIndexShardComponent implements IndexShardComponent {
 
     protected final Logger logger;

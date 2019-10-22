@@ -32,7 +32,7 @@ import org.elasticsearch.index.mapper.MappedFieldType;
 import java.io.IOException;
 
 /**
- * A Query that matches documents containing a term.
+ * 与包含术语的文档匹配的查询。
  */
 public class TermQueryBuilder extends BaseTermQueryBuilder<TermQueryBuilder> {
     public static final String NAME = "term";

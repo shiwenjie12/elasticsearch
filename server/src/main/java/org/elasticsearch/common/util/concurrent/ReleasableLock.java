@@ -26,7 +26,7 @@ import org.elasticsearch.index.engine.EngineException;
 import java.util.concurrent.locks.Lock;
 
 /**
- * Releasable lock used inside of Engine implementations
+ * Engine实现中使用的可释放锁
  */
 public class ReleasableLock implements Releasable {
     private final Lock lock;

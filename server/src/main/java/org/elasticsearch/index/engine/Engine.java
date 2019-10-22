@@ -106,6 +106,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
+// 引擎的父类
 public abstract class Engine implements Closeable {
 
     public static final String SYNC_COMMIT_ID = "sync_id";
@@ -156,7 +157,7 @@ public abstract class Engine implements Closeable {
         this.shardId = engineConfig.getShardId();
         this.allocationId = engineConfig.getAllocationId();
         this.store = engineConfig.getStore();
-        // we use the engine class directly here to make sure all subclasses have the same logger name
+        // 我们在这里直接使用引擎类来确保所有子类具有相同的记录器名称
         this.logger = Loggers.getLogger(Engine.class,
                 engineConfig.getShardId());
         this.eventListener = engineConfig.getEventListener();
@@ -262,9 +263,7 @@ public abstract class Engine implements Closeable {
     }
 
     /**
-     * A throttling class that can be activated, causing the
-     * {@code acquireThrottle} method to block on a lock when throttling
-     * is enabled
+     * 一个可以激活的限制类，导致{@code acquireThrottle}方法在启用限制时阻止锁定
      */
     protected static final class IndexThrottle {
         private final CounterMetric throttleTimeMillisMetric = new CounterMetric();
@@ -277,14 +276,14 @@ public abstract class Engine implements Closeable {
             return lock.acquire();
         }
 
-        /** Activate throttling, which switches the lock to be a real lock */
+        /** 激活限制，将锁定切换为真正的锁定 */
         public void activate() {
             assert lock == NOOP_LOCK : "throttling activated while already active";
             startOfThrottleNS = System.nanoTime();
             lock = lockReference;
         }
 
-        /** Deactivate throttling, which switches the lock to be an always-acquirable NoOpLock */
+        /** 停用限制，将锁定切换为始终可获取的NoOpLock */
         public void deactivate() {
             assert lock != NOOP_LOCK : "throttling deactivated but not active";
             lock = NOOP_LOCK;
@@ -917,7 +916,7 @@ public abstract class Engine implements Closeable {
         stats.addIndexWriterMemoryInBytes(0);
     }
 
-    /** How much heap is used that would be freed by a refresh.  Note that this may throw {@link AlreadyClosedException}. */
+    /** 使用多少堆将通过刷新释放。请注意，这可能会引发{@link AlreadyClosedException}。 */
     public abstract long getIndexBufferRAMBytesUsed();
 
     protected Segment[] getSegmentInfo(SegmentInfos lastCommittedSegmentInfos, boolean verbose) {
@@ -1030,7 +1029,7 @@ public abstract class Engine implements Closeable {
     public abstract void refresh(String source) throws EngineException;
 
     /**
-     * Called when our engine is using too much heap and should move buffered indexed/deleted documents to disk.
+     * 当我们的引擎使用过多的堆并且应该将缓冲的索引/删除文档移动到磁盘时调用。
      */
     // NOTE: do NOT rename this to something containing flush or refresh!
     public abstract void writeIndexingBuffer() throws EngineException;

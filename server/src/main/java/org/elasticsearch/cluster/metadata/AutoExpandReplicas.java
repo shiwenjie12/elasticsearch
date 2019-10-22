@@ -30,12 +30,11 @@ import java.util.Map;
 import java.util.OptionalInt;
 
 /**
- * This class acts as a functional wrapper around the {@code index.auto_expand_replicas} setting.
- * This setting or rather it's value is expanded into a min and max value which requires special handling
- * based on the number of datanodes in the cluster. This class handles all the parsing and streamlines the access to these values.
+ * 此类充当{@code index.auto_expand_replicas}设置的功能包装器。
+ * 此设置或更确切地说，它的值将扩展为最小值和最大值，这需要根据群集中的数据节点数进行特殊处理。此类处理所有解析并简化对这些值的访问。
  */
 public final class AutoExpandReplicas {
-    // the value we recognize in the "max" position to mean all the nodes
+    // 我们在“max”位置识别的值表示所有节点
     private static final String ALL_NODES_VALUE = "all";
 
     private static final AutoExpandReplicas FALSE_INSTANCE = new AutoExpandReplicas(0, 0, false);
@@ -59,7 +58,7 @@ public final class AutoExpandReplicas {
             min = Integer.parseInt(sMin);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("failed to parse [" + IndexMetaData.SETTING_AUTO_EXPAND_REPLICAS +
-                "] from value: [" + value + "] at index "  + dash, e);
+                "] from value: [" + value + "] at index " + dash, e);
         }
         String sMax = value.substring(dash + 1);
         if (sMax.equals(ALL_NODES_VALUE)) {
@@ -69,7 +68,7 @@ public final class AutoExpandReplicas {
                 max = Integer.parseInt(sMax);
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("failed to parse [" + IndexMetaData.SETTING_AUTO_EXPAND_REPLICAS +
-                    "] from value: [" + value + "] at index "  + dash, e);
+                    "] from value: [" + value + "] at index " + dash, e);
             }
         }
         return new AutoExpandReplicas(min, max, true);
@@ -82,7 +81,7 @@ public final class AutoExpandReplicas {
     private AutoExpandReplicas(int minReplicas, int maxReplicas, boolean enabled) {
         if (minReplicas > maxReplicas) {
             throw new IllegalArgumentException("[" + IndexMetaData.SETTING_AUTO_EXPAND_REPLICAS +
-                "] minReplicas must be =< maxReplicas but wasn't " + minReplicas + " > "  + maxReplicas);
+                "] minReplicas must be =< maxReplicas but wasn't " + minReplicas + " > " + maxReplicas);
         }
         this.minReplicas = minReplicas;
         this.maxReplicas = maxReplicas;
@@ -94,9 +93,10 @@ public final class AutoExpandReplicas {
     }
 
     int getMaxReplicas(int numDataNodes) {
-        return Math.min(maxReplicas, numDataNodes-1);
+        return Math.min(maxReplicas, numDataNodes - 1);
     }
 
+    // 获取期望的副本数
     private OptionalInt getDesiredNumberOfReplicas(int numDataNodes) {
         if (enabled) {
             final int min = getMinReplicas();
@@ -125,13 +125,13 @@ public final class AutoExpandReplicas {
     }
 
     /**
-     * Checks if the are replicas with the auto-expand feature that need to be adapted.
-     * Returns a map of updates, which maps the indices to be updated to the desired number of replicas.
-     * The map has the desired number of replicas as key and the indices to update as value, as this allows the result
-     * of this method to be directly applied to RoutingTable.Builder#updateNumberOfReplicas.
+     * 检查是否具有需要调整的自动扩展功能的副本。
+     * 返回更新映射，将要更新的索引映射到所需的副本数。
+     * 映射具有所需数量的副本作为键和要更新为值的索引，因为这允许将此方法的结果直接应用于RoutingTable.Builder＃updateNumberOfReplicas。
      */
     public static Map<Integer, List<String>> getAutoExpandReplicaChanges(MetaData metaData, DiscoveryNodes discoveryNodes) {
         // used for translating "all" to a number
+        // 所有的数据节点
         final int dataNodeCount = discoveryNodes.getDataNodes().size();
 
         Map<Integer, List<String>> nrReplicasChanged = new HashMap<>();
@@ -140,6 +140,7 @@ public final class AutoExpandReplicas {
             if (indexMetaData.getState() != IndexMetaData.State.CLOSE) {
                 AutoExpandReplicas autoExpandReplicas = SETTING.get(indexMetaData.getSettings());
                 autoExpandReplicas.getDesiredNumberOfReplicas(dataNodeCount).ifPresent(numberOfReplicas -> {
+                    // 如果期望的副本数不符合索引的副本，则添加
                     if (numberOfReplicas != indexMetaData.getNumberOfReplicas()) {
                         nrReplicasChanged.computeIfAbsent(numberOfReplicas, ArrayList::new).add(indexMetaData.getIndex().getName());
                     }

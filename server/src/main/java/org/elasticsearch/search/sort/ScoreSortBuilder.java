@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * A sort builder allowing to sort by score.
+ * 排序构建器允许按分数排序。
  */
 public class ScoreSortBuilder extends SortBuilder<ScoreSortBuilder> {
 
@@ -44,7 +44,7 @@ public class ScoreSortBuilder extends SortBuilder<ScoreSortBuilder> {
             new SortField(null, SortField.Type.SCORE, true), DocValueFormat.RAW);
 
     /**
-     * Build a ScoreSortBuilder default to descending sort order.
+     * 构建ScoreSortBuilder默认为降序排序。
      */
     public ScoreSortBuilder() {
         // order defaults to desc when sorting on the _score

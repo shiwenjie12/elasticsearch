@@ -297,17 +297,25 @@ public class SearchModule {
     public SearchModule(Settings settings, boolean transportClient, List<SearchPlugin> plugins) {
         this.settings = settings;
         this.transportClient = transportClient;
+        // 建议器
         registerSuggesters(plugins);
+        // 高亮器
         highlighters = setupHighlighters(settings, plugins);
+        // 打分方法
         registerScoreFunctions(plugins);
+        // 查询分析器
         registerQueryParsers(plugins);
+        // 重新积分器
         registerRescorers(plugins);
+        // 排序器
         registerSorts();
         registerValueFormats();
         registerSignificanceHeuristics(plugins);
         registerMovingAverageModels(plugins);
+        // 聚合器
         registerAggregations(plugins);
         registerPipelineAggregations(plugins);
+        // 注册fetch步骤
         registerFetchSubPhases(plugins);
         registerSearchExts(plugins);
         registerShapes();
@@ -342,6 +350,7 @@ public class SearchModule {
         return movingAverageModelParserRegistry;
     }
 
+    // 注册聚合器
     private void registerAggregations(List<SearchPlugin> plugins) {
         registerAggregation(new AggregationSpec(AvgAggregationBuilder.NAME, AvgAggregationBuilder::new, AvgAggregationBuilder::parse)
                 .addResultReader(InternalAvg::new));
@@ -592,12 +601,14 @@ public class SearchModule {
         }
     }
 
+    // Smoothing算法
     public static void registerSmoothingModels(List<Entry> namedWriteables) {
         namedWriteables.add(new NamedWriteableRegistry.Entry(SmoothingModel.class, Laplace.NAME, Laplace::new));
         namedWriteables.add(new NamedWriteableRegistry.Entry(SmoothingModel.class, LinearInterpolation.NAME, LinearInterpolation::new));
         namedWriteables.add(new NamedWriteableRegistry.Entry(SmoothingModel.class, StupidBackoff.NAME, StupidBackoff::new));
     }
 
+    // 注册建议器
     private void registerSuggesters(List<SearchPlugin> plugins) {
         registerSmoothingModels(namedWriteables);
 
@@ -634,15 +645,16 @@ public class SearchModule {
         return unmodifiableMap(highlighters.getRegistry());
     }
 
+    // 注册打分器方法
     private void registerScoreFunctions(List<SearchPlugin> plugins) {
-        // ScriptScoreFunctionBuilder has it own named writable because of a new script_score query
+        // 由于新的script_score查询，ScriptScoreFunctionBuilder拥有自己的名为writable
         namedWriteables.add(new NamedWriteableRegistry.Entry(
             ScriptScoreFunctionBuilder.class, ScriptScoreFunctionBuilder.NAME,  ScriptScoreFunctionBuilder::new));
+
         registerScoreFunction(new ScoreFunctionSpec<>(ScriptScoreFunctionBuilder.NAME, ScriptScoreFunctionBuilder::new,
                 ScriptScoreFunctionBuilder::fromXContent));
-
-        registerScoreFunction(
-                new ScoreFunctionSpec<>(GaussDecayFunctionBuilder.NAME, GaussDecayFunctionBuilder::new, GaussDecayFunctionBuilder.PARSER));
+        registerScoreFunction(new ScoreFunctionSpec<>(GaussDecayFunctionBuilder.NAME, GaussDecayFunctionBuilder::new,
+                GaussDecayFunctionBuilder.PARSER));
         registerScoreFunction(new ScoreFunctionSpec<>(LinearDecayFunctionBuilder.NAME, LinearDecayFunctionBuilder::new,
                 LinearDecayFunctionBuilder.PARSER));
         registerScoreFunction(new ScoreFunctionSpec<>(ExponentialDecayFunctionBuilder.NAME, ExponentialDecayFunctionBuilder::new,

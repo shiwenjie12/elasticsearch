@@ -26,7 +26,7 @@ import org.elasticsearch.index.shard.ShardId;
 import java.io.IOException;
 
 /**
- * Exception used when the in-memory lock for a shard cannot be obtained
+ * 无法获取分片的内存中锁时使用的异常
  */
 public class ShardLockObtainFailedException extends ElasticsearchException {
 

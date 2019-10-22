@@ -50,6 +50,7 @@ import static java.util.Collections.unmodifiableMap;
  * The dangling indices state is responsible for finding new dangling indices (indices that have
  * their state written on disk, but don't exists in the metadata of the cluster), and importing
  * them into the cluster.
+ * 悬空索引状态负责查找新的悬空索引（其状态写在磁盘上但在群集的元数据中不存在的索引），并将它们导入群集。
  */
 public class DanglingIndicesState implements ClusterStateListener {
 
@@ -71,8 +72,7 @@ public class DanglingIndicesState implements ClusterStateListener {
     }
 
     /**
-     * Process dangling indices based on the provided meta data, handling cleanup, finding
-     * new dangling indices, and allocating outstanding ones.
+     * 根据提供的元数据处理悬空指数，处理清理，寻找新的悬挂指数，以及分配未完成的指数。
      */
     public void processDanglingIndices(final MetaData metaData) {
         if (nodeEnv.hasNodeFile() == false) {
@@ -92,13 +92,13 @@ public class DanglingIndicesState implements ClusterStateListener {
     }
 
     /**
-     * Cleans dangling indices if they are already allocated on the provided meta data.
+     * 如果已经在提供的元数据上分配了悬挂索引，则清除悬空索引。
      */
     void cleanupAllocatedDangledIndices(MetaData metaData) {
         for (Index index : danglingIndices.keySet()) {
             final IndexMetaData indexMetaData = metaData.index(index);
             if (indexMetaData != null && indexMetaData.getIndex().getName().equals(index.getName())) {
-                if (indexMetaData.getIndex().getUUID().equals(index.getUUID()) == false) {
+                if (!indexMetaData.getIndex().getUUID().equals(index.getUUID())) {
                     logger.warn("[{}] can not be imported as a dangling index, as there is already another index " +
                         "with the same name but a different uuid. local index will be ignored (but not deleted)", index);
                 } else {
@@ -110,17 +110,14 @@ public class DanglingIndicesState implements ClusterStateListener {
     }
 
     /**
-     * Finds (@{link #findNewAndAddDanglingIndices}) and adds the new dangling indices
-     * to the currently tracked dangling indices.
+     * 查找（{@link #findNewDanglingIndices}）并将新的悬空指数添加到当前跟踪的悬空指数中。
      */
     void findNewAndAddDanglingIndices(final MetaData metaData) {
         danglingIndices.putAll(findNewDanglingIndices(metaData));
     }
 
     /**
-     * Finds new dangling indices by iterating over the indices and trying to find indices
-     * that have state on disk, but are not part of the provided meta data, or not detected
-     * as dangled already.
+     * 通过迭代索引并尝试查找在磁盘上具有状态的索引，但不是提供的元数据的一部分，或者未检测到已悬挂的索引，查找新的悬空索引。
      */
     Map<Index, IndexMetaData> findNewDanglingIndices(final MetaData metaData) {
         final Set<String> excludeIndexPathIds = new HashSet<>(metaData.indices().size() + danglingIndices.size());
@@ -154,8 +151,7 @@ public class DanglingIndicesState implements ClusterStateListener {
     }
 
     /**
-     * Allocates the provided list of the dangled indices by sending them to the master node
-     * for allocation.
+     * 通过将提供的悬挂索引列表发送到主节点进行分配来分配所提供的悬挂索引列表。
      */
     private void allocateDanglingIndices() {
         if (danglingIndices.isEmpty()) {

@@ -49,8 +49,7 @@ import org.elasticsearch.search.sort.NestedSortBuilder;
 import java.io.IOException;
 
 /**
- * Thread-safe utility class that allows to get per-segment values via the
- * {@link #load(LeafReaderContext)} method.
+ * 线程安全实用程序类，允许通过{@link #load（LeafReaderContext）}方法获取每段值。
  */
 public interface IndexFieldData<FD extends AtomicFieldData> extends IndexComponent {
 
@@ -60,7 +59,7 @@ public interface IndexFieldData<FD extends AtomicFieldData> extends IndexCompone
     String getFieldName();
 
     /**
-     * Loads the atomic field data for the reader, possibly cached.
+     * 加载读取器的原子字段数据，可能是缓存的。
      */
     FD load(LeafReaderContext context);
 

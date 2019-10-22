@@ -23,17 +23,17 @@ import org.elasticsearch.search.internal.SearchContext;
 import org.elasticsearch.tasks.Task;
 
 /**
- * Represents a phase of a search request e.g. query, fetch etc.
+ * 表示搜索请求的阶段，例如查询，获取等
  */
 public interface SearchPhase {
 
     /**
-     * Performs pre processing of the search context before the execute.
+     * 在执行之前执行搜索上下文的预处理。
      */
     void preProcess(SearchContext context);
 
     /**
-     * Executes the search phase
+     * 执行搜索阶段
      */
     void execute(SearchContext context);
 

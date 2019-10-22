@@ -91,8 +91,7 @@ public class InternalAvg extends InternalNumericMetricsAggregation.SingleValue i
         long count = 0;
         double sum = 0;
         double compensation = 0;
-        // Compute the sum of double values with Kahan summation algorithm which is more
-        // accurate than naive summation.
+        // 使用Kahan求和算法计算双值之和，该算法比朴素求和更准确。
         for (InternalAggregation aggregation : aggregations) {
             InternalAvg avg = (InternalAvg) aggregation;
             count += avg.count;

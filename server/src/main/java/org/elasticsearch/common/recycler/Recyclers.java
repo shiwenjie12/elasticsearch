@@ -48,7 +48,7 @@ public enum Recyclers {
     }
 
     /**
-     * Return a recycler based on a deque.
+     * 根据双端队列返回回收站。
      */
     public static <T> Recycler.Factory<T> dequeFactory(final Recycler.C<T> c, final int limit) {
         return new Recycler.Factory<T>() {
@@ -89,8 +89,7 @@ public enum Recyclers {
     }
 
     /**
-     * Wrap the provided recycler so that calls to {@link Recycler#obtain()} and {@link Recycler.V#close()} are protected by
-     * a lock.
+     * 包裹提供的回收站，以便锁定{@link Recycler#obtain()}和{@link Recycler.V#close（）}。
      */
     public static <T> Recycler<T> locked(final Recycler<T> recycler) {
         return new FilterRecycler<T>() {
@@ -148,8 +147,7 @@ public enum Recyclers {
     }
 
     /**
-     * Create a concurrent implementation that can support concurrent access from
-     * <code>concurrencyLevel</code> threads with little contention.
+     * 创建一个并发实现，它可以支持来自<code> concurrencyLevel </ code>线程的并发访问，几乎没有争用。
      */
     public static <T> Recycler<T> concurrent(final Recycler.Factory<T> factory, final int concurrencyLevel) {
         if (concurrencyLevel < 1) {
@@ -161,7 +159,6 @@ public enum Recyclers {
         return new FilterRecycler<T>() {
 
             private final Recycler<T>[] recyclers;
-
             {
                 @SuppressWarnings("unchecked")
                 final Recycler<T>[] recyclers = new Recycler[concurrencyLevel];
@@ -173,7 +170,7 @@ public enum Recyclers {
 
             int slot() {
                 final long id = Thread.currentThread().getId();
-                // don't trust Thread.hashCode to have equiprobable low bits
+                // 不要相信Thread.hashCode具有等概率低位
                 int slot = (int) BitMixer.mix64(id);
                 // make positive, otherwise % may return negative numbers
                 slot &= 0x7FFFFFFF;

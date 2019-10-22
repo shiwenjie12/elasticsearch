@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Handles writing and loading both {@link MetaData} and {@link IndexMetaData}
+ * 处理{@link MetaData}和{@link IndexMetaData}的编写和加载
  */
 public class MetaStateService {
 
@@ -50,8 +50,7 @@ public class MetaStateService {
     }
 
     /**
-     * Loads the full state, which includes both the global state and all the indices
-     * meta state.
+     * 加载完整状态，其中包括全局状态和所有索引元状态。
      */
     MetaData loadFullState() throws IOException {
         MetaData globalMetaData = loadGlobalState();
@@ -82,12 +81,12 @@ public class MetaStateService {
     }
 
     /**
-     * Loads all indices states available on disk
+     * 加载磁盘上可用的所有索引状态
      */
     List<IndexMetaData> loadIndicesStates(Predicate<String> excludeIndexPathIdsPredicate) throws IOException {
         List<IndexMetaData> indexMetaDataList = new ArrayList<>();
         for (String indexFolderName : nodeEnv.availableIndexFolders(excludeIndexPathIdsPredicate)) {
-            assert excludeIndexPathIdsPredicate.test(indexFolderName) == false :
+            assert !excludeIndexPathIdsPredicate.test(indexFolderName) :
                 "unexpected folder " + indexFolderName + " which should have been excluded";
             IndexMetaData indexMetaData = IndexMetaData.FORMAT.loadLatestState(logger, namedXContentRegistry,
                 nodeEnv.resolveIndexFolder(indexFolderName));

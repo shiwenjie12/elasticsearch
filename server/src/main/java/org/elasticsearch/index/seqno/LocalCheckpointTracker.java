@@ -23,8 +23,7 @@ import com.carrotsearch.hppc.LongObjectHashMap;
 import org.elasticsearch.common.SuppressForbidden;
 
 /**
- * This class generates sequences numbers and keeps track of the so-called "local checkpoint" which is the highest number for which all
- * previous sequence numbers have been processed (inclusive).
+ * 该类生成序列号并跟踪所谓的“本地检查点”，这是所有先前序列号已被处理（包括）的最高数字。
  */
 public class LocalCheckpointTracker {
 
@@ -41,7 +40,7 @@ public class LocalCheckpointTracker {
     final LongObjectHashMap<CountedBitSet> processedSeqNo = new LongObjectHashMap<>();
 
     /**
-     * The current local checkpoint, i.e., all sequence numbers no more than this number have been completed.
+     * 当前的本地检查点，即所有不超过该数量的序列号已经完成。
      */
     volatile long checkpoint;
 
@@ -117,7 +116,7 @@ public class LocalCheckpointTracker {
     }
 
     /**
-     * The current checkpoint which can be advanced by {@link #markSeqNoAsCompleted(long)}.
+     * 可以通过{@link #markSeqNoAsCompleted（long）}推进的当前检查点。
      *
      * @return the current checkpoint
      */

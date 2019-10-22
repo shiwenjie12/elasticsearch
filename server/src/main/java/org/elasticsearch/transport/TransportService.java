@@ -200,6 +200,7 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
         tracerLog = Loggers.getLogger(logger, ".tracer");
         taskManager = createTaskManager(settings, threadPool, taskHeaders);
         this.interceptor = transportInterceptor;
+        // 异步发送器添加拦截器
         this.asyncSender = interceptor.interceptSender(this::sendRequestInternal);
         this.connectToRemoteCluster = RemoteClusterService.ENABLE_REMOTE_CLUSTERS.get(settings);
         remoteClusterService = new RemoteClusterService(settings, this);
@@ -849,9 +850,9 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
     }
 
     /**
-     * Registers a new request handler
+     * 注册一个新的请求处理程序
      *
-     * @param action                The action the request handler is associated with
+     * @param action                请求处理程序与之关联的操作
      * @param request               The request class that will be used to construct new instances for streaming
      * @param executor              The executor the request handling will be executed on
      * @param forceExecution        Force execution on the executor queue and never reject it
@@ -1017,6 +1018,7 @@ public class TransportService extends AbstractLifecycleComponent implements Tran
         tracerLog.trace("[{}][{}] sent to [{}] (timeout: [{}])", requestId, action, node, options.timeout());
     }
 
+    // 过期处理器
     final class TimeoutHandler implements Runnable {
 
         private final long requestId;

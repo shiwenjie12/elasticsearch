@@ -671,7 +671,7 @@ public class MetaData implements Iterable<IndexMetaData>, Diffable<MetaData>, To
     }
 
     /**
-     * The collection of index deletions in the cluster.
+     * 集群中的索引删除集合。
      */
     public IndexGraveyard indexGraveyard() {
         return custom(IndexGraveyard.TYPE);
@@ -952,6 +952,7 @@ public class MetaData implements Iterable<IndexMetaData>, Diffable<MetaData>, To
             return this;
         }
 
+        // 增加索引元数据
         public Builder put(IndexMetaData indexMetaData, boolean incrementVersion) {
             if (indices.get(indexMetaData.getIndex().getName()) == indexMetaData) {
                 return this;

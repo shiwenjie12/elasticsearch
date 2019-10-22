@@ -67,7 +67,7 @@ import java.util.function.LongSupplier;
 import static java.util.Collections.unmodifiableMap;
 
 /**
- * Context object used to create lucene queries on the shard level.
+ * 用于在分片级别创建lucene查询的Context对象。
  */
 public class QueryShardContext extends QueryRewriteContext {
 
@@ -230,7 +230,7 @@ public class QueryShardContext extends QueryRewriteContext {
     }
 
     /**
-     * Gets the search quote analyzer for the given field, or the default if there is none present for the field
+     * 获取给定字段的搜索引用分析器，如果该字段不存在，则获取默认值
      * TODO: remove this by moving defaults into mappers themselves
      */
     public Analyzer getSearchQuoteAnalyzer(MappedFieldType fieldType) {
@@ -260,7 +260,7 @@ public class QueryShardContext extends QueryRewriteContext {
     }
 
     /**
-     * Returns the narrowed down explicit types, or, if not set, all types.
+     * 返回缩小的显式类型，如果未设置，则返回所有类型。
      */
     public Collection<String> queryTypes() {
         String[] types = getTypes();
@@ -285,6 +285,7 @@ public class QueryShardContext extends QueryRewriteContext {
         return nestedScope;
     }
 
+    // 索引的创建版本
     public Version indexVersionCreated() {
         return indexSettings.getIndexVersionCreated();
     }

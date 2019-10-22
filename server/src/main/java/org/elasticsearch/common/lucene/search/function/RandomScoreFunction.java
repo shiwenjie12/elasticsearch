@@ -31,7 +31,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * Pseudo randomly generate a score for each {@link LeafScoreFunction#score}.
+ * 伪随机生成每个{@link LeafScoreFunction＃score}的分数。
  */
 public class RandomScoreFunction extends ScoreFunction {
 

@@ -49,6 +49,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
 
+// 索引内存控制器
 public class IndexingMemoryController implements IndexingOperationListener, Closeable {
 
     private static final Logger logger = LogManager.getLogger(IndexingMemoryController.class);
@@ -98,11 +99,12 @@ public class IndexingMemoryController implements IndexingOperationListener, Clos
     private final TimeValue inactiveTime;
     private final TimeValue interval;
 
-    /** Contains shards currently being throttled because we can't write segments quickly enough */
+    /** 包含当前被限制的分片，因为我们无法足够快地写入分段 */
     private final Set<IndexShard> throttled = new HashSet<>();
 
     private final Cancellable scheduler;
 
+    // 能写索引缓存的状态
     private static final EnumSet<IndexShardState> CAN_WRITE_INDEX_BUFFER_STATES = EnumSet.of(
             IndexShardState.RECOVERING, IndexShardState.POST_RECOVERY, IndexShardState.STARTED);
 
@@ -129,7 +131,7 @@ public class IndexingMemoryController implements IndexingOperationListener, Clos
         this.indexingBuffer = indexingBuffer;
 
         this.inactiveTime = SHARD_INACTIVE_TIME_SETTING.get(settings);
-        // we need to have this relatively small to free up heap quickly enough
+        //
         this.interval = SHARD_MEMORY_INTERVAL_TIME_SETTING.get(settings);
 
         this.statusChecker = new ShardsIndicesStatusChecker();
@@ -155,8 +157,7 @@ public class IndexingMemoryController implements IndexingOperationListener, Clos
     }
 
     /**
-     * returns the current budget for the total amount of indexing buffers of
-     * active shards on this node
+     * 返回此节点上活动分片的索引缓冲区总量的当前预算
      */
     ByteSizeValue indexingBufferSize() {
         return indexingBuffer;
@@ -245,7 +246,7 @@ public class IndexingMemoryController implements IndexingOperationListener, Clos
         }
     }
 
-    /** not static because we need access to many fields/methods from our containing class (IMC): */
+    /** 不是静态的，因为我们需要从包含类（IMC）访问许多字段/方法： */
     final class ShardsIndicesStatusChecker implements Runnable {
 
         final AtomicLong bytesWrittenSinceCheck = new AtomicLong();

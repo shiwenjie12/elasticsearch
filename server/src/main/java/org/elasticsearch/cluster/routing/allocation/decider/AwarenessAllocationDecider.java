@@ -38,12 +38,9 @@ import org.elasticsearch.common.settings.Settings;
 import static java.util.Collections.emptyList;
 
 /**
- * This {@link AllocationDecider} controls shard allocation based on
- * {@code awareness} key-value pairs defined in the node configuration.
- * Awareness explicitly controls where replicas should be allocated based on
- * attributes like node or physical rack locations. Awareness attributes accept
- * arbitrary configuration keys like a rack data-center identifier. For example
- * the setting:
+ * 此{@link AllocationDecider}根据节点配置中定义的{@code awareness}键值对控制分片分配。
+ * 意识明确控制应根据节点或物理机架位置等属性在何处分配副本。意识属性接受任意配置密钥，
+ * 例如机架数据中心标识符。例如，设置：
  * <pre>
  * cluster.routing.allocation.awareness.attributes: rack_id
  * </pre>

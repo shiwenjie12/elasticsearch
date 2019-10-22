@@ -45,8 +45,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Base class for all classes producing lucene queries.
- * Supports conversion to BytesReference and creation of lucene Query objects.
+ * 生成lucene查询的所有类的基类。
+ * 支持转换为BytesReference并创建lucene Query对象。
  */
 public abstract class AbstractQueryBuilder<QB extends AbstractQueryBuilder<QB>> implements QueryBuilder {
 

@@ -36,8 +36,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A simple {@link AllocationCommand} composite managing several
- * {@link AllocationCommand} implementations
+ * 一个简单的{@link AllocationCommand}组合管理多个{@link AllocationCommand}实现
  */
 public class AllocationCommands implements ToXContentFragment {
     private final List<AllocationCommand> commands = new ArrayList<>();
@@ -74,7 +73,7 @@ public class AllocationCommands implements ToXContentFragment {
     }
 
     /**
-     * Executes all wrapped commands on a given {@link RoutingAllocation}
+     * 执行给定{@link RoutingAllocation}上的所有包装命令
      * @param allocation {@link RoutingAllocation} to apply this command to
      * @throws org.elasticsearch.ElasticsearchException if something happens during execution
      */

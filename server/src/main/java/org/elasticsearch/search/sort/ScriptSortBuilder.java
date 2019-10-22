@@ -63,7 +63,7 @@ import static org.elasticsearch.common.xcontent.ConstructingObjectParser.constru
 import static org.elasticsearch.search.sort.NestedSortBuilder.NESTED_FIELD;
 
 /**
- * Script sort builder allows to sort based on a custom script expression.
+ * 脚本排序构建器允许基于自定义脚本表达式进行排序。
  */
 public class ScriptSortBuilder extends SortBuilder<ScriptSortBuilder> {
     private static final DeprecationLogger deprecationLogger = new DeprecationLogger(LogManager.getLogger(ScriptSortBuilder.class));

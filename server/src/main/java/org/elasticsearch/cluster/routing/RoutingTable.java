@@ -462,10 +462,10 @@ public class RoutingTable implements Iterable<IndexRoutingTable>, Diffable<Routi
         }
 
         /**
-         * Update the number of replicas for the specified indices.
+         * 更新指定索引的副本数。
          *
-         * @param numberOfReplicas the number of replicas
-         * @param indices          the indices to update the number of replicas for
+         * @param numberOfReplicas 副本的数量
+         * @param indices          用于更新副本数量的索引
          * @return the builder
          */
         public Builder updateNumberOfReplicas(final int numberOfReplicas, final String[] indices) {

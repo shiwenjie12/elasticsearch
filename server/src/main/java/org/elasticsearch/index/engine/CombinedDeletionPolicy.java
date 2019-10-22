@@ -37,11 +37,9 @@ import java.util.Map;
 import java.util.function.LongSupplier;
 
 /**
- * An {@link IndexDeletionPolicy} that coordinates between Lucene's commits and the retention of translog generation files,
- * making sure that all translog files that are needed to recover from the Lucene commit are not deleted.
+ * 一个{@link IndexDeletionPolicy}，用于协调Lucene的提交和保留translog生成文件，确保不删除从Lucene提交中恢复所需的所有translog文件。
  * <p>
- * In particular, this policy will delete index commits whose max sequence number is at most
- * the current global checkpoint except the index commit which has the highest max sequence number among those.
+ * 特别是，此策略将删除其最大序列号最多为当前全局检查点的索引提交，除了其中具有最高最大序列号的索引提交。
  */
 public final class CombinedDeletionPolicy extends IndexDeletionPolicy {
     private final Logger logger;
@@ -214,7 +212,7 @@ public final class CombinedDeletionPolicy extends IndexDeletionPolicy {
     }
 
     /**
-     * A wrapper of an index commit that prevents it from being deleted.
+     * 索引提交的包装器，可防止将其删除。
      */
     private static class SnapshotIndexCommit extends IndexCommit {
         private final IndexCommit delegate;

@@ -19,6 +19,7 @@
 
 package org.elasticsearch.common.recycler;
 
+// 过滤的回收器，用于代理
 abstract class FilterRecycler<T> implements Recycler<T> {
 
     /** Get the delegate instance to forward calls to. */

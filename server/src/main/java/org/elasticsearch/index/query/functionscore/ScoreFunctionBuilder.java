@@ -31,12 +31,13 @@ import org.elasticsearch.index.query.QueryShardContext;
 import java.io.IOException;
 import java.util.Objects;
 
+// 分数打分器
 public abstract class ScoreFunctionBuilder<FB extends ScoreFunctionBuilder<FB>> implements ToXContentFragment, NamedWriteable {
 
     private Float weight;
 
     /**
-     * Standard empty constructor.
+     * 标准的空构造函数。
      */
     public ScoreFunctionBuilder() {
     }
@@ -60,12 +61,12 @@ public abstract class ScoreFunctionBuilder<FB extends ScoreFunctionBuilder<FB>> 
     protected abstract void doWriteTo(StreamOutput out) throws IOException;
 
     /**
-     * The name of this score function.
+     * 此评分功能的名称。
      */
     public abstract String getName();
 
     /**
-     * Set the weight applied to the function before combining.
+     * 在组合之前设置应用于该功能的权重。
      */
     @SuppressWarnings("unchecked")
     public final FB setWeight(float weight) {
@@ -81,7 +82,7 @@ public abstract class ScoreFunctionBuilder<FB extends ScoreFunctionBuilder<FB>> 
     }
 
     /**
-     * The weight applied to the function before combining.
+     * 在组合之前应用于该功能的权重。
      */
     public final Float getWeight() {
         return weight;
@@ -97,7 +98,7 @@ public abstract class ScoreFunctionBuilder<FB extends ScoreFunctionBuilder<FB>> 
     }
 
     /**
-     * Convert this subclass's data into XContent.
+     * 将此子类的数据转换为XContent。
      */
     protected abstract void doXContent(XContentBuilder builder, Params params) throws IOException;
 

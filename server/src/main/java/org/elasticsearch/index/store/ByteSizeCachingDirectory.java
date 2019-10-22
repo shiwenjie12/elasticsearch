@@ -33,6 +33,7 @@ import java.io.UncheckedIOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.NoSuchFileException;
 
+// 具有缓存字节大小功能的字典
 final class ByteSizeCachingDirectory extends FilterDirectory {
 
     private static class SizeAndModCount {

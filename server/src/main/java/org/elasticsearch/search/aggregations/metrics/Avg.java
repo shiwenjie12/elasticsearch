@@ -19,7 +19,7 @@
 package org.elasticsearch.search.aggregations.metrics;
 
 /**
- * An aggregation that computes the average of the values in the current bucket.
+ * 一种聚合，用于计算当前存储桶中值的平均值。
  */
 public interface Avg extends NumericMetricsAggregation.SingleValue {
 

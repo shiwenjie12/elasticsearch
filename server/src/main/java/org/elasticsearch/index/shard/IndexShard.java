@@ -1540,7 +1540,7 @@ public class IndexShard extends AbstractIndexShardComponent implements IndicesCl
     }
 
     /**
-     * Returns number of heap bytes used by the indexing buffer for this shard, or 0 if the shard is closed
+     * 返回此分片的索引缓冲区使用的堆字节数，如果分片已关闭，则返回0
      */
     public long getIndexBufferRAMBytesUsed() {
         Engine engine = getEngineOrNull();
@@ -2599,7 +2599,7 @@ public class IndexShard extends AbstractIndexShardComponent implements IndicesCl
     }
 
     /**
-     * Executes a scheduled refresh if necessary.
+     * 如有必要，执行计划的刷新。
      *
      * @return <code>true</code> iff the engine got refreshed otherwise <code>false</code>
      */
@@ -2609,12 +2609,12 @@ public class IndexShard extends AbstractIndexShardComponent implements IndicesCl
             if (listenerNeedsRefresh == false // if we have a listener that is waiting for a refresh we need to force it
                 && isSearchIdle()
                 && indexSettings.isExplicitRefresh() == false
-                && active.get()) { // it must be active otherwise we might not free up segment memory once the shard became inactive
-                // lets skip this refresh since we are search idle and
-                // don't necessarily need to refresh. the next searcher access will register a refreshListener and that will
-                // cause the next schedule to refresh.
+                && active.get()) {
+                // 它必须是活动的，否则我们可能不会在分片变为非活动状态时释放分段内存让我们跳过此刷新，
+                // 因为我们搜索空闲并且不一定需要刷新。下一个搜索器访问将注册一个refreshListener，这将导致下一个计划刷新。
                 final Engine engine = getEngine();
-                engine.maybePruneDeletes(); // try to prune the deletes in the engine if we accumulated some
+                // 如果我们累积一些，尝试修剪引擎中的删除
+                engine.maybePruneDeletes();
                 setRefreshPending(engine);
                 return false;
             } else {
@@ -2623,12 +2623,13 @@ public class IndexShard extends AbstractIndexShardComponent implements IndicesCl
             }
         }
         final Engine engine = getEngine();
-        engine.maybePruneDeletes(); // try to prune the deletes in the engine if we accumulated some
+        // 如果我们累积一些，尝试修剪引擎中的删除
+        engine.maybePruneDeletes();
         return false;
     }
 
     /**
-     * Returns true if this shards is search idle
+     * 如果此分片是搜索空闲，则返回true
      */
     final boolean isSearchIdle() {
         return (threadPool.relativeTimeInMillis() - lastSearcherAccess.get()) >= indexSettings.getSearchIdleAfter().getMillis();

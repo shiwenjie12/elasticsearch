@@ -51,7 +51,7 @@ public interface TransportInterceptor {
     }
 
     /**
-     * A simple interface to decorate
+     * 一个简单的装饰界面
      * {@link #sendRequest(Transport.Connection, String, TransportRequest, TransportRequestOptions, TransportResponseHandler)}
      */
     interface AsyncSender {

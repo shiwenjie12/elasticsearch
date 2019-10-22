@@ -40,7 +40,7 @@ public abstract class ScoreFunction {
     public abstract LeafScoreFunction getLeafScoreFunction(LeafReaderContext ctx) throws IOException;
 
     /**
-     * Indicates if document scores are needed by this function.
+     * 指示此功能是否需要文档分数。
      *
      * @return {@code true} if scores are needed.
      */

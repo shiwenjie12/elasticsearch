@@ -36,6 +36,8 @@ import java.util.Random;
 /**
  * ScoringScriptImpl can be used as {@link ScoreScript}
  * to run a previously compiled Painless script.
+ * ScoringScriptImpl可用作{@link ScoreScript}来运行以前编译的painless脚本。
+ *
  */
 public final class ScoreScriptUtils {
 

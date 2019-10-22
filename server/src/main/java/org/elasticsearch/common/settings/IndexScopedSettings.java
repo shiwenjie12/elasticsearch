@@ -49,7 +49,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 /**
- * Encapsulates all valid index level settings.
+ * 封装所有有效的索引级别设置。
  * @see Property#IndexScope
  */
 public final class IndexScopedSettings extends AbstractScopedSettings {

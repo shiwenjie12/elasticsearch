@@ -25,7 +25,7 @@ import org.elasticsearch.common.settings.Setting.Property;
 import org.elasticsearch.common.settings.Settings;
 
 /**
- * Helper for dealing with destructive operations and wildcard usage.
+ * 用于处理破坏性操作和通配符用法的助手。
  */
 public final class DestructiveOperations {
 
@@ -46,7 +46,7 @@ public final class DestructiveOperations {
     }
 
     /**
-     * Fail if there is wildcard usage in indices and the named is required for destructive operations.
+     * 如果索引中使用通配符，并且破坏性操作需要使用named，则失败。
      */
     public void failDestructive(String[] aliasesOrIndices) {
         if (!destructiveRequiresName) {

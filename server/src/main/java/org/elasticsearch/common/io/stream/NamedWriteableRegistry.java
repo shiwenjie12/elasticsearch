@@ -19,12 +19,7 @@
 
 package org.elasticsearch.common.io.stream;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * {@link NamedWriteable}的{@link org.elasticsearch.common.io.stream.Writeable.Reader}读者注册表。
@@ -33,16 +28,16 @@ import java.util.Objects;
  */
 public class NamedWriteableRegistry {
 
-    /** An entry in the registry, made up of a category class and name, and a reader for that category class. */
+    /** 注册表中的条目，由类别类和名称组成，以及该类别类的读者。 */
     public static class Entry {
 
-        /** The superclass of a {@link NamedWriteable} which will be read by {@link #reader}. */
+        /** {@link NamedWriteable}的超类，将由{@link #reader}读取。 */
         public final Class<?> categoryClass;
 
-        /** A name for the writeable which is unique to the {@link #categoryClass}. */
+        /** 可编写的名称，对于{@link #categoryClass}是唯一的。 */
         public final String name;
 
-        /** A reader capability of reading*/
+        /** A reader capability of reading */
         public final Writeable.Reader<?> reader;
 
         /** Creates a new entry which can be stored by the registry. */
@@ -54,13 +49,12 @@ public class NamedWriteableRegistry {
     }
 
     /**
-     * The underlying data of the registry maps from the category to an inner
-     * map of name unique to that category, to the actual reader.
+     * The underlying data of the registry maps from the category to an inner map of name unique to that category, to the actual reader.
      */
     private final Map<Class<?>, Map<String, Writeable.Reader<?>>> registry;
 
     /**
-     * Constructs a new registry from the given entries.
+     * 根据给定条目构造一个新的注册表。
      */
     public NamedWriteableRegistry(List<Entry> entries) {
         if (entries.isEmpty()) {
@@ -68,7 +62,7 @@ public class NamedWriteableRegistry {
             return;
         }
         entries = new ArrayList<>(entries);
-        entries.sort((e1, e2) -> e1.categoryClass.getName().compareTo(e2.categoryClass.getName()));
+        entries.sort(Comparator.comparing(e -> e.categoryClass.getName()));
 
         Map<Class<?>, Map<String, Writeable.Reader<?>>> registry = new HashMap<>();
         Map<String, Writeable.Reader<?>> readers = null;

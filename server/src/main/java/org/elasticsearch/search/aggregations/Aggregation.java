@@ -25,13 +25,12 @@ import org.elasticsearch.common.xcontent.ToXContentFragment;
 import java.util.Map;
 
 /**
- * An aggregation. Extends {@link ToXContent} as it makes it easier to print out its content.
+ * 聚合。扩展{@link ToXContent}，因为它可以更轻松地打印出其内容。
  */
 public interface Aggregation extends ToXContentFragment {
 
     /**
-     * Delimiter used when prefixing aggregation names with their type
-     * using the typed_keys parameter
+     * 使用typed_keys参数为聚合名称添加前缀时使用的分隔符
      */
     String TYPED_KEYS_DELIMITER = "#";
 

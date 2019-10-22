@@ -25,7 +25,7 @@ import org.apache.lucene.index.SegmentCommitInfo;
 import java.util.List;
 
 /**
- * Represents a single on going merge within an index.
+ * 表示索引中的单个正在进行的合并。
  */
 public class OnGoingMerge {
 

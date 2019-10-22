@@ -26,7 +26,7 @@ import org.elasticsearch.index.query.QueryShardContext;
 import org.joda.time.DateTimeZone;
 
 /**
- * {@link MappedFieldType} base impl for field types that are neither dates nor ranges.
+ * {@link MappedFieldType} base impl表示既不是日期也不是范围的字段类型。
  */
 public abstract class SimpleMappedFieldType extends MappedFieldType {
 

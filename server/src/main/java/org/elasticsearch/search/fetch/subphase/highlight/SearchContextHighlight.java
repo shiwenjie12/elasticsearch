@@ -30,6 +30,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+// 高亮的搜索上下文
 public class SearchContextHighlight {
 
     private final Map<String, Field> fields;

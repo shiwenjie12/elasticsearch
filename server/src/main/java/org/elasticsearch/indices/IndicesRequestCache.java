@@ -57,6 +57,9 @@ import java.util.function.Supplier;
  * with the semantics of NRT (the index reader cache key is part of the cache key), and relies on size based
  * eviction to evict old reader associated cache entries as well as scheduler reaper to clean readers that
  * are no longer used or closed shards.
+ * 索引请求缓存允许缓存shard级请求阶段响应，有助于改进可能很昂贵的类似请求（例如，因为aggs）。
+ * 缓存与NRT的语义完全一致（索引读取器缓存键是缓存键的一部分），
+ * 并依赖于基于大小的逐出来驱逐旧读者关联的缓存条目以及调度器收割器来清理不再使用的读取器或封闭的碎片。
  * <p>
  * Currently, the cache is only enabled for count requests, and can only be opted in on an index
  * level setting that can be dynamically changed and defaults to false.
@@ -69,8 +72,7 @@ public final class IndicesRequestCache implements RemovalListener<IndicesRequest
     private static final Logger logger = LogManager.getLogger(IndicesRequestCache.class);
 
     /**
-     * A setting to enable or disable request caching on an index level. Its dynamic by default
-     * since we are checking on the cluster state IndexMetaData always.
+     * 用于在索引级别启用或禁用请求缓存的设置。默认情况下它是动态的，因为我们总是检查集群状态IndexMetaData。
      */
     public static final Setting<Boolean> INDEX_CACHE_REQUEST_ENABLED_SETTING =
         Setting.boolSetting("index.requests.cache.enable", true, Property.Dynamic, Property.IndexScope);
@@ -144,7 +146,7 @@ public final class IndicesRequestCache implements RemovalListener<IndicesRequest
     }
 
     /**
-     * Invalidates the given the cache entry for the given key and it's context
+     * 使给定键及其上下文的给定缓存条目无效
      * @param cacheEntity the cache entity to invalidate for
      * @param reader the reader to invalidate the cache entry for
      * @param cacheKey the cache key to invalidate

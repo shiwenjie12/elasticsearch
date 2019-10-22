@@ -31,7 +31,7 @@ import org.elasticsearch.common.xcontent.XContentParser;
 import java.io.IOException;
 
 /**
- * A query that matches on all documents.
+ * 与所有文档匹配的查询。
  */
 public class MatchAllQueryBuilder extends AbstractQueryBuilder<MatchAllQueryBuilder> {
     public static final String NAME = "match_all";

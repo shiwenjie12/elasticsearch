@@ -25,7 +25,7 @@ import org.apache.lucene.util.Accountable;
 import org.elasticsearch.index.shard.ShardId;
 
 /**
- * A simple field data cache abstraction on the *index* level.
+ * * index *级别上的简单字段数据缓存抽象。
  */
 public interface IndexFieldDataCache {
 
@@ -47,12 +47,12 @@ public interface IndexFieldDataCache {
     interface Listener {
 
         /**
-         * Called after the fielddata is loaded during the cache phase
+         * 在缓存阶段加载fielddata后调用
          */
         default void onCache(ShardId shardId, String fieldName, Accountable ramUsage){}
 
         /**
-         * Called after the fielddata is unloaded
+         * 在卸载fielddata后调用
          */
         default void onRemoval(ShardId shardId, String fieldName, boolean wasEvicted, long sizeInBytes){}
     }

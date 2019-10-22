@@ -23,7 +23,7 @@ import org.apache.lucene.util.Accountable;
 import org.elasticsearch.common.lease.Releasable;
 
 /**
- * The thread safe {@link org.apache.lucene.index.LeafReader} level cache of the data.
+ * 线程安全{@link org.apache.lucene.index.LeafReader}级别的数据缓存。
  */
 public interface AtomicFieldData extends Accountable, Releasable {
 
@@ -40,7 +40,7 @@ public interface AtomicFieldData extends Accountable, Releasable {
     }
 
     /**
-     * Return a String representation of the values.
+     * 返回值的String表示形式。
      */
     SortedBinaryDocValues getBytesValues();
 

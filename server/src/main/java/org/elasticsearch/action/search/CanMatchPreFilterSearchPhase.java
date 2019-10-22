@@ -40,6 +40,9 @@ import java.util.stream.Stream;
  * from the search. The extra round trip to the search shards is very cheap and is not subject to rejections
  * which allows to fan out to more shards at the same time without running into rejections even if we are hitting a
  * large portion of the clusters indices.
+ * 此搜索阶段可用作初始搜索阶段，以根据查询重写对搜索分片进行预过滤。根据分片重写查询，并根据重写结果，
+ * 可能可以从搜索中排除分片。搜索分片的额外往返是非常便宜的，并且不会受到拒绝，这允许在不遭遇拒绝的情况下同时扇出更多分片，
+ * 即使我们正在击中大部分集群索引。
  */
 final class CanMatchPreFilterSearchPhase extends AbstractSearchAsyncAction<SearchService.CanMatchResponse> {
 

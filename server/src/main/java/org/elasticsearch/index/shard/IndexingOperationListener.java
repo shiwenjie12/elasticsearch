@@ -25,29 +25,26 @@ import org.elasticsearch.index.engine.Engine;
 import java.util.List;
 
 /**
- * An indexing listener for indexing, delete, events.
+ * 索引，删除，事件的索引侦听器。
  */
 public interface IndexingOperationListener {
 
     /**
-     * Called before the indexing occurs.
+     * 在索引发生之前调用。
      */
     default Engine.Index preIndex(ShardId shardId, Engine.Index operation) {
         return operation;
     }
 
     /**
-     * Called after the indexing operation occurred. Note that this is
-     * also called when indexing a document did not succeed due to document
-     * related failures. See {@link #postIndex(ShardId, Engine.Index, Exception)}
-     * for engine level failures
+     * 在索引操作发生后调用。请注意，由于与文档相关的故障，索引文档失败时也会调用此方法。
+     * 有关引擎级故障，请参阅{@link #postIndex (ShardId，Engine.Index，Exception)}
      */
     default void postIndex(ShardId shardId, Engine.Index index, Engine.IndexResult result) {}
 
     /**
-     * Called after the indexing operation occurred with engine level exception.
-     * See {@link #postIndex(ShardId, Engine.Index, Engine.IndexResult)} for document
-     * related failures
+     * 在索引操作发生时调用引擎级异常。
+     * 有关文档相关故障，请参阅{@link #postIndex（ShardId，Engine.Index，Engine.IndexResult）}
      */
     default void postIndex(ShardId shardId, Engine.Index index, Exception ex) {}
 

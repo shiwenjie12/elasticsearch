@@ -660,9 +660,9 @@ public class MapperService extends AbstractIndexComponent implements Closeable {
     }
 
     /**
-     * Returns the {@link MappedFieldType} for the give fullName.
+     * 返回给出fullName的{@link MappedFieldType}。
      *
-     * If multiple types have fields with the same full name, the first is returned.
+     * 如果多个类型具有相同全名的字段，则返回第一个。
      */
     public MappedFieldType fullName(String fullName) {
         return fieldTypes.get(fullName);

@@ -96,7 +96,8 @@ public final class AnalysisModule {
         analysisRegistry = new AnalysisRegistry(environment,
             charFilters.getRegistry(), tokenFilters.getRegistry(), tokenizers.getRegistry(),
             analyzers.getRegistry(), normalizers.getRegistry(),
-            preConfiguredCharFilters, preConfiguredTokenFilters, preConfiguredTokenizers, preConfiguredAnalyzers);
+            preConfiguredCharFilters, preConfiguredTokenFilters,
+            preConfiguredTokenizers, preConfiguredAnalyzers);
     }
 
     HunspellService getHunspellService() {

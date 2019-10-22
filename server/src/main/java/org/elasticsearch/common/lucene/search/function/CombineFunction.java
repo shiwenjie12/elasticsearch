@@ -27,6 +27,7 @@ import org.elasticsearch.common.io.stream.Writeable;
 import java.io.IOException;
 import java.util.Locale;
 
+// 联合方法
 public enum CombineFunction implements Writeable {
     MULTIPLY {
         @Override

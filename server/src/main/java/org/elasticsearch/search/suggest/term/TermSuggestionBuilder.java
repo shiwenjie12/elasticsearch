@@ -64,6 +64,7 @@ import static org.elasticsearch.search.suggest.phrase.DirectCandidateGeneratorBu
  * Defines the actual suggest command. Each command uses the global options
  * unless defined in the suggestion itself. All options are the same as the
  * global options, but are only applicable for this suggestion.
+ * 定义实际的建议命令。除非在建议本身中定义，否则每个命令都使用全局选项。所有选项与全局选项相同，但仅适用于此建议。
  */
 public class TermSuggestionBuilder extends SuggestionBuilder<TermSuggestionBuilder> {
 

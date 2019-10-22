@@ -27,8 +27,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 /**
- * A sorting order.
- *
+ * 排序顺序。
  *
  */
 public enum SortOrder implements Writeable {

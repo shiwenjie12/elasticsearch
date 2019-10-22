@@ -35,8 +35,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * A function that uses a script to compute or influence the score of documents
- * that match with the inner query or filter.
+ * 一种函数，它使用脚本来计算或影响与内部查询或过滤器匹配的文档的分数。
  */
 public class ScriptScoreFunctionBuilder extends ScoreFunctionBuilder<ScriptScoreFunctionBuilder> {
     public static final String NAME = "script_score";

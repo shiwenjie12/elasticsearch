@@ -49,6 +49,7 @@ import org.elasticsearch.threadpool.ThreadPool;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+// 网关服务
 public class GatewayService extends AbstractLifecycleComponent implements ClusterStateListener {
     private static final Logger logger = LogManager.getLogger(GatewayService.class);
 
@@ -103,7 +104,7 @@ public class GatewayService extends AbstractLifecycleComponent implements Cluste
         this.allocationService = allocationService;
         this.clusterService = clusterService;
         this.threadPool = threadPool;
-        // allow to control a delay of when indices will get created
+        // 允许控制索引创建时间的延迟
         this.expectedNodes = EXPECTED_NODES_SETTING.get(settings);
         this.expectedDataNodes = EXPECTED_DATA_NODES_SETTING.get(settings);
         this.expectedMasterNodes = EXPECTED_MASTER_NODES_SETTING.get(settings);
@@ -180,7 +181,7 @@ public class GatewayService extends AbstractLifecycleComponent implements Cluste
                 enforceRecoverAfterTime = true;
                 reason = "recover_after_time was set to [" + recoverAfterTime + "]";
             } else {
-                // one of the expected is set, see if all of them meet the need, and ignore the timeout in this case
+                //其中一个是预期的设置，看看它们是否满足需要，并在这种情况下忽略超时
                 enforceRecoverAfterTime = false;
                 reason = "";
                 if (expectedNodes != -1 && (nodes.getMasterAndDataNodes().size() < expectedNodes)) { // does not meet the expected...
@@ -249,7 +250,7 @@ public class GatewayService extends AbstractLifecycleComponent implements Cluste
                             .removeGlobalBlock(STATE_NOT_RECOVERED_BLOCK);
 
                     MetaData.Builder metaDataBuilder = MetaData.builder(recoveredState.metaData());
-                    // automatically generate a UID for the metadata if we need to
+                    // 如果需要，自动为元数据生成UID
                     metaDataBuilder.generateClusterUuidIfNeeded();
 
                     if (MetaData.SETTING_READ_ONLY_SETTING.get(recoveredState.metaData().settings())
@@ -266,13 +267,13 @@ public class GatewayService extends AbstractLifecycleComponent implements Cluste
                         blocks.addBlocks(indexMetaData);
                     }
 
-                    // update the state to reflect the new metadata and routing
+                    //更新状态以反映新的元数据和路由
                     ClusterState updatedState = ClusterState.builder(currentState)
                             .blocks(blocks)
                             .metaData(metaDataBuilder)
                             .build();
 
-                    // initialize all index routing tables as empty
+                    // 将所有索引路由表初始化为空
                     RoutingTable.Builder routingTableBuilder = RoutingTable.builder(updatedState.routingTable());
                     for (ObjectCursor<IndexMetaData> cursor : updatedState.metaData().indices().values()) {
                         routingTableBuilder.addAsRecovery(cursor.value);

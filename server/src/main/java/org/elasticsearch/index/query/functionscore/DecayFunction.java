@@ -22,14 +22,13 @@ package org.elasticsearch.index.query.functionscore;
 import org.apache.lucene.search.Explanation;
 
 /**
- * Implement this interface to provide a decay function that is executed on a
- * distance. For example, this could be an exponential drop of, a triangle
- * function or something of the kind. This is used, for example, by
- * {@link GaussDecayFunctionBuilder}.
+ * 实现此接口以提供在距离上执行的衰减功能。例如，这可能是指数下降，三角函数或类似的东西。
+ * 例如，{@link GaussDecayFunctionBuilder}使用它。
  * 
  */
 public interface DecayFunction {
 
+    // 评估
     double evaluate(double value, double scale);
 
     Explanation explainFunction(String valueString, double value, double scale);
@@ -40,12 +39,12 @@ public interface DecayFunction {
      * should compute if document distance and user defined scale equal. The
      * scale parameter for the function must be adjusted accordingly in this
      * function
-     * 
+     * 最终比例参数根据用户给出的比例参数和值计算。如果文档距离和用户定义的比例相等，
+     * 则此值是衰减函数应计算的值。必须在此功能中相应调整功能的比例参数
      * @param scale
-     *            the raw scale value given by the user
+     *            用户给出的原始比例值
      * @param decay
-     *            the value which decay function should take once the distance
-     *            reaches this scale
+     *            一旦距离达到这个尺度，衰减函数应该采取的值
      * */
     double processScale(double scale, double decay);
 }

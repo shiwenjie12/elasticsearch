@@ -25,7 +25,7 @@ import java.util.Deque;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * A {@link Recycler} implementation based on a concurrent {@link Deque}. This implementation is thread-safe.
+ * 基于并发{@link Deque}的{@link Recycler}实现。此实现是线程安全的。
  */
 public class ConcurrentDequeRecycler<T> extends DequeRecycler<T> {
 

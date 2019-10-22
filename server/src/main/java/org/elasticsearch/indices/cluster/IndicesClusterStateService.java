@@ -801,11 +801,11 @@ public class IndicesClusterStateService extends AbstractLifecycleComponent imple
     public interface AllocatedIndices<T extends Shard, U extends AllocatedIndex<T>> extends Iterable<U> {
 
         /**
-         * Creates a new {@link IndexService} for the given metadata.
+         * 为给定的元数据创建新的{@link IndexService}。
          *
-         * @param indexMetaData          the index metadata to create the index for
-         * @param builtInIndexListener   a list of built-in lifecycle {@link IndexEventListener} that should should be used along side with
-         *                               the per-index listeners
+         * @param indexMetaData          用于创建索引的索引元数据
+         * @param builtInIndexListener   应该与每个索引侦听器一起使用的内置生命周期{@link IndexEventListener}的列表
+         *
          * @throws ResourceAlreadyExistsException if the index already exists.
          */
         U createIndex(IndexMetaData indexMetaData,

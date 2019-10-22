@@ -36,7 +36,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * A function that computes a random score for the matched documents
+ * 一种计算匹配文档的随机分数的函数
  */
 public class RandomScoreFunctionBuilder extends ScoreFunctionBuilder<RandomScoreFunctionBuilder> {
 

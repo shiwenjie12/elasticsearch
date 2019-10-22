@@ -23,8 +23,8 @@ package org.elasticsearch.common;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Implements exponentially weighted moving averages (commonly abbreviated EWMA) for a single value.
- * This class is safe to share between threads.
+ * 为单个值实现指数加权的移动平均值（通常缩写为EWMA）。
+ * 可以在线程之间共享此类。
  */
 public class ExponentiallyWeightedMovingAverage {
 

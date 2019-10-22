@@ -44,7 +44,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * A Query that matches documents within an range of terms.
+ * 与一系列术语中的文档匹配的查询。
  */
 public class RangeQueryBuilder extends AbstractQueryBuilder<RangeQueryBuilder> implements MultiTermQueryBuilder {
     public static final String NAME = "range";

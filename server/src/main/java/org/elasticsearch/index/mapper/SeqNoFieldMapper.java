@@ -45,7 +45,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Mapper for the {@code _seq_no} field.
+ * {@code _seq_no}字段的映射器。
  *
  * We expect to use the seq# for sorting, during collision checking and for
  * doing range searches. Therefore the {@code _seq_no} field is stored both

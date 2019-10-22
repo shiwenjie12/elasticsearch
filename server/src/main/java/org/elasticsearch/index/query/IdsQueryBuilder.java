@@ -47,7 +47,7 @@ import java.util.Set;
 import static org.elasticsearch.common.xcontent.ObjectParser.fromList;
 
 /**
- * A query that will return only documents matching specific ids (and a type).
+ * 一个只返回与特定ID（和类型）匹配的文档的查询。
  */
 public class IdsQueryBuilder extends AbstractQueryBuilder<IdsQueryBuilder> {
     public static final String NAME = "ids";
@@ -132,7 +132,7 @@ public class IdsQueryBuilder extends AbstractQueryBuilder<IdsQueryBuilder> {
     }
 
     private static ObjectParser<IdsQueryBuilder, Void> PARSER = new ObjectParser<>(NAME,
-            () -> new IdsQueryBuilder());
+        IdsQueryBuilder::new);
 
     static {
         PARSER.declareStringArray(fromList(String.class, IdsQueryBuilder::types), IdsQueryBuilder.TYPE_FIELD);

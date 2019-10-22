@@ -30,8 +30,9 @@ import org.apache.lucene.util.BytesRef;
 import org.elasticsearch.common.lucene.BytesRefs;
 import org.elasticsearch.index.query.QueryShardContext;
 
-/** Base {@link MappedFieldType} implementation for a field that is indexed
- *  with the inverted index. */
+/**
+ * 对使用倒排索引编制索引的字段的基本{@link MappedFieldType}实现。
+ */
 abstract class TermBasedFieldType extends SimpleMappedFieldType {
 
     TermBasedFieldType() {}
@@ -40,9 +41,9 @@ abstract class TermBasedFieldType extends SimpleMappedFieldType {
         super(ref);
     }
 
-    /** Returns the indexed value used to construct search "values".
-     *  This method is used for the default implementations of most
-     *  query factory methods such as {@link #termQuery}. */
+    /**
+     * 返回用于构造搜索“values”的索引值。此方法用于大多数查询工厂方法的默认实现，例如{@link #termQuery}。
+     *  */
     protected BytesRef indexedValueForSearch(Object value) {
         return BytesRefs.toBytesRef(value);
     }

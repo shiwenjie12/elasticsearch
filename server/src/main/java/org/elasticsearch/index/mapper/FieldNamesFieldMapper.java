@@ -41,8 +41,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * A mapper that indexes the field names of a document under <code>_field_names</code>. This mapper is typically useful in order
- * to have fast <code>exists</code> and <code>missing</code> queries/filters.
+ * 映射器，用于在<code> _field_names </ code>下索引文档的字段名称。
+ * 此映射器通常用于快速<code> exists </ code>和<code> missing </ code>查询/过滤器。
  *
  * Added in Elasticsearch 1.3.
  */

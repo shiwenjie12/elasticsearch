@@ -45,7 +45,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.function.LongSupplier;
 
-/** A formatter for values as returned by the fielddata/doc-values APIs. */
+/** 字段数据/ doc-values API返回的值的格式化程序。 */
 public interface DocValueFormat extends NamedWriteable {
 
     /** Format a long value. This is used by terms and histogram aggregations

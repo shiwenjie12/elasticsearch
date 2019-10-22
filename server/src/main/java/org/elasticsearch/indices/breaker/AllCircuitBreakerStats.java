@@ -28,7 +28,7 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 import java.io.IOException;
 
 /**
- * Stats class encapsulating all of the different circuit breaker stats
+ * Stats类封装了所有不同的断路器统计数据
  */
 public class AllCircuitBreakerStats implements Writeable, ToXContentFragment {
 

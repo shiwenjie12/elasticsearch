@@ -19,6 +19,7 @@
 
 package org.elasticsearch.common.geo;
 
+// geo包
 public class ShapesAvailability {
 
     public static final boolean SPATIAL4J_AVAILABLE;

@@ -69,7 +69,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
- * IndexModule represents the central extension point for index level custom implementations like:
+ * IndexModule表示索引级自定义实现的中心扩展点，如：
  * <ul>
  *     <li>{@link Similarity} - New {@link Similarity} implementations can be registered through
  *     {@link #addSimilarity(String, TriFunction)} while existing Providers can be referenced through Settings under the
@@ -119,8 +119,8 @@ public final class IndexModule {
     private final AtomicBoolean frozen = new AtomicBoolean(false);
 
     /**
-     * Construct the index module for the index with the specified index settings. The index module contains extension points for plugins
-     * via {@link org.elasticsearch.plugins.PluginsService#onIndexModule(IndexModule)}.
+     * 使用指定的索引设置构造索引的索引模块。索引模块通过
+     * {@link org.elasticsearch.plugins.PluginsService#onIndexModule(IndexModule)}包含插件的扩展点。
      *
      * @param indexSettings       the index settings
      * @param analysisRegistry    the analysis registry
@@ -364,6 +364,7 @@ public final class IndexModule {
         }
     }
 
+    // 创建索引服务
     public IndexService newIndexService(
             NodeEnvironment environment,
             NamedXContentRegistry xContentRegistry,

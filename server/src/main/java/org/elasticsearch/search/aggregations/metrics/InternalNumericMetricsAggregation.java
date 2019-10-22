@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+// 内部使用的数字度量聚合
 public abstract class InternalNumericMetricsAggregation extends InternalAggregation {
 
     private static final DocValueFormat DEFAULT_FORMAT = DocValueFormat.RAW;

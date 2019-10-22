@@ -19,7 +19,7 @@
 package org.elasticsearch.search.aggregations.metrics;
 
 /**
- * An aggregation that computes the maximum of the values in the current bucket.
+ * 一种聚合，用于计算当前存储桶中值的最大值。
  */
 public interface Max extends NumericMetricsAggregation.SingleValue {
 

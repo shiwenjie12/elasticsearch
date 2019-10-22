@@ -49,10 +49,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-/**
- * A mapper for the _id field. It does nothing since _id is neither indexed nor
- * stored, but we need to keep it so that its FieldType can be used to generate
- * queries.
+/**.
+ * _id字段的映射器。它没有做任何事情，因为_id既没有索引也没有存储，
+ * 但是我们需要保留它，以便它的FieldType可以用来生成查询。
  */
 public class IdFieldMapper extends MetadataFieldMapper {
 

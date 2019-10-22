@@ -37,9 +37,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * Collects statistics about queue size, response time, and service time of
- * tasks executed on each node, making the EWMA of the values available to the
- * coordinating node.
+ * 收集有关在每个节点上执行的任务的队列大小，响应时间和服务时间的统计信息，从而使值的EWMA可用于协调节点。
  */
 public final class ResponseCollectorService implements ClusterStateListener {
 
@@ -153,7 +151,7 @@ public final class ResponseCollectorService implements ClusterStateListener {
         }
 
         /**
-         * Rank this copy of the data, according to the adaptive replica selection formula from the C3 paper
+         * 根据C3论文中的自适应副本选择公式，对数据副本进行排序
          * https://www.usenix.org/system/files/conference/nsdi15/nsdi15-paper-suresh.pdf
          */
         private double innerRank(long outstandingRequests) {
@@ -202,9 +200,7 @@ public final class ResponseCollectorService implements ClusterStateListener {
     }
 
     /**
-     * Class encapsulating a node's exponentially weighted queue size, response
-     * time, and service time, however, this class is private and intended only
-     * to be used for the internal accounting of {@code ResponseCollectorService}.
+     * 封装节点的指数加权队列大小，响应时间和服务时间的类，但是，该类是私有的，仅用于{@code ResponseCollectorService}的内部记帐。
      */
     private static class NodeStatistics {
         final String nodeId;

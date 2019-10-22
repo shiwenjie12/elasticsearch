@@ -37,7 +37,7 @@ import static org.elasticsearch.common.recycler.Recyclers.concurrentDeque;
 import static org.elasticsearch.common.recycler.Recyclers.dequeFactory;
 import static org.elasticsearch.common.recycler.Recyclers.none;
 
-/** A recycler of fixed-size pages. */
+/** 固定尺寸页面的回收器 */
 public class PageCacheRecycler implements Releasable {
 
     public static final Setting<Type> TYPE_SETTING =
@@ -181,18 +181,21 @@ public class PageCacheRecycler implements Releasable {
     }
 
     public enum Type {
+        // 队列
         QUEUE {
             @Override
             <T> Recycler<T> build(Recycler.C<T> c, int limit, int availableProcessors) {
                 return concurrentDeque(c, limit);
             }
         },
+        // 并发
         CONCURRENT {
             @Override
             <T> Recycler<T> build(Recycler.C<T> c, int limit, int availableProcessors) {
                 return concurrent(dequeFactory(c, limit / availableProcessors), availableProcessors);
             }
         },
+        // 不回收
         NONE {
             @Override
             <T> Recycler<T> build(Recycler.C<T> c, int limit, int availableProcessors) {

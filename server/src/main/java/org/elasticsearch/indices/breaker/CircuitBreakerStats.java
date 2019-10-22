@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 /**
- * Class encapsulating stats about the circuit breaker
+ * 关于断路器的类封装统计数据
  */
 public class CircuitBreakerStats implements Writeable, ToXContentObject {
 

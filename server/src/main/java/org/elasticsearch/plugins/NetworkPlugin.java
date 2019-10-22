@@ -37,13 +37,12 @@ import org.elasticsearch.transport.Transport;
 import org.elasticsearch.transport.TransportInterceptor;
 
 /**
- * Plugin for extending network and transport related classes
+ * 用于扩展网络和传输相关类的插件
  */
 public interface NetworkPlugin {
 
     /**
-     * Returns a list of {@link TransportInterceptor} instances that are used to intercept incoming and outgoing
-     * transport (inter-node) requests. This must not return <code>null</code>
+     * 返回{@link TransportInterceptor}实例的列表，这些实例用于拦截传入和传出的传输（节点间）请求。这一定不能返回<code>null</code>
      *
      * @param namedWriteableRegistry registry of all named writeables registered
      * @param threadContext a {@link ThreadContext} of the current nodes or clients {@link ThreadPool} that can be used to set additional
@@ -55,8 +54,8 @@ public interface NetworkPlugin {
     }
 
     /**
-     * Returns a map of {@link Transport} suppliers.
-     * See {@link org.elasticsearch.common.network.NetworkModule#TRANSPORT_TYPE_KEY} to configure a specific implementation.
+     * 返回{@link Transport}供应商的地图。
+     * 请参阅{@link org.elasticsearch.common.network.NetworkModule#TRANSPORT_TYPE_KEY}来配置特定的实现。
      */
     default Map<String, Supplier<Transport>> getTransports(Settings settings, ThreadPool threadPool, BigArrays bigArrays,
                                                            PageCacheRecycler pageCacheRecycler,
@@ -67,8 +66,8 @@ public interface NetworkPlugin {
     }
 
     /**
-     * Returns a map of {@link HttpServerTransport} suppliers.
-     * See {@link org.elasticsearch.common.network.NetworkModule#HTTP_TYPE_SETTING} to configure a specific implementation.
+     * 返回{@link HttpServerTransport}供应商的地图。
+     * 请参阅{@link org.elasticsearch.common.network.NetworkModule#HTTP_TYPE_SETTING}来配置特定的实现。
      */
     default Map<String, Supplier<HttpServerTransport>> getHttpTransports(Settings settings, ThreadPool threadPool, BigArrays bigArrays,
                                                                          PageCacheRecycler pageCacheRecycler,

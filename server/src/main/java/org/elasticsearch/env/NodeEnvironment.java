@@ -617,10 +617,8 @@ public final class NodeEnvironment  implements Closeable {
     }
 
     /**
-     * Tries to lock the given shards ID. A shard lock is required to perform any kind of
-     * write operation on a shards data directory like deleting files, creating a new index writer
-     * or recover from a different shard instance into it. If the shard lock can not be acquired
-     * a {@link ShardLockObtainFailedException} is thrown
+     * 尝试锁定给定的分片ID。需要分片锁才能在分片数据目录上执行任何类型的写操作，例如删除文件，
+     * 创建新的索引编写器或从不同的分片实例中恢复。如果无法获取分片锁，则抛出{@link ShardLockObtainFailedException}
      * @param shardId the shard ID to lock
      * @param lockTimeoutMS the lock timeout in milliseconds
      * @return the shard lock. Call {@link ShardLock#close()} to release the lock
@@ -680,6 +678,7 @@ public final class NodeEnvironment  implements Closeable {
         }
     }
 
+    // 内部的分片锁
     private final class InternalShardLock {
         /*
          * This class holds a mutex for exclusive access and timeout / wait semantics
@@ -723,7 +722,7 @@ public final class NodeEnvironment  implements Closeable {
 
         void acquire(long timeoutInMillis) throws ShardLockObtainFailedException {
             try {
-                if (mutex.tryAcquire(timeoutInMillis, TimeUnit.MILLISECONDS) == false) {
+                if (!mutex.tryAcquire(timeoutInMillis, TimeUnit.MILLISECONDS)) {
                     throw new ShardLockObtainFailedException(shardId,
                             "obtaining shard lock timed out after " + timeoutInMillis + "ms");
                 }
@@ -739,7 +738,7 @@ public final class NodeEnvironment  implements Closeable {
     }
 
     /**
-     * Returns an array of all of the nodes data locations.
+     * 返回所有节点数据位置的数组。
      * @throws IllegalStateException if the node is not configured to store local locations
      */
     public Path[] nodeDataPaths() {
@@ -1003,10 +1002,9 @@ public final class NodeEnvironment  implements Closeable {
     }
 
     /**
-     * This method tries to write an empty file and moves it using an atomic move operation.
-     * This method throws an {@link IllegalStateException} if this operation is
-     * not supported by the filesystem. This test is executed on each of the data directories.
-     * This method cleans up all files even in the case of an error.
+     * 此方法尝试写入一个空文件，并使用原子移动操作移动它。
+     * 如果文件系统不支持此操作，则此方法将引发{@link IllegalStateException}。该测试在每个数据目录上执行。
+     * 即使出现错误，此方法也会清除所有文件。
      */
     public void ensureAtomicMoveSupported() throws IOException {
         final NodePath[] nodePaths = nodePaths();

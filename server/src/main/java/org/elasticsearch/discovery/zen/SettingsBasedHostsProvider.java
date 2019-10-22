@@ -32,11 +32,10 @@ import java.util.function.Function;
 import static java.util.Collections.emptyList;
 
 /**
- * An implementation of {@link UnicastHostsProvider} that reads hosts/ports
- * from the "discovery.zen.ping.unicast.hosts" node setting. If the port is
- * left off an entry, a default port of 9300 is assumed.
+ * {@link UnicastHostsProvider}的实现，它从“ discovery.zen.ping.unicast.hosts”节点设置中读取主机/端口。
+ * 如果该端口不包含任何条目，则假定使用默认端口9300。
  *
- * An example unicast hosts setting might look as follows:
+ * 示例单播主机设置可能如下所示:
  * [67.81.244.10, 67.81.244.11:9305, 67.81.244.15:9400]
  */
 public class SettingsBasedHostsProvider implements UnicastHostsProvider {

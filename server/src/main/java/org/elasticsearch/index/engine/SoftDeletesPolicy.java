@@ -30,16 +30,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.LongSupplier;
 
 /**
- * A policy that controls how many soft-deleted documents should be retained for peer-recovery and querying history changes purpose.
+ * 一种策略，用于控制应保留多少软删除文档以进行对等恢复和查询历史记录更改的目的。
  */
 final class SoftDeletesPolicy {
     private final LongSupplier globalCheckpointSupplier;
     private long localCheckpointOfSafeCommit;
-    // This lock count is used to prevent `minRetainedSeqNo` from advancing.
+    // 此锁定计数用于防止“minRetainedSeqNo”前进。
     private int retentionLockCount;
-    // The extra number of operations before the global checkpoint are retained
+    // 保留全局检查点之前的额外操作数
     private long retentionOperations;
-    // The min seq_no value that is retained - ops after this seq# should exist in the Lucene index.
+    // 保留的min seq_no值 - 此seq后的操作＃应该存在于Lucene索引中。
     private long minRetainedSeqNo;
 
     SoftDeletesPolicy(LongSupplier globalCheckpointSupplier, long minRetainedSeqNo, long retentionOperations) {
@@ -111,8 +111,8 @@ final class SoftDeletesPolicy {
     }
 
     /**
-     * Returns a soft-deletes retention query that will be used in {@link org.apache.lucene.index.SoftDeletesRetentionMergePolicy}
-     * Documents including tombstones are soft-deleted and matched this query will be retained and won't cleaned up by merges.
+     * 返回将在{@link org.apache.lucene.index.SoftDeletesRetentionMergePolicy}中使用的软删除保留查询
+     * 包含逻辑删除的文档被软删除并匹配此查询将被保留，并且不会被合并清除。
      */
     Query getRetentionQuery() {
         return LongPoint.newRangeQuery(SeqNoFieldMapper.NAME, getMinRetainedSeqNo(), Long.MAX_VALUE);

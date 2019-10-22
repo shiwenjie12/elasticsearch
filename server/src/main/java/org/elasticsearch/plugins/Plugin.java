@@ -109,7 +109,7 @@ public abstract class Plugin implements Closeable {
     }
 
     /**
-     * Returns components added by this plugin.
+     * 返回此插件添加的组件。
      *
      * Any components returned that implement {@link LifecycleComponent} will have their lifecycle managed.
      * Note: To aid in the migration away from guice, all objects returned as components will be bound in guice
@@ -157,8 +157,7 @@ public abstract class Plugin implements Closeable {
     }
 
     /**
-     * Called before a new index is created on a node. The given module can be used to register index-level
-     * extensions.
+     * 在节点上创建新索引之前调用。给定模块可用于注册索引级扩展。
      */
     public void onIndexModule(IndexModule indexModule) {}
 

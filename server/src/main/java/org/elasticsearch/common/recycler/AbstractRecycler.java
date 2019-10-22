@@ -19,7 +19,7 @@
 
 package org.elasticsearch.common.recycler;
 
-
+// 抽象的回收器
 abstract class AbstractRecycler<T> implements Recycler<T> {
 
     protected final Recycler.C<T> c;
@@ -28,6 +28,7 @@ abstract class AbstractRecycler<T> implements Recycler<T> {
         this.c = c;
     }
 
+    // 获得
     @Override
     public V<T> obtain() {
         return obtain(-1);

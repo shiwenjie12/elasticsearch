@@ -372,8 +372,8 @@ public class BigArrays implements Releasable {
     }
 
     final PageCacheRecycler recycler;
-    final CircuitBreakerService breakerService;
-    final boolean checkBreaker;
+    private final CircuitBreakerService breakerService;
+    private final boolean checkBreaker;
     private final BigArrays circuitBreakingInstance;
 
     public BigArrays(PageCacheRecycler recycler, @Nullable final CircuitBreakerService breakerService) {

@@ -44,7 +44,7 @@ import java.util.Collections;
 import java.util.Objects;
 
 /**
- * Constructs a query that only match on documents that the field has a value in them.
+ * 构造一个只与该字段中包含值的文档匹配的查询。
  */
 public class ExistsQueryBuilder extends AbstractQueryBuilder<ExistsQueryBuilder> {
     public static final String NAME = "exists";

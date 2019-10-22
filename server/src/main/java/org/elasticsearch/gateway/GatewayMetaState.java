@@ -58,6 +58,7 @@ import java.util.function.UnaryOperator;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.unmodifiableSet;
 
+// 网关元数据状态
 public class GatewayMetaState implements ClusterStateApplier {
 
     private static final Logger logger = LogManager.getLogger(GatewayMetaState.class);
@@ -204,7 +205,7 @@ public class GatewayMetaState implements ClusterStateApplier {
     }
 
     /**
-     * Throws an IAE if a pre 0.19 state is detected
+     * 如果检测到0.19之前的状态，则引发IAE
      */
     private void ensureNoPre019State() throws IOException {
         for (Path dataLocation : nodeEnv.nodeDataPaths()) {

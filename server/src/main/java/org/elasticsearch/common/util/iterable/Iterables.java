@@ -54,8 +54,9 @@ public class Iterables {
         }
     }
 
-    /** Flattens the two level {@code Iterable} into a single {@code Iterable}.  Note that this pre-caches the values from the outer {@code
-     *  Iterable}, but not the values from the inner one. */
+    /**
+     * 将两个级别{@code Iterable}展平为单个{@code Iterable}。请注意，这会预先缓存来自外部{@code Iterable}的值，而不是来自内部值的值。
+     *  */
     public static <T> Iterable<T> flatten(Iterable<? extends Iterable<T>> inputs) {
         Objects.requireNonNull(inputs);
         return new FlattenedIterables<>(inputs);

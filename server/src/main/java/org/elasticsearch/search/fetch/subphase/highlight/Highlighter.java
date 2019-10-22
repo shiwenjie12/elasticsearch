@@ -21,7 +21,7 @@ package org.elasticsearch.search.fetch.subphase.highlight;
 import org.elasticsearch.index.mapper.MappedFieldType;
 
 /**
- * Highlights a search result.
+ * 突出显示搜索结果。
  */
 public interface Highlighter {
 

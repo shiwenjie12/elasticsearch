@@ -25,9 +25,7 @@ import java.io.Closeable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * A shard lock guarantees exclusive access to a shards data
- * directory. Internal processes should acquire a lock on a shard
- * before executing any write operations on the shards data directory.
+ * 分片锁保证对分片数据目录的独占访问。在对shards数据目录执行任何写操作之前，内部进程应获取分片上的锁。
  *
  * @see NodeEnvironment
  */

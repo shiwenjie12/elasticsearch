@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
 import static org.elasticsearch.common.xcontent.XContentHelper.convertToMap;
 
 /**
- * Handling versioned templates for time-based indices in x-pack
+ * 处理x-pack中基于时间的索引的版本化模板
  */
 public class TemplateUtils {
 

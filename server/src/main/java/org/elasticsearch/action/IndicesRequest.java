@@ -22,21 +22,18 @@ package org.elasticsearch.action;
 import org.elasticsearch.action.support.IndicesOptions;
 
 /**
- * Needs to be implemented by all {@link org.elasticsearch.action.ActionRequest} subclasses that relate to
- * one or more indices. Allows to retrieve which indices the action relates to.
- * In case of internal requests  originated during the distributed execution of an external request,
- * they will still return the indices that the original request related to.
+ * 需要由与一个或多个索引相关的所有{@link org.elasticsearch.action.ActionRequest}子类实现。允许检索操作与哪些索引相关。
+ * 如果在分布式执行外部请求期间发出内部请求，它们仍将返回原始请求所涉及的索引。
  */
 public interface IndicesRequest {
 
     /**
-     * Returns the array of indices that the action relates to
+     * 返回操作与之关联的索引数组
      */
     String[] indices();
 
     /**
-     * Returns the indices options used to resolve indices. They tell for instance whether a single index is
-     * accepted, whether an empty array will be converted to _all, and how wildcards will be expanded if needed.
+     * 返回用于解析索引的索引选项。它们告诉我们是否接受单个索引，是否将空数组转换为_all，以及如何在需要时扩展通配符。
      */
     IndicesOptions indicesOptions();
 

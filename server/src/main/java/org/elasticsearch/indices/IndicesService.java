@@ -75,11 +75,7 @@ import org.elasticsearch.env.ShardLock;
 import org.elasticsearch.env.ShardLockObtainFailedException;
 import org.elasticsearch.gateway.MetaDataStateFormat;
 import org.elasticsearch.gateway.MetaStateService;
-import org.elasticsearch.index.Index;
-import org.elasticsearch.index.IndexModule;
-import org.elasticsearch.index.IndexNotFoundException;
-import org.elasticsearch.index.IndexService;
-import org.elasticsearch.index.IndexSettings;
+import org.elasticsearch.index.*;
 import org.elasticsearch.index.analysis.AnalysisRegistry;
 import org.elasticsearch.index.cache.request.ShardRequestCache;
 import org.elasticsearch.index.engine.CommitStats;
@@ -235,7 +231,7 @@ public class IndicesService extends AbstractLifecycleComponent
         this.mapperRegistry = mapperRegistry;
         this.namedWriteableRegistry = namedWriteableRegistry;
         indexingMemoryController = new IndexingMemoryController(settings, threadPool,
-                                                                // ensure we pull an iter with new shards - flatten makes a copy
+                                                                // 确保我们用新的碎片拉出它 -  flatten制作副本
                                                                 () -> Iterables.flatten(this).iterator());
         this.indexScopedSettings = indexScopedSettings;
         this.circuitBreakerService = circuitBreakerService;
@@ -271,7 +267,7 @@ public class IndicesService extends AbstractLifecycleComponent
             Executors.newFixedThreadPool(5, EsExecutors.daemonThreadFactory(settings, "indices_shutdown"));
 
         // Copy indices because we modify it asynchronously in the body of the loop
-        final Set<Index> indices = this.indices.values().stream().map(s -> s.index()).collect(Collectors.toSet());
+        final Set<Index> indices = this.indices.values().stream().map(AbstractIndexComponent::index).collect(Collectors.toSet());
         final CountDownLatch latch = new CountDownLatch(indices.size());
         for (final Index index : indices) {
             indicesStopExecutor.execute(() -> {
@@ -283,7 +279,7 @@ public class IndicesService extends AbstractLifecycleComponent
             });
         }
         try {
-            if (latch.await(shardsClosedTimeout.seconds(), TimeUnit.SECONDS) == false) {
+            if (!latch.await(shardsClosedTimeout.seconds(), TimeUnit.SECONDS)) {
               logger.warn("Not all shards are closed yet, waited {}sec - stopping service", shardsClosedTimeout.seconds());
             }
         } catch (InterruptedException e) {
@@ -492,7 +488,7 @@ public class IndicesService extends AbstractLifecycleComponent
     }
 
     /**
-     * This creates a new IndexService without registering it
+     * 这将创建一个新的IndexService而无需注册它
      */
     private synchronized IndexService createIndexService(final String reason,
                                                          IndexMetaData indexMetaData,
@@ -501,7 +497,7 @@ public class IndicesService extends AbstractLifecycleComponent
                                                          List<IndexEventListener> builtInListeners,
                                                          IndexingOperationListener... indexingOperationListeners) throws IOException {
         final IndexSettings idxSettings = new IndexSettings(indexMetaData, settings, indexScopedSettings);
-        // we ignore private settings since they are not registered settings
+        // 我们忽略私人设置，因为它们不是注册设置
         indexScopedSettings.validate(indexMetaData.getSettings(), true, true, true);
         logger.debug("creating Index [{}], shards [{}]/[{}] - reason [{}]",
             indexMetaData.getIndex(),
@@ -510,6 +506,7 @@ public class IndicesService extends AbstractLifecycleComponent
             reason);
 
         final IndexModule indexModule = new IndexModule(idxSettings, analysisRegistry, getEngineFactory(idxSettings), indexStoreFactories);
+        // 添加索引的操作的监听器
         for (IndexingOperationListener operationListener : indexingOperationListeners) {
             indexModule.addIndexOperationListener(operationListener);
         }
@@ -575,11 +572,11 @@ public class IndicesService extends AbstractLifecycleComponent
     }
 
     /**
-     * This method verifies that the given {@code metaData} holds sane values to create an {@link IndexService}.
-     * This method tries to update the meta data of the created {@link IndexService} if the given {@code metaDataUpdate}
-     * is different from the given {@code metaData}.
-     * This method will throw an exception if the creation or the update fails.
-     * The created {@link IndexService} will not be registered and will be closed immediately.
+     * 此方法验证给定的{@code metaData}是否包含合理的值以创建{@link IndexService}。
+     * 如果给定的{@code metaDataUpdate}与给定的{@code metaData}不同，则此方法尝试更新已创建的{@link IndexService}的元数据。
+     *
+     * 如果创建或更新失败，此方法将引发异常。
+     * 创建的{@link IndexService}将不会被注册，将立即关闭。
      */
     public synchronized void verifyIndexMetadata(IndexMetaData metaData, IndexMetaData metaDataUpdate) throws IOException {
         final List<Closeable> closeables = new ArrayList<>();
@@ -588,15 +585,16 @@ public class IndicesService extends AbstractLifecycleComponent
             closeables.add(indicesFieldDataCache);
             IndicesQueryCache indicesQueryCache = new IndicesQueryCache(settings);
             closeables.add(indicesQueryCache);
-            // this will also fail if some plugin fails etc. which is nice since we can verify that early
+            //如果某些插件失败等，这也会失败，这很好，因为我们可以尽早验证
             final IndexService service =
                 createIndexService("metadata verification", metaData, indicesQueryCache, indicesFieldDataCache, emptyList());
             closeables.add(() -> service.close("metadata verification", false));
             service.mapperService().merge(metaData, MapperService.MergeReason.MAPPING_RECOVERY);
-            if (metaData.equals(metaDataUpdate) == false) {
+            if (!metaData.equals(metaDataUpdate)) {
                 service.updateMetaData(metaData, metaDataUpdate);
             }
         } finally {
+            // 测试，最终还要关闭
             IOUtils.close(closeables);
         }
     }

@@ -60,7 +60,7 @@ public class TranslogReader extends BaseTranslogReader implements Closeable {
     }
 
     /**
-     * Given a file channel, opens a {@link TranslogReader}, taking care of checking and validating the file header.
+     * 给定文件通道，打开{@link TranslogReader}，负责检查和验证文件头。
      *
      * @param channel the translog file channel
      * @param path the path to the translog

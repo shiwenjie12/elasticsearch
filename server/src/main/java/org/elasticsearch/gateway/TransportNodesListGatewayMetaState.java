@@ -116,6 +116,7 @@ public class TransportNodesListGatewayMetaState extends TransportNodesAction<Tra
         }
     }
 
+    // 节点网关的元数据
     public static class NodesGatewayMetaState extends BaseNodesResponse<NodeGatewayMetaState> {
 
         NodesGatewayMetaState() {
@@ -156,6 +157,7 @@ public class TransportNodesListGatewayMetaState extends TransportNodesAction<Tra
         }
     }
 
+    // 包含节点和元数据信息
     public static class NodeGatewayMetaState extends BaseNodeResponse {
 
         private MetaData metaData;

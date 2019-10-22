@@ -25,12 +25,8 @@ import org.elasticsearch.search.query.QuerySearchResult;
 import org.elasticsearch.transport.TransportResponse;
 
 /**
- * This class is a base class for all search releated results. It contains the shard target it
- * was executed against, a shard index used to reference the result on the coordinating node
- * and a request ID that is used to reference the request context on the executing node. The
- * request ID is particularly important since it is used to reference and maintain a context
- * across search phases to ensure the same point in time snapshot is used for querying and
- * fetching etc.
+ * 此类是所有搜索相关结果的基类。它包含执行的分片目标，用于在协调节点上引用结果的分片索引以及用于在执行节点上引用请求上下文的请求ID。
+ * 请求ID特别重要，因为它用于跨搜索阶段引用和维护上下文，以确保使用相同的时间点快照进行查询和获取等。
  */
 public abstract class SearchPhaseResult extends TransportResponse implements Streamable {
 

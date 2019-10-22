@@ -23,7 +23,7 @@ package org.elasticsearch.common.recycler;
 import java.util.Deque;
 
 /**
- * A {@link Recycler} implementation based on a {@link Deque}. This implementation is NOT thread-safe.
+ * 基于{@link Deque}的{@link Recycler}实现。此实现不是线程安全的。
  */
 public class DequeRecycler<T> extends AbstractRecycler<T> {
 
@@ -55,12 +55,12 @@ public class DequeRecycler<T> extends AbstractRecycler<T> {
         return new DV(v, true);
     }
 
-    /** Called before releasing an object, returns true if the object should be recycled and false otherwise. */
+    /** 在释放对象之前调用，如果对象应该被回收则返回true，否则返回false。 */
     protected boolean beforeRelease() {
         return deque.size() < maxSize;
     }
 
-    /** Called after a release. */
+    /** 在发布后调用。 */
     protected void afterRelease(boolean recycled) {
         // nothing to do
     }

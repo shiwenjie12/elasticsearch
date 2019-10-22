@@ -45,8 +45,7 @@ import java.util.Locale;
 import java.util.Set;
 
 /**
- * An extension to the {@link ConcurrentMergeScheduler} that provides tracking on merge times, total
- * and current merges.
+ * {@link ConcurrentMergeScheduler}的扩展，提供对合并时间，总计和当前合并的跟踪。
  */
 class ElasticsearchConcurrentMergeScheduler extends ConcurrentMergeScheduler {
 

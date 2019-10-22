@@ -44,9 +44,9 @@ public abstract class BaseGatewayShardAllocator {
     protected final Logger logger = LogManager.getLogger(this.getClass());
 
     /**
-     * Allocate unassigned shards to nodes (if any) where valid copies of the shard already exist.
-     * It is up to the individual implementations of {@link #makeAllocationDecision(ShardRouting, RoutingAllocation, Logger)}
-     * to make decisions on assigning shards to nodes.
+     * 将未分配的分片分配给已存在分片的有效副本的节点（如果有）。
+     * 由{@link #makeAllocationDecision（ShardRouting，RoutingAllocation，Logger）}的各个实现来决定是否将分片分配给节点。
+     *
      *
      * @param allocation the allocation state container object
      */
@@ -89,8 +89,7 @@ public abstract class BaseGatewayShardAllocator {
                                                                       Logger logger);
 
     /**
-     * Builds decisions for all nodes in the cluster, so that the explain API can provide information on
-     * allocation decisions for each node, while still waiting to allocate the shard (e.g. due to fetching shard data).
+     * 为集群中的所有节点构建决策，以便说明API可以提供有关每个节点的分配决策的信息，同时仍然等待分配分片（例如，由于获取分片数据）。
      */
     protected List<NodeAllocationResult> buildDecisionsForAllNodes(ShardRouting shard, RoutingAllocation allocation) {
         List<NodeAllocationResult> results = new ArrayList<>();

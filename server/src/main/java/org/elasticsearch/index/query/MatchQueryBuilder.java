@@ -39,8 +39,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * Match query is a query that analyzes the text and constructs a query as the
- * result of the analysis.
+ * 匹配查询是一种分析文本并构造查询作为分析结果的查询。
  */
 public class MatchQueryBuilder extends AbstractQueryBuilder<MatchQueryBuilder> {
     public static final ParseField ZERO_TERMS_QUERY_FIELD = new ParseField("zero_terms_query");
@@ -56,10 +55,10 @@ public class MatchQueryBuilder extends AbstractQueryBuilder<MatchQueryBuilder> {
     public static final ParseField QUERY_FIELD = new ParseField("query");
     public static final ParseField GENERATE_SYNONYMS_PHRASE_QUERY = new ParseField("auto_generate_synonyms_phrase_query");
 
-    /** The name for the match query */
+    /** 匹配查询的名称*/
     public static final String NAME = "match";
 
-    /** The default mode terms are combined in a match query */
+    /** 默认模式术语在匹配查询中组合 */
     public static final Operator DEFAULT_OPERATOR = Operator.OR;
 
     private final String fieldName;
@@ -161,7 +160,7 @@ public class MatchQueryBuilder extends AbstractQueryBuilder<MatchQueryBuilder> {
         }
     }
 
-    /** Returns the field name used in this query. */
+    /** 返回此查询中使用的字段名称。 */
     public String fieldName() {
         return this.fieldName;
     }
@@ -171,7 +170,7 @@ public class MatchQueryBuilder extends AbstractQueryBuilder<MatchQueryBuilder> {
         return this.value;
     }
 
-    /** Sets the operator to use when using a boolean query. Defaults to {@code OR}. */
+    /** 设置使用布尔查询时要使用的运算符。默认为{@code OR}. */
     public MatchQueryBuilder operator(Operator operator) {
         if (operator == null) {
             throw new IllegalArgumentException("[" + NAME + "] requires operator to be non-null");

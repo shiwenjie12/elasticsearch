@@ -145,8 +145,7 @@ public class Queries {
     }
 
     /**
-     * Potentially apply minimum should match value if we have a query that it can be applied to,
-     * otherwise return the original query.
+     * 如果我们有一个可以应用的查询，则可能应用minimum应匹配值，否则返回原始查询。
      */
     public static Query maybeApplyMinimumShouldMatch(Query query, @Nullable String minimumShouldMatch) {
         if (query instanceof BooleanQuery) {

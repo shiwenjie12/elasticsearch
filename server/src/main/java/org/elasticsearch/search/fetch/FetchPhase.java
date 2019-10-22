@@ -71,8 +71,7 @@ import java.util.Set;
 
 
 /**
- * Fetch phase of a search request, used to fetch the actual top matching documents to be returned to the client, identified
- * after reducing all of the matches returned by the query phase
+ * 获取搜索请求的阶段，用于获取要返回给客户端的实际顶部匹配文档，在减少查询阶段返回的所有匹配项后进行标识
  */
 public class FetchPhase implements SearchPhase {
     private static final Logger LOGGER = LogManager.getLogger(FetchPhase.class);

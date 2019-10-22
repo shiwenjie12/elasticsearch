@@ -148,7 +148,7 @@ public class Lucene {
     }
 
     /**
-     * Returns an iterable that allows to iterate over all files in this segments info
+     * 返回一个迭代，允许迭代此段信息中的所有文件
      */
     public static Iterable<String> files(SegmentInfos infos) throws IOException {
         final List<Collection<String>> list = new ArrayList<>();
@@ -171,7 +171,7 @@ public class Lucene {
     }
 
     /**
-     * Reads the segments infos from the given commit, failing if it fails to load
+     * 读取给定提交的段信息，如果加载失败则失败
      */
     public static SegmentInfos readSegmentInfos(IndexCommit commit) throws IOException {
         // Using commit.getSegmentsFileName() does NOT work here, have to
@@ -181,7 +181,7 @@ public class Lucene {
     }
 
     /**
-     * Reads the segments infos from the given segments file name, failing if it fails to load
+     * 从给定的段文件名中读取段信息，如果加载失败则失败
      */
     private static SegmentInfos readSegmentInfos(String segmentsFileName, Directory directory) throws IOException {
         return SegmentInfos.readCommit(directory, segmentsFileName);
@@ -195,6 +195,12 @@ public class Lucene {
      * <b>Note:</b> this method will fail if there is another IndexWriter open on the given directory. This method will also acquire
      * a write lock from the directory while pruning unused files. This method expects an existing index in the given directory that has
      * the given segments file.
+     * 此方法将删除给定目录中未被给定段文件引用的所有文件。
+     * 此方法将打开IndexWriter并依赖索引文件删除器删除所有未引用的文件。强制删除比给定段文件更新的段文件，
+     * 以防止IndexWriter打开可能损坏的提交点/剩余的问题。
+     *
+     * <b>注意：</ b>如果在给定目录上打开了另一个IndexWriter，则此方法将失败。
+     * 此方法还将在修剪未使用的文件时从目录获取写锁定。此方法需要给定目录中具有给定段文件的现有索引。
      */
     public static SegmentInfos pruneUnreferencedFiles(String segmentsFileName, Directory directory) throws IOException {
         final SegmentInfos si = readSegmentInfos(segmentsFileName, directory);
@@ -227,13 +233,13 @@ public class Lucene {
                 .setCommitOnClose(false)
                 .setMergePolicy(NoMergePolicy.INSTANCE)
                 .setOpenMode(IndexWriterConfig.OpenMode.APPEND))) {
-            // do nothing and close this will kick of IndexFileDeleter which will remove all pending files
+            // 什么也不做，并关闭这将踢掉IndexFileDeleter，这将删除所有挂起的文件
         }
         return si;
     }
 
     /**
-     * Returns an index commit for the given {@link SegmentInfos} in the given directory.
+     * 返回给定目录中给定{@link SegmentInfos}的索引提交。
      */
     public static IndexCommit getIndexCommit(SegmentInfos si, Directory directory) throws IOException {
         return new CommitPoint(si, directory);

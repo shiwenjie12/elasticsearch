@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * Base class for all individual search phases like collecting distributed frequencies, fetching documents, querying shards.
+ * 所有单个搜索阶段的基类，如收集分布式频率，获取文档，查询分片。
  */
 abstract class SearchPhase implements CheckedRunnable<IOException> {
     private final String name;

@@ -316,9 +316,10 @@ public abstract class MappedFieldType extends FieldType {
     // TODO: Standardize exception types
     public abstract Query termQuery(Object value, @Nullable QueryShardContext context);
 
-    /** Build a constant-scoring query that matches all values. The default implementation uses a
-     * {@link ConstantScoreQuery} around a {@link BooleanQuery} whose {@link Occur#SHOULD} clauses
-     * are generated with {@link #termQuery}. */
+    /**
+     * 构建一个匹配所有值的常量评分查询。默认实现在{@link BooleanQuery}周围使用{@link ConstantScoreQuery}，
+     * {@link Occur#SHOULD}子句是使用{@link #termQuery}生成的。
+     */
     public Query termsQuery(List<?> values, @Nullable QueryShardContext context) {
         BooleanQuery.Builder builder = new BooleanQuery.Builder();
         for (Object value : values) {

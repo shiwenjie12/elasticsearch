@@ -25,7 +25,7 @@ package org.elasticsearch.cluster;
 public interface ClusterStateListener {
 
     /**
-     * Called when cluster state changes.
+     * 群集状态更改时调用。
      */
     void clusterChanged(ClusterChangedEvent event);
 }

@@ -25,7 +25,7 @@ import org.elasticsearch.script.ScriptType;
 import static java.util.Collections.emptyMap;
 
 /**
- * Static method aliases for constructors of known {@link ScoreFunctionBuilder}s.
+ * 已知{@link ScoreFunctionBuilder}的构造函数的静态方法别名。
  */
 public class ScoreFunctionBuilders {
 

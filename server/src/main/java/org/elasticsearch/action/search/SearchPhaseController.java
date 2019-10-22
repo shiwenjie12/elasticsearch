@@ -302,11 +302,9 @@ public final class SearchPhaseController {
     }
 
     /**
-     * Enriches search hits and completion suggestion hits from <code>sortedDocs</code> using <code>fetchResultsArr</code>,
-     * merges suggestions, aggregations and profile results
+     * 使用<code> fetchResultsArr </ code>合并建议，聚合和配置文件结果，从<code> sortedDocs </ code>中获取搜索命中和完成建议命中
      *
-     * Expects sortedDocs to have top search docs across all shards, optionally followed by top suggest docs for each named
-     * completion suggestion ordered by suggestion name
+     * 期望sortedDocs在所有分片中包含顶级搜索文档，可选地后跟按建议名称排序的每个命名完成建议的顶部建议文档
      */
     public InternalSearchResponse merge(boolean ignoreFrom, ReducedQueryPhase reducedQueryPhase,
                                         Collection<? extends SearchPhaseResult> fetchResults,
@@ -605,7 +603,7 @@ public final class SearchPhaseController {
         }
 
         /**
-         * Creates a new search response from the given merged hits.
+         * 根据给定的合并匹配创建新的搜索响应。
          * @see #merge(boolean, ReducedQueryPhase, Collection, IntFunction)
          */
         public InternalSearchResponse buildResponse(SearchHits hits) {

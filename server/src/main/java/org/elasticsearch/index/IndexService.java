@@ -484,11 +484,9 @@ public class IndexService extends AbstractIndexComponent implements IndicesClust
     }
 
     /**
-     * Creates a new QueryShardContext. The context has not types set yet, if types are required set them via
-     * {@link QueryShardContext#setTypes(String...)}.
+     * 创建一个新的QueryShardContext。上下文尚未设置类型，如果需要类型，则通过{@link QueryShardContext #setTypes（String ...）}设置它们。
      *
-     * Passing a {@code null} {@link IndexReader} will return a valid context, however it won't be able to make
-     * {@link IndexReader}-specific optimizations, such as rewriting containing range queries.
+     * 传递{@code null} {@link IndexReader}将返回有效的上下文，但是它无法进行{@link IndexReader}特定的优化，例如重写包含范围查询。
      */
     public QueryShardContext newQueryShardContext(int shardId, IndexReader indexReader, LongSupplier nowInMillis, String clusterAlias) {
         return new QueryShardContext(
@@ -807,6 +805,7 @@ public class IndexService extends AbstractIndexComponent implements IndicesClust
         }
     }
 
+    // 基础异步任务
     abstract static class BaseAsyncTask implements Runnable, Closeable {
         protected final IndexService indexService;
         protected final ThreadPool threadPool;

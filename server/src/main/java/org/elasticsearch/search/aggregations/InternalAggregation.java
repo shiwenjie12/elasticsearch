@@ -130,6 +130,8 @@ public abstract class InternalAggregation implements Aggregation, NamedWriteable
      * aggregations are of the same type (the same type as this aggregation). For best efficiency, when implementing,
      * try reusing an existing instance (typically the first in the given list) to save on redundant object
      * construction.
+     * 将给定的聚合减少为单个聚合并返回它。在<b>大多数</ b>的情况下，假设所有给定的聚合具有相同的类型（与此聚合的类型相同）。
+     * 为了获得最佳效率，在实现时，尝试重用现有实例（通常是给定列表中的第一个）来节省冗余对象构造。
      */
     public final InternalAggregation reduce(List<InternalAggregation> aggregations, ReduceContext reduceContext) {
         InternalAggregation aggResult = doReduce(aggregations, reduceContext);

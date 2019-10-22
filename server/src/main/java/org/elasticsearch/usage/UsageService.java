@@ -61,7 +61,7 @@ public class UsageService {
     }
 
     /**
-     * Add a REST handler to this service.
+     * 将REST处理程序添加到此服务。
      *
      * @param handler
      *            the {@link BaseRestHandler} to add to the usage service.

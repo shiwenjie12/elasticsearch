@@ -30,10 +30,8 @@ import org.elasticsearch.index.mapper.MapperService;
 import java.util.Map;
 
 /**
- * Since Lucene 4.0 low level index segments are read and written through a
- * codec layer that allows to use use-case specific file formats &amp;
- * data-structures per field. Elasticsearch exposes the full
- * {@link Codec} capabilities through this {@link CodecService}.
+ * 由于Lucene 4.0低级索引段是通过编解码器层读取和写入的，该编解码器层允许使用特定于用例的文件格式＆amp;
+ * 每个字段的数据结构。 Elasticsearch通过此{@link CodecService}公开了完整的{@link Codec}功能。
  */
 public class CodecService {
 

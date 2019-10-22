@@ -24,7 +24,7 @@ import org.elasticsearch.common.breaker.NoopCircuitBreaker;
 import org.elasticsearch.common.settings.Settings;
 
 /**
- * 返回永不断开的断路器的类
+ * 永不断开的断路器的类
  */
 public class NoneCircuitBreakerService extends CircuitBreakerService {
 

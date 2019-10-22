@@ -45,12 +45,10 @@ import java.util.Set;
 import java.util.function.UnaryOperator;
 
 /**
- * This service is responsible for upgrading legacy index metadata to the current version
+ * 此服务负责将旧索引元数据升级到当前版本
  * <p>
- * Every time an existing index is introduced into cluster this service should be used
- * to upgrade the existing index metadata to the latest version of the cluster. It typically
- * occurs during cluster upgrade, when dangling indices are imported into the cluster or indices
- * are restored from a repository.
+ * 每次将现有索引引入群集时，都应使用此服务将现有索引元数据升级到最新版本的群集。
+ * 它通常发生在集群升级期间，当悬挂索引导入集群或从存储库恢复索引时。
  */
 public class MetaDataIndexUpgradeService {
 
@@ -79,7 +77,7 @@ public class MetaDataIndexUpgradeService {
     }
 
     /**
-     * Checks that the index can be upgraded to the current version of the master node.
+     * 检查索引是否可以升级到主节点的当前版本。
      *
      * <p>
      * If the index does not need upgrade it returns the index metadata unchanged, otherwise it returns a modified index metadata. If index
@@ -104,7 +102,7 @@ public class MetaDataIndexUpgradeService {
 
 
     /**
-     * Checks if the index was already opened by this version of Elasticsearch and doesn't require any additional checks.
+     * 检查该版本的Elasticsearch是否已经打开了索引，并且不需要任何其他检查。
      */
     boolean isUpgraded(IndexMetaData indexMetaData) {
         return indexMetaData.getUpgradedVersion().onOrAfter(Version.CURRENT);
@@ -120,7 +118,6 @@ public class MetaDataIndexUpgradeService {
             minimumIndexCompatibilityVersion) == false) {
             throw new IllegalStateException("The index [" + indexMetaData.getIndex() + "] was created with version ["
                 + indexMetaData.getCreationVersion() + "] but the minimum compatible version is ["
-
                 + minimumIndexCompatibilityVersion + "]. It should be re-indexed in Elasticsearch " + minimumIndexCompatibilityVersion.major
                 + ".x before upgrading to " + Version.CURRENT + ".");
         }

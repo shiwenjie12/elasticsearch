@@ -47,7 +47,7 @@ import java.util.Objects;
 import static org.elasticsearch.search.sort.NestedSortBuilder.NESTED_FIELD;
 
 /**
- * A sort builder to sort based on a document field.
+ * 一个排序构建器，用于根据文档字段进行排序。
  */
 public class FieldSortBuilder extends SortBuilder<FieldSortBuilder> {
     private static final DeprecationLogger deprecationLogger = new DeprecationLogger(LogManager.getLogger(FieldSortBuilder.class));
@@ -58,7 +58,7 @@ public class FieldSortBuilder extends SortBuilder<FieldSortBuilder> {
     public static final ParseField UNMAPPED_TYPE = new ParseField("unmapped_type");
 
     /**
-     * special field name to sort by index order
+     * 按索引顺序排序的特殊字段名称
      */
     public static final String DOC_FIELD_NAME = "_doc";
     private static final SortFieldAndFormat SORT_DOC = new SortFieldAndFormat(

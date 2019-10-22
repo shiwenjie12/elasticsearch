@@ -30,12 +30,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+// 事务日志的删除策略
 public class TranslogDeletionPolicy {
 
     private final Map<Object, RuntimeException> openTranslogRef;
 
     public void assertNoOpenTranslogRefs() {
-        if (openTranslogRef.isEmpty() == false) {
+        assert openTranslogRef != null;
+        if (!openTranslogRef.isEmpty()) {
             AssertionError e = new AssertionError("not all translog generations have been released");
             openTranslogRef.values().forEach(e::addSuppressed);
             throw e;
@@ -43,8 +45,7 @@ public class TranslogDeletionPolicy {
     }
 
     /**
-     * Records how many retention locks are held against each
-     * translog generation
+     * 记录针对每个translog生成保留的保留锁数
      */
     private final Map<Long, Counter> translogRefCounts = new HashMap<>();
 
@@ -55,7 +56,7 @@ public class TranslogDeletionPolicy {
     private long minTranslogGenerationForRecovery = 1;
 
     /**
-     * This translog generation is used to calculate the number of uncommitted operations since the last index commit.
+     * 此translog生成用于计算自上次索引提交以来未提交的操作数。
      */
     private long translogGenerationOfLastCommit = 1;
 

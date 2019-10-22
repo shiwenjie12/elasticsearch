@@ -20,7 +20,7 @@
 package org.elasticsearch.index.query;
 
 /**
- * Marker interface for a specific type of {@link QueryBuilder} that allows to build span queries
+ * 用于特定类型{@link QueryBuilder}的标记接口，允许构建跨度查询
  */
 public interface SpanQueryBuilder extends QueryBuilder {
 

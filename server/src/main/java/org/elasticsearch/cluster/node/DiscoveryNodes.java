@@ -43,8 +43,7 @@ import java.util.Objects;
 import java.util.stream.StreamSupport;
 
 /**
- * This class holds all {@link DiscoveryNode} in the cluster and provides convenience methods to
- * access, modify merge / diff discovery nodes.
+ * 此类包含集群中的所有{@link DiscoveryNode}，并提供访问，修改合并/差异发现节点的便捷方法。
  */
 public class DiscoveryNodes extends AbstractDiffable<DiscoveryNodes> implements Iterable<DiscoveryNode> {
 

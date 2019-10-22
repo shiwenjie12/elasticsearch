@@ -38,6 +38,7 @@ import org.elasticsearch.indices.IndicesService;
 import java.util.Arrays;
 import java.util.Map;
 
+// 网关
 public class Gateway {
 
     private static final Logger logger = LogManager.getLogger(Gateway.class);
@@ -81,6 +82,7 @@ public class Gateway {
                 continue;
             }
             found++;
+            // 最大的逻辑版本
             if (electedGlobalState == null) {
                 electedGlobalState = nodeState.metaData();
             } else if (nodeState.metaData().version() > electedGlobalState.version()) {
@@ -91,10 +93,11 @@ public class Gateway {
             }
         }
         if (found < requiredAllocation) {
+            // 需要的节点数
             listener.onFailure("found [" + found + "] metadata states, required [" + requiredAllocation + "]");
             return;
         }
-        // update the global state, and clean the indices, we elect them in the next phase
+        // 更新全局状态，并清理指数，我们在下一阶段选择它们
         MetaData.Builder metaDataBuilder = MetaData.builder(electedGlobalState).removeAllIndices();
 
         assert !indices.containsKey(null);
@@ -102,6 +105,7 @@ public class Gateway {
         for (int i = 0; i < keys.length; i++) {
             if (keys[i] != null) {
                 Index index = (Index) keys[i];
+                // 最终确定的索引元数据
                 IndexMetaData electedIndexMetaData = null;
                 int indexMetaDataCount = 0;
                 for (TransportNodesListGatewayMetaState.NodeGatewayMetaState nodeState : nodesState.getNodes()) {
@@ -125,7 +129,7 @@ public class Gateway {
                     } // TODO if this logging statement is correct then we are missing an else here
                     try {
                         if (electedIndexMetaData.getState() == IndexMetaData.State.OPEN) {
-                            // verify that we can actually create this index - if not we recover it as closed with lots of warn logs
+                            // 验证我们是否可以实际创建此索引 - 如果不是，我们将其恢复为关闭时使用大量警告日志
                             indicesService.verifyIndexMetadata(electedIndexMetaData, electedIndexMetaData);
                         }
                     } catch (Exception e) {

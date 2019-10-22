@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Suggest phase of a search request, used to collect suggestions
+ * 建议搜索请求的阶段，用于收集建议
  */
 public class SuggestPhase implements SearchPhase {
     @Override

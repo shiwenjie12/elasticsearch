@@ -35,7 +35,7 @@ import java.nio.channels.FileChannel;
 import java.nio.file.Path;
 
 /**
- * Each translog file is started with a translog header then followed by translog operations.
+ * 每个translog文件都以translog标头启动，然后是translog操作。
  */
 final class TranslogHeader {
     public static final String TRANSLOG_CODEC = "translog";
@@ -83,7 +83,7 @@ final class TranslogHeader {
     }
 
     /**
-     * Returns the header size in bytes. This value can be used as the offset of the first translog operation.
+     * 以字节为单位返回标头大小。此值可用作第一个translog操作的偏移量.
      * See {@link BaseTranslogReader#getFirstOperationOffset()}
      */
     public int sizeInBytes() {
@@ -105,10 +105,10 @@ final class TranslogHeader {
     }
 
     /**
-     * Read a translog header from the given path and file channel
+     * 从给定的路径和文件通道中读取translog标头
      */
     static TranslogHeader read(final String translogUUID, final Path path, final FileChannel channel) throws IOException {
-        // This input is intentionally not closed because closing it will close the FileChannel.
+        // 故意不关闭此输入，因为关闭它将关闭FileChannel。
         final BufferedChecksumStreamInput in =
             new BufferedChecksumStreamInput(
                     new InputStreamStreamInput(java.nio.channels.Channels.newInputStream(channel), channel.size()),

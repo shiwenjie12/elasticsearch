@@ -26,7 +26,7 @@ import org.elasticsearch.common.unit.TimeValue;
 import java.util.List;
 
 /**
- * A task that can update the cluster state.
+ * 可以更新群集状态的任务。
  */
 public abstract class ClusterStateUpdateTask
         implements ClusterStateTaskConfig, ClusterStateTaskExecutor<ClusterStateUpdateTask>, ClusterStateTaskListener {

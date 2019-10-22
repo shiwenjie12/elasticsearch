@@ -19,7 +19,7 @@
 package org.elasticsearch.search.aggregations.metrics;
 
 /**
- * An aggregation that computes the minimum of the values in the current bucket.
+ * 一种聚合，用于计算当前存储桶中值的最小值。
  */
 public interface Min extends NumericMetricsAggregation.SingleValue {
 

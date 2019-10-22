@@ -84,7 +84,7 @@ public class Cache<K, V> {
     // the number of entries in the cache
     private int count = 0;
 
-    // the weight of the entries in the cache
+    // 缓存中条目的权重
     private long weight = 0;
 
     // the maximum weight that this cache supports

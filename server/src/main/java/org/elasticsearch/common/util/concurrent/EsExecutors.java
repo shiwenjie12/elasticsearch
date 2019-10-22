@@ -49,9 +49,8 @@ public class EsExecutors {
         Setting.intSetting("processors", Runtime.getRuntime().availableProcessors(), 1, Property.NodeScope);
 
     /**
-     * Returns the number of available processors. Defaults to
-     * {@link Runtime#availableProcessors()} but can be overridden by passing a {@link Settings}
-     * instance with the key "processors" set to the desired value.
+     * 返回可用处理器的数量。默认为{@link Runtime#availableProcessors()}
+     * 但可以通过传递{@link Settings}实例并将密钥“processors”设置为所需值来覆盖。
      *
      * @param settings a {@link Settings} instance from which to derive the available processors
      * @return the number of available processors

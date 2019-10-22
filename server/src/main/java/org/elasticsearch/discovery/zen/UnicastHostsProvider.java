@@ -24,20 +24,19 @@ import org.elasticsearch.common.transport.TransportAddress;
 import java.util.List;
 
 /**
- * A pluggable provider of the list of unicast hosts to use for unicast discovery.
+ * 可用于单播发现的单播主机列表的可插入提供程序。
  */
 public interface UnicastHostsProvider {
 
     /**
-     * Builds the dynamic list of unicast hosts to be used for unicast discovery.
+     * 构建用于单播发现的单播主机的动态列表。
      */
     List<TransportAddress> buildDynamicHosts(HostsResolver hostsResolver);
 
     /**
-     * Helper object that allows to resolve a list of hosts to a list of transport addresses.
-     * Each host is resolved into a transport address (or a collection of addresses if the
-     * number of ports is greater than one)
-     */
+     * 允许将主机列表解析为传输地址列表的Helper对象。
+     * 每个主机都解析为一个传输地址（如果端口数大于一个，则解析为地址的集合）
+      */
     interface HostsResolver {
         List<TransportAddress> resolveHosts(List<String> hosts, int limitPortCounts);
     }

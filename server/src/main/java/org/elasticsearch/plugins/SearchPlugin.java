@@ -134,7 +134,7 @@ public interface SearchPlugin {
     }
 
     /**
-     * Specification of custom {@link ScoreFunction}.
+     * 自定义{@link ScoreFunction}的规范。
      */
     class ScoreFunctionSpec<T extends ScoreFunctionBuilder<T>> extends SearchExtensionSpec<T, ScoreFunctionParser<T>> {
         public ScoreFunctionSpec(ParseField name, Writeable.Reader<T> reader, ScoreFunctionParser<T> parser) {
@@ -147,7 +147,7 @@ public interface SearchPlugin {
     }
 
     /**
-     * Specification for a {@link Suggester}.
+     * {@link Suggester}的规范。
      */
     class SuggesterSpec<T extends SuggestionBuilder<T>> extends SearchExtensionSpec<T, CheckedFunction<XContentParser, T, IOException>> {
 
@@ -240,7 +240,7 @@ public interface SearchPlugin {
         }
     }
     /**
-     * Specification for an {@link Aggregation}.
+     * {@link Aggregation}的规范。
      */
     class AggregationSpec extends SearchExtensionSpec<AggregationBuilder, Aggregator.Parser> {
         private final Map<String, Writeable.Reader<? extends InternalAggregation>> resultReaders = new TreeMap<>();
@@ -273,8 +273,8 @@ public interface SearchPlugin {
         }
 
         /**
-         * Add a reader for the shard level results of the aggregation with {@linkplain #getName}'s {@link ParseField#getPreferredName()} as
-         * the {@link NamedWriteable#getWriteableName()}.
+         * 使用{@linkplain #getName}的{@link ParseField#getPreferredName()}
+         * 作为{@link NamedWriteable#getWriteableName()}，为聚合的分片级结果添加一个阅读器。
          */
         public AggregationSpec addResultReader(Writeable.Reader<? extends InternalAggregation> resultReader) {
             return addResultReader(getName().getPreferredName(), resultReader);
@@ -399,7 +399,7 @@ public interface SearchPlugin {
     }
 
     /**
-     * Specification of search time behavior extension like a custom {@link MovAvgModel} or {@link ScoreFunction}.
+     * 搜索时间行为扩展的规范，如自定义{@link MovAvgModel}或{@link ScoreFunction}。
      *
      * @param <W> the type of the main {@link NamedWriteable} for this spec. All specs have this but it isn't always *for* the same thing
      *        though, usually it is some sort of builder sent from the coordinating node to the data nodes executing the behavior

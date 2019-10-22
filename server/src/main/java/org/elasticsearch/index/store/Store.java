@@ -107,12 +107,11 @@ import static java.util.Collections.emptyMap;
 import static java.util.Collections.unmodifiableMap;
 
 /**
- * A Store provides plain access to files written by an elasticsearch index shard. Each shard
- * has a dedicated store that is uses to access Lucene's Directory which represents the lowest level
- * of file abstraction in Lucene used to read and write Lucene indices.
- * This class also provides access to metadata information like checksums for committed files. A committed
- * file is a file that belongs to a segment written by a Lucene commit. Files that have not been committed
- * ie. created during a merge or a shard refresh / NRT reopen are not considered in the MetadataSnapshot.
+ * 存储提供对由elasticsearch索引分片写入的文件的纯文本访问。
+ * 每个分片都有一个专用存储，用于访问Lucene的目录，该目录代表Lucene用于读取和写入Lucene索引的最低级别的文件抽象。
+ *
+ * 此类还提供对提交文件的校验和等元数据信息的访问。提交的文件是属于由Lucene提交写入的段的文件。尚未提交的文件，即。
+ * 在合并期间创建或分片刷新/ NRT重新打开时，不会在MetadataSnapshot中考虑。
  * <p>
  * Note: If you use a store it's reference count should be increased before using it by calling #incRef and a
  * corresponding #decRef must be called in a try/finally block to release the store again ie.:
@@ -133,6 +132,7 @@ public class Store extends AbstractIndexShardComponent implements Closeable, Ref
     static final int VERSION_START = 0;
     static final int VERSION = VERSION_WRITE_THROWABLE;
     // public is for test purposes
+    // 损坏索引文件的前缀
     public static final String CORRUPTED = "corrupted_";
     public static final Setting<TimeValue> INDEX_STORE_STATS_REFRESH_INTERVAL_SETTING =
         Setting.timeSetting("index.store.stats_refresh_interval", TimeValue.timeValueSeconds(10), Property.IndexScope);
@@ -717,6 +717,7 @@ public class Store extends AbstractIndexShardComponent implements Closeable, Ref
         return refCounter.refCount();
     }
 
+    // 增加日志处理
     static final class StoreDirectory extends FilterDirectory {
 
         private final Logger deletesLogger;
@@ -1396,8 +1397,8 @@ public class Store extends AbstractIndexShardComponent implements Closeable, Ref
     }
 
     /**
-     * Marks this store as corrupted. This method writes a {@code corrupted_${uuid}} file containing the given exception
-     * message. If a store contains a {@code corrupted_${uuid}} file {@link #isMarkedCorrupted()} will return <code>true</code>.
+     * 将此store标记为已损坏。此方法写入包含给定异常消息的{@code corrupted _ $ {uuid}}文件。
+     * 如果商店包含{@code corrupted _ $ {uuid}}文件{@link #isMarkedCorrupted（）}将返回<code> true </ code>。
      */
     public void markStoreCorrupted(IOException exception) throws IOException {
         ensureOpen();
@@ -1488,9 +1489,8 @@ public class Store extends AbstractIndexShardComponent implements Closeable, Ref
     }
 
     /**
-     * Force bakes the given translog generation as recovery information in the lucene index. This is
-     * used when recovering from a snapshot or peer file based recovery where a new empty translog is
-     * created and the existing lucene index needs should be changed to use it.
+     * Force将给定的translog生成作为lucene索引中的恢复信息。
+     * 从基于快照或基于对等文件的恢复中恢复时使用此选项，其中创建新的空translog并且应更改现有lucene索引需要以使用它。
      */
     public void associateIndexWithNewTranslog(final String translogUUID) throws IOException {
         metadataLock.writeLock().lock();

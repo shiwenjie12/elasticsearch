@@ -36,8 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Encapsulates the logic of whether a new index should be automatically created when
- * a write operation is about to happen in a non existing index.
+ * 封装了在不存在的索引中将要进行写操作时是否应自动创建新索引的逻辑。
  */
 public final class AutoCreateIndex {
 
@@ -63,7 +62,7 @@ public final class AutoCreateIndex {
     }
 
     /**
-     * Should the index be auto created?
+     * 是否应该自动创建索引？
      * @throws IndexNotFoundException if the index doesn't exist and shouldn't be auto created
      */
     public boolean shouldAutoCreate(String index, ClusterState state) {

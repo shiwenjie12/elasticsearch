@@ -69,15 +69,15 @@ public class MatchQuery {
 
     public enum Type implements Writeable {
         /**
-         * The text is analyzed and terms are added to a boolean query.
+         * 分析文本并将术语添加到布尔查询中。
          */
         BOOLEAN(0),
         /**
-         * The text is analyzed and used as a phrase query.
+         * 分析文本并将其用作短语查询。
          */
         PHRASE(1),
         /**
-         * The text is analyzed and used in a phrase query, with the last term acting as a prefix.
+         * 分析文本并在短语查询中使用，最后一个术语充当前缀。
          */
         PHRASE_PREFIX(2);
 
@@ -133,7 +133,7 @@ public class MatchQuery {
     }
 
     /**
-     * the default phrase slop
+     * 默认短语slop
      */
     public static final int DEFAULT_PHRASE_SLOP = 0;
 

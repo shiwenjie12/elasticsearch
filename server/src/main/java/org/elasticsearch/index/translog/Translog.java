@@ -71,8 +71,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * A Translog is a per index shard component that records all non-committed index operations in a durable manner.
  * Translog是每个索引shard组件，它以持久的方式记录所有未提交的索引操作。
+ *
  * In Elasticsearch there is one Translog instance per {@link org.elasticsearch.index.engine.InternalEngine}. The engine
  * records the current translog generation {@link Translog#getGeneration()} in it's commit metadata using {@link #TRANSLOG_GENERATION_KEY}
  * to reference the generation that contains all operations that have not yet successfully been committed to the engines lucene index.
@@ -80,6 +80,11 @@ import java.util.stream.Stream;
  * association between the lucene index an the transaction log file. This UUID is used to prevent accidental recovery from a transaction
  * log that belongs to a
  * different engine.
+ * 在Elasticsearch中，每个{@link org.elasticsearch.index.engine.InternalEngine}都有一个Translog实例。
+ * 引擎使用{@link #TRANSLOG_GENERATION_KEY}在其提交元数据中记录当前的translog生成{@link Translog#getGeneration()}
+ * 引用包含尚未成功提交到引擎lucene索引的所有操作的生成。
+ * 此外，由于Elasticsearch 2.0引擎还会在每次提交时记录{@link #TRANSLOG_UUID_KEY}，以确保lucene索引与事务日志文件之间的强关联。
+ * 此UUID用于防止从属于其他引擎的事务日志中意外恢复。
  * <p>
  * Each Translog has only one translog file open for writes at any time referenced by a translog generation ID. This ID is written to a
  * {@code translog.ckp} file that is designed to fit in a single disk block such that a write of the file is atomic. The checkpoint file
@@ -210,9 +215,10 @@ public class Translog extends AbstractIndexShardComponent implements IndexShardC
         }
     }
 
-    /** recover all translog files found on disk */
+    /** 恢复磁盘上找到的所有translog文件 */
     private ArrayList<TranslogReader> recoverFromFiles(Checkpoint checkpoint) throws IOException {
         boolean success = false;
+        // .tlog 文件解析
         ArrayList<TranslogReader> foundTranslogs = new ArrayList<>();
         // a temp file to copy checkpoint to - note it must be in on the same FS otherwise atomic move won't work
         final Path tempFile = Files.createTempFile(location, TRANSLOG_FILE_PREFIX, TRANSLOG_FILE_SUFFIX);
@@ -289,6 +295,7 @@ public class Translog extends AbstractIndexShardComponent implements IndexShardC
         return foundTranslogs;
     }
 
+    // 打开事务日志读取器
     TranslogReader openReader(Path path, Checkpoint checkpoint) throws IOException {
         FileChannel channel = FileChannel.open(path, StandardOpenOption.READ);
         try {
@@ -380,7 +387,7 @@ public class Translog extends AbstractIndexShardComponent implements IndexShardC
     }
 
     /**
-     * Returns the minimum file generation referenced by the translog
+     * 返回translog引用的最小文件生成
      */
     public long getMinFileGeneration() {
         try (ReleasableLock ignored = readLock.acquire()) {
@@ -575,7 +582,7 @@ public class Translog extends AbstractIndexShardComponent implements IndexShardC
     }
 
     /**
-     * The last synced checkpoint for this translog.
+     * 此translog的最后一个同步检查点。
      *
      * @return the last synced checkpoint
      */

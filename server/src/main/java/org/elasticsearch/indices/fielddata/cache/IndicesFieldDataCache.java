@@ -51,6 +51,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.ToLongBiFunction;
 
+// 索引字段数据的缓存
 public class IndicesFieldDataCache implements RemovalListener<IndicesFieldDataCache.Key, Accountable>, Releasable{
 
     private static final Logger logger = LogManager.getLogger(IndicesFieldDataCache.class);

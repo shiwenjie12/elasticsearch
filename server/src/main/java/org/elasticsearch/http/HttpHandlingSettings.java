@@ -32,6 +32,7 @@ import static org.elasticsearch.http.HttpTransportSettings.SETTING_HTTP_MAX_INIT
 import static org.elasticsearch.http.HttpTransportSettings.SETTING_HTTP_RESET_COOKIES;
 import static org.elasticsearch.http.HttpTransportSettings.SETTING_PIPELINING_MAX_EVENTS;
 
+// http处理的设置
 public class HttpHandlingSettings {
 
     private final int maxContentLength;

@@ -49,11 +49,12 @@ import java.util.Optional;
 import static java.util.Collections.unmodifiableMap;
 import static org.elasticsearch.index.query.AbstractQueryBuilder.parseInnerQueryBuilder;
 
+// 排序构造器
 public abstract class SortBuilder<T extends SortBuilder<T>> implements NamedWriteable, ToXContentObject, Rewriteable<SortBuilder<?>> {
 
     protected SortOrder order = SortOrder.ASC;
 
-    // parse fields common to more than one SortBuilder
+    // 解析多个SortBuilder共有的字段
     public static final ParseField ORDER_FIELD = new ParseField("order");
     public static final ParseField NESTED_FILTER_FIELD = new ParseField("nested_filter");
     public static final ParseField NESTED_PATH_FIELD = new ParseField("nested_path");
@@ -70,7 +71,7 @@ public abstract class SortBuilder<T extends SortBuilder<T>> implements NamedWrit
     }
 
     /**
-     * Create a @link {@link SortFieldAndFormat} from this builder.
+     * 从此构建器创建@link {@link SortFieldAndFormat}。
      */
     protected abstract SortFieldAndFormat build(QueryShardContext context) throws IOException;
 

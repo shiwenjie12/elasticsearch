@@ -31,7 +31,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * An immutable container for looking up {@link MappedFieldType}s by their name.
+ * 一个不可变的容器，用于按名称查找{@link MappedFieldType}。
  */
 class FieldTypeLookup implements Iterable<MappedFieldType> {
 
@@ -50,10 +50,9 @@ class FieldTypeLookup implements Iterable<MappedFieldType> {
     }
 
     /**
-     * Return a new instance that contains the union of this instance and the field types
-     * from the provided mappers. If a field already exists, its field type will be updated
-     * to use the new type from the given field mapper. Similarly if an alias already
-     * exists, it will be updated to reference the field type from the new mapper.
+     * 返回一个新实例，该实例包含此实例的联合以及提供的映射器中的字段类型。
+     * 如果某个字段已存在，则会更新其字段类型以使用给定字段映射器中的新类型。
+     * 同样，如果别名已存在，则会更新它以引用新映射器中的字段类型。
      */
     public FieldTypeLookup copyAndAddAll(String type,
                                          Collection<FieldMapper> fieldMappers,
@@ -88,7 +87,7 @@ class FieldTypeLookup implements Iterable<MappedFieldType> {
     }
 
     /**
-     * Checks that the new field type is valid.
+     * 检查新字段类型是否有效。
      */
     private void validateField(MappedFieldType existingFieldType,
                                MappedFieldType newFieldType,
@@ -147,7 +146,7 @@ class FieldTypeLookup implements Iterable<MappedFieldType> {
     }
 
     /**
-     * Returns a list of the full names of a simple match regex like pattern against full name and index name.
+     * 返回简单匹配正则表达式的全名列表，如针对全名和索引名称的模式。
      */
     public Collection<String> simpleMatchToFullName(String pattern) {
         Set<String> fields = new HashSet<>();

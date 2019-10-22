@@ -27,6 +27,7 @@ import org.elasticsearch.common.io.stream.StreamInput;
 
 import java.io.IOException;
 
+// 高斯衰变
 public class GaussDecayFunctionBuilder extends DecayFunctionBuilder<GaussDecayFunctionBuilder> {
     public static final String NAME = "gauss";
     public static final ParseField FUNCTION_NAME_FIELD = new ParseField(NAME);

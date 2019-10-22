@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.function.UnaryOperator;
 
 /**
- * Upgrades {@link MetaData} on startup on behalf of installed {@link Plugin}s
+ * 在启动时代表已安装的{@link Plugin}升级{@link MetaData}
  */
 public class MetaDataUpgrader {
     public final UnaryOperator<Map<String, MetaData.Custom>> customMetaDataUpgraders;

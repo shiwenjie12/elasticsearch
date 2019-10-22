@@ -21,6 +21,7 @@ package org.elasticsearch.index.shard;
 
 import org.elasticsearch.index.IndexSettings;
 
+// 索引分片的组件
 public interface IndexShardComponent {
 
     ShardId shardId();

@@ -239,8 +239,8 @@ public class AllocationService {
     }
 
     /**
-     * Checks if the are replicas with the auto-expand feature that need to be adapted.
-     * Returns an updated cluster state if changes were necessary, or the identical cluster if no changes were required.
+     * 检查是否具有需要调整的自动扩展功能的副本。
+     * 如果需要更改，则返回更新的集群状态;如果不需要更改，则返回相同的集群。
      */
     private ClusterState adaptAutoExpandReplicas(ClusterState clusterState) {
         final Map<Integer, List<String>> autoExpandReplicaChanges =
@@ -248,6 +248,7 @@ public class AllocationService {
         if (autoExpandReplicaChanges.isEmpty()) {
             return clusterState;
         } else {
+            // 更新路由和元数据
             final RoutingTable.Builder routingTableBuilder = RoutingTable.builder(clusterState.routingTable());
             final MetaData.Builder metaDataBuilder = MetaData.builder(clusterState.metaData());
             for (Map.Entry<Integer, List<String>> entry : autoExpandReplicaChanges.entrySet()) {
@@ -257,7 +258,7 @@ public class AllocationService {
                 // operation which make these copies stale
                 routingTableBuilder.updateNumberOfReplicas(numberOfReplicas, indices);
                 metaDataBuilder.updateNumberOfReplicas(numberOfReplicas, indices);
-                // update settings version for each index
+                // 更新每个索引的设置版本
                 for (final String index : indices) {
                     final IndexMetaData indexMetaData = metaDataBuilder.get(index);
                     final IndexMetaData.Builder indexMetaDataBuilder =
@@ -274,7 +275,7 @@ public class AllocationService {
     }
 
     /**
-     * Removes delay markers from unassigned shards based on current time stamp.
+     * 根据当前时间戳从未分配的分片中删除延迟标记。
      */
     private void removeDelayMarkers(RoutingAllocation allocation) {
         final RoutingNodes.UnassignedShards.UnassignedIterator unassignedIterator = allocation.routingNodes().unassigned().iterator();
@@ -355,24 +356,24 @@ public class AllocationService {
 
 
     /**
-     * Reroutes the routing table based on the live nodes.
+     * 根据活动节点重新路由表。
      * <p>
-     * If the same instance of ClusterState is returned, then no change has been made.
+     * 如果返回相同的ClusterState实例，则表示未进行任何更改。
      */
     public ClusterState reroute(ClusterState clusterState, String reason) {
         return reroute(clusterState, reason, false);
     }
 
     /**
-     * Reroutes the routing table based on the live nodes.
+     * 根据活动节点重新路由表。
      * <p>
-     * If the same instance of ClusterState is returned, then no change has been made.
+     * 如果返回相同的ClusterState实例，则表示未进行任何更改。
      */
     protected ClusterState reroute(ClusterState clusterState, String reason, boolean debug) {
         ClusterState fixedClusterState = adaptAutoExpandReplicas(clusterState);
 
         RoutingNodes routingNodes = getMutableRoutingNodes(fixedClusterState);
-        // shuffle the unassigned nodes, just so we won't have things like poison failed shards
+        // 对未分配的节点进行随机播放，这样我们就不会有毒素失败的分片
         routingNodes.unassigned().shuffle();
         RoutingAllocation allocation = new RoutingAllocation(allocationDeciders, routingNodes, fixedClusterState,
             clusterInfoService.getClusterInfo(), currentNanoTime());
@@ -406,7 +407,7 @@ public class AllocationService {
         assert AutoExpandReplicas.getAutoExpandReplicaChanges(allocation.metaData(), allocation.nodes()).isEmpty() :
             "auto-expand replicas out of sync with number of nodes in the cluster";
 
-        // now allocate all the unassigned to available nodes
+        // 现在将所有未分配的节点分配给可用节点
         if (allocation.routingNodes().unassigned().size() > 0) {
             removeDelayMarkers(allocation);
             gatewayAllocator.allocateUnassigned(allocation);
@@ -453,7 +454,7 @@ public class AllocationService {
     }
 
     private RoutingNodes getMutableRoutingNodes(ClusterState clusterState) {
-        RoutingNodes routingNodes = new RoutingNodes(clusterState, false); // this is a costly operation - only call this once!
+        RoutingNodes routingNodes = new RoutingNodes(clusterState, false); // 这是一项代价高昂的操作 - 只需调用一次！
         return routingNodes;
     }
 

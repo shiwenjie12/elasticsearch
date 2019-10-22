@@ -22,8 +22,7 @@ package org.elasticsearch.common.recycler;
 import org.elasticsearch.common.lease.Releasable;
 
 /**
- * A recycled object, note, implementations should support calling obtain and then recycle
- * on different threads.
+ * 一个回收的对象，注意，实现应该支持调用获取，然后在不同的线程上回收。
  */
 public interface Recycler<T> extends Releasable {
 
@@ -33,22 +32,22 @@ public interface Recycler<T> extends Releasable {
 
     interface C<T> {
 
-        /** Create a new empty instance of the given size. */
+        /** 创建给定大小的新空实例。 */
         T newInstance(int sizing);
 
-        /** Recycle the data. This operation is called when the data structure is released. */
+        /** 回收数据。释放数据结构时调用此操作。 */
         void recycle(T value);
 
-        /** Destroy the data. This operation allows the data structure to release any internal resources before GC. */
+        /** 销毁数据。此操作允许数据结构在GC之前释放任何内部资源。 */
         void destroy(T value);
     }
 
     interface V<T> extends Releasable {
 
-        /** Reference to the value. */
+        /** 参考价值。 */
         T v();
 
-        /** Whether this instance has been recycled (true) or newly allocated (false). */
+        /** 此实例是已回收（true）还是新分配（false）。 */
         boolean isRecycled();
 
     }

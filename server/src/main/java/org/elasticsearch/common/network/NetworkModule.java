@@ -58,7 +58,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
- * A module to handle registering and binding all network related classes.
+ * 用于处理注册和绑定所有网络相关类的模块。
  */
 public final class NetworkModule {
 
@@ -101,7 +101,7 @@ public final class NetworkModule {
     private final List<TransportInterceptor> transportIntercetors = new ArrayList<>();
 
     /**
-     * Creates a network module that custom networking classes can be plugged into.
+     * 创建一个可插入自定义网络类的网络模块。
      * @param settings The settings for the node
      * @param transportClient True if only transport classes should be allowed to be registered, false otherwise.
      */

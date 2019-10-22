@@ -38,22 +38,22 @@ public abstract class CircuitBreakerService extends AbstractLifecycleComponent {
     }
 
     /**
-     * Allows to register of a custom circuit breaker.
+     * 允许注册定制断路器。
      */
     public abstract void registerBreaker(BreakerSettings breakerSettings);
 
     /**
-     * @return the breaker that can be used to register estimates against
+     * @return可用于注册估计的断路器
      */
     public abstract CircuitBreaker getBreaker(String name);
 
     /**
-     * @return stats about all breakers
+     * 关于所有破坏者的@return统计数据
      */
     public abstract AllCircuitBreakerStats stats();
 
     /**
-     * @return stats about a specific breaker
+     * @return关于特定断路器的统计数据
      */
     public abstract CircuitBreakerStats stats(String name);
 

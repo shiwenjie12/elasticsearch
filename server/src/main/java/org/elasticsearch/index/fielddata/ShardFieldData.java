@@ -30,6 +30,7 @@ import org.elasticsearch.index.shard.ShardId;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
+// 分片字段数据
 public class ShardFieldData implements IndexFieldDataCache.Listener {
 
     private final CounterMetric evictionsMetric = new CounterMetric();
